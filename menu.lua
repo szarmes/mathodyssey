@@ -42,7 +42,7 @@ function scene:createScene( event )
 	screenGroup:insert(create)
 
 	howtoplay = display.newImage("images/how-to-play.png", display.contentWidth-buttonXOffset,centerY+110)
-	howtoplay:scale(0.5,0.5)
+	howtoplay:scale(0.4,0.4)
 	screenGroup:insert(howtoplay)
 
 	title = display.newImage("images/splash.png", buttonXOffset,centerY-100)
