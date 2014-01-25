@@ -4,7 +4,6 @@
 --
 -----------------------------------------------------------------------------------------
 --basic setup stuff
-require "splash"
 
 audio.setSessionProperty(audio.MixMode, audio.AmbientMixMode)  --allows device audio to continue uninterrupted 
 display.setStatusBar( display.HiddenStatusBar )  --hides the status bar on the top of the device
@@ -21,7 +20,7 @@ local storyboard = require( "storyboard" )
 images = display.newGroup() --use an image group to layer properly.
 
 
-storyboard.gotoScene( "splash", "fade", 2000 ) --start the splash screen
+storyboard.gotoScene( "splash", "fade", 2000 ) --start the splash screen with a 2 second fade animation
 
 
 

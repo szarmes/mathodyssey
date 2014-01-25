@@ -16,7 +16,6 @@ storyboard.removeAll()
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 
--- Touch event listener for background image
 local function continue()
 	storyboard.gotoScene( "menu", "fade", 1000 )
 end
@@ -36,7 +35,7 @@ end
 
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )
-	endSceneTimer = timer.performWithDelay( 3000, continue, 1 )
+	endSceneTimer = timer.performWithDelay( 4000, continue, 1 )	--after 4 seconds, go to menu
 end
 
 

@@ -1,15 +1,13 @@
 ---------------------------------------------------------------------------------
 --
--- menu.lua
+-- splash.lua
+--This scene is the splash screen and will transition to the menu scene after 3 seconds
 --
 ---------------------------------------------------------------------------------
 
 local storyboard = require( "storyboard" )
 local scene = storyboard.newScene()
 storyboard.removeAll()
-
-local buttonXOffset = 130
-
 
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
@@ -18,46 +16,24 @@ local buttonXOffset = 130
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 
-
-function goToPlay()
-	storyboard.gotoScene("play")
+local function continue()
+	storyboard.gotoScene( "menu", "fade", 1000 )
 end
 
 
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
 	local screenGroup = self.view
-
-	play = display.newImage("images/play.png", centerX+buttonXOffset,centerY-100)
-	play:scale(0.7,0.7)
-	play:addEventListener("tap",goToPlay)
-	screenGroup:insert(play)
-
-	about = display.newImage("images/about.png", centerX+buttonXOffset,centerY-30)
-	about:scale(0.6,0.6)
-	screenGroup:insert(about)
-
-	create = display.newImage("images/create.png", centerX+buttonXOffset,centerY+40)
-	create:scale(0.6,0.6)
-	screenGroup:insert(create)
-
-	settings = display.newImage("images/settings.png", centerX+buttonXOffset,centerY+110)
-	settings:scale(0.6,0.6)
-	screenGroup:insert(settings)
-
-	title = display.newImage("images/splash.png", centerX-buttonXOffset,centerY-100)
-	title:scale(0.3,0.3)
-	screenGroup:insert(title)
-
-	--background = display.newImage("images/cat.jpg",centerX,centerY)
-	--Runtime:addEventListener("touch",moveCatListener)
-	--screenGroup:insert( background )
-
+	cat = display.newImage( "images/cat.jpg", centerX, centerY )
+	Runtime:addEventListener("touch",moveCatListener)
+	screenGroup:insert( cat )
+	
 end
 
 
 -- Called immediately after scene has moved onscreen:
-function scene:enterScene( event )	
+function scene:enterScene( event )
+
 end
 
 
@@ -70,6 +46,12 @@ end
 -- Called prior to the removal of scene's "view" (display group)
 function scene:destroyScene( event )
 	
+end
+
+
+function moveCatListener(event) --sample listener
+	cat.xOrigin =event.x
+	cat.yOrigin = event.y
 end
 
 ---------------------------------------------------------------------------------
