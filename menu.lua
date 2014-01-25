@@ -6,7 +6,7 @@
 
 local storyboard = require( "storyboard" )
 local scene = storyboard.newScene()
-storyboard.removeAll()
+
 
 local buttonXOffset = 130
 
