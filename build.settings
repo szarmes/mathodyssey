@@ -10,6 +10,7 @@ settings = {
 	
 	iphone = {
 		plist = {
+            UIAppFonts = { "fonts/Komika-Display/Komika_display.ttf"  },
             CFBundleIdentifier="beyondthecube.StrandedSloth",
             CFBundleDisplayName="Stranded Sloth",
 			UIStatusBarHidden = false,
@@ -39,6 +40,7 @@ settings = {
             "Icon-Small.png",
             "Icon-Small@2x.png",
             },
+
 		}
 	},
 	

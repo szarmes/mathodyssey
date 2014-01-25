@@ -24,6 +24,7 @@ end
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
 	local screenGroup = self.view
+	display.setDefault( "background", 1, 1, 1 )
 	
 	local image = display.newImage( "images/splash.png", centerX, centerY )
 	image:scale(0.6,0.6)

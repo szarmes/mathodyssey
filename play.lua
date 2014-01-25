@@ -24,7 +24,8 @@ end
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
 	local screenGroup = self.view
-	cat = display.newImage( "images/cat.jpg", centerX, centerY )
+	cat = display.newImage( "images/cat.png", centerX, centerY )
+	cat:scale(0.1,0.1)
 	Runtime:addEventListener("touch",moveCatListener)
 	screenGroup:insert( cat )
 	
