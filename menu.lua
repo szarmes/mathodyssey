@@ -8,7 +8,7 @@ local storyboard = require( "storyboard" )
 local scene = storyboard.newScene()
 
 
-local buttonXOffset = 130
+local buttonXOffset = 100
 
 
 ---------------------------------------------------------------------------------
@@ -28,26 +28,30 @@ end
 function scene:createScene( event )
 	local screenGroup = self.view
 
-	play = display.newImage("images/play.png", centerX+buttonXOffset,centerY-100)
+	play = display.newImage("images/play.png", display.contentWidth-buttonXOffset,centerY-100)
 	play:scale(0.7,0.7)
 	play:addEventListener("tap",goToPlay)
 	screenGroup:insert(play)
 
-	about = display.newImage("images/about.png", centerX+buttonXOffset,centerY-30)
+	about = display.newImage("images/about.png", display.contentWidth-buttonXOffset,centerY-30)
 	about:scale(0.6,0.6)
 	screenGroup:insert(about)
 
-	create = display.newImage("images/create.png", centerX+buttonXOffset,centerY+40)
+	create = display.newImage("images/create.png", display.contentWidth-buttonXOffset,centerY+40)
 	create:scale(0.6,0.6)
 	screenGroup:insert(create)
 
-	settings = display.newImage("images/settings.png", centerX+buttonXOffset,centerY+110)
-	settings:scale(0.6,0.6)
-	screenGroup:insert(settings)
+	howtoplay = display.newImage("images/how-to-play.png", display.contentWidth-buttonXOffset,centerY+110)
+	howtoplay:scale(0.5,0.5)
+	screenGroup:insert(howtoplay)
 
-	title = display.newImage("images/splash.png", centerX-buttonXOffset,centerY-100)
+	title = display.newImage("images/splash.png", buttonXOffset,centerY-100)
 	title:scale(0.3,0.3)
 	screenGroup:insert(title)
+
+	settings = display.newImage("images/settings.png",0,display.contentHeight-30)
+	settings:scale(0.6,0.6)
+	screenGroup:insert(settings)
 
 	--background = display.newImage("images/cat.jpg",centerX,centerY)
 	--Runtime:addEventListener("touch",moveCatListener)
