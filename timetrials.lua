@@ -272,43 +272,25 @@ end
 
 function generateAnswers()
 
-	ha1  = ha
-	ma1 = ma
-	while (ha1==ha) or ha1<0 or ha1>11 do 
-		ha1  = ha1+math.random(-3,3)
-		if ha1 == ha and ma == 30 and (ha1>0 and ha1<11) then
-			ma1 = 0
-			break
-		elseif (ha1>0 and ha1<11) then
-			ma1 = 30
-			break
-		end
+	ha1 = ha + math.random(6)-3;
+	ma1 = (ma + math.random(1)*30)%60;
+	while(ha1 < 0 or ha1 > 11 or (ha1+ma1/60.0) == (ha+ma/60.0))do
+		ha1 = ha + math.random(6) -3;
+		ma1 = (ma + math.random(2)*30)%60;
 	end
 
-	ha2  = ha
-	ma2 = ma
-	while (ha2==ha) or (ha2 == ha1) or ha2<0 or ha2>11 do
-		ha2  = ha2+math.random(-3,3)
-		if (ha2 == ha and ma == 30) or (ha2 == ha1 and ma1 == 30) and (ha2>0 and ha2<11) then
-			ma2 = 0
-			break
-		elseif (ha2>0 and ha2<11) then
-			ma2 = 30
-			break
-		end
+	ha2 = ha + math.random(6)-3;
+	ma2 = (ma + math.random(1)*30)%60;
+	while(ha2 < 0 or ha2 > 11 or (ha2+ma2/60.0) == (ha+ma/60.0)or (ha2+ma2/60.0) == (ha1+ma1/60.0))do
+		ha2 = ha + math.random(6) -3;
+		ma2 = (ma + math.random(2)*30)%60;
 	end
 
-	ha3  = ha
-	ma3 = ma
-	while (ha3==ha) or (ha3 == ha1) or (ha3 == ha2) or ha3<0 or ha3>11 do
-		ha3 = ha3+math.random(-3,3)
-		if (ha3 == ha and ma == 30) or (ha3 == ha1 and ma1 == 30) or (ha3 == ha2 and ma2 == 30) and (ha3>0 and ha3<11)  then
-			ma3 = 0
-			break
-		elseif (ha3>0 and ha3<11) then
-			ma3 = 30
-			break
-		end
+	ha3 = ha + math.random(6)-3;
+	ma3 = (ma + math.random(1)*30)%60;
+	while(ha3 < 0 or ha3 > 11 or (ha3+ma3/60.0) == (ha+ma/60.0)or (ha3+ma3/60.0) == (ha1+ma1/60.0)or (ha3+ma3/60.0) == (ha2+ma2/60.0))do
+		ha3 = ha + math.random(6) -3;
+		ma3 = (ma + math.random(2)*30)%60;
 	end
 end
 
