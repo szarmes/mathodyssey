@@ -27,10 +27,10 @@ local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 local instructions = "Welcome to the Time Trials! In this level, your task is to figure out the amount of time that has passed from clock 1 to clock 2, using your addition and subtraction skills!"
 
-local function continue()
-	storyboard.gotoScene( "menu", "fade", 2000 )
-end
 
+local function goHome()
+	storyboard.gotoScene( "menu", "fade", 500 )
+end
 
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
@@ -115,9 +115,15 @@ function displayClocks(n)
 	title2:setFillColor(0)
 	screenGroup:insert(title2)
 
+	home = display.newImage("images/home.png",display.contentWidth,30)
+	home:scale(0.3,0.3)
+	home:addEventListener("tap", goHome)
+	screenGroup:insert(home)
+
 	rotate()
 
 end
+
 
 function rotate() --set up the times
 	minute1:rotate(6*r1)

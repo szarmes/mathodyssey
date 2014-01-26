@@ -20,7 +20,7 @@ local centerY = display.contentCenterY
 
 
 function goToPlay()
-	storyboard.gotoScene("timetrials")
+	storyboard.gotoScene("timetrials","fade",500)
 end
 
 
