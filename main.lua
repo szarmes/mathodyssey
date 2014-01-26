@@ -14,7 +14,7 @@ physics.setGravity(0,0) --dont want gravity... might want it later but not yet
 --physics.setDrawMode( "debug" ) --turns on debug view, will let us debug physics objects
 
 local storyboard = require( "storyboard" )
-storyboard.gotoScene( "splash", "fade", 2000 ) --start the splash screen with a 2 second fade animation
+storyboard.gotoScene( "timetrials", "fade", 1000 ) --start the splash screen with a 2 second fade animation
 
 
 

@@ -54,6 +54,7 @@ end
 
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )
+	generateAnswers()
 end
 
 
@@ -182,46 +183,6 @@ function showChoices(n)
 	questionText =display.newText( "How far ahead of Clock 1 is Clock 2?", centerX, centerY+140,500,200, "Komika Display", 20 )
 	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
-	ha1  = ha
-	ma1 = ma
-	while (ha1==ha) or ha1<0 or ha1>11 do 
-		ha1  = ha+math.random(-3,3)
-		if ha1 == ha and ma == 30 and (ha1>0 and ha1<11) then
-			ma1 = 0
-			break
-		else 
-			ma1 = 30
-			break
-		end
-	end
-
-	ha2  = ha
-	ma2 = ma
-	while (ha2==ha) or (ha2 == ha1) or ha2<0 or ha2>11 do
-		ha2  = ha+math.random(-3,3)
-		if (ha2 == ha and ma == 30) or (ha2 == ha1 and ma1 == 30) and (ha2>0 and ha2<11) then
-			ma2 = 0
-			break
-		else 
-			ma2 = 30
-			break
-		end
-	end
-
-	ha3  = ha
-	ma3 = ma
-	while (ha3==ha) or (ha3 == ha1) or (ha3 == ha2) or ha3<0 or ha3>11 do
-		ha3 = ha+math.random(-3,3)
-
-		if (ha3 == ha and ma == 30) or (ha3 == ha1 and ma1 == 30) or (ha3 == ha2 and ma2 == 30) and (ha3>0 and ha3<11)  then
-			ma3 = 0
-			break
-		else 
-			ma3 = 30
-			break
-		end
-	end
-
 	
 	a={50,175,300,425}
 	b = {}
@@ -233,28 +194,7 @@ function showChoices(n)
 		table.remove(a, r)
 		count=count-1
 	end
-	answerText=nil
-	if (ha == 1) then
-		answerText = ha.." hour and \n"..ma.." minutes"
-	else
-		answerText = ha.." hours and \n"..ma.." minutes"
-	end
-	if (ha1 == 1) then
-		answer1Text = ha1.." hour and \n"..ma1.." minutes"
-	else
-		answer1Text = ha1.." hours and \n"..ma1.." minutes"
-	end
-	if (ha2 == 1) then
-		answer2Text = ha2.." hour and \n"..ma2.." minutes"
-	else
-		answer2Text = ha2.." hours and \n"..ma2.." minutes"
-	end
-	if (ha3 == 1) then
-		answer3Text = ha3.." hour and \n"..ma3.." minutes"
-	else
-		answer3Text = ha3.." hours and \n"..ma3.." minutes"
-	end
-	answer3Text = ha3.." hours and \n"..ma3.." minutes"
+	generateAnswerText()
 	answer = display.newText(answerText,b[1],centerY+100, 125,0, "Komika Display", 16)
 	answer:setFillColor(0)
 	answer:addEventListener("tap", correctResponseListener)
@@ -322,6 +262,71 @@ end
 function correctResponseListener()
 	storyboard.purgeScene("timetrials")
 	storyboard.gotoScene("goodjob","fade",500)
+end
+
+function generateAnswers()
+
+	ha1  = ha
+	ma1 = ma
+	while (ha1==ha) or ha1<0 or ha1>11 do 
+		ha1  = ha1+math.random(-3,3)
+		if ha1 == ha and ma == 30 and (ha1>0 and ha1<11) then
+			ma1 = 0
+			break
+		elseif (ha1>0 and ha1<11) then
+			ma1 = 30
+			break
+		end
+	end
+
+	ha2  = ha
+	ma2 = ma
+	while (ha2==ha) or (ha2 == ha1) or ha2<0 or ha2>11 do
+		ha2  = ha2+math.random(-3,3)
+		if (ha2 == ha and ma == 30) or (ha2 == ha1 and ma1 == 30) and (ha2>0 and ha2<11) then
+			ma2 = 0
+			break
+		elseif (ha2>0 and ha2<11) then
+			ma2 = 30
+			break
+		end
+	end
+
+	ha3  = ha
+	ma3 = ma
+	while (ha3==ha) or (ha3 == ha1) or (ha3 == ha2) or ha3<0 or ha3>11 do
+		ha3 = ha3+math.random(-3,3)
+		if (ha3 == ha and ma == 30) or (ha3 == ha1 and ma1 == 30) or (ha3 == ha2 and ma2 == 30) and (ha3>0 and ha3<11)  then
+			ma3 = 0
+			break
+		elseif (ha3>0 and ha3<11) then
+			ma3 = 30
+			break
+		end
+	end
+end
+
+function generateAnswerText()
+	if (ha == 1) then
+		answerText = ha.." hour and \n"..ma.." minutes"
+	else
+		answerText = ha.." hours and \n"..ma.." minutes"
+	end
+	if (ha1 == 1) then
+		answer1Text = ha1.." hour and \n"..ma1.." minutes"
+	else
+		answer1Text = ha1.." hours and \n"..ma1.." minutes"
+	end
+	if (ha2 == 1) then
+		answer2Text = ha2.." hour and \n"..ma2.." minutes"
+	else
+		answer2Text = ha2.." hours and \n"..ma2.." minutes"
+	end
+	if (ha3 == 1) then
+		answer3Text = ha3.." hour and \n"..ma3.." minutes"
+	else
+		answer3Text = ha3.." hours and \n"..ma3.." minutes"
+	end
 end
 
 ---------------------------------------------------------------------------------
