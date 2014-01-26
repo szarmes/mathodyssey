@@ -141,7 +141,11 @@ function newQuestion(n) -- this will make a new question
 
 	if (first) then
 		local myFunction = function() makeFirstDisappear(screenGroup) end
-		timer.performWithDelay(2000, myFunction)
+		continue = display.newImage("images/continue.png", centerX+200, centerY+140)
+		continue:scale(0.3,0.3)
+
+		continue:addEventListener("tap", myFunction)
+		screenGroup:insert(continue)
 		first = false
 	else 
 		showChoices(screenGroup)
@@ -154,6 +158,7 @@ end
 function makeFirstDisappear(n)
 	local screenGroup = n
 	screenGroup:remove(myText)
+	screenGroup:remove(continue)
 	showAnswer(screenGroup)
 end
 
