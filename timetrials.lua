@@ -6,6 +6,7 @@
 ---------------------------------------------------------------------------------
 
 local storyboard = require( "storyboard" )
+local widget = require( "widget" )
 local scene = storyboard.newScene()
 storyboard.removeAll()
 
@@ -18,7 +19,6 @@ local ha --hours answer
 local ma --minutes answer
 local before = false
 local first = true
-
 
 
 ---------------------------------------------------------------------------------
@@ -55,7 +55,6 @@ end
 
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )
-	--endSceneTimer = timer.performWithDelay( 1000, continue, 1 )	--after 4 seconds, go to menu
 end
 
 
@@ -158,11 +157,27 @@ function showAnswer(n)
 	if (before) then
 		answerText =display.newText( "In this case, Clock 1 is "..ha.." hours and "..ma.." minutes ahead of Clock 2", centerX, centerY+140,500,200, "Komika Display", 20 )		
 	else
-		answerText =display.newText( "In this case, Clock 2 is "..ha.." hours and " ..ma.." minutes ahead of Clock 1", centerX, centerY+140,500,200, "Komika Display", 20 )
+		answerText =display.newText( "In this case, Clock 1 is "..ha.." hours and " ..ma.." minutes behind Clock 2", centerX, centerY+140,500,200, "Komika Display", 20 )
 	end
 	answerText:setFillColor(0)
 	screenGroup:insert(answerText)
 
+	go = display.newImage("images/go.png", centerX+200, centerY+120)
+	go:scale(0.5,0.5)
+	go:addEventListener("tap", newSceneListener)
+	screenGroup:insert(go)
+
+
+end
+
+function showChoices(n)
+
+	
+end
+
+function newSceneListener()
+	storyboard.purgeScene("timetrials")
+	storyboard.reloadScene()
 end
 
 ---------------------------------------------------------------------------------
