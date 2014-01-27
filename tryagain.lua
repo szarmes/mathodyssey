@@ -18,7 +18,7 @@ local centerY = display.contentCenterY
 
 local function continue()
 	storyboard.purgeAll()
-	storyboard.gotoScene( "timetrials", "fade", 500 )
+	storyboard.gotoScene( storyboard.getPrevious(), "fade", 500 )
 end
 
 
