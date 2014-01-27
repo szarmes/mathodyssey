@@ -27,7 +27,7 @@ function scene:createScene( event )
 	storyboard.purgeScene("timetrials")
 	local screenGroup = self.view
 	display.setDefault( "background", 1, 1, 1 )
-	local reward = display.newText("Try Again!", centerX+70,centerY,300,0,"Komika Display", 30)
+	local reward = display.newText("Try Again!", centerX+70,centerY,300,0,"Comic Relief", 30)
 	reward:setFillColor(0)
 	screenGroup:insert(reward)
 	

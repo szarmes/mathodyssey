@@ -41,7 +41,7 @@ function scene:createScene( event )
 	display.setDefault( "background", 1, 1, 1 )
 
 	if (first) then
-		myText = display.newText( instructions, centerX, centerY+140,500,200, "Komika Display", 20 )
+		myText = display.newText( instructions, centerX, centerY+140,500,200, "Comic Relief", 16 )
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
 	end
@@ -89,11 +89,11 @@ function displayClocks(n)
 	clock1:scale(0.7,0.7)
 	screenGroup:insert(clock1)
 
-	pm1 = display.newText("PM",centerX-40,centerY, "Komika Display", 20)
+	pm1 = display.newText("PM",centerX-40,centerY, "Comic Relief", 20)
 	pm1:setFillColor(0)
 	screenGroup:insert(pm1)
 
-	minute1 = display.newImage(minute, centerX-120, centerY-60, "Komika Display", 20)
+	minute1 = display.newImage(minute, centerX-120, centerY-60, "Comic Relief", 20)
 	minute1:scale(0.8,0.8)
 	minute1.anchorY = 1
 	screenGroup:insert(minute1)
@@ -107,7 +107,7 @@ function displayClocks(n)
 	clock2:scale(0.7,0.7)
 	screenGroup:insert(clock2)
 
-	pm2 = display.newText("PM",centerX+200,centerY, "Komika Display", 20)
+	pm2 = display.newText("PM",centerX+200,centerY, "Comic Relief", 20)
 	pm2:setFillColor(0)
 	screenGroup:insert(pm2)
 
@@ -121,11 +121,11 @@ function displayClocks(n)
 	hour2.anchorY = 1
 	screenGroup:insert(hour2)
 
-	title1 = display.newText( "Clock 1", centerX-200, centerY-140, "Komika Display", 20 )
+	title1 = display.newText( "Clock 1", centerX-200, centerY-140, "Comic Relief", 20 )
 	title1:setFillColor(0)
 	screenGroup:insert(title1)
 
-	title2 = display.newText( "Clock 2", centerX+40, centerY-140, "Komika Display", 20 )
+	title2 = display.newText( "Clock 2", centerX+40, centerY-140, "Comic Relief", 20 )
 	title2:setFillColor(0)
 	screenGroup:insert(title2)
 
@@ -185,7 +185,7 @@ end
 
 function showAnswer(n)
 	local screenGroup = n
-	exampleText =display.newText( "In this case, Clock 2 is "..ha.." hours and "..ma.." minutes ahead of Clock 1", centerX, centerY+140,500,200, "Komika Display", 20 )		
+	exampleText =display.newText( "In this case, Clock 2 is "..ha.." hours and "..ma.." minutes ahead of Clock 1", centerX, centerY+140,500,200, "Comic Relief", 20 )		
 	exampleText:setFillColor(0)
 	screenGroup:insert(exampleText)
 
@@ -200,7 +200,7 @@ end
 function showChoices(n)
 	local screenGroup = n
 	startTime = system.getTimer()
-	questionText =display.newText( "How far ahead of Clock 1 is Clock 2?", centerX, centerY+140,500,200, "Komika Display", 20 )
+	questionText =display.newText( "How far ahead of Clock 1 is Clock 2?", centerX, centerY+140,500,200, "Comic Relief", 20 )
 	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
 	a={50,175,300,425}
@@ -214,13 +214,13 @@ function showChoices(n)
 		count=count-1
 	end
 	generateAnswerText()
-	answer = display.newText(answerText,b[1],centerY+100, 125,0, "Komika Display", 16)
+	answer = display.newText(answerText,b[1],centerY+100, 125,0, "Comic Relief", 16)
 	answer:setFillColor(0)
 	answer:addEventListener("tap", correctResponseListener)
 	screenGroup:insert(answer)
 
 	answer1 = nil
-	answer1 = display.newText(answer1Text,b[2],centerY+100,125,0, "Komika Display", 16)
+	answer1 = display.newText(answer1Text,b[2],centerY+100,125,0, "Comic Relief", 16)
 	answer1:setFillColor(0,0,0)
 	local function listener1()
 		incorrectResponseListener1(screenGroup)
@@ -229,7 +229,7 @@ function showChoices(n)
 	screenGroup:insert(answer1)
 
 	answer2 = nil
-	answer2 = display.newText(answer2Text,b[3],centerY+100,125,0, "Komika Display", 16)
+	answer2 = display.newText(answer2Text,b[3],centerY+100,125,0, "Comic Relief", 16)
 	answer2:setFillColor(0,0,0)
 	local function listener2()
 		incorrectResponseListener2(screenGroup)
@@ -238,7 +238,7 @@ function showChoices(n)
 	screenGroup:insert(answer2)
 
 	answer3 = nil
-	answer3 = display.newText(answer3Text,b[4],centerY+100,125,0, "Komika Display", 16)
+	answer3 = display.newText(answer3Text,b[4],centerY+100,125,0, "Comic Relief", 16)
 	answer3:setFillColor(0,0,0)
 	local function listener3()
 		incorrectResponseListener3(screenGroup)

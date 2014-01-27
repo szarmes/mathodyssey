@@ -50,7 +50,7 @@ function scene:createScene( event )
  	end
 end
 	display.setDefault( "background", 1, 1, 1 )
-	local reward = display.newText("You answered "..correctCount.." out of "..attemptCount.." questions correctly!", centerX+70,centerY,300,0,"Komika Display", 30)
+	local reward = display.newText("You answered "..correctCount.." out of "..attemptCount.." questions correctly!", centerX+70,centerY,300,0,"Comic Relief", 30)
 	reward:setFillColor(0)
 	screenGroup:insert(reward)
 
