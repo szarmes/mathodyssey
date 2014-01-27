@@ -7,18 +7,18 @@
 
 local storyboard = require( "storyboard" )
 local widget = require( "widget" )
+require "dbFile"
 
 local scene = storyboard.newScene()
 storyboard.removeAll()
 
 local minute = "images/easyminute.png"
 local hour = "images/easyhour.png"
-
 local r1 = 30%720 --rotations for clock1
 local r2 = 750%720 --rotations for clock2
-local ha --hours answer
-local ma --minutes answer
 local first = true
+local round = -1
+questionCount = 0
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------
@@ -29,6 +29,8 @@ local instructions = "Welcome to the Time Trials! In this level, your task is to
 
 
 local function goHome()
+	round = -1
+	questionCount = 0
 	storyboard.gotoScene( "menu", "fade", 500 )
 end
 
@@ -46,6 +48,7 @@ function scene:createScene( event )
 
 	newQuestion(screenGroup)
 	displayClocks(screenGroup)
+
 	
 	
 	--image.touch = onSceneTouch
@@ -54,6 +57,17 @@ end
 
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )
+	if questionCount>=10 then
+		round = -1
+		questionCount = 0
+		storyboard.gotoScene("showttscore" )
+	end
+	if round == -1 then
+		for row in db:nrows("SELECT * FROM timeTrialsScore ORDER BY id DESC") do
+		  round = row.round+1
+		  break
+		end
+	end
 	generateAnswers()
 end
 
@@ -171,10 +185,9 @@ end
 
 function showAnswer(n)
 	local screenGroup = n
-	answerText =display.newText( "In this case, Clock 2 is "..ha.." hours and "..ma.." minutes ahead of Clock 1", centerX, centerY+140,500,200, "Komika Display", 20 )		
-
-	answerText:setFillColor(0)
-	screenGroup:insert(answerText)
+	exampleText =display.newText( "In this case, Clock 2 is "..ha.." hours and "..ma.." minutes ahead of Clock 1", centerX, centerY+140,500,200, "Komika Display", 20 )		
+	exampleText:setFillColor(0)
+	screenGroup:insert(exampleText)
 
 	go = display.newImage("images/go.png", centerX+200, centerY+120)
 	go:scale(0.5,0.5)
@@ -186,10 +199,10 @@ end
 
 function showChoices(n)
 	local screenGroup = n
+	startTime = system.getTimer()
 	questionText =display.newText( "How far ahead of Clock 1 is Clock 2?", centerX, centerY+140,500,200, "Komika Display", 20 )
 	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
-	
 	a={50,175,300,425}
 	b = {}
 	count = 4
@@ -240,58 +253,60 @@ function newSceneListener()
 end
 
 function incorrectResponseListener1(n)
-	local screenGroup = n
-	screenGroup:remove(answer1)
-	answer1=nil
-	answer1 = display.newText(answer1Text,b[2],centerY+100,125,0, "Komika Display", 16)
-	answer1:setFillColor(1,0,0)
-	screenGroup:insert(answer1)
+	local totalTime = math.floor((system.getTimer()-startTime)/1000)
+	storeTimeTrials(0,totalTime,ha,ma,ha1,ma1,r1,r2,round)
+	questionCount = questionCount + 1
+	storyboard.purgeScene("timetrials")
+	storyboard.gotoScene("tryagain","fade",500)
 end
 
 function incorrectResponseListener2(n)
-	local screenGroup = n
-	screenGroup:remove(answer2)
-	answer2=nil
-	answer2 = display.newText(answer2Text,b[3],centerY+100,125,0, "Komika Display", 16)
-	answer2:setFillColor(1,0,0)
-	screenGroup:insert(answer2)
+	local totalTime = math.floor((system.getTimer()-startTime)/1000)
+	storeTimeTrials(0,totalTime,ha,ma,ha2,ma2,r1,r2,round)
+	questionCount = questionCount + 1
+	storyboard.purgeScene("timetrials")
+	storyboard.gotoScene("tryagain","fade",500)
 end
 function incorrectResponseListener3(n)
-	local screenGroup = n
-	screenGroup:remove(answer3)
-	answer3=nil
-	answer3 = display.newText(answer3Text,b[4],centerY+100,125,0, "Komika Display", 16)
-	answer3:setFillColor(1,0,0)
-	screenGroup:insert(answer3)
+	local totalTime = math.floor((system.getTimer()-startTime)/1000)
+	storeTimeTrials(0,totalTime,ha,ma,ha3,ma3,r1,r2,round)
+	questionCount = questionCount + 1
+	storyboard.purgeScene("timetrials")
+	storyboard.gotoScene("tryagain","fade",500)
 end
 
 function correctResponseListener()
+	local totalTime = math.floor((system.getTimer()-startTime)/1000)
+	storeTimeTrials(1,totalTime,ha,ma,ha,ma,r1,r2,round)
+	questionCount = questionCount + 1
 	storyboard.purgeScene("timetrials")
 	storyboard.gotoScene("goodjob","fade",500)
 end
 
 function generateAnswers()
-
-	ha1 = ha + math.random(6)-3;
-	ma1 = (ma + math.random(1)*30)%60;
-	while(ha1 < 0 or ha1 > 11 or (ha1+ma1/60.0) == (ha+ma/60.0))do
-		ha1 = ha + math.random(6) -3;
-		ma1 = (ma + math.random(2)*30)%60;
+	r3 = math.abs(r1-r2)
+	r31 = r3+math.random(-4,4)*30
+	while r31<0 or r31 == r3 do
+		r31 = r3+math.random(-4,4)*30
+	end
+	r32 = r3+math.random(-4,4)*30
+	while r32<0 or r32 == r3 or r32==r31 do
+		r32 = r3+math.random(-4,4)*30
+	end
+	r33 = r3+math.random(-4,4)*30
+	while r33<0 or r33 == r3 or r33 == r31 or r33 == r32 do
+		r33 = r3+math.random(-4,4)*30
 	end
 
-	ha2 = ha + math.random(6)-3;
-	ma2 = (ma + math.random(1)*30)%60;
-	while(ha2 < 0 or ha2 > 11 or (ha2+ma2/60.0) == (ha+ma/60.0)or (ha2+ma2/60.0) == (ha1+ma1/60.0))do
-		ha2 = ha + math.random(6) -3;
-		ma2 = (ma + math.random(2)*30)%60;
-	end
+	ha1 = math.abs(math.floor(math.abs(r31)/60)) --hours answer
+	ma1 = math.abs(math.abs(r31) -(ha1*60)) --minutes answer
+	ha2 = math.abs(math.floor(math.abs(r32)/60)) --hours answer
+	ma2 = math.abs(math.abs(r32) -(ha2*60)) --minutes answer
+	ha3 = math.abs(math.floor(math.abs(r33)/60)) --hours answer
+	ma3 = math.abs(math.abs(r33) -(ha3*60)) --minutes answer
 
-	ha3 = ha + math.random(6)-3;
-	ma3 = (ma + math.random(1)*30)%60;
-	while(ha3 < 0 or ha3 > 11 or (ha3+ma3/60.0) == (ha+ma/60.0)or (ha3+ma3/60.0) == (ha1+ma1/60.0)or (ha3+ma3/60.0) == (ha2+ma2/60.0))do
-		ha3 = ha + math.random(6) -3;
-		ma3 = (ma + math.random(2)*30)%60;
-	end
+
+
 end
 
 function generateAnswerText()

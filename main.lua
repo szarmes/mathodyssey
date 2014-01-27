@@ -4,6 +4,7 @@
 --
 -----------------------------------------------------------------------------------------
 --basic setup stuff
+require "dbFile"
 
 audio.setSessionProperty(audio.MixMode, audio.AmbientMixMode)  --allows device audio to continue uninterrupted 
 display.setStatusBar( display.HiddenStatusBar )  --hides the status bar on the top of the device
@@ -18,10 +19,11 @@ storyboard.gotoScene( "timetrials", "fade", 1000 ) --start the splash screen wit
 
 
 
-
-
-
-
+--[[for row in db:nrows("SELECT * FROM timeTrialsScore ORDER BY id DESC;") do
+  local text = row.id.." "..row.correct.." "..row.time.." "..row.correctHa.." "..row.chosenHa.." "..row.round
+  local t = display.newText(text, 20, -1200 + (20 * row.id), native.systemFont, 16)
+  t:setFillColor(1,1,1)
+end]]
 
 
 
