@@ -33,6 +33,10 @@ end
 function scene:createScene( event )
 	local screenGroup = self.view
 
+	bg = display.newImage("images/bg.png", centerX,centerY+30)
+	bg:scale(0.7,0.7)
+	screenGroup:insert(bg)
+
 	play = display.newImage("images/play.png", display.contentWidth-buttonXOffset,centerY-100)
 	play:scale(0.7,0.7)
 	play:addEventListener("tap",goToPlay)
