@@ -99,7 +99,7 @@ function displayClocks(n)
 	screenGroup:insert(minute1)
 
 	hour1 = display.newImage(hour, centerX-120, centerY-60)
-	hour1:scale(0.7,0.7)
+	hour1:scale(0.6,0.6)
 	hour1.anchorY = 1
 	screenGroup:insert(hour1)
 
@@ -117,7 +117,7 @@ function displayClocks(n)
 	screenGroup:insert(minute2)
 
 	hour2 = display.newImage(hour, centerX+120, centerY-60)
-	hour2:scale(0.7,0.7)
+	hour2:scale(0.6,0.6)
 	hour2.anchorY = 1
 	screenGroup:insert(hour2)
 

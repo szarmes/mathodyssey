@@ -18,7 +18,7 @@ local r1 = 30%720 --rotations for clock1
 local r2 = 750%720 --rotations for clock2
 local first = true
 local round = -1
-questionCount = 0
+ttcorrectCount = 0
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------
@@ -26,14 +26,14 @@ questionCount = 0
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 local instructions = "Welcome to the Time Trials! In this level, your task is to figure out the amount of time that has passed from clock 1 to clock 2, using your addition and subtraction skills!"
-local instructions1 = "To do this, count how many hours the hour hand (blue) in Clock 2 is in front of the hour hand in Clock 1."
-local instructions2 = "Then count how many minutes the minute hand (red) in Clock 2 is in front of the minute hand in Clock 1."
-local instructions3 = "An easier way to find the answer is to subtract the numbers that the hands in Clock 2 point to from the corresponding hands in Clock 1."
+local instructions1 = "One way to find the answer is to count how many hours and minutes are between the times in Clock 1 and Clock 2 ."
+local instructions2 = "You could also use addition to determine how many hours and minutes you would have to add to Clock 1 to get it to the same time as Clock 2 "
+local instructions3 = "Yet another way to find the answer is to subtract the time in Clock 1 from the time in Clock 2."
 local instructions4 = "It's easier than you think. Give it a shot!"
 
 local function goHome()
 	round = -1
-	questionCount = 0
+	ttcorrectCount = 0
 	storyboard.gotoScene( "menu", "fade", 500 )
 end
 
@@ -61,18 +61,12 @@ end
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )
 
-	if questionCount>=3 then
+	if ttcorrectCount>=3 then
 		round = -1
-		questionCount = 0
-		storyboard.gotoScene("showttscore" )
+		ttcorrectCount = 0
+		storyboard.gotoScene("readytoplay","fade",500 )
 	end
 	
-	if round == -1 then
-		for row in db:nrows("SELECT * FROM timeTrialsScore ORDER BY id DESC") do
-		  round = row.round+1
-		  break
-		end
-	end
 	generateAnswers()
 end
 
@@ -104,7 +98,7 @@ function displayClocks(n)
 	screenGroup:insert(minute1)
 
 	hour1 = display.newImage(hour, centerX-120, centerY-60)
-	hour1:scale(0.7,0.7)
+	hour1:scale(0.6,0.6)
 	hour1.anchorY = 1
 	screenGroup:insert(hour1)
 
@@ -122,7 +116,7 @@ function displayClocks(n)
 	screenGroup:insert(minute2)
 
 	hour2 = display.newImage(hour, centerX+120, centerY-60)
-	hour2:scale(0.7,0.7)
+	hour2:scale(0.6,0.6)
 	hour2.anchorY = 1
 	screenGroup:insert(hour2)
 
@@ -243,25 +237,15 @@ function makeFourthDisappear(n)
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
-	local myFunction = function() makeFifthDisappear(screenGroup) end
-	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
-	continue:scale(0.3,0.3)
-
-	continue:addEventListener("tap", myFunction)
-	screenGroup:insert(continue)
-	--showAnswer(screenGroup)
-end
-
-function makeFifthDisappear(n)
-	local screenGroup = n
-	screenGroup:remove(myText)
-	screenGroup:remove(continue)
 	first = false
 	go = display.newImage("images/go.png", centerX+200, centerY+120)
 	go:scale(0.5,0.5)
 	go:addEventListener("tap", newSceneListener)
 	screenGroup:insert(go)
+
+	--showAnswer(screenGroup)
 end
+
 
 
 
@@ -317,38 +301,38 @@ function showChoices(n)
 end
 
 function newSceneListener()
-	storyboard.purgeScene("timetrials")
+	storyboard.purgeScene("tutorialtt")
 	storyboard.reloadScene()
 end
 
 function incorrectResponseListener1(n)
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	--storeTimeTrials(0,totalTime,ha,ma,ha1,ma1,r1,r2,round)
-	questionCount = questionCount + 1
-	storyboard.purgeScene("timetrials")
+	--ttcorrectCount = ttcorrectCount + 1
+	storyboard.purgeScene("tutorialtt")
 	storyboard.gotoScene("tryagain","fade",500)
 end
 
 function incorrectResponseListener2(n)
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	--storeTimeTrials(0,totalTime,ha,ma,ha2,ma2,r1,r2,round)
-	questionCount = questionCount + 1
-	storyboard.purgeScene("timetrials")
+	--ttcorrectCount = ttcorrectCount + 1
+	storyboard.purgeScene("tutorialtt")
 	storyboard.gotoScene("tryagain","fade",500)
 end
 function incorrectResponseListener3(n)
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	--storeTimeTrials(0,totalTime,ha,ma,ha3,ma3,r1,r2,round)
-	questionCount = questionCount + 1
-	storyboard.purgeScene("timetrials")
+	--ttcorrectCount = ttcorrectCount + 1
+	storyboard.purgeScene("tutorialtt")
 	storyboard.gotoScene("tryagain","fade",500)
 end
 
 function correctResponseListener()
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	--storeTimeTrials(1,totalTime,ha,ma,ha,ma,r1,r2,round)
-	questionCount = questionCount + 1
-	storyboard.purgeScene("timetrials")
+	ttcorrectCount = ttcorrectCount + 1
+	storyboard.purgeScene("tutorialtt")
 	storyboard.gotoScene("goodjob","fade",500)
 end
 

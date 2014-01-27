@@ -1,15 +1,13 @@
 ---------------------------------------------------------------------------------
 --
--- menu.lua
+-- readytoplay.lua
+--This scene will flash "Good Job" then return to the previous scene
 --
 ---------------------------------------------------------------------------------
 
 local storyboard = require( "storyboard" )
 local scene = storyboard.newScene()
-
-
-local buttonXOffset = 100
-
+storyboard.removeAll()
 
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
@@ -18,56 +16,27 @@ local buttonXOffset = 100
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 
-
-function goToPlay()
-	storyboard.gotoScene("timetrials","fade",500)
-end
-
-
-function goToTutorials()
-	storyboard.gotoScene("howtoplay")
+local function continue()
+	storyboard.purgeAll()
+	storyboard.gotoScene( "menu", "fade", 500 )
 end
 
 
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
+	storyboard.purgeScene("timetrials")
 	local screenGroup = self.view
-
-	play = display.newImage("images/play.png", display.contentWidth-buttonXOffset,centerY-100)
-	play:scale(0.7,0.7)
-	play:addEventListener("tap",goToPlay)
-	screenGroup:insert(play)
-
-	about = display.newImage("images/about.png", display.contentWidth-buttonXOffset,centerY-30)
-	about:scale(0.6,0.6)
-	screenGroup:insert(about)
-
-	create = display.newImage("images/create.png", display.contentWidth-buttonXOffset,centerY+40)
-	create:scale(0.6,0.6)
-	screenGroup:insert(create)
-
-	howtoplay = display.newImage("images/how-to-play.png", display.contentWidth-buttonXOffset,centerY+110)
-	howtoplay:scale(0.4,0.4)
-	howtoplay:addEventListener("tap",goToTutorials)
-	screenGroup:insert(howtoplay)
-
-	title = display.newImage("images/splash.png", buttonXOffset,centerY-100)
-	title:scale(0.3,0.3)
-	screenGroup:insert(title)
-
-	settings = display.newImage("images/settings.png",0,display.contentHeight-30)
-	settings:scale(0.6,0.6)
-	screenGroup:insert(settings)
-
-	--background = display.newImage("images/cat.jpg",centerX,centerY)
-	--Runtime:addEventListener("touch",moveCatListener)
-	--screenGroup:insert( background )
-
+	display.setDefault( "background", 1, 1, 1 )
+	local reward = display.newText("Now you're ready to play!", centerX+70,centerY,300,0,"Komika Display", 30)
+	reward:setFillColor(0)
+	screenGroup:insert(reward)
+	
 end
 
 
 -- Called immediately after scene has moved onscreen:
-function scene:enterScene( event )	
+function scene:enterScene( event )
+	timer.performWithDelay(2000,continue,1)
 end
 
 
@@ -80,6 +49,10 @@ end
 -- Called prior to the removal of scene's "view" (display group)
 function scene:destroyScene( event )
 	
+end
+
+
+function moveCatListener(event) --sample listener
 end
 
 ---------------------------------------------------------------------------------
