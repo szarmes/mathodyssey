@@ -38,7 +38,10 @@ end
 function scene:createScene( event )
 	storyboard.reloadScene()
 	local screenGroup = self.view
-	display.setDefault( "background", 1, 1, 1 )
+	
+	bg = display.newImage("images/ttbg.png", centerX,centerY+30)
+	bg:scale(0.7,0.7)
+	screenGroup:insert(bg)
 
 	if (first) then
 		myText = display.newText( instructions, centerX, centerY+140,500,200, "Comic Relief", 16 )
