@@ -26,7 +26,7 @@ local centerY = display.contentCenterY
 
 local function goNext()
 	storyboard.removeAll()
-	storyboard.gotoScene( "menu", "fade", 500 )
+	storyboard.gotoScene( "menu")
 end
 
 

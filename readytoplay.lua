@@ -18,7 +18,7 @@ local centerY = display.contentCenterY
 
 local function continue()
 	storyboard.purgeAll()
-	storyboard.gotoScene( "menu", "fade", 500 )
+	storyboard.gotoScene( "menu")
 end
 
 

@@ -22,14 +22,18 @@ ttcorrectCount = 0
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------
-
+local hourtime 
+local minutetime
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
-local instructions = "Welcome to the Time Trials! In this level, your task is to figure out the amount of time that has passed from clock 1 to clock 2, using your addition and subtraction skills!"
-local instructions1 = "One way to find the answer is to count how many hours and minutes are between the times in Clock 1 and Clock 2 ."
-local instructions2 = "You could also use addition to determine how many hours and minutes you would have to add to Clock 1 to get it to the same time as Clock 2 "
-local instructions3 = "Yet another way to find the answer is to subtract the time in Clock 1 from the time in Clock 2."
-local instructions4 = "It's easier than you think. Give it a shot!"
+local instructions = "Welcome to the Time Trials! In this level, your task is to figure out the amount of time that has passed from Clock 1 to Clock 2, using your addition and subtraction skills!"
+local instructions1 = "Start by finding the time on each clock. To find the number of hours look at what the shorter hand in pointing to."
+local instructions2 = "Then find the number of minutes by multiplying the number the longer hand points to by 5."
+local instructions3
+local instructions4 = "One way to find the answer is to count how many hours and minutes are between the times in Clock 1 and Clock 2 ."
+local instructions5 = "You could also use addition to determine how many hours and minutes you would have to add to Clock 1 to get it to the same time as Clock 2 "
+local instructions6 = "Yet another way to find the answer is to subtract the time in Clock 1 from the time in Clock 2."
+local instructions7 = "It's easier than you think. Give it a shot!"
 
 local function goHome()
 	round = -1
@@ -64,7 +68,7 @@ function scene:enterScene( event )
 	if ttcorrectCount>=3 then
 		round = -1
 		ttcorrectCount = 0
-		storyboard.gotoScene("readytoplay","fade",500 )
+		storyboard.gotoScene("readytoplay" )
 	end
 	
 	generateAnswers()
@@ -142,6 +146,9 @@ function rotate() --set up the times
 	minute1:rotate(6*r1)
 	hour1:rotate(0.5*r1)
 	
+	hourtime =(0.5*(r1))%12
+	minutetime = (6*(r1))%30
+	
 	minute2:rotate(6*r2)
 	hour2:rotate(0.5*r2)
 end
@@ -155,6 +162,15 @@ function newQuestion(n) -- this will make a new question
 		r2 = math.random(23)*30
 	end
 
+	hourtime = math.floor(r1/60)%12
+	if hourtime == 0 then
+		hourtime = 12
+	end
+	if (r1/30)%2 == 0 then
+		instructions3 = "Using these rules you can see that Clock 1 is at "..hourtime..":".."00 pm. All questions will be in pm."
+	else 
+		instructions3 = "Using these rules you can see that Clock 1 is at \n"..hourtime..":".."30 pm. All questions will be in pm."
+	end
 	ha = math.abs(math.floor(math.abs(r1-r2)/60)) --hours answer
 	ma = math.abs(math.abs(r1-r2) -(ha*60)) --minutes answer
 	before = (r2<r1)
@@ -237,6 +253,61 @@ function makeFourthDisappear(n)
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
+	local myFunction = function() makeFifthDisappear(screenGroup) end
+	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
+	continue:scale(0.3,0.3)
+
+	continue:addEventListener("tap", myFunction)
+	screenGroup:insert(continue)
+	--showAnswer(screenGroup)
+end
+
+function makeFifthDisappear(n)
+	local screenGroup = n
+	screenGroup:remove(myText)
+	screenGroup:remove(continue)
+
+	myText = display.newText( instructions5, centerX, centerY+140,500,200, "Comic Relief", 20 )
+	myText:setFillColor(0)
+	screenGroup:insert(myText)
+
+	local myFunction = function() makeSixthDisappear(screenGroup) end
+	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
+	continue:scale(0.3,0.3)
+
+	continue:addEventListener("tap", myFunction)
+	screenGroup:insert(continue)
+	--showAnswer(screenGroup)
+end
+
+function makeSixthDisappear(n)
+	local screenGroup = n
+	screenGroup:remove(myText)
+	screenGroup:remove(continue)
+
+	myText = display.newText( instructions6, centerX, centerY+140,500,200, "Comic Relief", 20 )
+	myText:setFillColor(0)
+	screenGroup:insert(myText)
+
+	local myFunction = function() makeSeventhDisappear(screenGroup) end
+	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
+	continue:scale(0.3,0.3)
+
+	continue:addEventListener("tap", myFunction)
+	screenGroup:insert(continue)
+	--showAnswer(screenGroup)
+end
+
+
+function makeSeventhDisappear(n)
+	local screenGroup = n
+	screenGroup:remove(myText)
+	screenGroup:remove(continue)
+
+	myText = display.newText( instructions7, centerX, centerY+140,500,200, "Comic Relief", 20 )
+	myText:setFillColor(0)
+	screenGroup:insert(myText)
+
 	first = false
 	go = display.newImage("images/go.png", centerX+200, centerY+120)
 	go:scale(0.5,0.5)
@@ -310,7 +381,7 @@ function incorrectResponseListener1(n)
 	--storeTimeTrials(0,totalTime,ha,ma,ha1,ma1,r1,r2,round)
 	--ttcorrectCount = ttcorrectCount + 1
 	storyboard.purgeScene("tutorialtt")
-	storyboard.gotoScene("tryagain","fade",500)
+	storyboard.gotoScene("tryagain")
 end
 
 function incorrectResponseListener2(n)
@@ -318,14 +389,14 @@ function incorrectResponseListener2(n)
 	--storeTimeTrials(0,totalTime,ha,ma,ha2,ma2,r1,r2,round)
 	--ttcorrectCount = ttcorrectCount + 1
 	storyboard.purgeScene("tutorialtt")
-	storyboard.gotoScene("tryagain","fade",500)
+	storyboard.gotoScene("tryagain")
 end
 function incorrectResponseListener3(n)
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	--storeTimeTrials(0,totalTime,ha,ma,ha3,ma3,r1,r2,round)
 	--ttcorrectCount = ttcorrectCount + 1
 	storyboard.purgeScene("tutorialtt")
-	storyboard.gotoScene("tryagain","fade",500)
+	storyboard.gotoScene("tryagain")
 end
 
 function correctResponseListener()
@@ -333,7 +404,7 @@ function correctResponseListener()
 	--storeTimeTrials(1,totalTime,ha,ma,ha,ma,r1,r2,round)
 	ttcorrectCount = ttcorrectCount + 1
 	storyboard.purgeScene("tutorialtt")
-	storyboard.gotoScene("goodjob","fade",500)
+	storyboard.gotoScene("goodjob")
 end
 
 function generateAnswers()

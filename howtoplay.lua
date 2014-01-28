@@ -18,7 +18,7 @@ local centerY = display.contentCenterY
 
 local function continue()
 	storyboard.purgeAll()
-	storyboard.gotoScene( storyboard.getPrevious(), "fade", 500 )
+	storyboard.gotoScene( storyboard.getPrevious() )
 end
 
 local function goToTutorialtt()
@@ -31,16 +31,29 @@ end
 function scene:createScene( event )
 	storyboard.purgeScene("menu")
 	local screenGroup = self.view
-	display.setDefault( "background", 1, 1, 1 )
+	
+	bg = display.newImage("images/bg.png", centerX,centerY+30)
+	bg:scale(0.7,0.7)
+	screenGroup:insert(bg)
 	
 	local tt = display.newImage("images/time-trials.png", 70,centerY-120)
 	tt:scale(0.3,0.3)
 	tt:addEventListener("tap", goToTutorialtt)
 	screenGroup:insert(tt)
+
+
+	home = display.newImage("images/home.png",display.contentWidth,30)
+	home:scale(0.3,0.3)
+	home:addEventListener("tap", goHome)
+	screenGroup:insert(home)
+
 	
 end
 
 
+function goHome()
+	storyboard.gotoScene("menu")
+end
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )
 end

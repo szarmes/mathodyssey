@@ -17,15 +17,17 @@ local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 
 local function continue()
-	storyboard.gotoScene( "menu", "fade", 2000 )
+	storyboard.gotoScene( "menu", "fade", 1000 )
 end
 
 
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
 	local screenGroup = self.view
-	display.setDefault( "background", 1, 1, 1 )
 	
+	bg = display.newImage("images/splashbg.png", centerX,centerY+30)
+	bg:scale(0.7,0.7)
+	screenGroup:insert(bg)
 	local image = display.newImage( "images/splash.png", centerX, centerY )
 	image:scale(0.6,0.6)
 	screenGroup:insert( image )

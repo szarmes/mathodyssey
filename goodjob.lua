@@ -18,14 +18,19 @@ local centerY = display.contentCenterY
 
 local function continue()
 	storyboard.purgeAll()
-	storyboard.gotoScene( storyboard.getPrevious(), "fade", 500 )
+	storyboard.gotoScene( storyboard.getPrevious())
 end
 
 
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
-	storyboard.purgeScene("timetrials")
+	storyboard.purgeScene(storyboard.getPrevious())
 	local screenGroup = self.view
+	if storyboard.getPrevious() == "timetrials" then
+		bg = display.newImage("images/ttbg.png", centerX,centerY+30)
+		bg:scale(0.7,0.7)
+		screenGroup:insert(bg)
+	end	
 	display.setDefault( "background", 1, 1, 1 )
 	local reward = display.newText("Good Job!", centerX+70,centerY,300,0,"Comic Relief", 30)
 	reward:setFillColor(0)
@@ -36,7 +41,7 @@ end
 
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )
-	timer.performWithDelay(500,continue,1)
+	timer.performWithDelay(1000,continue,1)
 end
 
 

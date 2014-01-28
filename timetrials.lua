@@ -31,7 +31,7 @@ local instructions = "Welcome to the Time Trials! In this level, your task is to
 local function goHome()
 	round = -1
 	questionCount = 0
-	storyboard.gotoScene( "menu", "fade", 500 )
+	storyboard.gotoScene( "menu")
 end
 
 -- Called when the scene's view does not exist:
@@ -260,7 +260,7 @@ function incorrectResponseListener1(n)
 	storeTimeTrials(0,totalTime,ha,ma,ha1,ma1,r1,r2,round)
 	questionCount = questionCount + 1
 	storyboard.purgeScene("timetrials")
-	storyboard.gotoScene("tryagain","fade",500)
+	storyboard.gotoScene("tryagain")
 end
 
 function incorrectResponseListener2(n)
@@ -268,14 +268,14 @@ function incorrectResponseListener2(n)
 	storeTimeTrials(0,totalTime,ha,ma,ha2,ma2,r1,r2,round)
 	questionCount = questionCount + 1
 	storyboard.purgeScene("timetrials")
-	storyboard.gotoScene("tryagain","fade",500)
+	storyboard.gotoScene("tryagain")
 end
 function incorrectResponseListener3(n)
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	storeTimeTrials(0,totalTime,ha,ma,ha3,ma3,r1,r2,round)
 	questionCount = questionCount + 1
 	storyboard.purgeScene("timetrials")
-	storyboard.gotoScene("tryagain","fade",500)
+	storyboard.gotoScene("tryagain")
 end
 
 function correctResponseListener()
@@ -283,7 +283,7 @@ function correctResponseListener()
 	storeTimeTrials(1,totalTime,ha,ma,ha,ma,r1,r2,round)
 	questionCount = questionCount + 1
 	storyboard.purgeScene("timetrials")
-	storyboard.gotoScene("goodjob","fade",500)
+	storyboard.gotoScene("goodjob")
 end
 
 function generateAnswers()
