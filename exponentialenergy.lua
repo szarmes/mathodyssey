@@ -19,6 +19,9 @@ local instructions = "Welcome to Exponential Energy! In this level, you're requi
 local instructions1 = "Recall that an exponent is positioned near the top right of a number, and represents how many times the number appears in a repeated multiplication."
 local instructions2 = "Note that when an exponent of any number is 0, the new value of that number is always 1. And when an exponent of a number is 1, the value of that number does not change."
 local insturcionts3
+local exponent
+local number
+local equals
 
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
@@ -31,7 +34,7 @@ function scene:createScene( event )
 	end
 
 
-	newQuestion(screenGroup)
+	
 	--displayNumbers(screenGroup)
 	--background = display.newImage("images/cat.jpg",centerX,centerY)
 	--Runtime:addEventListener("touch",moveCatListener)
@@ -49,6 +52,7 @@ end
 function scene:enterScene( event )
 	local screenGroup = self.view
 	generateAnswers()
+	generateAnswerText()
 	displayNumbers(screenGroup)
 	instructions3 = "In this case the exponent is "..exponent..", since  "..number.. " appears in this repeated multiplication of itself "..exponent.." times."	
 	if exponent == 0 then
@@ -59,6 +63,7 @@ function scene:enterScene( event )
 		number = math.random(2,5)
 		instructions3 = "In this case the exponent is "..exponent..", since numbers with an exponent of 1 do not change."
 	end
+	newQuestion(screenGroup)
 end
 
 
@@ -101,7 +106,7 @@ function makeFirstDisappear(n)
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
-	pointer = display.newImage("images/exppointer.png",centerX+questionText.width+50,centerY-70)
+	pointer = display.newImage("images/exppointer.png",centerX+qL.width+50,centerY-70)
 	screenGroup:insert(pointer)
 
 	local myFunction = function() makeSecondDisappear(screenGroup) end
@@ -121,12 +126,13 @@ function makeSecondDisappear(n)
 	local screenGroup = n
 	cancelZoomTimers()
 	screenGroup:remove(questionMarkText)
-	questionMarkText =display.newText( "?", centerX+questionText.width/2 + 5, centerY-50, "Comic Relief", 24 )
+	questionMarkText =display.newText( "?", qL.x+qL.width/2 + 5, centerY-50, "Comic Relief", 24 )
 	screenGroup:insert(questionMarkText)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 	screenGroup:remove(pointer)
-	questionText:setFillColor(0,0,0,0)
+	qL:setFillColor(0,0,0,0)
+	qR:setFillColor(0,0,0,0)
 	questionMarkText:setFillColor(0,0,0,0)
 
 	myText = display.newText( instructions2, centerX, centerY+120,500,200, "Comic Relief", 20 )
@@ -135,9 +141,9 @@ function makeSecondDisappear(n)
 
 	zeroLeft =display.newText( "Number", centerX-70, centerY-80, "Comic Relief", 30 )
 	zeroLeft:setFillColor(0)
-	zeroQuestionMark =display.newText( "0", centerX-70+zeroLeft.width/2 + 15, centerY-90, "Comic Relief", 24 )
+	zeroQuestionMark =display.newText( "0", zeroLeft.x+zeroLeft.width/2 + 5, centerY-90, "Comic Relief", 24 )
 	zeroQuestionMark:setFillColor(0)
-	zeroRight = display.newText( " = 1", centerX-70+zeroLeft.width/2 + 45, centerY-80, "Comic Relief", 30 )
+	zeroRight = display.newText( " = 1", centerX-70+zeroLeft.width/2 + 30, centerY-80, "Comic Relief", 30 )
 	zeroRight:setFillColor(0)
 
 	screenGroup:insert(zeroLeft)
@@ -146,9 +152,9 @@ function makeSecondDisappear(n)
 
 	oneLeft =display.newText( "Number", centerX-100, centerY-20, "Comic Relief", 30 )
 	oneLeft:setFillColor(0)
-	oneQuestionMark =display.newText( "1", centerX-100+oneLeft.width/2 + 15, centerY-30, "Comic Relief", 24 )
+	oneQuestionMark =display.newText( "1", oneLeft.x+oneLeft.width/2 + 5, centerY-30, "Comic Relief", 24 )
 	oneQuestionMark:setFillColor(0)
-	oneRight = display.newText( " = Number", centerX-100+oneLeft.width/2 + 100, centerY-20, "Comic Relief", 30 )
+	oneRight = display.newText( " = Number", centerX-100+oneLeft.width/2 + 80, centerY-20, "Comic Relief", 30 )
 	oneRight:setFillColor(0)
 
 	screenGroup:insert(oneLeft)
@@ -177,10 +183,10 @@ function makeThirdDisappear(n)
 	screenGroup:remove(zeroRight)
 	screenGroup:remove(questionMarkText)
 
-	questionText:setFillColor(0)
+	qL:setFillColor(0)
+	qR:setFillColor(0)
 
-	questionMarkText =display.newText( exponent, centerX+questionText.width/2 + 5, centerY-50, "Comic Relief", 24 )
-	questionText:setFillColor(0)
+	questionMarkText =display.newText( exponent, qL.x+qL.width/2 + 5, centerY-50, "Comic Relief", 24 )
 	questionMarkText:setFillColor(0)
 	screenGroup:insert(questionMarkText)
 
@@ -214,6 +220,10 @@ function generateAnswers()
 	elseif exponent == 1 then
 		number = number +1
 	end
+	equals = number
+	if exponent == 0 then
+		equals = math.random(10,50)
+	end
 	
 end
 
@@ -234,8 +244,7 @@ function showChoices(n)
 		table.remove(a, r)
 		count=count-1
 	end
-	generateAnswerText()
-
+	
 	answer = display.newText(exponent,b[1],centerY+100, 125,0, "Comic Relief", 36)
 	answer:setFillColor(0)
 	local function listener()
@@ -301,37 +310,51 @@ end
 
 function displayNumbers(n)
 	local screenGroup = n
-	equals = number
-	if exponent == 0 then
-		equals = math.random(10,50)
-	end
+	qLtemp = display.newText(equals,-100,-100,"Comic Relief",30)
+	screenGroup:insert(qLtemp)
+
+	qL = display.newText(equals,centerX-qLtemp.width-40,centerY-40,"Comic Relief",30)
 	if exponent==3 then
-		questionText =display.newText( ""..number.."x"..number.."x"..number.." = "..equals, centerX, centerY-40, "Comic Relief", 30 )
+		qR =display.newText( " = "..number.."x"..number.."x"..number, centerX+qL.width/2 + 25, centerY-40, "Comic Relief", 30 )
 	elseif exponent==2 then
-		questionText =display.newText( ""..number.."x"..number.." = "..equals.."", centerX, centerY-40, "Comic Relief", 30 )
+		qR =display.newText( " = "..number.."x"..number, centerX+qL.width/2 + 25, centerY-40, "Comic Relief", 30 )
 	else
-		questionText =display.newText( ""..number.." = "..equals.."", centerX, centerY-40, "Comic Relief", 30 )
+		qR =display.newText( " = "..number, centerX+qL.width/2 + 25, centerY-40, "Comic Relief", 30 )
 	end
-	questionMarkText =display.newText( "?", centerX+questionText.width/2 + 5, centerY-50, "Comic Relief", 24 )
-	questionText:setFillColor(0)
+	questionMarkText =display.newText( "?", qL.x+qL.width/2 + 5, centerY-50, "Comic Relief", 24 )
+	qL:setFillColor(0)
+	qR:setFillColor(0)
 	questionMarkText:setFillColor(0)
 	screenGroup:insert(questionMarkText)
-	screenGroup:insert(questionText)
+	screenGroup:insert(qL)
+	screenGroup:insert(qR)
 end
 
 function correctResponseListener()
+	local totalTime = math.floor((system.getTimer()-startTime)/1000)
+	--storeTimeTrials(1,totalTime,ha,ma,ha,ma,r1,r2,round)
+	questionCount = questionCount + 1
+	storyboard.purgeScene("exponentialenergy")
+	storyboard.gotoScene("goodjob")
 end
 
-function incorrectResponseListener1()
-	-- body
+function incorrectResponseListener1(n)
+	local totalTime = math.floor((system.getTimer()-startTime)/1000)
+	questionCount = questionCount + 1
+	answer1:setFillColor(1,0,0)
 end
 
-function incorrectResponseListener2()
-	-- body
-end
+function incorrectResponseListener2(n)
+	local totalTime = math.floor((system.getTimer()-startTime)/1000)
+	questionCount = questionCount + 1
+	answer2:setFillColor(1,0,0)
 
-function incorrectResponseListener3()
-	-- body
+end
+function incorrectResponseListener3(n)
+	local totalTime = math.floor((system.getTimer()-startTime)/1000)
+	questionCount = questionCount + 1
+	answer3:setFillColor(1,0,0)
+	
 end
 
 function zoomQin()
