@@ -15,9 +15,9 @@ local centerY = display.contentCenterY
 local first = true
 local round = -1
 questionCount = 0
-local instructions = "Welcome to Exponential Energy! In this level, you're required to either determine the exponent of the equation or solve an equation involving an exponent."
-local instructions1 = "Recall that an exponent is positioned near the top right of a number, and denotes how many times the number appears in a repeated multiplication."
-local instructions2 = "Note that when an exponent of a number is 0, the new value of that number is always 1. And when an exponent of a number is 1, the value of that number does not change."
+local instructions = "Welcome to Exponential Energy! In this level, you're required to determine the exponent of the equation."
+local instructions1 = "Recall that an exponent is positioned near the top right of a number, and represents how many times the number appears in a repeated multiplication."
+local instructions2 = "Note that when an exponent of any number is 0, the new value of that number is always 1. And when an exponent of a number is 1, the value of that number does not change."
 local insturcionts3
 
 -- Called when the scene's view does not exist:
@@ -29,11 +29,18 @@ function scene:createScene( event )
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
 	end
+
+
 	newQuestion(screenGroup)
 	--displayNumbers(screenGroup)
 	--background = display.newImage("images/cat.jpg",centerX,centerY)
 	--Runtime:addEventListener("touch",moveCatListener)
 	--screenGroup:insert( background )
+
+	home = display.newImage("images/home.png",display.contentWidth,30)
+	home:scale(0.3,0.3)
+	home:addEventListener("tap", goHome)
+	screenGroup:insert(home)
 
 end
 
@@ -43,19 +50,30 @@ function scene:enterScene( event )
 	local screenGroup = self.view
 	generateAnswers()
 	displayNumbers(screenGroup)
-	instructions3 = "In this case the exponent (represented by ?) is "..exponent..", since  "..number.. " appears in this repeated multiplication of itself "..exponent.." times."	
+	instructions3 = "In this case the exponent is "..exponent..", since  "..number.. " appears in this repeated multiplication of itself "..exponent.." times."	
+	if exponent == 0 then
+		number = 1
+		instructions3 = "In this case the exponent is "..exponent..", since any number with an exponent of 0 equals 1."
+	end
+	if exponent == 1 then
+		number = math.random(2,5)
+		instructions3 = "In this case the exponent is "..exponent..", since numbers with an exponent of 1 do not change."
+	end
 end
 
 
 -- Called when scene is about to move offscreen:
 function scene:exitScene( event )
-	
 end
 
 
 -- Called prior to the removal of scene's "view" (display group)
 function scene:destroyScene( event )
 	
+end
+function goHome()
+	round = -1
+	storyboard.gotoScene( "menu")
 end
 
 function newQuestion(n)
@@ -83,22 +101,59 @@ function makeFirstDisappear(n)
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
+	pointer = display.newImage("images/exppointer.png",centerX+questionText.width+50,centerY-70)
+	screenGroup:insert(pointer)
+
 	local myFunction = function() makeSecondDisappear(screenGroup) end
 	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
 	continue:scale(0.3,0.3)
 
 	continue:addEventListener("tap", myFunction)
 	screenGroup:insert(continue)
+	local zoomOutFunction = function() timer2 = timer.performWithDelay(50,zoomQout,4) end
+	local zoomInFunction = function() timer3 = timer.performWithDelay(50,zoomQin,5) 
+	timer4 = timer.performWithDelay(500,zoomOutFunction) end 
+	zoomInFunction()
+	timer1 = timer.performWithDelay(1000,zoomInFunction,2)
 	--showAnswer(screenGroup)
 end
 function makeSecondDisappear(n)
 	local screenGroup = n
+	cancelZoomTimers()
+	screenGroup:remove(questionMarkText)
+	questionMarkText =display.newText( "?", centerX+questionText.width/2 + 5, centerY-50, "Comic Relief", 24 )
+	screenGroup:insert(questionMarkText)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
+	screenGroup:remove(pointer)
+	questionText:setFillColor(0,0,0,0)
+	questionMarkText:setFillColor(0,0,0,0)
 
 	myText = display.newText( instructions2, centerX, centerY+120,500,200, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
+
+	zeroLeft =display.newText( "Number", centerX-70, centerY-80, "Comic Relief", 30 )
+	zeroLeft:setFillColor(0)
+	zeroQuestionMark =display.newText( "0", centerX-70+zeroLeft.width/2 + 15, centerY-90, "Comic Relief", 24 )
+	zeroQuestionMark:setFillColor(0)
+	zeroRight = display.newText( " = 1", centerX-70+zeroLeft.width/2 + 45, centerY-80, "Comic Relief", 30 )
+	zeroRight:setFillColor(0)
+
+	screenGroup:insert(zeroLeft)
+	screenGroup:insert(zeroQuestionMark)
+	screenGroup:insert(zeroRight)
+
+	oneLeft =display.newText( "Number", centerX-100, centerY-20, "Comic Relief", 30 )
+	oneLeft:setFillColor(0)
+	oneQuestionMark =display.newText( "1", centerX-100+oneLeft.width/2 + 15, centerY-30, "Comic Relief", 24 )
+	oneQuestionMark:setFillColor(0)
+	oneRight = display.newText( " = Number", centerX-100+oneLeft.width/2 + 100, centerY-20, "Comic Relief", 30 )
+	oneRight:setFillColor(0)
+
+	screenGroup:insert(oneLeft)
+	screenGroup:insert(oneQuestionMark)
+	screenGroup:insert(oneRight)
 
 	local myFunction = function() makeThirdDisappear(screenGroup) end
 	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
@@ -114,6 +169,24 @@ function makeThirdDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
+	screenGroup:remove(oneLeft)
+	screenGroup:remove(oneQuestionMark)
+	screenGroup:remove(oneRight)
+	screenGroup:remove(zeroLeft)
+	screenGroup:remove(zeroQuestionMark)
+	screenGroup:remove(zeroRight)
+	screenGroup:remove(questionMarkText)
+
+	questionText:setFillColor(0)
+
+	questionMarkText =display.newText( exponent, centerX+questionText.width/2 + 5, centerY-50, "Comic Relief", 24 )
+	questionText:setFillColor(0)
+	questionMarkText:setFillColor(0)
+	screenGroup:insert(questionMarkText)
+
+
+
+
 	myText = display.newText( instructions3, centerX, centerY+120,500,200, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
@@ -128,13 +201,20 @@ function makeThirdDisappear(n)
 end
 
 function newSceneListener()
+	
 	storyboard.purgeScene("exponentialenergy")
 	storyboard.reloadScene()
 end
 
 function generateAnswers()
 	number = math.random(1,5)
-	exponent = math.random(1,3)
+	exponent = math.random(0,3)
+	if exponent == 0 then
+		number = 1
+	elseif exponent == 1 then
+		number = number +1
+	end
+	
 end
 
 function showChoices(n)
@@ -144,9 +224,9 @@ function showChoices(n)
 	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
 	
-	a={centerX-85,centerX+40,centerX+165}
+	a={75,200,320,450}
 	b = {}
-	count = 3
+	count = 4
 
 	while (count>0) do --randomize the array of x values
 		local r = math.random(1,count)
@@ -156,22 +236,40 @@ function showChoices(n)
 	end
 	generateAnswerText()
 
-	answer = display.newText(exponent,b[1],centerY+100, 125,0, "Comic Relief", 16)
+	answer = display.newText(exponent,b[1],centerY+100, 125,0, "Comic Relief", 36)
 	answer:setFillColor(0)
-	answer:addEventListener("tap", correctResponseListener)
+	local function listener()
+		correctResponseListener(screenGroup)
+	end
+	answer:addEventListener("tap", listener)
 	screenGroup:insert(answer)
 
 	answer1 = nil
-	answer1 = display.newText(answer1Text,b[2],centerY+100,125,0, "Comic Relief", 16)
+	answer1 = display.newText(answer1Text,b[2],centerY+100,125,0, "Comic Relief", 36)
 	answer1:setFillColor(0,0,0)
-	answer1:addEventListener("tap", incorrectResponseListener1)
+	local function listener1()
+		incorrectResponseListener1(screenGroup)
+	end
+	answer1:addEventListener("tap", listener1)
 	screenGroup:insert(answer1)
 
 	answer2 = nil
-	answer2 = display.newText(answer2Text,b[3],centerY+100,125,0, "Comic Relief", 16)
+	answer2 = display.newText(answer2Text,b[3],centerY+100,125,0, "Comic Relief", 36)
 	answer2:setFillColor(0,0,0)
-	answer2:addEventListener("tap", incorrectResponseListener2)
+	local function listener2()
+		incorrectResponseListener2(screenGroup)
+	end
+	answer2:addEventListener("tap", listener2)
 	screenGroup:insert(answer2)
+
+	answer3 = nil
+	answer3 = display.newText(answer3Text,b[4],centerY+100,125,0, "Comic Relief", 36)
+	answer3:setFillColor(0,0,0)
+	local function listener3()
+		incorrectResponseListener3(screenGroup)
+	end
+	answer3:addEventListener("tap", listener3)
+	screenGroup:insert(answer3)
 
 
 end
@@ -181,28 +279,40 @@ function generateAnswerText()
 	if exponent == 3 then
 		answer1Text = 2
 		answer2Text = 1
+		answer3Text = 0
 	end
 	if exponent == 2 then
 		answer1Text = 3
 		answer2Text = 1
+		answer3Text = 0
 	end
 	if exponent == 1 then
 		answer1Text = 2
 		answer2Text = 3
+		answer3Text = 0
+	end
+	if exponent == 0 then
+		answer1Text = 2
+		answer2Text = 3
+		answer3Text = 1
 	end
 
 end
 
 function displayNumbers(n)
 	local screenGroup = n
-	if exponent==3 then
-		questionText =display.newText( ""..number.."x"..number.."x"..number.." = "..number.."", centerX, centerY-40, "Comic Relief", 20 )
-	elseif exponent==2 then
-		questionText =display.newText( ""..number.."x"..number.." = "..number.."", centerX, centerY-40, "Comic Relief", 20 )
-	else
-		questionText =display.newText( ""..number.." = "..number.."", centerX, centerY-40, "Comic Relief", 20 )
+	equals = number
+	if exponent == 0 then
+		equals = math.random(10,50)
 	end
-	questionMarkText =display.newText( "?", centerX+questionText.width/2 + 5, centerY-50, "Comic Relief", 16 )
+	if exponent==3 then
+		questionText =display.newText( ""..number.."x"..number.."x"..number.." = "..equals, centerX, centerY-40, "Comic Relief", 30 )
+	elseif exponent==2 then
+		questionText =display.newText( ""..number.."x"..number.." = "..equals.."", centerX, centerY-40, "Comic Relief", 30 )
+	else
+		questionText =display.newText( ""..number.." = "..equals.."", centerX, centerY-40, "Comic Relief", 30 )
+	end
+	questionMarkText =display.newText( "?", centerX+questionText.width/2 + 5, centerY-50, "Comic Relief", 24 )
 	questionText:setFillColor(0)
 	questionMarkText:setFillColor(0)
 	screenGroup:insert(questionMarkText)
@@ -218,6 +328,33 @@ end
 
 function incorrectResponseListener2()
 	-- body
+end
+
+function incorrectResponseListener3()
+	-- body
+end
+
+function zoomQin()
+	questionMarkText:scale(1.2,1.2)
+end
+function zoomQout()
+	questionMarkText:scale(0.8,0.8)
+end
+
+function cancelZoomTimers()
+	if timer1~=nil then
+		timer.cancel(timer1)
+	end
+	if timer2~=nil then
+		timer.cancel(timer2)
+	end
+	if timer3~=nil then
+		timer.cancel(timer3)
+	end
+	if timer4~=nil then
+		timer.cancel(timer4)
+	end
+
 end
 
 ---------------------------------------------------------------------------------
