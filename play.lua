@@ -18,12 +18,12 @@ local centerY = display.contentCenterY
 
 local function goTott() --play timetrials
 	storyboard.purgeAll()
-	storyboard.gotoScene("timetrials")
+	storyboard.gotoScene("ttselection")
 end
 
 local function goToee() --play exponential energy
 	storyboard.purgeAll()
-	storyboard.gotoScene( "exponentialenergy" )
+	storyboard.gotoScene( "eeselection" )
 end
 
 local function goHome() --go back to the menu

@@ -53,7 +53,7 @@ end
 
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )
-	if questionCount>=3 then
+	if questionCount>=10 then
 		round = -1
 		questionCount = 0
 		storyboard.gotoScene("showeescore", "fade", 200)
@@ -227,7 +227,7 @@ function makeThirdDisappear(n)
 end
 
 function newSceneListener()
-	
+	cancelZoomTimers()
 	storyboard.purgeScene("exponentialenergy")
 	storyboard.reloadScene()
 end
@@ -273,28 +273,28 @@ function showChoices(n)
 	answer:addEventListener("tap", listener)
 	screenGroup:insert(answer)
 
-	answer1 = nil
+	
 	answer1 = display.newText(answer1Text,b[2],centerY+100,125,0, "Comic Relief", 36)
 	answer1:setFillColor(0,0,0)
-	function listener1()
+	local function listener1()
 		incorrectResponseListener1(screenGroup)
 	end
 	answer1:addEventListener("tap", listener1)
 	screenGroup:insert(answer1)
 
-	answer2 = nil
+	
 	answer2 = display.newText(answer2Text,b[3],centerY+100,125,0, "Comic Relief", 36)
 	answer2:setFillColor(0,0,0)
-	function listener2()
+	local function listener2()
 		incorrectResponseListener2(screenGroup)
 	end
 	answer2:addEventListener("tap", listener2)
 	screenGroup:insert(answer2)
 
-	answer3 = nil
+	
 	answer3 = display.newText(answer3Text,b[4],centerY+100,125,0, "Comic Relief", 36)
 	answer3:setFillColor(0,0,0)
-	function listener3()
+	local function listener3()
 		incorrectResponseListener3(screenGroup)
 	end
 	answer3:addEventListener("tap", listener3)
@@ -359,7 +359,7 @@ end
 function correctResponseListener(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	storeEE1(1,totalTime,exponent,exponent,round)
+	storeEE1(1,totalTime,exponent,exponent,round,1)
 	questionCount = questionCount + 1
 
 	screenGroup:remove(questionMarkText)
@@ -372,41 +372,49 @@ function correctResponseListener(n)
 	timer4 = timer.performWithDelay(500,zoomOutFunction) end 
 	zoomInFunction()
 
-	timer5 = timer.performWithDelay(2000,correctResponseListener2)
+	removeAnswers(screenGroup)
+	local reward = display.newText("Good Job!", centerX+70,centerY+50,300,0,"Comic Relief", 30)
+	reward:setFillColor(0)
+	screenGroup:insert(reward)
+
+	local myFunction = function() newSceneListener() end
+	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
+	continue:scale(0.3,0.3)
+
+	continue:addEventListener("tap", myFunction)
+	screenGroup:insert(continue)
+
+	
 end
 
-function correctResponseListener2()
-	--storyboard.purgeScene("exponentialenergy")
-	storyboard.gotoScene("goodjob")
-end
 
 function incorrectResponseListener1(n)
+	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	questionCount = questionCount + 1
-	storeEE1(0,totalTime,exponent,answer1Text,round)
-	answer1:setFillColor(1,0,0)
-	answer1:removeEventListener("tap", listener1)
+	storeEE1(0,totalTime,exponent,answer1Text,round,1)
+	wrongAnswer(screenGroup)
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end
 
 function incorrectResponseListener2(n)
+	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	questionCount = questionCount + 1
-	storeEE1(0,totalTime,exponent,answer2Text,round)
-	answer2:setFillColor(1,0,0)
-	answer2:removeEventListener("tap", listener2)
+	storeEE1(0,totalTime,exponent,answer2Text,round,1)
+	wrongAnswer(screenGroup)
 
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end
 
 function incorrectResponseListener3(n)
+	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	questionCount = questionCount + 1
-	storeEE1(0,totalTime,exponent,answer3Text,round)
-	answer3:setFillColor(1,0,0)
-	answer3:removeEventListener("tap", listener3)
+	storeEE1(0,totalTime,exponent,answer3Text,round,1)
+	wrongAnswer(screenGroup)
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end
@@ -435,6 +443,35 @@ function cancelZoomTimers()
 		timer.cancel(timer5)
 	end
 
+end
+
+
+function removeAnswers(n)
+	local screenGroup = n
+	--screenGroup:remove(answer)
+	
+	screenGroup:remove(answer1)
+	screenGroup:remove(answer2)
+	screenGroup:remove(answer3)
+	screenGroup:remove(questionText)
+	answer:removeEventListener("tap",listener)
+	
+
+end
+
+function wrongAnswer(n)
+	local screenGroup = n
+	removeAnswers(screenGroup)
+	questionText =display.newText( "Oops, the correct answer was", centerX, centerY+140,500,200, "Comic Relief", 20 )
+	questionText:setFillColor(0)
+	screenGroup:insert(questionText)
+
+	local myFunction = function() newSceneListener() end
+	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
+	continue:scale(0.3,0.3)
+
+	continue:addEventListener("tap", myFunction)
+	screenGroup:insert(continue)
 end
 
 ---------------------------------------------------------------------------------

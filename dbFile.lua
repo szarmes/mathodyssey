@@ -17,26 +17,27 @@ end
 Runtime:addEventListener( "system", onSystemEvent )
 
 
-function storeTimeTrials(correct,time, correctHa, correctMa, chosenHa, chosenMa, r1,r2,round)
+function storeTimeTrials(correct,time, correctHa, correctMa, chosenHa, chosenMa, r1,r2,round,level)
 
 	local tablefill =[[INSERT INTO timeTrialsScore VALUES (NULL, ']]..correct..[[',']]..time..[[',']]..correctHa..
-		[[',']]..correctMa..[[',']]..chosenHa..[[',']]..chosenMa..[[',']]..r1..[[',']]..r2..[[',']]..round..[['); ]]
+		[[',']]..correctMa..[[',']]..chosenHa..[[',']]..chosenMa..[[',']]..r1..[[',']]..r2..[[',']]
+		..round..[[',']]..level..[['); ]]
 	db:exec( tablefill )
 
 end
 
-function storeEE1(correct,time, correcte, chosene, round)
+function storeEE1(correct,time, correcte, chosene, round,level)
 
 	local tablefill =[[INSERT INTO eeScore VALUES (NULL, ']]..correct..[[',']]..time..[[',']]..correcte..
-		[[',']]..chosene..[[',NULL, NULL, ']]..round..[['); ]]
+		[[',']]..chosene..[[',NULL, NULL, ']]..round..[[',']]..level..[['); ]]
 	db:exec( tablefill )
 
 end
 
-function storeEE2(correct,time, correctnum, chosennum, round)
+function storeEE2(correct,time, correctnum, chosennum, round,level)
 
 	local tablefill =[[INSERT INTO eeScore VALUES (NULL, ']]..correct..[[',']]..time..[[',NULL, NULL, ']]..correctnum..
-		[[',']]..chosenum..[[',']]..round..[['); ]]
+		[[',']]..chosenum..[[',']]..round..[[',']]..level..[['); ]]
 	db:exec( tablefill )
 
 end

@@ -19,16 +19,22 @@ local storyboard = require( "storyboard" )
 --Setup the table if it doesn't exist
 local tablesetup = [[CREATE TABLE IF NOT EXISTS timeTrialsScore (id INTEGER PRIMARY KEY, correct INTEGER, 
 		time INTEGER, correctHa INTEGER, correctMa INTEGER, chosenHa INTEGER, chosenMa INTEGER, 
-		r1 INTEGER, r2 INTEGER, round INTEGER);]]
+		r1 INTEGER, r2 INTEGER, round INTEGER, level INTEGER);]]
 db:exec( tablesetup )
 
 --Setup the table if it doesn't exist
 local tablesetup1 = [[CREATE TABLE IF NOT EXISTS eeScore (id INTEGER PRIMARY KEY, correct INTEGER, 
-	time INTEGER, correcte INTEGER, chosene INTEGER, correctnum INTEGER, chosennum INTEGER, round INTEGER);]]
+	time INTEGER, correcte INTEGER, chosene INTEGER, correctnum INTEGER, chosennum INTEGER, round INTEGER, level INTEGER);]]
 db:exec( tablesetup1 )
 
 
---storyboard.gotoScene( "exponentialenergy")
+--local drop = [[drop table timeTrialsScore]]
+--local drop1 = [[drop table eeScore]]
+--db:exec( drop )
+--db:exec( drop1 )
+
+
+--storyboard.gotoScene( "timetrialshard")
 storyboard.gotoScene( "splash","fade",500)
 
 

@@ -147,10 +147,10 @@ end
 
 function newQuestion(n) -- this will make a new question
 	local screenGroup = n
-	r1 = math.random(12)*30
-	r2 = math.random(23)*30
+	r1 = math.random(24)*15
+	r2 = math.random(47)*15
 	while (r2<=r1) do
-		r2 = math.random(23)*30
+		r2 = math.random(47)*15
 	end
 
 	ha = math.abs(math.floor(math.abs(r1-r2)/60)) --hours answer
@@ -216,7 +216,6 @@ function showChoices(n)
 	answer:addEventListener("tap", listener)
 	screenGroup:insert(answer)
 
-	answer1 = nil
 	answer1 = display.newText(answer1Text,b[2],centerY+100,125,0, "Comic Relief", 16)
 	answer1:setFillColor(0,0,0)
 	local function listener1()
@@ -225,7 +224,7 @@ function showChoices(n)
 	answer1:addEventListener("tap", listener1)
 	screenGroup:insert(answer1)
 
-	answer2 = nil
+	
 	answer2 = display.newText(answer2Text,b[3],centerY+100,125,0, "Comic Relief", 16)
 	answer2:setFillColor(0,0,0)
 	local function listener2()
@@ -234,7 +233,6 @@ function showChoices(n)
 	answer2:addEventListener("tap", listener2)
 	screenGroup:insert(answer2)
 
-	answer3 = nil
 	answer3 = display.newText(answer3Text,b[4],centerY+100,125,0, "Comic Relief", 16)
 	answer3:setFillColor(0,0,0)
 	local function listener3()
@@ -245,14 +243,15 @@ function showChoices(n)
 end
 
 function newSceneListener()
-	storyboard.purgeScene("timetrials")
+	storyboard.purgeScene("timetrialshard")
 	storyboard.reloadScene()
 end
+
 
 function incorrectResponseListener1(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	storeTimeTrials(0,totalTime,ha,ma,ha1,ma1,r1,r2,round,2)
+	storeTimeTrials(0,totalTime,ha,ma,ha1,ma1,r1,r2,round,3)
 	questionCount = questionCount + 1
 	wrongAnswer(screenGroup)
 end
@@ -260,7 +259,7 @@ end
 function incorrectResponseListener2(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	storeTimeTrials(0,totalTime,ha,ma,ha2,ma2,r1,r2,round,2)
+	storeTimeTrials(0,totalTime,ha,ma,ha2,ma2,r1,r2,round,3)
 	questionCount = questionCount + 1
 	wrongAnswer(screenGroup)
 end
@@ -268,7 +267,7 @@ end
 function incorrectResponseListener3(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	storeTimeTrials(0,totalTime,ha,ma,ha3,ma3,r1,r2,round,2)
+	storeTimeTrials(0,totalTime,ha,ma,ha3,ma3,r1,r2,round,3)
 	questionCount = questionCount + 1
 	
 	wrongAnswer(screenGroup)
@@ -277,9 +276,10 @@ end
 function correctResponseListener(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	storeTimeTrials(1,totalTime,ha,ma,ha,ma,r1,r2,round,2)
+	storeTimeTrials(1,totalTime,ha,ma,ha,ma,r1,r2,round,3)
 	questionCount = questionCount + 1
 	removeAnswers(screenGroup)
+	
 	local reward = display.newText("Good Job!", centerX+70,centerY+50,300,0,"Comic Relief", 30)
 	reward:setFillColor(0)
 	screenGroup:insert(reward)
@@ -295,18 +295,18 @@ function correctResponseListener(n)
 end
 
 function generateAnswers()
-	r3 = math.abs(r1/30-r2/30)*30
-	r31 = r3+math.random(-4,4)*30
+	r3 = math.abs(r1/15-r2/15)*15
+	r31 = r3+math.random(-4,4)*15
 	while r31<0 or r31 == r3 do
-		r31 = r3+math.random(-4,4)*30
+		r31 = r3+math.random(-4,4)*15
 	end
-	r32 = r3+math.random(-4,4)*30
+	r32 = r3+math.random(-4,4)*15
 	while r32<0 or r32 == r3 or r32==r31 do
-		r32 = r3+math.random(-4,4)*30
+		r32 = r3+math.random(-4,4)*15
 	end
-	r33 = r3+math.random(-4,4)*30
+	r33 = r3+math.random(-4,4)*15
 	while r33<0 or r33 == r3 or r33 == r31 or r33 == r32 do
-		r33 = r3+math.random(-4,4)*30
+		r33 = r3+math.random(-4,4)*15
 	end
 
 	ha1 = math.abs(math.floor(math.abs(r31)/60)) --hours answer
