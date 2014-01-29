@@ -49,6 +49,7 @@ function scene:createScene( event )
 	 		end
 	 	end
 	end
+
 	if correctCount == attemptCount then
 		bg = display.newImage("images/gjeebg.png", centerX,centerY+30)
 		bg:scale(0.7,0.7)
@@ -58,15 +59,17 @@ function scene:createScene( event )
 		bg:scale(0.7,0.7)
 		screenGroup:insert(bg)
 	end
-	local reward = display.newText("You answered "..correctCount.." out of "..attemptCount.." questions correctly!", centerX+70,centerY,300,0,"Comic Relief", 30)
-	reward:setFillColor(0)
-	screenGroup:insert(reward)
 
-	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
-	continue:scale(0.3,0.3)
+	explosion = display.newImage("images/explosion.png",centerX,centerY)
+	explosion:scale(0.2,0.2)
+	screenGroup:insert(explosion)
 
-	continue:addEventListener("tap", goNext)
-	screenGroup:insert(continue)
+	timer1 = timer.performWithDelay(50,boom,20)
+
+	local function myFunction()
+		addImages(screenGroup)
+	end
+	timer.performWithDelay(3000,myFunction)
 	
 end
 
@@ -90,7 +93,23 @@ function scene:destroyScene( event )
 end
 
 
-function moveCatListener(event) --sample listener
+function addImages(n) --sample listener
+	local screenGroup = n
+	--screenGroup:remove(explosion)
+
+	local reward = display.newText("You answered "..correctCount.." out of "..attemptCount.." questions correctly!", centerX+70,centerY,300,0,"Comic Relief", 30)
+	reward:setFillColor(0)
+	screenGroup:insert(reward)
+
+	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
+	continue:scale(0.3,0.3)
+
+	continue:addEventListener("tap", goNext)
+	screenGroup:insert(continue)
+end
+
+function boom()
+	explosion:scale(1.15,1.15)
 end
 
 ---------------------------------------------------------------------------------
