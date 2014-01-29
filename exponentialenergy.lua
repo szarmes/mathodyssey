@@ -94,6 +94,7 @@ end
 function goHome()
 	round = -1
 	questionCount = 0
+	cancelZoomTimers()
 	storyboard.purgeScene("exponentialenergy")
 	storyboard.gotoScene( "menu")
 end
@@ -264,7 +265,7 @@ function showChoices(n)
 	
 	answer = display.newText(exponent,b[1],centerY+100, 125,0, "Comic Relief", 36)
 	answer:setFillColor(0)
-	local function listener()
+	function listener()
 		correctResponseListener(screenGroup)
 	end
 	answer:addEventListener("tap", listener)
@@ -273,7 +274,7 @@ function showChoices(n)
 	answer1 = nil
 	answer1 = display.newText(answer1Text,b[2],centerY+100,125,0, "Comic Relief", 36)
 	answer1:setFillColor(0,0,0)
-	local function listener1()
+	function listener1()
 		incorrectResponseListener1(screenGroup)
 	end
 	answer1:addEventListener("tap", listener1)
@@ -282,7 +283,7 @@ function showChoices(n)
 	answer2 = nil
 	answer2 = display.newText(answer2Text,b[3],centerY+100,125,0, "Comic Relief", 36)
 	answer2:setFillColor(0,0,0)
-	local function listener2()
+	function listener2()
 		incorrectResponseListener2(screenGroup)
 	end
 	answer2:addEventListener("tap", listener2)
@@ -291,7 +292,7 @@ function showChoices(n)
 	answer3 = nil
 	answer3 = display.newText(answer3Text,b[4],centerY+100,125,0, "Comic Relief", 36)
 	answer3:setFillColor(0,0,0)
-	local function listener3()
+	function listener3()
 		incorrectResponseListener3(screenGroup)
 	end
 	answer3:addEventListener("tap", listener3)
@@ -353,11 +354,27 @@ function displayNumbers(n)
 	
 end
 
-function correctResponseListener()
+function correctResponseListener(n)
+	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	storeEE1(1,totalTime,exponent,exponent,round)
 	questionCount = questionCount + 1
-	storyboard.purgeScene("exponentialenergy")
+
+	screenGroup:remove(questionMarkText)
+	questionMarkText =display.newText( exponent, qL.x+qL.width/2 + 5, centerY-50, "Comic Relief", 24 )
+	questionMarkText:setFillColor(0)
+	screenGroup:insert(questionMarkText)
+
+	local zoomOutFunction = function() timer2 = timer.performWithDelay(50,zoomQout,4) end
+	local zoomInFunction = function() timer3 = timer.performWithDelay(50,zoomQin,5) 
+	timer4 = timer.performWithDelay(500,zoomOutFunction) end 
+	zoomInFunction()
+
+	timer5 = timer.performWithDelay(3000,correctResponseListener2)
+end
+
+function correctResponseListener2()
+	--storyboard.purgeScene("exponentialenergy")
 	storyboard.gotoScene("goodjob")
 end
 
@@ -366,6 +383,7 @@ function incorrectResponseListener1(n)
 	questionCount = questionCount + 1
 	storeEE1(0,totalTime,exponent,answer1Text,round)
 	answer1:setFillColor(1,0,0)
+	answer1:removeEventListener("tap", listener1)
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end
@@ -375,6 +393,7 @@ function incorrectResponseListener2(n)
 	questionCount = questionCount + 1
 	storeEE1(0,totalTime,exponent,answer2Text,round)
 	answer2:setFillColor(1,0,0)
+	answer2:removeEventListener("tap", listener2)
 
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
@@ -385,6 +404,7 @@ function incorrectResponseListener3(n)
 	questionCount = questionCount + 1
 	storeEE1(0,totalTime,exponent,answer3Text,round)
 	answer3:setFillColor(1,0,0)
+	answer3:removeEventListener("tap", listener3)
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end
@@ -408,6 +428,9 @@ function cancelZoomTimers()
 	end
 	if timer4~=nil then
 		timer.cancel(timer4)
+	end
+	if timer5~=nil then
+		timer.cancel(timer5)
 	end
 
 end
