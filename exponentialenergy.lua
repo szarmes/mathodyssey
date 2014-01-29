@@ -55,29 +55,30 @@ function scene:enterScene( event )
 		round = -1
 		questionCount = 0
 		storyboard.gotoScene("showeescore" )
-	end
+	else
 
-	if round == -1 then
-		for row in db:nrows("SELECT * FROM eeScore ORDER BY id DESC") do
-		  round = row.round+1
-		  break
+		if round == -1 then
+			for row in db:nrows("SELECT * FROM eeScore ORDER BY id DESC") do
+			  round = row.round+1
+			  break
+			end
 		end
-	end
 
-	local screenGroup = self.view
-	generateAnswers()
-	generateAnswerText()
-	displayNumbers(screenGroup)
-	instructions3 = "In this case the exponent is "..exponent..", since  "..number.. " appears in this repeated multiplication of itself "..exponent.." times."	
-	if exponent == 0 then
-		number = 1
-		instructions3 = "In this case the exponent is "..exponent..", since any number with an exponent of 0 equals 1."
+		local screenGroup = self.view
+		generateAnswers()
+		generateAnswerText()
+		displayNumbers(screenGroup)
+		instructions3 = "In this case the exponent is "..exponent..", since  "..number.. " appears in this repeated multiplication of itself "..exponent.." times."	
+		if exponent == 0 then
+			number = 1
+			instructions3 = "In this case the exponent is "..exponent..", since any number with an exponent of 0 equals 1."
+		end
+		if exponent == 1 then
+			number = math.random(2,5)
+			instructions3 = "In this case the exponent is "..exponent..", since numbers with an exponent of 1 do not change."
+		end
+		newQuestion(screenGroup)
 	end
-	if exponent == 1 then
-		number = math.random(2,5)
-		instructions3 = "In this case the exponent is "..exponent..", since numbers with an exponent of 1 do not change."
-	end
-	newQuestion(screenGroup)
 end
 
 
@@ -337,7 +338,7 @@ function displayNumbers(n)
 		qR =display.newText( " = "..number, centerX+qL.width/2 + 25, centerY-40, "Comic Relief", 30 )
 	end
 	questionMarkText =display.newText( "?", qL.x+qL.width/2 + 5, centerY-50, "Comic Relief", 24 )
-	if first == false then
+	if first == false and exponent>1 then
 		solution = display.newText(" = "..number ^ exponent, centerX + qL.width/2 +25 + qR.width, centerY-40, "Comic Relief", 30)
 		solution:setFillColor(0)
 		screenGroup:insert(solution)
@@ -353,7 +354,7 @@ end
 
 function correctResponseListener()
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	--storeEE1(1,totalTime,exponent,exponent,nil,nil,round)
+	storeEE1(1,totalTime,exponent,exponent,round)
 	questionCount = questionCount + 1
 	storyboard.purgeScene("exponentialenergy")
 	storyboard.gotoScene("goodjob")
@@ -362,7 +363,7 @@ end
 function incorrectResponseListener1(n)
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	questionCount = questionCount + 1
-	--storeEE1(0,totalTime,exponent,answer1Text,nil,nil,round)
+	storeEE1(0,totalTime,exponent,answer1Text,round)
 	answer1:setFillColor(1,0,0)
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
@@ -371,7 +372,7 @@ end
 function incorrectResponseListener2(n)
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	questionCount = questionCount + 1
-	--storeEE1(0,totalTime,exponent,answer2Text,nil,nil,round)
+	storeEE1(0,totalTime,exponent,answer2Text,round)
 	answer2:setFillColor(1,0,0)
 
 	--storyboard.purgeScene("exponentialenergy")
@@ -381,7 +382,7 @@ end
 function incorrectResponseListener3(n)
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	questionCount = questionCount + 1
-	--storeEE1(0,totalTime,exponent,answer3Text,nil,nil,round)
+	storeEE1(0,totalTime,exponent,answer3Text,round)
 	answer3:setFillColor(1,0,0)
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")

@@ -42,13 +42,13 @@ function scene:createScene( event )
 		break
 	end
 	for row in db:nrows("SELECT * FROM eeScore") do
- 	if row.round == round then
- 		attemptCount = attemptCount+1
- 		if row.correct == 1 then
- 			correctCount= correctCount+1
- 		end
- 	end
-end
+	 	if row.round == round then
+	 		attemptCount = attemptCount+1
+	 		if row.correct == 1 then
+	 			correctCount= correctCount+1
+	 		end
+	 	end
+	end
 	display.setDefault( "background", 1, 1, 1 )
 	local reward = display.newText("You answered "..correctCount.." out of "..attemptCount.." questions correctly!", centerX+70,centerY,300,0,"Comic Relief", 30)
 	reward:setFillColor(0)
