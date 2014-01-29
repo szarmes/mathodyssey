@@ -372,7 +372,7 @@ function correctResponseListener(n)
 	timer4 = timer.performWithDelay(500,zoomOutFunction) end 
 	zoomInFunction()
 
-	timer5 = timer.performWithDelay(3000,correctResponseListener2)
+	timer5 = timer.performWithDelay(2000,correctResponseListener2)
 end
 
 function correctResponseListener2()

@@ -38,7 +38,7 @@ end
 
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )
-	endSceneTimer = timer.performWithDelay( 1000, continue, 1 )	--after 4 seconds, go to menu
+	endSceneTimer = timer.performWithDelay( 1500, continue, 1 )	--after 4 seconds, go to menu
 end
 
 
