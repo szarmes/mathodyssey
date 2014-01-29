@@ -17,7 +17,7 @@ local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 
 local function continue()
-	storyboard.gotoScene( "menu", "fade", 1000 )
+	storyboard.gotoScene( "menu", "fade", 750 )
 end
 
 
@@ -29,7 +29,7 @@ function scene:createScene( event )
 	bg:scale(0.7,0.7)
 	screenGroup:insert(bg)
 	local image = display.newImage( "images/splash.png", centerX, centerY )
-	image:scale(0.6,0.6)
+	image:scale(0.9,0.9)
 	screenGroup:insert( image )
 	
 	--image.touch = onSceneTouch

@@ -39,13 +39,13 @@ function scene:createScene( event )
 	bg:scale(0.7,0.7)
 	screenGroup:insert(bg)
 
-	play = display.newImage("images/play.png", 30 ,centerY)
+	play = display.newImage("images/play.png", 0 ,centerY)
 	play:scale(0.7,0.6)
 	play:addEventListener("tap",goToPlay)
 	play.anchorX = 0
 	screenGroup:insert(play)
 
-	howtoplay = display.newImage("images/Tutorial.png", -32 ,centerY+70)
+	howtoplay = display.newImage("images/tutorial.png", -32 ,centerY+70)
 	howtoplay:scale(0.6,0.6)
 	howtoplay:addEventListener("tap",goToTutorials)
 	howtoplay.anchorX = 0
@@ -57,7 +57,7 @@ function scene:createScene( event )
 	create.anchorX = 1
 	screenGroup:insert(create)
 
-	about = display.newImage("images/about.png", display.contentWidth+40 ,centerY+70)
+	about = display.newImage("images/about.png", display.contentWidth+25 ,centerY+70)
 	about:scale(0.6,0.6)
 	about.anchorX = 1
 	screenGroup:insert(about)
@@ -65,7 +65,7 @@ function scene:createScene( event )
 	
 
 	title = display.newImage("images/splash.png", centerX,centerY-100)
-	title:scale(0.7,0.7)
+	title:scale(0.8,0.8)
 	screenGroup:insert(title)
 
 	settings = display.newImage("images/settings.png",0,display.contentHeight-30)

@@ -276,7 +276,7 @@ function correctResponseListener()
 end
 
 function generateAnswers()
-	r3 = math.abs(r1-r2)
+	r3 = math.abs(r1/30-r2/30)*30
 	r31 = r3+math.random(-4,4)*30
 	while r31<0 or r31 == r3 do
 		r31 = r3+math.random(-4,4)*30
