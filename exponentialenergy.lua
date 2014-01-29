@@ -228,16 +228,16 @@ function newSceneListener()
 end
 
 function generateAnswers()
-	number = math.random(1,5)
+	number = math.random(2,10)
 	exponent = math.random(0,3)
 	if exponent == 0 then
 		number = 1
 	elseif exponent == 1 then
-		number = number +1
+		number = number + 1
 	end
 	equals = number
 	if exponent == 0 then
-		equals = math.random(10,50)
+		equals = math.random(1, 20)
 	end
 	
 end
@@ -328,21 +328,27 @@ function displayNumbers(n)
 	qLtemp = display.newText(equals,-100,-100,"Comic Relief",30)
 	screenGroup:insert(qLtemp)
 
-	qL = display.newText(equals,centerX-qLtemp.width-40,centerY-40,"Comic Relief",30)
+	qL = display.newText(equals,centerX-qLtemp.width-20,centerY-40,"Comic Relief",30)
 	if exponent==3 then
-		qR =display.newText( " = "..number.."x"..number.."x"..number, centerX+qL.width/2 + 25, centerY-40, "Comic Relief", 30 )
+		qR =display.newText( " = "..number.."x"..number.."x"..number, centerX+qL.width/2 + 5, centerY-40, "Comic Relief", 30 )
 	elseif exponent==2 then
 		qR =display.newText( " = "..number.."x"..number, centerX+qL.width/2 + 25, centerY-40, "Comic Relief", 30 )
 	else
 		qR =display.newText( " = "..number, centerX+qL.width/2 + 25, centerY-40, "Comic Relief", 30 )
 	end
 	questionMarkText =display.newText( "?", qL.x+qL.width/2 + 5, centerY-50, "Comic Relief", 24 )
+	if first == false then
+		solution = display.newText(" = "..number ^ exponent, centerX + qL.width/2 +25 + qR.width, centerY-40, "Comic Relief", 30)
+		solution:setFillColor(0)
+		screenGroup:insert(solution)
+	end
 	qL:setFillColor(0)
 	qR:setFillColor(0)
 	questionMarkText:setFillColor(0)
 	screenGroup:insert(questionMarkText)
 	screenGroup:insert(qL)
 	screenGroup:insert(qR)
+	
 end
 
 function correctResponseListener()
@@ -358,6 +364,8 @@ function incorrectResponseListener1(n)
 	questionCount = questionCount + 1
 	--storeEE1(0,totalTime,exponent,answer1Text,nil,nil,round)
 	answer1:setFillColor(1,0,0)
+	storyboard.purgeScene("exponentialenergy")
+	storyboard.gotoScene("tryagain")
 end
 
 function incorrectResponseListener2(n)
@@ -366,13 +374,17 @@ function incorrectResponseListener2(n)
 	--storeEE1(0,totalTime,exponent,answer2Text,nil,nil,round)
 	answer2:setFillColor(1,0,0)
 
+	storyboard.purgeScene("exponentialenergy")
+	storyboard.gotoScene("tryagain")
 end
+
 function incorrectResponseListener3(n)
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	questionCount = questionCount + 1
 	--storeEE1(0,totalTime,exponent,answer3Text,nil,nil,round)
 	answer3:setFillColor(1,0,0)
-	
+	storyboard.purgeScene("exponentialenergy")
+	storyboard.gotoScene("tryagain")
 end
 
 function zoomQin()

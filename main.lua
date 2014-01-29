@@ -16,6 +16,7 @@ physics.setGravity(0,0) --dont want gravity... might want it later but not yet
 
 local storyboard = require( "storyboard" )
 --storyboard.gotoScene( "splash", "fade", 1000 ) --start the splash screen with a 2 second fade animation
+<<<<<<< HEAD
 --Setup the table if it doesn't exist
 local tablesetup = [[CREATE TABLE IF NOT EXISTS timeTrialsScore (id INTEGER PRIMARY KEY, correct INTEGER, 
 		time INTEGER, correctHa INTEGER, correctMa INTEGER, chosenHa INTEGER, chosenMa INTEGER, 
@@ -29,6 +30,9 @@ db:exec( tablesetup1 )
 
 
 storyboard.gotoScene( "exponentialenergy")
+=======
+storyboard.gotoScene( "splash")
+>>>>>>> 9d6c290ae1a9aa0f4e1b12d5934f9f4ea5273962
 
 
 --[[for row in db:nrows("SELECT * FROM timeTrialsScore ORDER BY id DESC;") do
