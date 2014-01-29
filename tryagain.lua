@@ -33,13 +33,18 @@ function scene:createScene( event )
 		screenGroup:insert(bg)
 		correctText = "Clock 2 was "..answerText.." ahead of Clock 1." 
 		answerText = nil
+	end 
+	if storyboard.getPrevious() == "exponentialenergy" then
+		bg = display.newImage("images/taeebg.png", centerX,centerY+30)
+		bg:scale(0.7,0.7)
+		screenGroup:insert(bg)
 	end	
 	display.setDefault( "background", 1, 1, 1 )
-	local reward = display.newText("Sorry, that was incorrect.", centerX,centerY,400,0,"Comic Relief", 30)
+	local reward = display.newText("Sorry, that was incorrect.", centerX,centerY-100,400,0,"Comic Relief", 30)
 	reward:setFillColor(0)
 	screenGroup:insert(reward)
 	if (correctText ~= nil) then
-		correction = display.newText(correctText, centerX+200, centerY + 50,600,0, "Comic Relief", 30)
+		correction = display.newText(correctText, centerX+100, centerY,600,0, "Comic Relief", 30)
 		correction:setFillColor(0)
 		screenGroup:insert(correction)
 	end
@@ -49,7 +54,7 @@ end
 
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )
-	timer.performWithDelay(1000,continue,1)
+	timer.performWithDelay(3000,continue,1)
 end
 
 

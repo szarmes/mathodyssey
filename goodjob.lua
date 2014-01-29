@@ -30,6 +30,11 @@ function scene:createScene( event )
 		bg = display.newImage("images/ttbg.png", centerX,centerY+30)
 		bg:scale(0.7,0.7)
 		screenGroup:insert(bg)
+	end 
+	if storyboard.getPrevious() == "exponentialenergy" then
+		bg = display.newImage("images/gjeebg.png", centerX,centerY+30)
+		bg:scale(0.7,0.7)
+		screenGroup:insert(bg)
 	end	
 	display.setDefault( "background", 1, 1, 1 )
 	local reward = display.newText("Good Job!", centerX+70,centerY,300,0,"Comic Relief", 30)

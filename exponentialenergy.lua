@@ -27,7 +27,9 @@ local equals
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
 	local screenGroup = self.view
-	display.setDefault( "background", 1, 1, 1 )
+	bg = display.newImage("images/eebg.png", centerX,centerY+30)
+	bg:scale(0.6,0.6)
+	screenGroup:insert(bg)
 	if (first) then
 		myText = display.newText( instructions, centerX, centerY+120,500,200, "Comic Relief", 20 )
 		myText:setFillColor(0)
@@ -54,7 +56,7 @@ function scene:enterScene( event )
 	if questionCount>=3 then
 		round = -1
 		questionCount = 0
-		storyboard.gotoScene("showeescore" )
+		storyboard.gotoScene("showeescore", "fade", 200)
 	else
 
 		if round == -1 then

@@ -49,7 +49,15 @@ function scene:createScene( event )
 	 		end
 	 	end
 	end
-	display.setDefault( "background", 1, 1, 1 )
+	if attemptCount < 4 then
+		bg = display.newImage("images/gjeebg.png", centerX,centerY+30)
+		bg:scale(0.7,0.7)
+		screenGroup:insert(bg)
+	else 
+		bg = display.newImage("images/taeebg.png", centerX,centerY+30)
+		bg:scale(0.7,0.7)
+		screenGroup:insert(bg)
+	end
 	local reward = display.newText("You answered "..correctCount.." out of "..attemptCount.." questions correctly!", centerX+70,centerY,300,0,"Comic Relief", 30)
 	reward:setFillColor(0)
 	screenGroup:insert(reward)
