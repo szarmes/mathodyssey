@@ -28,13 +28,8 @@ local tablesetup1 = [[CREATE TABLE IF NOT EXISTS eeScore (id INTEGER PRIMARY KEY
 db:exec( tablesetup1 )
 
 
-<<<<<<< HEAD
---storyboard.gotoScene( "exponentialenergy")
-storyboard.gotoScene( "splash")
-=======
 storyboard.gotoScene( "exponentialenergy")
 --storyboard.gotoScene( "splash","fade",500)
->>>>>>> duncan
 
 
 
