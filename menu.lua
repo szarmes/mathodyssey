@@ -39,8 +39,8 @@ function scene:createScene( event )
 	bg:scale(0.7,0.7)
 	screenGroup:insert(bg)
 
-	play = display.newImage("images/play.png", -20 ,centerY)
-	play:scale(0.6,0.6)
+	play = display.newImage("images/play.png", 30 ,centerY)
+	play:scale(0.7,0.6)
 	play:addEventListener("tap",goToPlay)
 	play.anchorX = 0
 	screenGroup:insert(play)
