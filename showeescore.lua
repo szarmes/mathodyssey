@@ -49,7 +49,7 @@ function scene:createScene( event )
 	 		end
 	 	end
 	end
-	if attemptCount < 4 then
+	if correctCount == attemptCount then
 		bg = display.newImage("images/gjeebg.png", centerX,centerY+30)
 		bg:scale(0.7,0.7)
 		screenGroup:insert(bg)
