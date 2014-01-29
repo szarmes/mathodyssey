@@ -29,7 +29,7 @@ db:exec( tablesetup1 )
 
 
 storyboard.gotoScene( "exponentialenergy")
---storyboard.gotoScene( "splash")
+--storyboard.gotoScene( "splash","fade",500)
 
 
 

@@ -20,7 +20,7 @@ local centerY = display.contentCenterY
 
 
 function goToPlay()
-	storyboard.gotoScene("exponentialenergy")
+	storyboard.gotoScene("timetrials")
 end
 
 

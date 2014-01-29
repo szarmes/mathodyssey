@@ -27,7 +27,7 @@ local minutetime
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 local instructions = "Welcome to the Time Trials! In this level, your task is to figure out the amount of time that has passed from Clock 1 to Clock 2, using your addition and subtraction skills!"
-local instructions1 = "Start by finding the time on each clock. To find the number of hours look at what the shorter hand in pointing to."
+local instructions1 = "Start by finding the time on each clock. To find the number of hours look at what the shorter hand is pointing to."
 local instructions2 = "Then find the number of minutes by multiplying the number the longer hand points to by 5."
 local instructions3
 local instructions4 = "One way to find the answer is to count how many hours and minutes are between the times in Clock 1 and Clock 2 ."
