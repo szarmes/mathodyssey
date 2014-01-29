@@ -20,11 +20,9 @@ local centerY = display.contentCenterY
 
 
 function goToPlay()
-<<<<<<< HEAD
-	storyboard.gotoScene("play")
-=======
+
+
 	storyboard.gotoScene("timetrials")
->>>>>>> duncan
 end
 
 
