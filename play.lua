@@ -16,19 +16,44 @@ storyboard.removeAll()
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 
-local function continue()
-	storyboard.gotoScene( "menu", "fade", 1000 )
+local function goTott() --play timetrials
+	storyboard.purgeAll()
+	storyboard.gotoScene("timetrials")
 end
 
+local function goToee() --play exponential energy
+	storyboard.purgeAll()
+	storyboard.gotoScene( "exponentialenergy" )
+end
+
+local function goHome() --go back to the menu
+	storyboard.gotoScene("menu")
+end
 
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
 	local screenGroup = self.view
-	cat = display.newImage( "images/cat.png", centerX, centerY )
-	cat:scale(0.1,0.1)
-	Runtime:addEventListener("touch",moveCatListener)
-	screenGroup:insert( cat )
-	
+
+	bg = display.newImage("images/bg.png", centerX,centerY+30)
+	bg:scale(0.7,0.7)
+	screenGroup:insert(bg)
+
+	local tt = display.newImage("images/time-trials.png", -20,centerY-120)
+	tt:scale(0.3,0.3)
+	tt:addEventListener("tap", goTott)
+	tt.anchorX = 0
+	screenGroup:insert(tt)
+
+	local ee = display.newImage("images/exponential-energy.png", -20,centerY-90)
+	ee:scale(0.3,0.3)
+	ee:addEventListener("tap", goToee)
+	ee.anchorX = 0
+	screenGroup:insert(ee)
+
+	home = display.newImage("images/home.png",display.contentWidth,30)
+	home:scale(0.3,0.3)
+	home:addEventListener("tap", goHome)
+	screenGroup:insert(home)
 end
 
 
@@ -47,12 +72,6 @@ end
 -- Called prior to the removal of scene's "view" (display group)
 function scene:destroyScene( event )
 	
-end
-
-
-function moveCatListener(event) --sample listener
-	cat.xOrigin =event.x
-	cat.yOrigin = event.y
 end
 
 ---------------------------------------------------------------------------------

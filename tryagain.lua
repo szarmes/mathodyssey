@@ -8,6 +8,7 @@
 local storyboard = require( "storyboard" )
 local scene = storyboard.newScene()
 storyboard.removeAll()
+local TAanswerText = ""
 
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
@@ -24,18 +25,25 @@ end
 
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
-	storyboard.purgeScene(storyboard.getPrevious())
 	local screenGroup = self.view
+	local correctText = nil
 	if storyboard.getPrevious() == "timetrials" then
 		bg = display.newImage("images/ttbg.png", centerX,centerY+30)
 		bg:scale(0.7,0.7)
 		screenGroup:insert(bg)
+		correctText = "Clock 2 was "..answerText.." ahead of Clock 1." 
+		answerText = nil
 	end	
 	display.setDefault( "background", 1, 1, 1 )
 	local reward = display.newText("Sorry, that was incorrect.", centerX,centerY,400,0,"Comic Relief", 30)
 	reward:setFillColor(0)
 	screenGroup:insert(reward)
-	
+	if (correctText ~= nil) then
+		correction = display.newText(correctText, centerX+200, centerY + 50,600,0, "Comic Relief", 30)
+		correction:setFillColor(0)
+		screenGroup:insert(correction)
+	end
+	storyboard.purgeScene(storyboard.getPrevious())
 end
 
 

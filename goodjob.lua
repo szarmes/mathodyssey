@@ -35,7 +35,6 @@ function scene:createScene( event )
 	local reward = display.newText("Good Job!", centerX+70,centerY,300,0,"Comic Relief", 30)
 	reward:setFillColor(0)
 	screenGroup:insert(reward)
-	
 end
 
 

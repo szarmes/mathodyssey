@@ -20,7 +20,7 @@ local centerY = display.contentCenterY
 
 
 function goToPlay()
-	storyboard.gotoScene("exponentialenergy")
+	storyboard.gotoScene("play")
 end
 
 
@@ -37,26 +37,33 @@ function scene:createScene( event )
 	bg:scale(0.7,0.7)
 	screenGroup:insert(bg)
 
-	play = display.newImage("images/play.png", display.contentWidth-buttonXOffset,centerY-100)
-	play:scale(0.7,0.7)
+	play = display.newImage("images/play.png", -20 ,centerY)
+	play:scale(0.6,0.6)
 	play:addEventListener("tap",goToPlay)
+	play.anchorX = 0
 	screenGroup:insert(play)
 
-	about = display.newImage("images/about.png", display.contentWidth-buttonXOffset,centerY-30)
-	about:scale(0.6,0.6)
-	screenGroup:insert(about)
-
-	create = display.newImage("images/create.png", display.contentWidth-buttonXOffset,centerY+40)
-	create:scale(0.6,0.6)
-	screenGroup:insert(create)
-
-	howtoplay = display.newImage("images/how-to-play.png", display.contentWidth-buttonXOffset,centerY+110)
-	howtoplay:scale(0.4,0.4)
+	howtoplay = display.newImage("images/Tutorial.png", -32 ,centerY+70)
+	howtoplay:scale(0.6,0.6)
 	howtoplay:addEventListener("tap",goToTutorials)
+	howtoplay.anchorX = 0
 	screenGroup:insert(howtoplay)
 
-	title = display.newImage("images/splash.png", buttonXOffset,centerY-100)
-	title:scale(0.3,0.3)
+
+	create = display.newImage("images/create.png", display.contentWidth+40 ,centerY)
+	create:scale(0.6,0.6)
+	create.anchorX = 1
+	screenGroup:insert(create)
+
+	about = display.newImage("images/about.png", display.contentWidth+40 ,centerY+70)
+	about:scale(0.6,0.6)
+	about.anchorX = 1
+	screenGroup:insert(about)
+
+	
+
+	title = display.newImage("images/splash.png", centerX,centerY-100)
+	title:scale(0.7,0.7)
 	screenGroup:insert(title)
 
 	settings = display.newImage("images/settings.png",0,display.contentHeight-30)

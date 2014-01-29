@@ -8,6 +8,7 @@
 local storyboard = require( "storyboard" )
 local widget = require( "widget" )
 require "dbFile"
+local tryAgain = require("tryagain")
 
 local scene = storyboard.newScene()
 storyboard.removeAll()
@@ -37,24 +38,18 @@ end
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
 	storyboard.reloadScene()
-	local screenGroup = self.view
-	
+	storyboard.purgeScene("tryagain")
+	local screenGroup = self.view	
 	bg = display.newImage("images/ttbg.png", centerX,centerY+30)
 	bg:scale(0.7,0.7)
 	screenGroup:insert(bg)
-
 	if (first) then
 		myText = display.newText( instructions, centerX, centerY+140,500,200, "Comic Relief", 16 )
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
 	end
-
 	newQuestion(screenGroup)
 	displayClocks(screenGroup)
-
-	
-	
-	--image.touch = onSceneTouch
 end
 
 
@@ -138,7 +133,6 @@ function displayClocks(n)
 	screenGroup:insert(home)
 
 	rotate()
-
 end
 
 
@@ -174,9 +168,6 @@ function newQuestion(n) -- this will make a new question
 	else 
 		showChoices(screenGroup)
 	end
-
-
-
 end
 
 function makeFirstDisappear(n)
@@ -197,7 +188,6 @@ function showAnswer(n)
 	go:addEventListener("tap", newSceneListener)
 	screenGroup:insert(go)
 
-
 end
 
 function showChoices(n)
@@ -217,6 +207,7 @@ function showChoices(n)
 		count=count-1
 	end
 	generateAnswerText()
+	tryAgain.TAanswerText = answerText
 	answer = display.newText(answerText,b[1],centerY+100, 125,0, "Comic Relief", 16)
 	answer:setFillColor(0)
 	answer:addEventListener("tap", correctResponseListener)
@@ -259,7 +250,6 @@ function incorrectResponseListener1(n)
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	storeTimeTrials(0,totalTime,ha,ma,ha1,ma1,r1,r2,round)
 	questionCount = questionCount + 1
-	storyboard.purgeScene("timetrials")
 	storyboard.gotoScene("tryagain")
 end
 
@@ -267,14 +257,13 @@ function incorrectResponseListener2(n)
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	storeTimeTrials(0,totalTime,ha,ma,ha2,ma2,r1,r2,round)
 	questionCount = questionCount + 1
-	storyboard.purgeScene("timetrials")
 	storyboard.gotoScene("tryagain")
 end
+
 function incorrectResponseListener3(n)
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	storeTimeTrials(0,totalTime,ha,ma,ha3,ma3,r1,r2,round)
 	questionCount = questionCount + 1
-	storyboard.purgeScene("timetrials")
 	storyboard.gotoScene("tryagain")
 end
 
@@ -307,8 +296,6 @@ function generateAnswers()
 	ma2 = math.abs(math.abs(r32) -(ha2*60)) --minutes answer
 	ha3 = math.abs(math.floor(math.abs(r33)/60)) --hours answer
 	ma3 = math.abs(math.abs(r33) -(ha3*60)) --minutes answer
-
-
 
 end
 

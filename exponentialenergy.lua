@@ -94,6 +94,7 @@ end
 function goHome()
 	round = -1
 	questionCount = 0
+	storyboard.purgeScene("exponentialenergy")
 	storyboard.gotoScene( "menu")
 end
 
