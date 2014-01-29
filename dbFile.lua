@@ -19,14 +19,24 @@ Runtime:addEventListener( "system", onSystemEvent )
 
 function storeTimeTrials(correct,time, correctHa, correctMa, chosenHa, chosenMa, r1,r2,round)
 
-	--Setup the table if it doesn't exist
-	local tablesetup = [[CREATE TABLE IF NOT EXISTS timeTrialsScore (id INTEGER PRIMARY KEY, correct INTEGER, 
-		time INTEGER, correctHa INTEGER, correctMa INTEGER, chosenHa INTEGER, chosenMa INTEGER, 
-		r1 INTEGER, r2 INTEGER, round INTEGER);]]
-	db:exec( tablesetup )
-
 	local tablefill =[[INSERT INTO timeTrialsScore VALUES (NULL, ']]..correct..[[',']]..time..[[',']]..correctHa..
 		[[',']]..correctMa..[[',']]..chosenHa..[[',']]..chosenMa..[[',']]..r1..[[',']]..r2..[[',']]..round..[['); ]]
+	db:exec( tablefill )
+
+end
+
+function storeEE1(correct,time, correcte, chosene, round)
+
+	local tablefill =[[INSERT INTO eeScore VALUES (NULL, ']]..correct..[[',']]..time..[[',']]..correcte..
+		[[',']]..chosene..[[',NULL, NULL, ']]..round..[['); ]]
+	db:exec( tablefill )
+
+end
+
+function storeEE2(correct,time, correctnum, chosennum, round)
+
+	local tablefill =[[INSERT INTO eeScore VALUES (NULL, ']]..correct..[[',']]..time..[[',NULL, NULL, ']]..correctnum..
+		[[',']]..chosenum..[[',']]..round..[['); ]]
 	db:exec( tablefill )
 
 end

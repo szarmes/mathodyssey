@@ -6,6 +6,7 @@
 
 local storyboard = require( "storyboard" )
 local scene = storyboard.newScene()
+require "dbFile"
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------
@@ -50,6 +51,19 @@ end
 
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )
+	if questionCount>=3 then
+		round = -1
+		questionCount = 0
+		storyboard.gotoScene("showeescore" )
+	end
+
+	if round == -1 then
+		for row in db:nrows("SELECT * FROM eeScore ORDER BY id DESC") do
+		  round = row.round+1
+		  break
+		end
+	end
+
 	local screenGroup = self.view
 	generateAnswers()
 	generateAnswerText()
@@ -78,6 +92,7 @@ function scene:destroyScene( event )
 end
 function goHome()
 	round = -1
+	questionCount = 0
 	storyboard.gotoScene( "menu")
 end
 
@@ -332,7 +347,7 @@ end
 
 function correctResponseListener()
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	--storeTimeTrials(1,totalTime,ha,ma,ha,ma,r1,r2,round)
+	--storeEE1(1,totalTime,exponent,exponent,nil,nil,round)
 	questionCount = questionCount + 1
 	storyboard.purgeScene("exponentialenergy")
 	storyboard.gotoScene("goodjob")
@@ -341,18 +356,21 @@ end
 function incorrectResponseListener1(n)
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	questionCount = questionCount + 1
+	--storeEE1(0,totalTime,exponent,answer1Text,nil,nil,round)
 	answer1:setFillColor(1,0,0)
 end
 
 function incorrectResponseListener2(n)
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	questionCount = questionCount + 1
+	--storeEE1(0,totalTime,exponent,answer2Text,nil,nil,round)
 	answer2:setFillColor(1,0,0)
 
 end
 function incorrectResponseListener3(n)
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	questionCount = questionCount + 1
+	--storeEE1(0,totalTime,exponent,answer3Text,nil,nil,round)
 	answer3:setFillColor(1,0,0)
 	
 end

@@ -16,6 +16,18 @@ physics.setGravity(0,0) --dont want gravity... might want it later but not yet
 
 local storyboard = require( "storyboard" )
 --storyboard.gotoScene( "splash", "fade", 1000 ) --start the splash screen with a 2 second fade animation
+--Setup the table if it doesn't exist
+local tablesetup = [[CREATE TABLE IF NOT EXISTS timeTrialsScore (id INTEGER PRIMARY KEY, correct INTEGER, 
+		time INTEGER, correctHa INTEGER, correctMa INTEGER, chosenHa INTEGER, chosenMa INTEGER, 
+		r1 INTEGER, r2 INTEGER, round INTEGER);]]
+db:exec( tablesetup )
+
+--Setup the table if it doesn't exist
+local tablesetup1 = [[CREATE TABLE IF NOT EXISTS eeScore (id INTEGER PRIMARY KEY, correct INTEGER, 
+	time INTEGER, correcte INTEGER, chosene INTEGER, correctnum INTEGER, chosennum INTEGER, round INTEGER);]]
+db:exec( tablesetup1 )
+
+
 storyboard.gotoScene( "exponentialenergy")
 
 
