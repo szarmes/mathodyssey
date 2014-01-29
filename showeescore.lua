@@ -14,7 +14,7 @@ require "exponentialenergy"
 local attemptCount=0
 local correctCount=0
 
-
+local explosionSound = audio.loadStream("sounds/explosion.wav")
 
   
 ---------------------------------------------------------------------------------
@@ -65,6 +65,7 @@ function scene:createScene( event )
 	screenGroup:insert(explosion)
 
 	timer1 = timer.performWithDelay(50,boom,20)
+	playExplosion()
 
 	local function myFunction()
 		addImages(screenGroup)
@@ -110,6 +111,12 @@ end
 
 function boom()
 	explosion:scale(1.15,1.15)
+end
+
+function playExplosion()
+	audio.play(explosionSound)
+	
+
 end
 
 ---------------------------------------------------------------------------------
