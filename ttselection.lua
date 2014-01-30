@@ -39,31 +39,31 @@ end
 function scene:createScene( event )
 	local screenGroup = self.view
 
-	bg = display.newImage("images/bg.png", centerX,centerY+30)
-	bg:scale(0.7,0.7)
+	bg = display.newImage("images/bg.png", centerX,centerY+30*yscale)
+	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 
-	local tt1 = display.newImage("images/time-trials.png", -20,centerY-120)
-	tt1:scale(0.3,0.3)
+	local tt1 = display.newImage("images/time-trials.png", -10*xscale,centerY-120*yscale)
+	tt1:scale(0.3*xscale,0.3*yscale)
 	tt1:addEventListener("tap", goTott1)
 	tt1.anchorX = 0
 	screenGroup:insert(tt1)
 
-	local tt2 = display.newImage("images/time-trials.png", -20,centerY-90)
-	tt2:scale(0.3,0.3)
+	local tt2 = display.newImage("images/time-trials.png", -10*xscale,centerY-90*yscale)
+	tt2:scale(0.3*xscale,0.3*yscale)
 	tt2:addEventListener("tap", goTott2)
 	tt2.anchorX = 0
 	screenGroup:insert(tt2)
 	
-	local tt3 = display.newImage("images/time-trials.png", -20,centerY-60)
-	tt3:scale(0.3,0.3)
+	local tt3 = display.newImage("images/time-trials.png", -10*xscale,centerY-60*yscale)
+	tt3:scale(0.3*xscale,0.3*yscale)
 	tt3:addEventListener("tap", goTott3)
 	tt3.anchorX = 0
 	screenGroup:insert(tt3)
 
 
-	home = display.newImage("images/home.png",display.contentWidth,30)
-	home:scale(0.3,0.3)
+	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
+	home:scale(0.3*xscale,0.3*yscale)
 	home:addEventListener("tap", goHome)
 	screenGroup:insert(home)
 end

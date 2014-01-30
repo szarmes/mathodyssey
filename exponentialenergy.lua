@@ -27,11 +27,11 @@ local equals
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
 	local screenGroup = self.view
-	bg = display.newImage("images/eebg.png", centerX,centerY+30)
-	bg:scale(0.6,0.6)
+	bg = display.newImage("images/eebg.png", centerX,centerY+30*yscale)
+	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 	if (first) then
-		myText = display.newText( instructions, centerX, centerY+120,500,200, "Comic Relief", 20 )
+		myText = display.newText( instructions, centerX, centerY+120,450*xscale,200*yscale, "Comic Relief", 20 )
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
 	end
@@ -43,8 +43,8 @@ function scene:createScene( event )
 	--Runtime:addEventListener("touch",moveCatListener)
 	--screenGroup:insert( background )
 
-	home = display.newImage("images/home.png",display.contentWidth,30)
-	home:scale(0.3,0.3)
+	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
+	home:scale(0.3*xscale,0.3*yscale)
 	home:addEventListener("tap", goHome)
 	screenGroup:insert(home)
 
@@ -105,8 +105,8 @@ function newQuestion(n)
 	local screenGroup = n
 
 	if (first) then
-		continue = display.newImage("images/continue.png", centerX+200, centerY+140)
-		continue:scale(0.3,0.3)
+		continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+		continue:scale(0.3*xscale,0.3*yscale)
 		local myFunction = function() makeFirstDisappear(screenGroup) end
 		continue:addEventListener("tap", myFunction)
 		screenGroup:insert(continue)
@@ -122,16 +122,16 @@ function makeFirstDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions1, centerX, centerY+120,500,200, "Comic Relief", 20 )
+	myText = display.newText( instructions1, centerX, centerY+120*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
-	pointer = display.newImage("images/exppointer.png",centerX+qL.width+50,centerY-70)
+	pointer = display.newImage("images/exppointer.png",centerX+(qL.width+50)*xscale,centerY-70*yscale)
 	screenGroup:insert(pointer)
 
 	local myFunction = function() makeSecondDisappear(screenGroup) end
-	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
-	continue:scale(0.3,0.3)
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
 
 	continue:addEventListener("tap", myFunction)
 	screenGroup:insert(continue)
@@ -146,7 +146,7 @@ function makeSecondDisappear(n)
 	local screenGroup = n
 	cancelZoomTimers()
 	screenGroup:remove(questionMarkText)
-	questionMarkText =display.newText( "?", qL.x+qL.width/2 + 5, centerY-50, "Comic Relief", 24 )
+	questionMarkText =display.newText( "?", centerX-(qLtemp.width+20)*xscale, centerY-50*yscale, "Comic Relief", 24 )
 	screenGroup:insert(questionMarkText)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
@@ -155,26 +155,26 @@ function makeSecondDisappear(n)
 	qR:setFillColor(0,0,0,0)
 	questionMarkText:setFillColor(0,0,0,0)
 
-	myText = display.newText( instructions2, centerX, centerY+120,500,200, "Comic Relief", 20 )
+	myText = display.newText( instructions2, centerX, centerY+120,450*xscale,200*yscale, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
-	zeroLeft =display.newText( "Number", centerX-70, centerY-80, "Comic Relief", 30 )
+	zeroLeft =display.newText( "Number", centerX-70*xscale, centerY-80*yscale, "Comic Relief", 30 )
 	zeroLeft:setFillColor(0)
-	zeroQuestionMark =display.newText( "0", zeroLeft.x+zeroLeft.width/2 + 5, centerY-90, "Comic Relief", 24 )
+	zeroQuestionMark =display.newText( "0", centerX, centerY-90*yscale, "Comic Relief", 24 )
 	zeroQuestionMark:setFillColor(0)
-	zeroRight = display.newText( " = 1", centerX-70+zeroLeft.width/2 + 30, centerY-80, "Comic Relief", 30 )
+	zeroRight = display.newText( " = 1", centerX+20*xscale, centerY-80*yscale, "Comic Relief", 30 )
 	zeroRight:setFillColor(0)
 
 	screenGroup:insert(zeroLeft)
 	screenGroup:insert(zeroQuestionMark)
 	screenGroup:insert(zeroRight)
 
-	oneLeft =display.newText( "Number", centerX-100, centerY-20, "Comic Relief", 30 )
+	oneLeft =display.newText( "Number", centerX-70*xscale, centerY-20*yscale, "Comic Relief", 30 )
 	oneLeft:setFillColor(0)
-	oneQuestionMark =display.newText( "1", oneLeft.x+oneLeft.width/2 + 5, centerY-30, "Comic Relief", 24 )
+	oneQuestionMark =display.newText( "1", centerX, centerY-30*yscale, "Comic Relief", 24 )
 	oneQuestionMark:setFillColor(0)
-	oneRight = display.newText( " = Number", centerX-100+oneLeft.width/2 + 80, centerY-20, "Comic Relief", 30 )
+	oneRight = display.newText( " = Number", centerX+80*xscale, centerY-20*yscale, "Comic Relief", 30 )
 	oneRight:setFillColor(0)
 
 	screenGroup:insert(oneLeft)
@@ -182,8 +182,8 @@ function makeSecondDisappear(n)
 	screenGroup:insert(oneRight)
 
 	local myFunction = function() makeThirdDisappear(screenGroup) end
-	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
-	continue:scale(0.3,0.3)
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
 
 	continue:addEventListener("tap", myFunction)
 	screenGroup:insert(continue)
@@ -206,20 +206,20 @@ function makeThirdDisappear(n)
 	qL:setFillColor(0)
 	qR:setFillColor(0)
 
-	questionMarkText =display.newText( exponent, qL.x+qL.width/2 + 5, centerY-50, "Comic Relief", 24 )
+	questionMarkText =display.newText( exponent, centerX-(qLtemp.width+20)*xscale, centerY-50*yscale, "Comic Relief", 24 )
 	questionMarkText:setFillColor(0)
 	screenGroup:insert(questionMarkText)
 
 
 
 
-	myText = display.newText( instructions3, centerX, centerY+120,500,200, "Comic Relief", 20 )
+	myText = display.newText( instructions3, centerX, centerY+120,450*xscale,200*yscale, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
 	first = false
-	go = display.newImage("images/go.png", centerX+200, centerY+120)
-	go:scale(0.5,0.5)
+	go = display.newImage("images/go.png", centerX+200*xscale, centerY+120*yscale)
+	go:scale(0.5*xscale,0.5*yscale)
 	go:addEventListener("tap", newSceneListener)
 	screenGroup:insert(go)
 
@@ -250,22 +250,23 @@ end
 function showChoices(n)
 	local screenGroup = n
 	startTime = system.getTimer()
-	questionText =display.newText( "What is the exponent?", centerX, centerY+120,500,200, "Comic Relief", 20 )
+	questionText =display.newText( "What is the exponent?", centerX, centerY+120,450*xscale,200*yscale, "Comic Relief", 20 )
 	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
 	
-	a={75,200,320,450}
+	a={-175,-50,75,200}
 	b = {}
 	count = 4
 
 	while (count>0) do --randomize the array of x values
 		local r = math.random(1,count)
-		b[count] = a[r]
+		b[count] = centerX+a[r]*xscale
 		table.remove(a, r)
 		count=count-1
 	end
+	generateAnswerText()
 	
-	answer = display.newText(exponent,b[1],centerY+100, 125,0, "Comic Relief", 36)
+	answer = display.newText(exponent,b[1],centerY+100*yscale, 125*xscale,0, "Comic Relief", 30)
 	answer:setFillColor(0)
 	function listener()
 		correctResponseListener(screenGroup)
@@ -273,8 +274,8 @@ function showChoices(n)
 	answer:addEventListener("tap", listener)
 	screenGroup:insert(answer)
 
-	
-	answer1 = display.newText(answer1Text,b[2],centerY+100,125,0, "Comic Relief", 36)
+	answer1 = nil
+	answer1 = display.newText(answer1Text,b[2],centerY+100*yscale,125*xscale,0, "Comic Relief", 30)
 	answer1:setFillColor(0,0,0)
 	local function listener1()
 		incorrectResponseListener1(screenGroup)
@@ -282,8 +283,8 @@ function showChoices(n)
 	answer1:addEventListener("tap", listener1)
 	screenGroup:insert(answer1)
 
-	
-	answer2 = display.newText(answer2Text,b[3],centerY+100,125,0, "Comic Relief", 36)
+	answer2 = nil
+	answer2 = display.newText(answer2Text,b[3],centerY+100*yscale,125*xscale,0, "Comic Relief", 30)
 	answer2:setFillColor(0,0,0)
 	local function listener2()
 		incorrectResponseListener2(screenGroup)
@@ -291,15 +292,14 @@ function showChoices(n)
 	answer2:addEventListener("tap", listener2)
 	screenGroup:insert(answer2)
 
-	
-	answer3 = display.newText(answer3Text,b[4],centerY+100,125,0, "Comic Relief", 36)
+	answer3 = nil
+	answer3 = display.newText(answer3Text,b[4],centerY+100*yscale,125*xscale,0, "Comic Relief", 30)
 	answer3:setFillColor(0,0,0)
 	local function listener3()
 		incorrectResponseListener3(screenGroup)
 	end
 	answer3:addEventListener("tap", listener3)
 	screenGroup:insert(answer3)
-
 
 end
 
@@ -333,17 +333,17 @@ function displayNumbers(n)
 	qLtemp = display.newText(equals,-100,-100,"Comic Relief",30)
 	screenGroup:insert(qLtemp)
 
-	qL = display.newText(equals,centerX-qLtemp.width-40,centerY-40,"Comic Relief",30)
+	qL = display.newText(equals,centerX-(qLtemp.width+40)*xscale,centerY-40*yscale,"Comic Relief",30)
 	if exponent==3 then
-		qR =display.newText( " = "..number.."x"..number.."x"..number, centerX+qL.width/2 + 5, centerY-40, "Comic Relief", 30 )
+		qR =display.newText( " = "..number.."x"..number.."x"..number, (centerX+qL.width/2 + 50)*xscale, centerY-40*yscale, "Comic Relief", 30 )
 	elseif exponent==2 then
-		qR =display.newText( " = "..number.."x"..number, centerX+qL.width/2 + 25, centerY-40, "Comic Relief", 30 )
+		qR =display.newText( " = "..number.."x"..number, (centerX+qL.width/2 + 25)*xscale, centerY-40*yscale, "Comic Relief", 30 )
 	else
-		qR =display.newText( " = "..number, centerX+qL.width/2 + 25, centerY-40, "Comic Relief", 30 )
+		qR =display.newText( " = "..number, (centerX+qL.width/2 + 25)*xscale, centerY-40*yscale, "Comic Relief", 30 )
 	end
-	questionMarkText =display.newText( "?", qL.x+qL.width/2 + 5, centerY-50, "Comic Relief", 24 )
+	questionMarkText =display.newText( "?", centerX-(qLtemp.width+20)*xscale, centerY-50*yscale, "Comic Relief", 24 )
 	if first == false and exponent>1 then
-		solution = display.newText(" = "..number ^ exponent, centerX + qL.width/2 +25 + qR.width, centerY-40, "Comic Relief", 30)
+		solution = display.newText(" = "..number ^ exponent, (centerX +qL.width/2 +25 + qR.width)*xscale, centerY-40*yscale, "Comic Relief", 30)
 		solution:setFillColor(0)
 		screenGroup:insert(solution)
 	end
@@ -363,7 +363,7 @@ function correctResponseListener(n)
 	questionCount = questionCount + 1
 
 	screenGroup:remove(questionMarkText)
-	questionMarkText =display.newText( exponent, qL.x+qL.width/2 + 5, centerY-50, "Comic Relief", 24 )
+	questionMarkText =display.newText( exponent, centerX-(qLtemp.width+20)*xscale, centerY-50*yscale, "Comic Relief", 24 )
 	questionMarkText:setFillColor(0)
 	screenGroup:insert(questionMarkText)
 
@@ -373,13 +373,13 @@ function correctResponseListener(n)
 	zoomInFunction()
 
 	removeAnswers(screenGroup)
-	local reward = display.newText("Good Job!", centerX+70,centerY+50,300,0,"Comic Relief", 30)
+	local reward = display.newText("Good Job!", centerX+70*xscale,centerY+50,300,0,"Comic Relief", 30)
 	reward:setFillColor(0)
 	screenGroup:insert(reward)
 
 	local myFunction = function() newSceneListener() end
-	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
-	continue:scale(0.3,0.3)
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
 
 	continue:addEventListener("tap", myFunction)
 	screenGroup:insert(continue)
@@ -462,13 +462,13 @@ end
 function wrongAnswer(n)
 	local screenGroup = n
 	removeAnswers(screenGroup)
-	questionText =display.newText( "Oops, the correct answer was", centerX, centerY+140,500,200, "Comic Relief", 20 )
+	questionText =display.newText( "Oops, the correct answer was", centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
 	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
 
 	local myFunction = function() newSceneListener() end
-	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
-	continue:scale(0.3,0.3)
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
 
 	continue:addEventListener("tap", myFunction)
 	screenGroup:insert(continue)

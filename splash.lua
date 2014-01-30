@@ -25,11 +25,12 @@ end
 function scene:createScene( event )
 	local screenGroup = self.view
 	
-	bg = display.newImage("images/splashbg.png", centerX,centerY+30)
-	bg:scale(0.7,0.7)
+	bg = display.newImage("images/splashbg.png", centerX,centerY+(30*yscale))
+	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
+
 	local image = display.newImage( "images/splash.png", centerX, centerY )
-	image:scale(0.9,0.9)
+	image:scale(0.9*xscale,0.9*yscale)
 	screenGroup:insert( image )
 	
 	--image.touch = onSceneTouch

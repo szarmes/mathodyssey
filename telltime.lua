@@ -46,23 +46,19 @@ end
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
 	storyboard.reloadScene()
-	local screenGroup = self.view
-	bg = display.newImage("images/ttbg.png", centerX,centerY+30)
-	bg:scale(0.7,0.7)
+	storyboard.purgeScene("tryagain")
+	local screenGroup = self.view	
+	bg = display.newImage("images/ttbg.png", centerX,centerY+30*yscale)
+	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
-	display.setDefault( "background", 1, 1, 1 )
-
 	if (first) then
-		myText = display.newText( instructions, centerX, centerY+140,500,200, "Comic Relief", 20 )
+		myText = display.newText( instructions, centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
 	end
-
 	newQuestion(screenGroup)
 	displayClocks(screenGroup)
 	generateAnswers()
-
-	--image.touch = onSceneTouch
 end
 
 
@@ -96,30 +92,30 @@ end
 
 function displayClocks(n)
 	local screenGroup = n
-	clock1 = display.newImage("images/clock.png", centerX, centerY-60)
-	clock1:scale(0.7,0.7)
+	clock1 = display.newImage("images/clock.png", centerX, centerY-60*yscale)
+	clock1:scale(0.7*xscale,0.7*yscale)
 	screenGroup:insert(clock1)
 
-	pm1 = display.newText("PM",centerX+80,centerY, "Comic Relief", 20)
+	pm1 = display.newText("PM",centerX+80*xscale,centerY, "Comic Relief", 20)
 	pm1:setFillColor(0)
 	screenGroup:insert(pm1)
 
-	minute1 = display.newImage(minute, centerX, centerY-60, "Comic Relief", 20)
-	minute1:scale(0.8,0.8)
+	minute1 = display.newImage(minute, centerX, centerY-60*yscale, "Comic Relief", 20)
+	minute1:scale(0.8*xscale,0.8*yscale)
 	minute1.anchorY = 1
 	screenGroup:insert(minute1)
 
-	hour1 = display.newImage(hour, centerX, centerY-60)
-	hour1:scale(0.6,0.6)
+	hour1 = display.newImage(hour, centerX, centerY-60*yscale)
+	hour1:scale(0.6*xscale,0.6*yscale)
 	hour1.anchorY = 1
 	screenGroup:insert(hour1)
 
-	title1 = display.newText( "Clock 1", centerX-80, centerY-140, "Comic Relief", 20 )
+	title1 = display.newText( "Clock 1", centerX-80*xscale, centerY-140*yscale, "Comic Relief", 20 )
 	title1:setFillColor(0)
 	screenGroup:insert(title1)
 
-	home = display.newImage("images/home.png",display.contentWidth,30)
-	home:scale(0.3,0.3)
+	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
+	home:scale(0.3*xscale,0.3*yscale)
 	home:addEventListener("tap", goHome)
 	screenGroup:insert(home)
 
@@ -157,8 +153,8 @@ function newQuestion(n) -- this will make a new question
 
 	if (first) then
 		local myFunction = function() makeFirstDisappear(screenGroup) end
-		continue = display.newImage("images/continue.png", centerX+200, centerY+140)
-		continue:scale(0.3,0.3)
+		continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+		continue:scale(0.3*xscale,0.3*yscale)
 
 		continue:addEventListener("tap", myFunction)
 		screenGroup:insert(continue)
@@ -175,13 +171,13 @@ function makeFirstDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions1, centerX, centerY+140,500,200, "Comic Relief", 20 )
+	myText = display.newText( instructions1, centerX, centerY+140,450*xscale,200*yscale, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
 	local myFunction = function() makeSecondDisappear(screenGroup) end
-	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
-	continue:scale(0.3,0.3)
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
 
 	continue:addEventListener("tap", myFunction)
 	screenGroup:insert(continue)
@@ -193,13 +189,13 @@ function makeSecondDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions2, centerX, centerY+140,500,200, "Comic Relief", 20 )
+	myText = display.newText( instructions2, centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
 	local myFunction = function() makeThirdDisappear(screenGroup) end
-	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
-	continue:scale(0.3,0.3)
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
 
 	continue:addEventListener("tap", myFunction)
 	screenGroup:insert(continue)
@@ -211,13 +207,13 @@ function makeThirdDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions3, centerX, centerY+140,500,200, "Comic Relief", 20 )
+	myText = display.newText( instructions3, centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
 	local myFunction = function() makeFourthDisappear(screenGroup) end
-	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
-	continue:scale(0.3,0.3)
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
 
 	continue:addEventListener("tap", myFunction)
 	screenGroup:insert(continue)
@@ -229,13 +225,13 @@ function makeFourthDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions4, centerX, centerY+140,500,200, "Comic Relief", 20 )
+	myText = display.newText( instructions4, centerX, centerY+140,450*xscale,200*yscale, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
 	local myFunction = function() makeFifthDisappear(screenGroup) end
-	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
-	continue:scale(0.3,0.3)
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
 
 	continue:addEventListener("tap", myFunction)
 	screenGroup:insert(continue)
@@ -247,13 +243,13 @@ function makeFifthDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions5, centerX, centerY+140,500,200, "Comic Relief", 20 )
+	myText = display.newText( instructions5, centerX, centerY+140,450*xscale,200*yscale, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
 	local myFunction = function() makeSixthDisappear(screenGroup) end
-	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
-	continue:scale(0.3,0.3)
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
 
 	continue:addEventListener("tap", myFunction)
 	screenGroup:insert(continue)
@@ -265,13 +261,13 @@ function makeSixthDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions6, centerX, centerY+140,500,200, "Comic Relief", 20 )
+	myText = display.newText( instructions6, centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
 	local myFunction = function() makeSeventhDisappear(screenGroup) end
-	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
-	continue:scale(0.3,0.3)
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
 
 	continue:addEventListener("tap", myFunction)
 	screenGroup:insert(continue)
@@ -283,13 +279,13 @@ function makeSeventhDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions7, centerX, centerY+140,500,200, "Comic Relief", 20 )
+	myText = display.newText( instructions7, centerX, centerY+140,450*xscale,200*yscale, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
 	first = false
-	go = display.newImage("images/go.png", centerX+200, centerY+120)
-	go:scale(0.5,0.5)
+	go = display.newImage("images/go.png", centerX+200*xscale, centerY+120*yscale)
+	go:scale(0.5*xscale,0.5*yscale)
 	go:addEventListener("tap", newSceneListener)
 	screenGroup:insert(go)
 end
@@ -300,21 +296,22 @@ end
 function showChoices(n)
 	local screenGroup = n
 	startTime = system.getTimer()
-	questionText =display.newText( "What time is it?", centerX, centerY+140,500,200, "Comic Relief", 20 )
+	questionText =display.newText( "What time is it?", centerX, centerY+140,450*xscale,200*yscale, "Comic Relief", 20 )
 	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
-	a={50,175,300,425}
+	a={-175,-50,75,200}
 	b = {}
 	count = 4
 
 	while (count>0) do --randomize the array of x values
 		local r = math.random(1,count)
-		b[count] = a[r]
+		b[count] = centerX+a[r]*xscale
 		table.remove(a, r)
 		count=count-1
 	end
 	generateAnswerText()
-	answer = display.newText(answerText,b[1],centerY+100, 125,0, "Comic Relief", 16)
+	
+	answer = display.newText(answerText,b[1],centerY+100, 125*xscale,0, "Comic Relief", 16)
 	answer:setFillColor(0)
 	function listener()
 		correctResponseListener(screenGroup)
@@ -323,7 +320,7 @@ function showChoices(n)
 	screenGroup:insert(answer)
 
 	answer1 = nil
-	answer1 = display.newText(answer1Text,b[2],centerY+100,125,0, "Comic Relief", 16)
+	answer1 = display.newText(answer1Text,b[2],centerY+100,125*xscale,0, "Comic Relief", 16)
 	answer1:setFillColor(0,0,0)
 	local function listener1()
 		incorrectResponseListener1(screenGroup)
@@ -332,7 +329,7 @@ function showChoices(n)
 	screenGroup:insert(answer1)
 
 	answer2 = nil
-	answer2 = display.newText(answer2Text,b[3],centerY+100,125,0, "Comic Relief", 16)
+	answer2 = display.newText(answer2Text,b[3],centerY+100,125*xscale,0, "Comic Relief", 16)
 	answer2:setFillColor(0,0,0)
 	local function listener2()
 		incorrectResponseListener2(screenGroup)
@@ -341,7 +338,7 @@ function showChoices(n)
 	screenGroup:insert(answer2)
 
 	answer3 = nil
-	answer3 = display.newText(answer3Text,b[4],centerY+100,125,0, "Comic Relief", 16)
+	answer3 = display.newText(answer3Text,b[4],centerY+100,125*xscale,0, "Comic Relief", 16)
 	answer3:setFillColor(0,0,0)
 	local function listener3()
 		incorrectResponseListener3(screenGroup)
@@ -386,13 +383,13 @@ function correctResponseListener(n)
 	storeTimeTrials(1,totalTime,ha,ma,ha,ma,r1,r2,round,1)
 	questionCount = questionCount + 1
 	removeAnswers(screenGroup)
-	local reward = display.newText("Good Job!", centerX+70,centerY+50,300,0,"Comic Relief", 30)
+	local reward = display.newText("Good Job!", centerX+70*xscale,centerY+50*yscale,300*xscale,0,"Comic Relief", 30)
 	reward:setFillColor(0)
 	screenGroup:insert(reward)
 
 	local myFunction = function() newSceneListener() end
-	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
-	continue:scale(0.3,0.3)
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+	continue:scale(0.3*xscale,0.3)
 
 	continue:addEventListener("tap", myFunction)
 	screenGroup:insert(continue)
@@ -466,13 +463,13 @@ end
 function wrongAnswer(n)
 	local screenGroup = n
 	removeAnswers(screenGroup)
-	questionText =display.newText( "Oops, the correct answer was", centerX, centerY+140,500,200, "Comic Relief", 20 )
+	questionText =display.newText( "Oops, the correct answer was", centerX, centerY+140*xscale,450*xscale,200*yscale, "Comic Relief", 20 )
 	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
 
 	local myFunction = function() newSceneListener() end
-	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
-	continue:scale(0.3,0.3)
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
 
 	continue:addEventListener("tap", myFunction)
 	screenGroup:insert(continue)

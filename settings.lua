@@ -27,16 +27,16 @@ end
 function scene:createScene( event )
 	local screenGroup = self.view
 
-	bg = display.newImage("images/bg.png", centerX,centerY+30)
-	bg:scale(0.7,0.7)
+	bg = display.newImage("images/bg.png", centerX,centerY+30*yscale)
+	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 
-	title = display.newImage("images/splash.png", centerX,centerY-100)
-	title:scale(0.8,0.8)
+	title = display.newImage("images/splash.png", centerX,centerY-100*yscale)
+	title:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(title)
 	
-	home = display.newImage("images/home.png",0,display.contentHeight-40)
-	home:scale(0.3,0.3)
+	home = display.newImage("images/home.png",20*xscale,centerY+130*yscale)
+	home:scale(0.3*xscale,0.3*yscale)
 	home:addEventListener("tap", goHome)
 	screenGroup:insert(home)
 
@@ -45,8 +45,8 @@ function scene:createScene( event )
 	-- Create the widget
 	local sfxmuteSwitch = widget.newSwitch
 	{
-	    left = 200,
-	    top = 140,
+	    left = centerX-40,
+	    top = centerY-15,
 	    style = "onOff",
 	    id = "sfxmuteSwitch",
 	   	onPress = onsfxPress
@@ -55,8 +55,8 @@ function scene:createScene( event )
 
 	local musicmuteSwitch = widget.newSwitch
 	{
-	    left = 200,
-	    top = 190,
+	    left = centerX-40,
+	    top = centerY+30*yscale,
 	    style = "onOff",
 	    id = "musicmuteSwitch",
 	    onPress = onmusicPress
@@ -64,17 +64,17 @@ function scene:createScene( event )
 	screenGroup:insert(musicmuteSwitch)
 
 	sfxon = display.newImage("images/SFX-On.png", centerX-100,centerY)
-	sfxon:scale(0.3,0.3)
+	sfxon:scale(0.3*xscale,0.3*yscale)
 	screenGroup:insert(sfxon)
 	sfxoff = display.newImage("images/SFX-Off.png", centerX+100,centerY)
-	sfxoff:scale(0.3,0.3)
+	sfxoff:scale(0.3*xscale,0.3*yscale)
 	screenGroup:insert(sfxoff)
 
-	musicon = display.newImage("images/Music-On.png", centerX-100,centerY+50)
-	musicon:scale(0.3,0.3)
+	musicon = display.newImage("images/Music-On.png", centerX-100,centerY+50*yscale)
+	musicon:scale(0.3*xscale,0.3*yscale)
 	screenGroup:insert(musicon)
-	musicoff = display.newImage("images/Music-Off.png", centerX+100,centerY+50)
-	musicoff:scale(0.3,0.3)
+	musicoff = display.newImage("images/Music-Off.png", centerX+100,centerY+50*yscale)
+	musicoff:scale(0.3*xscale,0.3*yscale)
 	screenGroup:insert(musicoff)
 
 	--background = display.newImage("images/cat.jpg",centerX,centerY)

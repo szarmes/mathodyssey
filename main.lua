@@ -16,6 +16,8 @@ physics.setGravity(0,0) --dont want gravity... might want it later but not yet
 bgmusic = audio.loadStream("sounds/space.wav")
 sfxmuted = false
 musicmuted = false
+xscale = 1
+yscale = 1
 
 function mutesfx()
 	if sfxmuted == false then
@@ -36,6 +38,30 @@ function mutemusic()
 		musicmuted = false
 	end
 end
+
+function toScale()
+	local iphone5x = 640
+	local iphone5y = 1136
+	local x = display.pixelWidth
+	local y = display.pixelHeight
+	xscale = y/iphone5y		--opposite since this game is letterbox
+	yscale = x/iphone5x
+
+	if string.sub(system.getInfo("model"),1,4) == "iPad" and display.pixelHeight>1500 then
+		xscale = xscale/2
+		yscale = yscale/2
+	end
+	if string.sub(system.getInfo("model"),1,5) == "Droid" then
+		xscale = xscale*1.5
+		yscale = yscale*1.5
+	end
+	if string.sub(system.getInfo("model"),1,9) == "Nexus One" then
+		xscale = xscale*1.5
+		yscale = yscale*1.5
+	end
+end
+toScale()
+
 
 
 
@@ -64,12 +90,24 @@ db:exec( tablesetup1 )
 storyboard.gotoScene( "splash","fade",500)
 
 
-
 --[[for row in db:nrows("SELECT * FROM timeTrialsScore ORDER BY id DESC;") do
   local text = row.id.." "..row.correct.." "..row.time.." "..row.correctHa.." "..row.chosenHa.." "..row.round
   local t = display.newText(text, 20, -1200 + (20 * row.id), native.systemFont, 16)
   t:setFillColor(1,1,1)
-end]]
+end
+
+local t = display.newText(display.pixelHeight, 100, 100 , native.systemFont, 16)
+  t:setFillColor(1,1,1)
+
+  local t = display.newText(display.pixelWidth, 100, 140 , native.systemFont, 16)
+  t:setFillColor(1,1,1)
+
+  local t = display.newText(system.getInfo("model"), 100, 100 , native.systemFont, 16)
+  t:setFillColor(1,1,1)
+
+]]
+
+
 
 
 

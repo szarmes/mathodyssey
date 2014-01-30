@@ -40,11 +40,11 @@ function scene:createScene( event )
 	storyboard.reloadScene()
 	storyboard.purgeScene("tryagain")
 	local screenGroup = self.view	
-	bg = display.newImage("images/ttbg.png", centerX,centerY+30)
-	bg:scale(0.7,0.7)
+	bg = display.newImage("images/ttbg.png", centerX,centerY+30*yscale)
+	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 	if (first) then
-		myText = display.newText( instructions, centerX, centerY+140,500,200, "Comic Relief", 16 )
+		myText = display.newText( instructions, centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 16 )
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
 	end
@@ -83,58 +83,57 @@ end
 
 function displayClocks(n)
 	local screenGroup = n
-	clock1 = display.newImage("images/clock.png", centerX-120, centerY-60)
-	clock1:scale(0.7,0.7)
+	clock1 = display.newImage("images/clock.png", centerX-120*xscale, centerY-60*yscale)
+	clock1:scale(0.7*xscale,0.7*yscale)
 	screenGroup:insert(clock1)
 
-	pm1 = display.newText("PM",centerX-40,centerY, "Comic Relief", 20)
+	pm1 = display.newText("PM",centerX-40*xscale,centerY, "Comic Relief", 20)
 	pm1:setFillColor(0)
 	screenGroup:insert(pm1)
 
-	minute1 = display.newImage(minute, centerX-120, centerY-60, "Comic Relief", 20)
-	minute1:scale(0.8,0.8)
+	minute1 = display.newImage(minute, centerX-120*xscale, centerY-60*yscale, "Comic Relief", 20)
+	minute1:scale(0.8*xscale,0.8)
 	minute1.anchorY = 1
 	screenGroup:insert(minute1)
 
-	hour1 = display.newImage(hour, centerX-120, centerY-60)
-	hour1:scale(0.6,0.6)
+	hour1 = display.newImage(hour, centerX-120*xscale, centerY-60*yscale)
+	hour1:scale(0.6*xscale,0.6*yscale)
 	hour1.anchorY = 1
 	screenGroup:insert(hour1)
 
-	clock2 = display.newImage("images/clock.png", centerX+120, centerY-60)
-	clock2:scale(0.7,0.7)
+	clock2 = display.newImage("images/clock.png", centerX+120*xscale, centerY-60*yscale)
+	clock2:scale(0.7*xscale,0.7*yscale)
 	screenGroup:insert(clock2)
 
-	pm2 = display.newText("PM",centerX+200,centerY, "Comic Relief", 20)
+	pm2 = display.newText("PM",centerX+200*xscale,centerY, "Comic Relief", 20)
 	pm2:setFillColor(0)
 	screenGroup:insert(pm2)
 
-	minute2 = display.newImage(minute, centerX+120, centerY-60)
-	minute2:scale(0.8,0.8)
+	minute2 = display.newImage(minute, centerX+120*xscale, centerY-60*yscale)
+	minute2:scale(0.8*xscale,0.8*yscale)
 	minute2.anchorY = 1
 	screenGroup:insert(minute2)
 
-	hour2 = display.newImage(hour, centerX+120, centerY-60)
-	hour2:scale(0.6,0.6)
+	hour2 = display.newImage(hour, centerX+120*xscale, centerY-60*yscale)
+	hour2:scale(0.6*xscale,0.6*yscale)
 	hour2.anchorY = 1
 	screenGroup:insert(hour2)
 
-	title1 = display.newText( "Clock 1", centerX-200, centerY-140, "Comic Relief", 20 )
+	title1 = display.newText( "Clock 1", centerX-200*xscale, centerY-140*yscale, "Comic Relief", 20 )
 	title1:setFillColor(0)
 	screenGroup:insert(title1)
 
-	title2 = display.newText( "Clock 2", centerX+40, centerY-140, "Comic Relief", 20 )
+	title2 = display.newText( "Clock 2", centerX+40*xscale, centerY-140*yscale, "Comic Relief", 20 )
 	title2:setFillColor(0)
 	screenGroup:insert(title2)
 
-	home = display.newImage("images/home.png",display.contentWidth,30)
-	home:scale(0.3,0.3)
+	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
+	home:scale(0.3*xscale,0.3*yscale)
 	home:addEventListener("tap", goHome)
 	screenGroup:insert(home)
 
 	rotate()
 end
-
 
 function rotate() --set up the times
 	minute1:rotate(6*r1)
@@ -159,8 +158,8 @@ function newQuestion(n) -- this will make a new question
 
 	if (first) then
 		local myFunction = function() makeFirstDisappear(screenGroup) end
-		continue = display.newImage("images/continue.png", centerX+200, centerY+140)
-		continue:scale(0.3,0.3)
+		continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+		continue:scale(0.3*xscale,0.3*yscale)
 
 		continue:addEventListener("tap", myFunction)
 		screenGroup:insert(continue)
@@ -179,36 +178,37 @@ end
 
 function showAnswer(n)
 	local screenGroup = n
-	exampleText =display.newText( "In this case, Clock 2 is "..ha.." hours and "..ma.." minutes ahead of Clock 1", centerX, centerY+140,500,200, "Comic Relief", 20 )		
+	exampleText =display.newText( "In this case, Clock 2 is "..ha.." hours and "..ma.." minutes ahead of Clock 1", centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 20 )		
 	exampleText:setFillColor(0)
 	screenGroup:insert(exampleText)
 
-	go = display.newImage("images/go.png", centerX+200, centerY+120)
-	go:scale(0.5,0.5)
+	go = display.newImage("images/go.png", centerX+200*xscale, centerY+120*yscale)
+	go:scale(0.5*xscale,0.5*yscale)
 	go:addEventListener("tap", newSceneListener)
 	screenGroup:insert(go)
+
 
 end
 
 function showChoices(n)
 	local screenGroup = n
 	startTime = system.getTimer()
-	questionText =display.newText( "How far ahead of Clock 1 is Clock 2?", centerX, centerY+140,500,200, "Comic Relief", 20 )
+	questionText =display.newText( "How far ahead of Clock 1 is Clock 2?", centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
 	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
-	a={50,175,300,425}
+	a={-175,-50,75,200}
 	b = {}
 	count = 4
 
 	while (count>0) do --randomize the array of x values
 		local r = math.random(1,count)
-		b[count] = a[r]
+		b[count] = centerX+a[r]*xscale
 		table.remove(a, r)
 		count=count-1
 	end
 	generateAnswerText()
 	tryAgain.TAanswerText = answerText
-	answer = display.newText(answerText,b[1],centerY+100, 125,0, "Comic Relief", 16)
+	answer = display.newText(answerText,b[1],centerY+100, 125*xscale,0, "Comic Relief", 16)
 	answer:setFillColor(0)
 	function listener()
 		correctResponseListener(screenGroup)
@@ -216,7 +216,8 @@ function showChoices(n)
 	answer:addEventListener("tap", listener)
 	screenGroup:insert(answer)
 
-	answer1 = display.newText(answer1Text,b[2],centerY+100,125,0, "Comic Relief", 16)
+	answer1 = nil
+	answer1 = display.newText(answer1Text,b[2],centerY+100,125*xscale,0, "Comic Relief", 16)
 	answer1:setFillColor(0,0,0)
 	local function listener1()
 		incorrectResponseListener1(screenGroup)
@@ -224,8 +225,8 @@ function showChoices(n)
 	answer1:addEventListener("tap", listener1)
 	screenGroup:insert(answer1)
 
-	
-	answer2 = display.newText(answer2Text,b[3],centerY+100,125,0, "Comic Relief", 16)
+	answer2 = nil
+	answer2 = display.newText(answer2Text,b[3],centerY+100,125*xscale,0, "Comic Relief", 16)
 	answer2:setFillColor(0,0,0)
 	local function listener2()
 		incorrectResponseListener2(screenGroup)
@@ -233,7 +234,8 @@ function showChoices(n)
 	answer2:addEventListener("tap", listener2)
 	screenGroup:insert(answer2)
 
-	answer3 = display.newText(answer3Text,b[4],centerY+100,125,0, "Comic Relief", 16)
+	answer3 = nil
+	answer3 = display.newText(answer3Text,b[4],centerY+100,125*xscale,0, "Comic Relief", 16)
 	answer3:setFillColor(0,0,0)
 	local function listener3()
 		incorrectResponseListener3(screenGroup)
@@ -280,17 +282,16 @@ function correctResponseListener(n)
 	questionCount = questionCount + 1
 	removeAnswers(screenGroup)
 	
-	local reward = display.newText("Good Job!", centerX+70,centerY+50,300,0,"Comic Relief", 30)
+	local reward = display.newText("Good Job!", centerX+70*xscale,centerY+50*yscale,300*xscale,0,"Comic Relief", 30)
 	reward:setFillColor(0)
 	screenGroup:insert(reward)
 
 	local myFunction = function() newSceneListener() end
-	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
-	continue:scale(0.3,0.3)
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
 
 	continue:addEventListener("tap", myFunction)
 	screenGroup:insert(continue)
-
 	
 end
 
@@ -370,13 +371,13 @@ end
 function wrongAnswer(n)
 	local screenGroup = n
 	removeAnswers(screenGroup)
-	questionText =display.newText( "Oops, the correct answer was", centerX, centerY+140,500,200, "Comic Relief", 20 )
+	questionText =display.newText( "Oops, the correct answer was", centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
 	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
 
 	local myFunction = function() newSceneListener() end
-	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
-	continue:scale(0.3,0.3)
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
 
 	continue:addEventListener("tap", myFunction)
 	screenGroup:insert(continue)
