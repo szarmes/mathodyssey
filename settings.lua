@@ -51,6 +51,10 @@ function scene:createScene( event )
 	    id = "sfxmuteSwitch",
 	   	onPress = onsfxPress
 	}
+	if sfxmuted==true then
+		sfxmuteSwitch:setState({isOn = true})
+	end
+
 	screenGroup:insert(sfxmuteSwitch)
 
 	local musicmuteSwitch = widget.newSwitch
@@ -61,6 +65,9 @@ function scene:createScene( event )
 	    id = "musicmuteSwitch",
 	    onPress = onmusicPress
 	}
+	if musicmuted==true then
+		musicmuteSwitch:setState({isOn = true})
+	end
 	screenGroup:insert(musicmuteSwitch)
 
 	sfxon = display.newImage("images/SFX-On.png", centerX-100,centerY)
