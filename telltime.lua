@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------
 --
--- timetrials.lua
+-- telltime.lua
 --This scene is the time trial mini game
 --
 ---------------------------------------------------------------------------------
@@ -8,7 +8,7 @@
 local storyboard = require( "storyboard" )
 local widget = require( "widget" )
 require "dbFile"
-local tryAgain = require("tryagain")
+
 
 local scene = storyboard.newScene()
 storyboard.removeAll()
@@ -19,43 +19,56 @@ local r1 = 30%720 --rotations for clock1
 local r2 = 750%720 --rotations for clock2
 local first = true
 local round = -1
+ttcorrectCount = 0
 questionCount = 0
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------
-
+local hourtime 
+local minutetime
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
-local instructions = "Welcome to the Time Trials! In this level, your task is to figure out the amount of time that has passed from clock 1 to clock 2, using your addition and subtraction skills!"
-
+local instructions = "Welcome to the Time Trials! In this level, your task is to figure out what time it is!"
+local instructions1 = "The hour hand, which is the short one, tells you what hour of the day it is."
+local instructions2 = "The minute hand, the longer one, tells you how many minutes into that hour it is."
+local instructions3 = "Be careful, you need to multiply the number the minute hand points to by 5!"
+local instructions4 = "For instance, if the minute hand points to the 6, that means 30 minutes of that hour has passed."
+local instructions5 = "But, if the minute hand points straight up to 12 then 0 minutes have passed and the hour has just started."
+local instructions6
+local instructions7 = "It's easier than you think. Give it a shot!"
 
 local function goHome()
 	round = -1
-	questionCount = 0
-	storyboard.gotoScene( "menu")
+	ttcorrectCount = 0
+	storyboard.gotoScene( "menu" )
 end
 
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
 	storyboard.reloadScene()
-	storyboard.purgeScene("tryagain")
-	local screenGroup = self.view	
+	local screenGroup = self.view
 	bg = display.newImage("images/ttbg.png", centerX,centerY+30)
 	bg:scale(0.7,0.7)
 	screenGroup:insert(bg)
+	display.setDefault( "background", 1, 1, 1 )
+
 	if (first) then
-		myText = display.newText( instructions, centerX, centerY+140,500,200, "Comic Relief", 16 )
+		myText = display.newText( instructions, centerX, centerY+140,500,200, "Comic Relief", 20 )
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
 	end
+
 	newQuestion(screenGroup)
 	displayClocks(screenGroup)
 	generateAnswers()
+
+	--image.touch = onSceneTouch
 end
 
 
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )
+
 	if questionCount>=10 then
 		round = -1
 		questionCount = 0
@@ -83,56 +96,36 @@ end
 
 function displayClocks(n)
 	local screenGroup = n
-	clock1 = display.newImage("images/clock.png", centerX-120, centerY-60)
+	clock1 = display.newImage("images/clock.png", centerX, centerY-60)
 	clock1:scale(0.7,0.7)
 	screenGroup:insert(clock1)
 
-	pm1 = display.newText("PM",centerX-40,centerY, "Comic Relief", 20)
+	pm1 = display.newText("PM",centerX+80,centerY, "Comic Relief", 20)
 	pm1:setFillColor(0)
 	screenGroup:insert(pm1)
 
-	minute1 = display.newImage(minute, centerX-120, centerY-60, "Comic Relief", 20)
+	minute1 = display.newImage(minute, centerX, centerY-60, "Comic Relief", 20)
 	minute1:scale(0.8,0.8)
 	minute1.anchorY = 1
 	screenGroup:insert(minute1)
 
-	hour1 = display.newImage(hour, centerX-120, centerY-60)
+	hour1 = display.newImage(hour, centerX, centerY-60)
 	hour1:scale(0.6,0.6)
 	hour1.anchorY = 1
 	screenGroup:insert(hour1)
 
-	clock2 = display.newImage("images/clock.png", centerX+120, centerY-60)
-	clock2:scale(0.7,0.7)
-	screenGroup:insert(clock2)
-
-	pm2 = display.newText("PM",centerX+200,centerY, "Comic Relief", 20)
-	pm2:setFillColor(0)
-	screenGroup:insert(pm2)
-
-	minute2 = display.newImage(minute, centerX+120, centerY-60)
-	minute2:scale(0.8,0.8)
-	minute2.anchorY = 1
-	screenGroup:insert(minute2)
-
-	hour2 = display.newImage(hour, centerX+120, centerY-60)
-	hour2:scale(0.6,0.6)
-	hour2.anchorY = 1
-	screenGroup:insert(hour2)
-
-	title1 = display.newText( "Clock 1", centerX-200, centerY-140, "Comic Relief", 20 )
+	title1 = display.newText( "Clock 1", centerX-80, centerY-140, "Comic Relief", 20 )
 	title1:setFillColor(0)
 	screenGroup:insert(title1)
-
-	title2 = display.newText( "Clock 2", centerX+40, centerY-140, "Comic Relief", 20 )
-	title2:setFillColor(0)
-	screenGroup:insert(title2)
 
 	home = display.newImage("images/home.png",display.contentWidth,30)
 	home:scale(0.3,0.3)
 	home:addEventListener("tap", goHome)
 	screenGroup:insert(home)
 
+	
 	rotate()
+
 end
 
 
@@ -140,22 +133,27 @@ function rotate() --set up the times
 	minute1:rotate(6*r1)
 	hour1:rotate(0.5*r1)
 	
-	minute2:rotate(6*r2)
-	hour2:rotate(0.5*r2)
+	hourtime =(0.5*(r1))%12
+	minutetime = (6*(r1))%30
+	
 end
 
 
 function newQuestion(n) -- this will make a new question
 	local screenGroup = n
 	r1 = math.random(12)*30
-	r2 = math.random(23)*30
-	while (r2<=r1) do
-		r2 = math.random(23)*30
-	end
 
-	ha = math.abs(math.floor(math.abs(r1-r2)/60)) --hours answer
-	ma = math.abs(math.abs(r1-r2) -(ha*60)) --minutes answer
-	before = (r2<r1)
+	hourtime = math.floor(r1/60)%12
+	if hourtime == 0 then
+		hourtime = 12
+	end
+	if (r1/30)%2 == 0 then
+		instructions6 = "Using these rules you can see that it's "..hourtime..":".."00 pm. All questions will be in pm."
+	else 
+		instructions6 = "Using these rules you can see that it's \n"..hourtime..":".."30 pm. All questions will be in pm."
+	end
+	ha = math.abs(math.floor(math.abs(r1)/60)) --hours answer
+	ma = math.abs(math.abs(r1) -(ha*60)) --minutes answer
 
 	if (first) then
 		local myFunction = function() makeFirstDisappear(screenGroup) end
@@ -164,36 +162,145 @@ function newQuestion(n) -- this will make a new question
 
 		continue:addEventListener("tap", myFunction)
 		screenGroup:insert(continue)
-		first = false
 	else 
 		showChoices(screenGroup)
 	end
+
+
+
 end
 
 function makeFirstDisappear(n)
 	local screenGroup = n
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
-	showAnswer(screenGroup)
+
+	myText = display.newText( instructions1, centerX, centerY+140,500,200, "Comic Relief", 20 )
+	myText:setFillColor(0)
+	screenGroup:insert(myText)
+
+	local myFunction = function() makeSecondDisappear(screenGroup) end
+	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
+	continue:scale(0.3,0.3)
+
+	continue:addEventListener("tap", myFunction)
+	screenGroup:insert(continue)
+	--showAnswer(screenGroup)
 end
 
-function showAnswer(n)
+function makeSecondDisappear(n)
 	local screenGroup = n
-	exampleText =display.newText( "In this case, Clock 2 is "..ha.." hours and "..ma.." minutes ahead of Clock 1", centerX, centerY+140,500,200, "Comic Relief", 20 )		
-	exampleText:setFillColor(0)
-	screenGroup:insert(exampleText)
+	screenGroup:remove(myText)
+	screenGroup:remove(continue)
 
+	myText = display.newText( instructions2, centerX, centerY+140,500,200, "Comic Relief", 20 )
+	myText:setFillColor(0)
+	screenGroup:insert(myText)
+
+	local myFunction = function() makeThirdDisappear(screenGroup) end
+	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
+	continue:scale(0.3,0.3)
+
+	continue:addEventListener("tap", myFunction)
+	screenGroup:insert(continue)
+	--showAnswer(screenGroup)
+end
+
+function makeThirdDisappear(n)
+	local screenGroup = n
+	screenGroup:remove(myText)
+	screenGroup:remove(continue)
+
+	myText = display.newText( instructions3, centerX, centerY+140,500,200, "Comic Relief", 20 )
+	myText:setFillColor(0)
+	screenGroup:insert(myText)
+
+	local myFunction = function() makeFourthDisappear(screenGroup) end
+	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
+	continue:scale(0.3,0.3)
+
+	continue:addEventListener("tap", myFunction)
+	screenGroup:insert(continue)
+	--showAnswer(screenGroup)
+end
+
+function makeFourthDisappear(n)
+	local screenGroup = n
+	screenGroup:remove(myText)
+	screenGroup:remove(continue)
+
+	myText = display.newText( instructions4, centerX, centerY+140,500,200, "Comic Relief", 20 )
+	myText:setFillColor(0)
+	screenGroup:insert(myText)
+
+	local myFunction = function() makeFifthDisappear(screenGroup) end
+	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
+	continue:scale(0.3,0.3)
+
+	continue:addEventListener("tap", myFunction)
+	screenGroup:insert(continue)
+	--showAnswer(screenGroup)
+end
+
+function makeFifthDisappear(n)
+	local screenGroup = n
+	screenGroup:remove(myText)
+	screenGroup:remove(continue)
+
+	myText = display.newText( instructions5, centerX, centerY+140,500,200, "Comic Relief", 20 )
+	myText:setFillColor(0)
+	screenGroup:insert(myText)
+
+	local myFunction = function() makeSixthDisappear(screenGroup) end
+	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
+	continue:scale(0.3,0.3)
+
+	continue:addEventListener("tap", myFunction)
+	screenGroup:insert(continue)
+	--showAnswer(screenGroup)
+end
+
+function makeSixthDisappear(n)
+	local screenGroup = n
+	screenGroup:remove(myText)
+	screenGroup:remove(continue)
+
+	myText = display.newText( instructions6, centerX, centerY+140,500,200, "Comic Relief", 20 )
+	myText:setFillColor(0)
+	screenGroup:insert(myText)
+
+	local myFunction = function() makeSeventhDisappear(screenGroup) end
+	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
+	continue:scale(0.3,0.3)
+
+	continue:addEventListener("tap", myFunction)
+	screenGroup:insert(continue)
+	--showAnswer(screenGroup)
+end
+
+function makeSeventhDisappear(n)
+	local screenGroup = n
+	screenGroup:remove(myText)
+	screenGroup:remove(continue)
+
+	myText = display.newText( instructions7, centerX, centerY+140,500,200, "Comic Relief", 20 )
+	myText:setFillColor(0)
+	screenGroup:insert(myText)
+
+	first = false
 	go = display.newImage("images/go.png", centerX+200, centerY+120)
 	go:scale(0.5,0.5)
 	go:addEventListener("tap", newSceneListener)
 	screenGroup:insert(go)
-
 end
+
+
+
 
 function showChoices(n)
 	local screenGroup = n
 	startTime = system.getTimer()
-	questionText =display.newText( "How far ahead of Clock 1 is Clock 2?", centerX, centerY+140,500,200, "Comic Relief", 20 )
+	questionText =display.newText( "What time is it?", centerX, centerY+140,500,200, "Comic Relief", 20 )
 	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
 	a={50,175,300,425}
@@ -207,7 +314,6 @@ function showChoices(n)
 		count=count-1
 	end
 	generateAnswerText()
-	tryAgain.TAanswerText = answerText
 	answer = display.newText(answerText,b[1],centerY+100, 125,0, "Comic Relief", 16)
 	answer:setFillColor(0)
 	function listener()
@@ -245,14 +351,14 @@ function showChoices(n)
 end
 
 function newSceneListener()
-	storyboard.purgeScene("timetrials")
+	storyboard.purgeScene("telltime")
 	storyboard.reloadScene()
 end
 
 function incorrectResponseListener1(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	storeTimeTrials(0,totalTime,ha,ma,ha1,ma1,r1,r2,round,2)
+	storeTimeTrials(0,totalTime,ha,ma,ha1,ma1,r1,r2,round,1)
 	questionCount = questionCount + 1
 	wrongAnswer(screenGroup)
 end
@@ -260,7 +366,7 @@ end
 function incorrectResponseListener2(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	storeTimeTrials(0,totalTime,ha,ma,ha2,ma2,r1,r2,round,2)
+	storeTimeTrials(0,totalTime,ha,ma,ha2,ma2,r1,r2,round,1)
 	questionCount = questionCount + 1
 	wrongAnswer(screenGroup)
 end
@@ -268,7 +374,7 @@ end
 function incorrectResponseListener3(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	storeTimeTrials(0,totalTime,ha,ma,ha3,ma3,r1,r2,round,2)
+	storeTimeTrials(0,totalTime,ha,ma,ha3,ma3,r1,r2,round,1)
 	questionCount = questionCount + 1
 	
 	wrongAnswer(screenGroup)
@@ -277,7 +383,7 @@ end
 function correctResponseListener(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	storeTimeTrials(1,totalTime,ha,ma,ha,ma,r1,r2,round,2)
+	storeTimeTrials(1,totalTime,ha,ma,ha,ma,r1,r2,round,1)
 	questionCount = questionCount + 1
 	removeAnswers(screenGroup)
 	local reward = display.newText("Good Job!", centerX+70,centerY+50,300,0,"Comic Relief", 30)
@@ -295,34 +401,10 @@ function correctResponseListener(n)
 end
 
 function generateAnswers()
-	r3 = math.abs(r1-r2)
-	r31 = -1
-	while r31<0 or r31 == r3 do
-		local var = math.random(1,2)
-		if var == 2 then
-			r31 = r3+math.random(1,4)*30
-		else 
-			r31 = r3+math.random(-4,-1)*30
-		end
-	end
-	r32 = -1
-	while r32<0 or r32 == r3 or r32==r31 do
-		local var = math.random(1,2)
-		if var == 2 then
-			r32 = r3+math.random(1,4)*30
-		else 
-			r32 = r3+math.random(-4,-1)*30
-		end
-	end
-	r33 = -1
-	while r33<0 or r33 == r3 or r33 == r31 or r33 == r32 do
-		local var = math.random(1,2)
-		if var == 2 then
-			r33 = r3+math.random(1,4)*30
-		else 
-			r33 = r3+math.random(-4,-1)*30
-		end
-	end
+	r3 = math.floor(r1/60)%12  --fuck this shit
+	r31 = (r3+2)*30
+	r32 = (r3+1)*30
+	r33 = (r3-2)*30
 
 	ha1 = math.abs(math.floor(math.abs(r31)/60)) --hours answer
 	ma1 = math.abs(math.abs(r31) -(ha1*60)) --minutes answer
@@ -330,29 +412,44 @@ function generateAnswers()
 	ma2 = math.abs(math.abs(r32) -(ha2*60)) --minutes answer
 	ha3 = math.abs(math.floor(math.abs(r33)/60)) --hours answer
 	ma3 = math.abs(math.abs(r33) -(ha3*60)) --minutes answer
+
+	if ha == 0 then 
+		ha = 12
+	end
+	if ha1 == 0 then 
+		ha1 = 12
+	end
+	if ha2 == 0 then 
+		ha2 = 12
+	end
+	if ha3 == 0 then 
+		ha3 = 12
+	end
+
+
 end
 
 function generateAnswerText()
-	if (ha == 1) then
-		answerText = ha.." hour and \n"..ma.." minutes"
-	else
-		answerText = ha.." hours and \n"..ma.." minutes"
+	answerText = ha..":"..ma.." pm"
+	answer1Text = ha1..":"..ma1.." pm"
+	answer2Text = ha2..":"..ma2.." pm"
+	answer3Text = ha3..":"..ma3.." pm"
+
+	if ma == 0 then 
+		answerText = ha..":"..ma.."0 pm"
 	end
-	if (ha1 == 1) then
-		answer1Text = ha1.." hour and \n"..ma1.." minutes"
-	else
-		answer1Text = ha1.." hours and \n"..ma1.." minutes"
+	if ma1 == 0 then 
+		answer1Text = ha..":"..ma1.."0 pm"
 	end
-	if (ha2 == 1) then
-		answer2Text = ha2.." hour and \n"..ma2.." minutes"
-	else
-		answer2Text = ha2.." hours and \n"..ma2.." minutes"
+	if ma2 == 0 then 
+		answer2Text = ha..":"..ma2.."0 pm"
 	end
-	if (ha3 == 1) then
-		answer3Text = ha3.." hour and \n"..ma3.." minutes"
-	else
-		answer3Text = ha3.." hours and \n"..ma3.." minutes"
+	if ma3 == 0 then 
+		answer3Text = ha..":"..ma3.."0 pm"
 	end
+
+
+
 end
 
 function removeAnswers(n)

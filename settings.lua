@@ -49,7 +49,7 @@ function scene:createScene( event )
 	    top = 140,
 	    style = "onOff",
 	    id = "sfxmuteSwitch",
-	    onPress = onsfxPress
+	   	onPress = onsfxPress
 	}
 	screenGroup:insert(sfxmuteSwitch)
 

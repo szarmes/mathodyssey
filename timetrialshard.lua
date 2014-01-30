@@ -50,6 +50,7 @@ function scene:createScene( event )
 	end
 	newQuestion(screenGroup)
 	displayClocks(screenGroup)
+	generateAnswers()
 end
 
 
@@ -66,7 +67,6 @@ function scene:enterScene( event )
 		  break
 		end
 	end
-	generateAnswers()
 end
 
 
@@ -295,18 +295,33 @@ function correctResponseListener(n)
 end
 
 function generateAnswers()
-	r3 = math.abs(r1/15-r2/15)*15
+	r3 = math.abs(r1-r2)
 	r31 = r3+math.random(-4,4)*15
 	while r31<0 or r31 == r3 do
-		r31 = r3+math.random(-4,4)*15
+		local var = math.random(1,2)
+		if var == 2 then
+			r31 = r3+math.random(1,4)*15
+		else 
+			r31 = r3+math.random(-4,-1)*15
+		end
 	end
 	r32 = r3+math.random(-4,4)*15
 	while r32<0 or r32 == r3 or r32==r31 do
-		r32 = r3+math.random(-4,4)*15
+		local var = math.random(1,2)
+		if var == 2 then
+			r32 = r3+math.random(1,4)*15
+		else 
+			r32 = r3+math.random(-4,-1)*15
+		end
 	end
 	r33 = r3+math.random(-4,4)*15
 	while r33<0 or r33 == r3 or r33 == r31 or r33 == r32 do
-		r33 = r3+math.random(-4,4)*15
+		local var = math.random(1,2)
+		if var == 2 then
+			r33 = r3+math.random(1,4)*15
+		else 
+			r33 = r3+math.random(-4,-1)*15
+		end
 	end
 
 	ha1 = math.abs(math.floor(math.abs(r31)/60)) --hours answer

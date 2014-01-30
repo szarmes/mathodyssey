@@ -60,7 +60,7 @@ db:exec( tablesetup1 )
 --db:exec( drop1 )
 
 
---storyboard.gotoScene( "settings")
+--storyboard.gotoScene( "telltime")
 storyboard.gotoScene( "splash","fade",500)
 
 
