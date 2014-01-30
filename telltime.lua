@@ -121,7 +121,6 @@ function displayClocks(n)
 
 	
 	rotate()
-
 end
 
 
@@ -131,7 +130,6 @@ function rotate() --set up the times
 	
 	hourtime =(0.5*(r1))%12
 	minutetime = (6*(r1))%30
-	
 end
 
 
@@ -161,9 +159,6 @@ function newQuestion(n) -- this will make a new question
 	else 
 		showChoices(screenGroup)
 	end
-
-
-
 end
 
 function makeFirstDisappear(n)
@@ -290,9 +285,6 @@ function makeSeventhDisappear(n)
 	screenGroup:insert(go)
 end
 
-
-
-
 function showChoices(n)
 	local screenGroup = n
 	startTime = system.getTimer()
@@ -392,23 +384,33 @@ function correctResponseListener(n)
 	continue:scale(0.3*xscale,0.3)
 
 	continue:addEventListener("tap", myFunction)
-	screenGroup:insert(continue)
-
-	
+	screenGroup:insert(continue)	
 end
 
 function generateAnswers()
-	r3 = math.floor(r1/60)%12  --fuck this shit
-	r31 = (r3+2)*30
-	r32 = (r3+1)*30
-	r33 = (r3-2)*30
+	math.randomseed( os.time() )--fuck it all I fucking hate times!!!
+	r2 = math.random(12)*30
+	while(r1 == r2) do
+		r2 = math.random(12)*30
+	end
+	ha1 = math.abs(math.floor(math.abs(r2)/60)) --hours answer
+	ma1 = math.abs(math.abs(r2) -(ha1*60)) --minutes answer
+	math.randomseed( os.time() )
+	r3 = math.random(12)*30
+	while(r1 == r3 or r2 == r3) do
+		r3 = math.random(12)*30
+	end
+	ha2 = math.abs(math.floor(math.abs(r3)/60)) --hours answer
+	ma2 = math.abs(math.abs(r3) -(ha2*60)) --minutes answer
+	math.randomseed( os.time() )
+	r4 = math.random(12)*30
+	while(r1 == r4 or r2 == r4 or r3 == r4) do
+		r4 = math.random(12)*30
+	end
+	ha3 = math.abs(math.floor(math.abs(r4)/60)) --hours answer
+	ma3 = math.abs(math.abs(r4) -(ha3*60)) --minutes answer
 
-	ha1 = math.abs(math.floor(math.abs(r31)/60)) --hours answer
-	ma1 = math.abs(math.abs(r31) -(ha1*60)) --minutes answer
-	ha2 = math.abs(math.floor(math.abs(r32)/60)) --hours answer
-	ma2 = math.abs(math.abs(r32) -(ha2*60)) --minutes answer
-	ha3 = math.abs(math.floor(math.abs(r33)/60)) --hours answer
-	ma3 = math.abs(math.abs(r33) -(ha3*60)) --minutes answer
+	
 
 	if ha == 0 then 
 		ha = 12
