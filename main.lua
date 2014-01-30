@@ -13,6 +13,32 @@ physics = require "physics"	 --need physics to handle collisions. start/stop wit
 physics.start()
 physics.setGravity(0,0) --dont want gravity... might want it later but not yet 
 --physics.setDrawMode( "debug" ) --turns on debug view, will let us debug physics objects
+bgmusic = audio.loadStream("sounds/space.wav")
+sfxmuted = false
+musicmuted = false
+
+function mutesfx()
+	if sfxmuted == false then
+		audio.pause(2)
+		sfxmuted = true
+	else
+		audio.resume(2)
+		sfxmuted = false
+	end
+end
+
+function mutemusic()
+	if musicmuted == false then
+		audio.pause(1)
+		musicmuted = true
+	else
+		audio.resume(1)
+		musicmuted = false
+	end
+end
+
+
+
 
 local storyboard = require( "storyboard" )
 --storyboard.gotoScene( "splash", "fade", 1000 ) --start the splash screen with a 2 second fade animation
@@ -34,7 +60,7 @@ db:exec( tablesetup1 )
 --db:exec( drop1 )
 
 
---storyboard.gotoScene( "timetrialshard")
+--storyboard.gotoScene( "settings")
 storyboard.gotoScene( "splash","fade",500)
 
 

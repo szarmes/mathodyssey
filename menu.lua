@@ -30,6 +30,10 @@ function goToTutorials()
 	storyboard.gotoScene("howtoplay")
 end
 
+function goToSettings()
+	storyboard.gotoScene("settings")
+end
+
 
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
@@ -70,7 +74,10 @@ function scene:createScene( event )
 
 	settings = display.newImage("images/settings.png",0,display.contentHeight-30)
 	settings:scale(0.6,0.6)
+	settings:addEventListener("tap",goToSettings)
 	screenGroup:insert(settings)
+
+	audio.play(bgmusic,{loops = -1,channel=1})
 
 	--background = display.newImage("images/cat.jpg",centerX,centerY)
 	--Runtime:addEventListener("touch",moveCatListener)

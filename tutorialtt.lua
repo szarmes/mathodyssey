@@ -38,7 +38,7 @@ local instructions7 = "It's easier than you think. Give it a shot!"
 local function goHome()
 	round = -1
 	ttcorrectCount = 0
-	storyboard.gotoScene( "menu", "fade", 500 )
+	storyboard.gotoScene( "menu" )
 end
 
 -- Called when the scene's view does not exist:
@@ -137,6 +137,7 @@ function displayClocks(n)
 	home:addEventListener("tap", goHome)
 	screenGroup:insert(home)
 
+	
 	rotate()
 
 end

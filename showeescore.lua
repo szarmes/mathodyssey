@@ -114,7 +114,9 @@ function boom()
 end
 
 function playExplosion()
-	audio.play(explosionSound)
+	if sfxmuted==false then
+		audio.play(explosionSound,{channel = 2})
+	end
 	
 
 end
