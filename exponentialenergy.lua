@@ -16,10 +16,11 @@ local centerY = display.contentCenterY
 local first = true
 local round = -1
 questionCount = 0
-local instructions = "Welcome to Exponential Energy! In this level, you're required to determine the exponent of the equation."
+local instructions = "Welcome to Exponential Energy. On this planet your orders are to determine the exponent of the equation."
 local instructions1 = "Recall that an exponent is positioned near the top right of a number, and represents how many times the number appears in a repeated multiplication."
 local instructions2 = "Note that when an exponent of any number is 0, the new value of that number is always 1. And when an exponent of a number is 1, the value of that number does not change."
-local insturcionts3
+local instrucions3
+local instructions4 = "Watch your back out there, exponents contain a lot of power."
 local exponent
 local number
 local equals
@@ -31,7 +32,7 @@ function scene:createScene( event )
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 	if (first) then
-		myText = display.newText( instructions, centerX, centerY+120,450*xscale,200*yscale, "Comic Relief", 20 )
+		myText = display.newText( instructions, centerX, centerY+120*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
 	end
@@ -214,6 +215,25 @@ function makeThirdDisappear(n)
 
 
 	myText = display.newText( instructions3, centerX, centerY+120,450*xscale,200*yscale, "Comic Relief", 20 )
+	myText:setFillColor(0)
+	screenGroup:insert(myText)
+
+	local myFunction = function() makeFourthDisappear(screenGroup) end
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
+
+	continue:addEventListener("tap", myFunction)
+	screenGroup:insert(continue)
+
+	--showAnswer(screenGroup)
+end
+
+function makeFourthDisappear(n)
+	local screenGroup = n
+	screenGroup:remove(myText)
+	screenGroup:remove(continue)
+
+	myText = display.newText( instructions4, centerX, centerY+120,450*xscale,200*yscale, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 

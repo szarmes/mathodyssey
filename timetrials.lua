@@ -26,10 +26,13 @@ questionCount = 0
 
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
-local instructions = "Welcome to the Time Trials! In this level, your task is to figure out the amount of time that has passed from clock 1 to clock 2, using your addition and subtraction skills!"
-
-
+local instructions = "To come closer to uncovering the mystery of this planet, you must figure out the amount of time that has passed from Clock 1 to Clock 2."
+local instructions1 = "Start by finding the time on each clock. To find the number of hours, look at what number the shorter hand is pointing to."
+local instructions2 = "Then find the amount of minutes by multiplying the number the longer hand points to by 5."
+local instructions3 = "Remember that if the minute hand points to 12, no minutes have passed and the hour has just begun."
+local instructions4 = "I wish you the best of luck."
 local function goHome()
+	first = false
 	round = -1
 	questionCount = 0
 	storyboard.gotoScene( "menu")
@@ -164,7 +167,6 @@ function newQuestion(n) -- this will make a new question
 
 		continue:addEventListener("tap", myFunction)
 		screenGroup:insert(continue)
-		first = false
 	else 
 		showChoices(screenGroup)
 	end
@@ -174,20 +176,91 @@ function makeFirstDisappear(n)
 	local screenGroup = n
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
-	showAnswer(screenGroup)
+
+	myText = display.newText( instructions1, centerX, centerY+120*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
+	myText:setFillColor(0)
+	screenGroup:insert(myText)
+
+	local myFunction = function() makeSecondDisappear(screenGroup) end
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
+
+	continue:addEventListener("tap", myFunction)
+	screenGroup:insert(continue)
+	--showAnswer(screenGroup)
+end
+
+function makeSecondDisappear(n)
+	local screenGroup = n
+	screenGroup:remove(myText)
+	screenGroup:remove(continue)
+
+	myText = display.newText( instructions2, centerX, centerY+120*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
+	myText:setFillColor(0)
+	screenGroup:insert(myText)
+
+	local myFunction = function() showAnswer(screenGroup) end
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
+
+	continue:addEventListener("tap", myFunction)
+	screenGroup:insert(continue)
+	--showAnswer(screenGroup)
 end
 
 function showAnswer(n)
 	local screenGroup = n
+	screenGroup:remove(myText)
+	screenGroup:remove(continue)
+
 	exampleText =display.newText( "In this case, Clock 2 is "..ha.." hours and "..ma.." minutes ahead of Clock 1", centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 20 )		
 	exampleText:setFillColor(0)
 	screenGroup:insert(exampleText)
 
+	local myFunction = function() makeThirdDisappear(screenGroup) end
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
+
+	continue:addEventListener("tap", myFunction)
+	screenGroup:insert(continue)
+
+end
+
+function makeThirdDisappear(n)
+	local screenGroup = n
+	screenGroup:remove(exampleText)
+	screenGroup:remove(continue)
+
+	myText = display.newText( instructions3, centerX, centerY+120*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
+	myText:setFillColor(0)
+	screenGroup:insert(myText)
+
+	local myFunction = function() makeFourthDisappear(screenGroup) end
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
+
+	continue:addEventListener("tap", myFunction)
+	screenGroup:insert(continue)
+	--showAnswer(screenGroup)
+end
+
+function makeFourthDisappear(n)
+	local screenGroup = n
+	screenGroup:remove(myText)
+	screenGroup:remove(continue)
+
+	myText = display.newText( instructions4, centerX, centerY+120*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
+	myText:setFillColor(0)
+	screenGroup:insert(myText)
+	
 	go = display.newImage("images/go.png", centerX+200*xscale, centerY+120*yscale)
 	go:scale(0.5*xscale,0.5*yscale)
 	go:addEventListener("tap", newSceneListener)
 	screenGroup:insert(go)
 
+
+	first = false
+	--showAnswer(screenGroup)
 end
 
 function showChoices(n)

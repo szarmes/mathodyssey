@@ -26,8 +26,9 @@ questionCount = 0
 
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
-local instructions = "Welcome to the Time Trials! In this level, your task is to figure out the amount of time that has passed from clock 1 to clock 2, using your addition and subtraction skills!"
-
+local instructions = "You have made it to the final location on this planet. Congratulations. But tough times still await you."
+local instructions1 = "Your time telling skills will be truly tested in this mission. You must keep your composure and remain steadfast."
+local instructions2 = "Coming this far and falling short is not an option."
 
 local function goHome()
 	round = -1
@@ -44,7 +45,7 @@ function scene:createScene( event )
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 	if (first) then
-		myText = display.newText( instructions, centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 16 )
+		myText = display.newText( instructions, centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
 	end
@@ -163,7 +164,7 @@ function newQuestion(n) -- this will make a new question
 
 		continue:addEventListener("tap", myFunction)
 		screenGroup:insert(continue)
-		first = false
+		
 	else 
 		showChoices(screenGroup)
 	end
@@ -173,14 +174,28 @@ function makeFirstDisappear(n)
 	local screenGroup = n
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
-	showAnswer(screenGroup)
+
+	myText = display.newText( instructions1, centerX, centerY+120*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
+	myText:setFillColor(0)
+	screenGroup:insert(myText)
+
+	local myFunction = function() makeSecondDisappear(screenGroup) end
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
+
+	continue:addEventListener("tap", myFunction)
+	screenGroup:insert(continue)
+	--showAnswer(screenGroup)
 end
 
-function showAnswer(n)
+function makeSecondDisappear(n)
 	local screenGroup = n
-	exampleText =display.newText( "In this case, Clock 2 is "..ha.." hours and "..ma.." minutes ahead of Clock 1", centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 20 )		
-	exampleText:setFillColor(0)
-	screenGroup:insert(exampleText)
+	screenGroup:remove(myText)
+	screenGroup:remove(continue)
+
+	myText = display.newText( instructions2, centerX, centerY+120*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
+	myText:setFillColor(0)
+	screenGroup:insert(myText)
 
 	go = display.newImage("images/go.png", centerX+200*xscale, centerY+120*yscale)
 	go:scale(0.5*xscale,0.5*yscale)
@@ -188,6 +203,7 @@ function showAnswer(n)
 	screenGroup:insert(go)
 
 
+	first = false
 end
 
 function showChoices(n)

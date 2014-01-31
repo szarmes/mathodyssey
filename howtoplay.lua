@@ -36,17 +36,10 @@ function scene:createScene( event )
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 	
-	local tt = display.newImage("images/time-trials.png", -10*xscale,centerY-120*yscale)
-	tt:scale(0.3*xscale,0.3*yscale)
-	tt:addEventListener("tap", goToTutorialtt)
+	local tt = display.newImage("images/tutorialtext.png", -30*xscale,centerY)
+	tt:scale(0.8*xscale,0.8*yscale)
 	tt.anchorX = 0
 	screenGroup:insert(tt)
-
-	local ee = display.newImage("images/exponential-energy.png", -10*xscale,centerY-90*yscale)
-	ee:scale(0.3*xscale,0.3*yscale)
-	ee:addEventListener("tap", goToTutorialtt)
-	ee.anchorX = 0
-	screenGroup:insert(ee)
 
 
 	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)

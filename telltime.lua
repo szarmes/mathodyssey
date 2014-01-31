@@ -28,14 +28,14 @@ local hourtime
 local minutetime
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
-local instructions = "Welcome to the Time Trials! In this level, your task is to figure out what time it is!"
+local instructions = "Welcome to the Time Trials. Starfleet has told me that your first assignment is to figure out what time it is."
 local instructions1 = "The hour hand, which is the short one, tells you what hour of the day it is."
 local instructions2 = "The minute hand, the longer one, tells you how many minutes into that hour it is."
 local instructions3 = "Be careful, you need to multiply the number the minute hand points to by 5!"
 local instructions4 = "For instance, if the minute hand points to the 6, that means 30 minutes of that hour has passed."
 local instructions5 = "But, if the minute hand points straight up to 12 then 0 minutes have passed and the hour has just started."
 local instructions6
-local instructions7 = "It's easier than you think. Give it a shot!"
+local instructions7 = "Completing this task will take you one step forward in time."
 
 local function goHome()
 	round = -1
