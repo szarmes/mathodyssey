@@ -26,7 +26,7 @@ questionCount = 0
 
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
-local instructions = "To come closer to uncovering the mystery of this planet, you must figure out the amount of time that has passed from Clock 1 to Clock 2."
+local instructions = "To further reveal the mystery of this planet, you must figure out the amount of time that has passed from Clock 1 to Clock 2."
 local instructions1 = "Start by finding the time on each clock. To find the number of hours, look at what number the shorter hand is pointing to."
 local instructions2 = "Then find the amount of minutes by multiplying the number the longer hand points to by 5."
 local instructions3 = "Remember that if the minute hand points to 12, no minutes have passed and the hour has just begun."
@@ -47,7 +47,16 @@ function scene:createScene( event )
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 	if (first) then
-		myText = display.newText( instructions, centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 16 )
+
+		bubble = display.newImage("images/bubble.png", centerX-20*xscale,centerY+100*yscale)
+		bubble:scale(0.74*xscale,0.43*yscale)
+		bubble.alpha = 0.7
+		screenGroup:insert(bubble)
+		dog = display.newImage("images/astronaut.png", centerX-260*xscale, centerY+118*yscale)
+		dog:scale(0.2*xscale, 0.2*yscale)
+		dog:rotate(30)
+		screenGroup:insert(dog)
+		myText = display.newText( instructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
 	end
@@ -177,7 +186,7 @@ function makeFirstDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions1, centerX, centerY+120*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
+	myText = display.newText( instructions1, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -195,7 +204,7 @@ function makeSecondDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions2, centerX, centerY+120*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
+		myText = display.newText( instructions2, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -213,7 +222,7 @@ function showAnswer(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	exampleText =display.newText( "In this case, Clock 2 is "..ha.." hours and "..ma.." minutes ahead of Clock 1", centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 20 )		
+	exampleText =display.newText( "In this case, Clock 2 is "..ha.." hours and "..ma.." minutes ahead of Clock 1", centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )		
 	exampleText:setFillColor(0)
 	screenGroup:insert(exampleText)
 
@@ -231,7 +240,7 @@ function makeThirdDisappear(n)
 	screenGroup:remove(exampleText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions3, centerX, centerY+120*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
+	myText = display.newText( instructions3, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -249,7 +258,7 @@ function makeFourthDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions4, centerX, centerY+120*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
+		myText = display.newText( instructions4, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 	

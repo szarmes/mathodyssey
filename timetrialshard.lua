@@ -46,7 +46,16 @@ function scene:createScene( event )
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 	if (first) then
-		myText = display.newText( instructions, centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
+
+		bubble = display.newImage("images/bubble.png", centerX-20*xscale,centerY+100*yscale)
+		bubble:scale(0.74*xscale,0.43*yscale)
+		bubble.alpha = 0.7
+		screenGroup:insert(bubble)
+		dog = display.newImage("images/astronaut.png", centerX-260*xscale, centerY+118*yscale)
+		dog:scale(0.2*xscale, 0.2*yscale)
+		dog:rotate(30)
+		screenGroup:insert(dog)
+		myText = display.newText( instructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
 	end
@@ -176,7 +185,7 @@ function makeFirstDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions1, centerX, centerY+120*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
+	myText = display.newText( instructions1, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -194,7 +203,7 @@ function makeSecondDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions2, centerX, centerY+120*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
+	myText = display.newText( instructions2, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -210,7 +219,7 @@ end
 function showChoices(n)
 	local screenGroup = n
 	startTime = system.getTimer()
-	questionText =display.newText( "How far ahead of Clock 1 is Clock 2?", centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
+	questionText =display.newText( "How far ahead of Clock 1 is Clock 2?", centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
 	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
 	a={-175,-50,75,200}

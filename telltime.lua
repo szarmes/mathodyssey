@@ -52,10 +52,17 @@ function scene:createScene( event )
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 	if (first) then
+
+		bubble = display.newImage("images/bubble.png", centerX-20*xscale,centerY+100*yscale)
+		bubble:scale(0.74*xscale,0.43*yscale)
+		bubble.alpha = 0.7
+		screenGroup:insert(bubble)
+
 		dog = display.newImage("images/astronaut.png", centerX-260*xscale, centerY+118*yscale)
 		dog:scale(0.2*xscale, 0.2*yscale)
 		dog:rotate(30)
 		screenGroup:insert(dog)
+
 		myText = display.newText( instructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
@@ -171,7 +178,7 @@ function makeFirstDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions1, centerX, centerY+140,450*xscale,200*yscale, "Comic Relief", 20 )
+	myText = display.newText( instructions1, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -189,7 +196,7 @@ function makeSecondDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions2, centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
+	myText = display.newText( instructions2, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -207,7 +214,7 @@ function makeThirdDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions3, centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
+	myText = display.newText( instructions3, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -225,7 +232,7 @@ function makeFourthDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions4, centerX, centerY+140,450*xscale,200*yscale, "Comic Relief", 20 )
+	myText = display.newText( instructions4, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -243,7 +250,7 @@ function makeFifthDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions5, centerX, centerY+140,450*xscale,200*yscale, "Comic Relief", 20 )
+	myText = display.newText( instructions5, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -261,7 +268,7 @@ function makeSixthDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions6, centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
+	myText = display.newText( instructions6, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -279,7 +286,7 @@ function makeSeventhDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions7, centerX, centerY+140,450*xscale,200*yscale, "Comic Relief", 20 )
+	myText = display.newText( instructions7, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -293,7 +300,7 @@ end
 function showChoices(n)
 	local screenGroup = n
 	startTime = system.getTimer()
-	questionText =display.newText( "What time is it?", centerX, centerY+140,450*xscale,200*yscale, "Comic Relief", 20 )
+	questionText =display.newText( "What time is it?", centerX, centerY+140,400*xscale,200*yscale, "Comic Relief", 20 )
 	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
 	a={-175,-50,75,200}
