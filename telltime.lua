@@ -53,7 +53,10 @@ function scene:createScene( event )
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 	if (first) then
-		myText = display.newText( instructions, centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
+		dog = display.newImage("images/dog.png", centerX-240*xscale, centerY+118*yscale)
+		dog:scale(0.1*xscale, 0.1*yscale)
+		screenGroup:insert(dog)
+		myText = display.newText( instructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
 	end

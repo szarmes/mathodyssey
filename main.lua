@@ -87,7 +87,7 @@ db:exec( tablesetup1 )
 
 
 --storyboard.gotoScene( "telltime")
-storyboard.gotoScene( "splash","fade",500)
+storyboard.gotoScene( "telltime","fade",500)
 
 
 --[[for row in db:nrows("SELECT * FROM timeTrialsScore ORDER BY id DESC;") do
