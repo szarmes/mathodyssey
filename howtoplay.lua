@@ -21,36 +21,41 @@ local function continue()
 	storyboard.gotoScene( storyboard.getPrevious() )
 end
 
-local function goToTutorialtt()
-	storyboard.purgeAll()
-	storyboard.gotoScene( "tutorialtt" )
-end
 
 
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
 	storyboard.purgeScene("menu")
+	storyboard.reloadScene()
 	local screenGroup = self.view
 	
 	bg = display.newImage("images/bg.png", centerX*xscale,centerY+30*yscale)
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
-	
-	local tt = display.newImage("images/tutorialtext.png", -30*xscale,centerY)
-	tt:scale(0.8*xscale,0.8*yscale)
-	tt.anchorX = 0
-	screenGroup:insert(tt)
 
+	bubble = display.newImage("images/bubble.png", centerX-20*xscale,centerY)
+	bubble:scale(0.8*xscale,0.5*yscale)
+	bubble.alpha = 0.7
+	screenGroup:insert(bubble)
+
+
+	dog = display.newImage("images/astronaut.png", centerX-240*xscale, centerY+118*yscale)
+	dog:scale(0.2*xscale, 0.2*yscale)
+	--dog:rotate(30)
+	screenGroup:insert(dog)
 
 	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
 	home:scale(0.3*xscale,0.3*yscale)
 	home:addEventListener("tap", goHome)
 	screenGroup:insert(home)
+
+	tutorial1(screenGroup)
 	
 end
 
 
 function goHome()
+	storyboard.purgeScene("howtoplay")
 	storyboard.gotoScene("menu")
 end
 -- Called immediately after scene has moved onscreen:
@@ -70,7 +75,77 @@ function scene:destroyScene( event )
 end
 
 
-function moveCatListener(event) --sample listener
+
+function tutorial1(n)
+	local screenGroup = n
+
+	myText = display.newImage( "images/tutorialtext1.png", centerX, centerY)
+	myText:scale(0.5*xscale,0.5*yscale)
+	screenGroup:insert(myText)
+	local myFunction = function() 
+		screenGroup:remove(myText)
+		screenGroup:remove(continue)
+		tutorial2(screenGroup) 
+	end
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
+
+	continue:addEventListener("tap", myFunction)
+	screenGroup:insert(continue)
+
+end
+
+function tutorial2(n)
+	local screenGroup = n
+
+	myText = display.newImage( "images/tutorialtext2.png", centerX, centerY)
+	myText:scale(0.5*xscale,0.5*yscale)
+	screenGroup:insert(myText)
+	local myFunction = function() 
+		screenGroup:remove(back)
+		screenGroup:remove(continue)
+		screenGroup:remove(myText)
+		tutorial3(screenGroup) 
+	end
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
+
+	continue:addEventListener("tap", myFunction)
+	screenGroup:insert(continue)
+
+	local myFunction1 = function()
+	 screenGroup:remove(back)
+	 screenGroup:remove(continue)
+	 screenGroup:remove(myText)
+	 tutorial1(screenGroup) 
+	end
+	back = display.newImage("images/continue.png", centerX+120*xscale, centerY+130*yscale)
+	back:scale(-0.3*xscale,0.3*yscale)
+
+	back:addEventListener("tap", myFunction1)
+	screenGroup:insert(back)
+
+end
+
+
+function tutorial3(n)
+	local screenGroup = n
+
+	myText = display.newImage( "images/tutorialtext3.png", centerX, centerY)
+	myText:scale(0.5*xscale,0.5*yscale)
+	screenGroup:insert(myText)
+
+	local myFunction1 = function()
+	 screenGroup:remove(back)
+	 screenGroup:remove(myText)
+	 tutorial2(screenGroup) 
+	end
+	back = display.newImage("images/continue.png", centerX+120*xscale, centerY+130*yscale)
+	back:scale(-0.3*xscale,0.3*yscale)
+
+	back:addEventListener("tap", myFunction1)
+	screenGroup:insert(back)
+
 end
 
 ---------------------------------------------------------------------------------

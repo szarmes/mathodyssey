@@ -46,8 +46,7 @@ end
 
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
-	storyboard.reloadScene()
-	storyboard.purgeScene("tryagain")
+	storyboard.purgeScene("howtoplay")
 	local screenGroup = self.view	
 	bg = display.newImage("images/ttbg.png", centerX,centerY+30*yscale)
 	bg:scale(0.8*xscale,0.8*yscale)

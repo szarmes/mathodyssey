@@ -26,6 +26,11 @@ local function goToee() --play exponential energy
 	storyboard.gotoScene( "eeselection" )
 end
 
+local function goTomm() --play exponential energy
+	storyboard.purgeAll()
+	storyboard.gotoScene( "eeselection" )
+end
+
 local function goHome() --go back to the menu
 	storyboard.gotoScene("menu")
 end
@@ -49,6 +54,12 @@ function scene:createScene( event )
 	ee:addEventListener("tap", goToee)
 	ee.anchorX = 0
 	screenGroup:insert(ee)
+
+	local mm = display.newImage("images/lavaplanet.png", centerX-70*xscale,centerY+10*yscale)
+	mm:scale(0.1*xscale,0.1*yscale)
+	mm:addEventListener("tap", goTomm)
+	mm.anchorX = 0
+	screenGroup:insert(mm)
 
 	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
 	home:scale(0.3*xscale,0.3*yscale)
