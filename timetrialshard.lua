@@ -17,7 +17,7 @@ local minute = "images/easyminute.png"
 local hour = "images/easyhour.png"
 local r1 = 30%720 --rotations for clock1
 local r2 = 750%720 --rotations for clock2
-local first = true
+first = true
 local round = -1
 questionCount = 0
 ---------------------------------------------------------------------------------
@@ -31,6 +31,7 @@ local instructions1 = "Your time telling skills will be truly tested in this mis
 local instructions2 = "Coming this far and falling short is not an option."
 
 local function goHome()
+	first = true
 	round = -1
 	questionCount = 0
 	storyboard.gotoScene( "menu")

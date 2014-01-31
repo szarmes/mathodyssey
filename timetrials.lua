@@ -17,7 +17,7 @@ local minute = "images/easyminute.png"
 local hour = "images/easyhour.png"
 local r1 = 30%720 --rotations for clock1
 local r2 = 750%720 --rotations for clock2
-local first = true
+first = true
 local round = -1
 questionCount = 0
 ---------------------------------------------------------------------------------
@@ -32,7 +32,7 @@ local instructions2 = "Then find the amount of minutes by multiplying the number
 local instructions3 = "Remember that if the minute hand points to 12, no minutes have passed and the hour has just begun."
 local instructions4 = "I wish you the best of luck."
 local function goHome()
-	first = false
+	first = true
 	round = -1
 	questionCount = 0
 	storyboard.gotoScene( "menu")

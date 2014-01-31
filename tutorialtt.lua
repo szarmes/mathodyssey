@@ -16,7 +16,7 @@ local minute = "images/easyminute.png"
 local hour = "images/easyhour.png"
 local r1 = 30%720 --rotations for clock1
 local r2 = 750%720 --rotations for clock2
-local first = true
+first = true
 local round = -1
 ttcorrectCount = 0
 ---------------------------------------------------------------------------------

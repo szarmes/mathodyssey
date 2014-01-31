@@ -17,7 +17,7 @@ local minute = "images/easyminute.png"
 local hour = "images/easyhour.png"
 local r1 = 30%720 --rotations for clock1
 local r2 = 750%720 --rotations for clock2
-local first = true
+first = true
 local round = -1
 ttcorrectCount = 0
 questionCount = 0
@@ -28,8 +28,8 @@ local hourtime
 local minutetime
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
-local instructions = "Welcome to the Time Trials. Starfleet has told me that your first assignment is to figure out what time it is."
-local instructions1 = "The hour hand, which is the short one, tells you what hour of the day it is."
+local instructions = "Welcome to the Time Trials. Your first assignment in this vacant desert is to figure out what time it is."
+local instructions1 = "The hour hand, the shorter one, tells you what hour of the day it is."
 local instructions2 = "The minute hand, the longer one, tells you how many minutes into that hour it is."
 local instructions3 = "Be careful, you need to multiply the number the minute hand points to by 5!"
 local instructions4 = "For instance, if the minute hand points to the 6, that means 30 minutes of that hour has passed."
@@ -38,6 +38,7 @@ local instructions6
 local instructions7 = "Completing this task will take you one step forward in time."
 
 local function goHome()
+	first = true
 	round = -1
 	ttcorrectCount = 0
 	storyboard.gotoScene( "menu" )
@@ -68,6 +69,7 @@ function scene:enterScene( event )
 	if questionCount>=10 then
 		round = -1
 		questionCount = 0
+		first = true
 		storyboard.gotoScene("showttscore" )
 	end
 	if round == -1 then

@@ -88,6 +88,7 @@ end
 
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )	
+	first = true
 end
 
 

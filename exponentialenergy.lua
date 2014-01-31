@@ -13,7 +13,7 @@ require "dbFile"
 
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
-local first = true
+first = true
 local round = -1
 questionCount = 0
 local instructions = "Welcome to Exponential Energy. On this planet your orders are to determine the exponent of the equation."
@@ -95,6 +95,7 @@ function scene:destroyScene( event )
 	
 end
 function goHome()
+	first = true
 	round = -1
 	questionCount = 0
 	cancelZoomTimers()
