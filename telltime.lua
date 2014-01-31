@@ -135,7 +135,7 @@ end
 
 function newQuestion(n) -- this will make a new question
 	local screenGroup = n
-	r1 = math.random(12)*30
+	r1 = math.random(23)*30
 
 	hourtime = math.floor(r1/60)%12
 	if hourtime == 0 then
@@ -146,8 +146,8 @@ function newQuestion(n) -- this will make a new question
 	else 
 		instructions6 = "Using these rules you can see that it's \n"..hourtime..":".."30 pm. All questions will be in pm."
 	end
-	ha = math.abs(math.floor(math.abs(r1)/60)) --hours answer
-	ma = math.abs(math.abs(r1) -(ha*60)) --minutes answer
+	ha = math.floor(r1/60) --hours answer
+	ma = ((r1/30)%2)*30 
 
 	if (first) then
 		local myFunction = function() makeFirstDisappear(screenGroup) end
@@ -388,27 +388,32 @@ function correctResponseListener(n)
 end
 
 function generateAnswers()
-	math.randomseed( os.time() )--fuck it all I fucking hate times!!!
-	r2 = math.random(12)*30
-	while(r1 == r2) do
-		r2 = math.random(12)*30
-	end
-	ha1 = math.abs(math.floor(math.abs(r2)/60)) --hours answer
-	ma1 = math.abs(math.abs(r2) -(ha1*60)) --minutes answer
 	math.randomseed( os.time() )
-	r3 = math.random(12)*30
-	while(r1 == r3 or r2 == r3) do
-		r3 = math.random(12)*30
+	r2 = math.random(23)*30
+	ha1 = math.floor(r2/60) --hours answer
+	ma1 = ((r2/30)%2)*30  --minutes answer
+	while(((ha1/60)+ma1 == (ha/60)+ma)) do
+		r2 = math.random(23)*30
+		ha1 = math.floor(r2/60) --hours answer
+		ma1 = ((r2/30)%2)*30  
 	end
-	ha2 = math.abs(math.floor(math.abs(r3)/60)) --hours answer
-	ma2 = math.abs(math.abs(r3) -(ha2*60)) --minutes answer
-	math.randomseed( os.time() )
-	r4 = math.random(12)*30
-	while(r1 == r4 or r2 == r4 or r3 == r4) do
-		r4 = math.random(12)*30
+	r3 = math.random(23)*30
+	ha2 = math.floor(r3/60) --hours answer
+	ma2 = ((r3/30)%2)*30  
+	while(((ha2/60)+ma2 == (ha/60)+ma)or((ha2/60)+ma2 == (ha1/60)+ma1)) do
+		r3 = math.random(23)*30
+		ha2 = math.floor(r3/60) --hours answer 
+		ma2 = ((r3/30)%2)*30
 	end
-	ha3 = math.abs(math.floor(math.abs(r4)/60)) --hours answer
-	ma3 = math.abs(math.abs(r4) -(ha3*60)) --minutes answer
+	r4 = math.random(23)*30
+	ha3 = math.floor(r4/60) --hours answer
+	ma3 =  ((r4/30)%2)*30 
+	while((((ha3/60)+ma3 == (ha/60)+ma)or((ha3/60)+ma3 == (ha1/60)+ma1))or((ha3/60)+ma3 == (ha2/60)+ma2)) do
+		r4 = math.random(23)*30
+		ha3 = math.floor(r4/60) --hours answer
+		ma3 =  ((r4/30)%2)*30 
+	end
+	
 
 	
 
@@ -438,13 +443,13 @@ function generateAnswerText()
 		answerText = ha..":"..ma.."0 pm"
 	end
 	if ma1 == 0 then 
-		answer1Text = ha..":"..ma1.."0 pm"
+		answer1Text = ha1..":"..ma1.."0 pm"
 	end
 	if ma2 == 0 then 
-		answer2Text = ha..":"..ma2.."0 pm"
+		answer2Text = ha2..":"..ma2.."0 pm"
 	end
 	if ma3 == 0 then 
-		answer3Text = ha..":"..ma3.."0 pm"
+		answer3Text = ha3..":"..ma3.."0 pm"
 	end
 
 
