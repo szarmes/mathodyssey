@@ -34,18 +34,18 @@ end
 function scene:createScene( event )
 	local screenGroup = self.view
 
-	bg = display.newImage("images/bg.png", centerX,centerY+30*yscale)
+	bg = display.newImage("images/galaxybg.png", centerX,centerY+30*yscale)
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 
-	local tt = display.newImage("images/time-trials.png", -10*xscale,centerY-120*yscale)
-	tt:scale(0.3*xscale,0.3*yscale)
+	local tt = display.newImage("images/timeplanet.png", 25*xscale,centerY-20*yscale)
+	tt:scale(0.5*xscale,0.5*yscale)
 	tt:addEventListener("tap", goTott)
 	tt.anchorX = 0
 	screenGroup:insert(tt)
 
-	local ee = display.newImage("images/exponential-energy.png", -10*xscale,centerY-90*yscale)
-	ee:scale(0.3*xscale,0.3*yscale)
+	local ee = display.newImage("images/expplanet.png", 250*xscale,centerY-90*yscale)
+	ee:scale(0.6*xscale,0.6*yscale)
 	ee:addEventListener("tap", goToee)
 	ee.anchorX = 0
 	screenGroup:insert(ee)

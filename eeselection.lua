@@ -34,12 +34,12 @@ end
 function scene:createScene( event )
 	local screenGroup = self.view
 
-	bg = display.newImage("images/bg.png", centerX,centerY+30*yscale)
-	bg:scale(0.8*xscale,0.8*yscale)
+	bg = display.newImage("images/eemap.png", centerX,centerY+30*yscale)
+	bg:scale(0.6*xscale,0.6*yscale)
 	screenGroup:insert(bg)
 
-	local ee = display.newImage("images/exponential-energy.png", -10*xscale,centerY-120*yscale)
-	ee:scale(0.3*xscale,0.3*yscale)
+	local ee = display.newImage("images/incomplete.png", -10*xscale,centerY+120*yscale)
+	ee:scale(0.5*xscale,0.5*yscale)
 	ee:addEventListener("tap", goToee)
 	ee.anchorX = 0
 	screenGroup:insert(ee)

@@ -39,24 +39,24 @@ end
 function scene:createScene( event )
 	local screenGroup = self.view
 
-	bg = display.newImage("images/bg.png", centerX,centerY+30*yscale)
+	bg = display.newImage("images/ttmap.png", centerX,centerY+30*yscale)
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 
-	local tt1 = display.newImage("images/time-trials.png", -10*xscale,centerY-120*yscale)
-	tt1:scale(0.3*xscale,0.3*yscale)
+	local tt1 = display.newImage("images/incomplete.png", -10*xscale,centerY+120*yscale)
+	tt1:scale(0.5*xscale,0.5*yscale)
 	tt1:addEventListener("tap", goTott1)
 	tt1.anchorX = 0
 	screenGroup:insert(tt1)
 
-	local tt2 = display.newImage("images/time-trials.png", -10*xscale,centerY-90*yscale)
-	tt2:scale(0.3*xscale,0.3*yscale)
+	local tt2 = display.newImage("images/incomplete.png", 160*xscale,centerY-90*yscale)
+	tt2:scale(0.5*xscale,0.5*yscale)
 	tt2:addEventListener("tap", goTott2)
 	tt2.anchorX = 0
 	screenGroup:insert(tt2)
 	
-	local tt3 = display.newImage("images/time-trials.png", -10*xscale,centerY-60*yscale)
-	tt3:scale(0.3*xscale,0.3*yscale)
+	local tt3 = display.newImage("images/incomplete.png", 450*xscale,centerY-10*yscale)
+	tt3:scale(0.5*xscale,0.5*yscale)
 	tt3:addEventListener("tap", goTott3)
 	tt3.anchorX = 0
 	screenGroup:insert(tt3)
