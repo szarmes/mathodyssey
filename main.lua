@@ -82,6 +82,10 @@ db:exec( tablesetup1 )
 local tablesetup2 = [[CREATE TABLE IF NOT EXISTS mapUnlocks (id INTEGER PRIMARY KEY,location STRING);]]
 db:exec( tablesetup2 )
 
+local tablesetup3 = [[CREATE TABLE IF NOT EXISTS bbScore (id INTEGER PRIMARY KEY, correct INTEGER, 
+	time INTEGER, correctsign STRING, chosensign STRING, lval INTEGER, rval INTEGER, round INTEGER, level INTEGER);]]
+db:exec( tablesetup3 )
+
 
 --local drop = [[drop table mapUnlocks]]
 --local drop1 = [[drop table eeScore]]
@@ -89,7 +93,7 @@ db:exec( tablesetup2 )
 --db:exec( drop1 )
 --unlockMap("ee1")
 
-storyboard.gotoScene( "menu")
+storyboard.gotoScene( "balanceboard")
 --storyboard.gotoScene( "splash","fade",500)
 
 --[[for row in db:nrows("SELECT * FROM timeTrialsScore ORDER BY id DESC;") do

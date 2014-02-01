@@ -1,14 +1,22 @@
 ---------------------------------------------------------------------------------
 --
--- splash.lua
---This scene is the splash screen and will transition to the menu scene after 3 seconds
+-- showeescore.lua
+--This scene will flash "Good Job" then return to the previous scene
 --
 ---------------------------------------------------------------------------------
 
 local storyboard = require( "storyboard" )
 local scene = storyboard.newScene()
 storyboard.removeAll()
+require "exponentialenergy"
 
+
+local attemptCount=0
+local correctCount=0
+
+local explosionSound = audio.loadStream("sounds/explosion.wav")
+
+  
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------
@@ -16,71 +24,58 @@ storyboard.removeAll()
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 
-local function goTott() --play timetrials
-	storyboard.purgeAll()
-	storyboard.gotoScene("ttselection")
+local function goNext()
+	storyboard.removeAll()
+	storyboard.gotoScene( "menu")
 end
 
-local function goToee() --play exponential energy
-	storyboard.purgeAll()
-	storyboard.gotoScene( "eeselection" )
-end
-
-local function goTomm() --play exponential energy
-	storyboard.purgeAll()
-	storyboard.gotoScene( "eeselection" )
-end
-
-local function goTobb() --play exponential energy
-	storyboard.purgeAll()
-	storyboard.gotoScene( "bbselection" )
-end
-
-local function goHome() --go back to the menu
-	storyboard.gotoScene("menu")
-end
 
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
+	storyboard.purgeScene("balanceboard")
+	--storyboard.purgeScene("exponentialenergyhard")
 	local screenGroup = self.view
+	attemptCount=0
+	correctCount = 0
+	local round = -1
+	for row in db:nrows("SELECT * FROM bbScore ORDER BY id DESC") do
+		round = row.round
+		break
+	end
+	for row in db:nrows("SELECT * FROM bbScore") do
+	 	if row.round == round then
+	 		attemptCount = attemptCount+1
+	 		if row.correct == 1 then
+	 			correctCount= correctCount+1
+	 		end
+	 	end
+	end
 
-	bg = display.newImage("images/galaxybg.png", centerX,centerY+30*yscale)
-	bg:scale(0.8*xscale,0.8*yscale)
+	--[[if correctCount>6 then
+		unlockMap("bb1")
+	end]]
+
+	bg = display.newImage("images/bbbg.png", centerX,centerY+30*yscale)
+	bg:scale(0.8*xscale,0.7*yscale)
 	screenGroup:insert(bg)
 
-	local tt = display.newImage("images/timeplanet.png", 25*xscale,centerY-20*yscale)
-	tt:scale(0.5*xscale,0.5*yscale)
-	tt:addEventListener("tap", goTott)
-	tt.anchorX = 0
-	screenGroup:insert(tt)
+	
+	local reward = display.newText("You answered "..correctCount.." out of "..attemptCount.." questions correctly!", centerX,centerY,300*xscale,200*yscale,"Comic Relief", 30)
+	reward:setFillColor(0)
+	screenGroup:insert(reward)
 
-	local ee = display.newImage("images/expplanet.png", 250*xscale,centerY-90*yscale)
-	ee:scale(0.6*xscale,0.6*yscale)
-	ee:addEventListener("tap", goToee)
-	ee.anchorX = 0
-	screenGroup:insert(ee)
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+140*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
 
-	local mm = display.newImage("images/lavaplanet.png", centerX-70*xscale,centerY+10*yscale)
-	mm:scale(0.1*xscale,0.1*yscale)
-	mm:addEventListener("tap", goTomm)
-	mm.anchorX = 0
-	screenGroup:insert(mm)
-
-	local bb = display.newImage("images/bbplanet.png", centerX+130*xscale,centerY+40*yscale)
-	bb:scale(0.1*xscale,0.1*yscale)
-	bb:addEventListener("tap", goTobb)
-	bb.anchorX = 0
-	screenGroup:insert(bb)
-
-	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
-	home:scale(0.3*xscale,0.3*yscale)
-	home:addEventListener("tap", goHome)
-	screenGroup:insert(home)
+	continue:addEventListener("tap", goNext)
+	screenGroup:insert(continue)
+	
 end
 
 
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )
+	--timer.performWithDelay(500,continue,1)
 
 end
 
@@ -95,6 +90,7 @@ end
 function scene:destroyScene( event )
 	
 end
+
 
 ---------------------------------------------------------------------------------
 -- END OF YOUR IMPLEMENTATION

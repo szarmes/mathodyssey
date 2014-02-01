@@ -43,6 +43,14 @@ function storeEE2(correct,time, correctnum, chosennum, round,level)
 
 end
 
+function storeBB(correct,time, correctsign, chosensign, lval,rval, round,level)
+
+	local tablefill =[[INSERT INTO bbScore VALUES (NULL, ']]..correct..[[',']]..time..[[',']]..correctsign..
+		[[',']]..chosensign..[[',']]..lval..[[',']]..rval..[[',']]..round..[[',']]..level..[['); ]]
+	db:exec( tablefill )
+
+end
+
 function unlockMap(location)
 
 	local mapcheck = false
