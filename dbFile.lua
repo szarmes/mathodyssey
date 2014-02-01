@@ -38,7 +38,7 @@ end
 function storeEE2(correct,time, correctnum, chosennum, round,level)
 
 	local tablefill =[[INSERT INTO eeScore VALUES (NULL, ']]..correct..[[',']]..time..[[',NULL, NULL, ']]..correctnum..
-		[[',']]..chosenum..[[',']]..round..[[',']]..level..[['); ]]
+		[[',']]..chosennum..[[',']]..round..[[',']]..level..[['); ]]
 	db:exec( tablefill )
 
 end

@@ -86,7 +86,7 @@ db:exec( tablesetup1 )
 --db:exec( drop1 )
 
 
-storyboard.gotoScene( "menu")
+storyboard.gotoScene( "exponentialenergyhard")
 --storyboard.gotoScene( "splash","fade",500)
 
 

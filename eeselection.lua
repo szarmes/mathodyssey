@@ -21,9 +21,9 @@ local function goToee() --play timetrials
 	storyboard.gotoScene("exponentialenergy")
 end
 
-local function goTott3() --play exponential energy
+local function goToee1() --play exponential energy
 	storyboard.purgeAll()
-	storyboard.gotoScene( "timetrialshard" )
+	storyboard.gotoScene( "exponentialenergyhard" )
 end
 
 local function goHome() --go back to the menu
@@ -43,6 +43,12 @@ function scene:createScene( event )
 	ee:addEventListener("tap", goToee)
 	ee.anchorX = 0
 	screenGroup:insert(ee)
+
+	local ee1 = display.newImage("images/incomplete.png", centerX,centerY-40*yscale)
+	ee1:scale(0.5*xscale,0.5*yscale)
+	ee1:addEventListener("tap", goToee1)
+	ee1.anchorX = 0
+	screenGroup:insert(ee1)
 	
 	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
 	home:scale(0.3*xscale,0.3*yscale)
