@@ -125,7 +125,7 @@ function spawnMeteor(n)
 		meteorxforce = 23
 		meteoryforce = -40
 		meteorrotation = 155
-	elseif version==4 then
+	else
 		meteorx = centerX+400*xscale
 		meteory = centerY+100*yscale
 		meteorxforce = -35
@@ -133,7 +133,16 @@ function spawnMeteor(n)
 		meteorrotation = 45
 	end
 
-	meteor = display.newImage("images/meteor.png",meteorx,meteory)
+	src = math.random(1,3)
+	if src == 1 then
+		meteorsrc = "images/meteor.png"
+	elseif src == 2 then
+		meteorsrc = "images/meteor1.png"
+	else
+		meteorsrc = "images/meteor2.png"
+	end
+
+	meteor = display.newImage(meteorsrc,meteorx,meteory)
 	meteor:scale(0.6*xscale,0.6*yscale)
 	meteor:rotate(meteorrotation)
 	screenGroup:insert(meteor)
