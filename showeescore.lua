@@ -33,10 +33,11 @@ end
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
 	storyboard.purgeScene("exponentialenergy")
+	storyboard.purgeScene("exponentialenergyhard")
 	local screenGroup = self.view
 	attemptCount=0
 	correctCount = 0
-	round = -1
+	local round = -1
 	for row in db:nrows("SELECT * FROM eeScore ORDER BY id DESC") do
 		round = row.round
 		break
@@ -50,18 +51,16 @@ function scene:createScene( event )
 	 	end
 	end
 
-	if correctCount == attemptCount then
-		bg = display.newImage("images/gjeebg.png", centerX,centerY+30)
-		bg:scale(0.7,0.7)
-		screenGroup:insert(bg)
-	else 
-		bg = display.newImage("images/taeebg.png", centerX,centerY+30)
-		bg:scale(0.7,0.7)
-		screenGroup:insert(bg)
+	if correctCount>6 then
+		unlockMap("ee1")
 	end
 
+	bg = display.newImage("images/eebg.png", centerX,centerY+30*yscale)
+	bg:scale(0.8*xscale,0.7*yscale)
+	screenGroup:insert(bg)
+
 	explosion = display.newImage("images/explosion.png",centerX,centerY)
-	explosion:scale(0.2,0.2)
+	explosion:scale(0.2*xscale,0.2*yscale)
 	screenGroup:insert(explosion)
 
 	timer1 = timer.performWithDelay(50,boom,20)
@@ -98,19 +97,20 @@ function addImages(n) --sample listener
 	local screenGroup = n
 	--screenGroup:remove(explosion)
 
-	local reward = display.newText("You answered "..correctCount.." out of "..attemptCount.." questions correctly!", centerX+70,centerY,300,0,"Comic Relief", 30)
+	local reward = display.newText("You answered "..correctCount.." out of "..attemptCount.." questions correctly!", centerX,centerY,300*xscale,200*yscale,"Comic Relief", 30)
 	reward:setFillColor(0)
 	screenGroup:insert(reward)
 
-	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
-	continue:scale(0.3,0.3)
+
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+140*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
 
 	continue:addEventListener("tap", goNext)
 	screenGroup:insert(continue)
 end
 
 function boom()
-	explosion:scale(1.15,1.15)
+	explosion:scale(1.15*xscale,1.15*yscale)
 end
 
 function playExplosion()

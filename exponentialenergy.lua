@@ -480,7 +480,7 @@ function eeremoveAnswers(n)
 	screenGroup:remove(answer2)
 	screenGroup:remove(answer3)
 	screenGroup:remove(questionText)
-	answer:removeEventListener("tap",listener)
+	answer:removeEventListener("tap",eelistener)
 	
 
 end

@@ -79,22 +79,25 @@ local tablesetup1 = [[CREATE TABLE IF NOT EXISTS eeScore (id INTEGER PRIMARY KEY
 	time INTEGER, correcte INTEGER, chosene INTEGER, correctnum INTEGER, chosennum INTEGER, round INTEGER, level INTEGER);]]
 db:exec( tablesetup1 )
 
+local tablesetup2 = [[CREATE TABLE IF NOT EXISTS mapUnlocks (id INTEGER PRIMARY KEY,location STRING);]]
+db:exec( tablesetup2 )
 
---local drop = [[drop table timeTrialsScore]]
+
+--local drop = [[drop table mapUnlocks]]
 --local drop1 = [[drop table eeScore]]
 --db:exec( drop )
 --db:exec( drop1 )
+--unlockMap("ee1")
 
-
-storyboard.gotoScene( "exponentialenergyhard")
+storyboard.gotoScene( "menu")
 --storyboard.gotoScene( "splash","fade",500)
-
 
 --[[for row in db:nrows("SELECT * FROM timeTrialsScore ORDER BY id DESC;") do
   local text = row.id.." "..row.correct.." "..row.time.." "..row.correctHa.." "..row.chosenHa.." "..row.round
   local t = display.newText(text, 20, -1200 + (20 * row.id), native.systemFont, 16)
   t:setFillColor(1,1,1)
 end
+
 
 local t = display.newText(display.pixelHeight, 100, 100 , native.systemFont, 16)
   t:setFillColor(1,1,1)

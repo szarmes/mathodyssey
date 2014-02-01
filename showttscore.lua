@@ -43,23 +43,29 @@ function scene:createScene( event )
 		round = row.round
 	end
 	for row in db:nrows("SELECT * FROM timeTrialsScore") do
- 	if row.round == round then
- 		attemptCount = attemptCount+1
- 		if row.correct == 1 then
- 			correctCount= correctCount+1
- 		end
- 	end
-end
-	bg = display.newImage("images/ttbg.png", centerX,centerY+30)
-	bg:scale(0.7,0.7)
+	 	if row.round == round then
+	 		attemptCount = attemptCount+1
+	 		if row.correct == 1 then
+	 			correctCount= correctCount+1
+	 		end
+	 	end
+	end
+	if correctCount>6 and storyboard.getPrevious() == "telltime" then
+		unlockMap("tt2")
+	end
+	if correctCount>6 and storyboard.getPrevious() == "timetrials" then
+		unlockMap("tt3")
+	end
+	bg = display.newImage("images/ttbg.png", centerX,centerY+30*yscale)
+	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 	--display.setDefault( "background", 1, 1, 1 )
-	local reward = display.newText("You answered "..correctCount.." out of "..attemptCount.." questions correctly!", centerX+70,centerY,300,0,"Comic Relief", 30)
+	local reward = display.newText("You answered "..correctCount.." out of "..attemptCount.." questions correctly!", centerX,centerY,300*xscale,200*yscale,"Comic Relief", 30)
 	reward:setFillColor(0)
 	screenGroup:insert(reward)
 
-	continue = display.newImage("images/continue.png", centerX+200, centerY+140)
-	continue:scale(0.3,0.3)
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+140*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
 
 	continue:addEventListener("tap", goNext)
 	screenGroup:insert(continue)

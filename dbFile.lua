@@ -43,4 +43,21 @@ function storeEE2(correct,time, correctnum, chosennum, round,level)
 
 end
 
+function unlockMap(location)
+
+	local mapcheck = false
+	for row in db:nrows("SELECT * FROM mapUnlocks;") do
+		if row.location == location then
+			mapcheck = true
+			break
+		end
+	end
+	if mapcheck == false then
+
+		local tablefill =[[INSERT INTO mapUnlocks VALUES (NULL, ']]..location..[['); ]]
+		db:exec( tablefill )
+	end
+end
+
+
 ----------------
