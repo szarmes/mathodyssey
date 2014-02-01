@@ -23,7 +23,7 @@ local patterninstructions = "On this planet you will be learning about multiplic
 local patterninstructions1 = "Your first task will be to find patterns in groups of numbers."
 local patterninstructions2 = "You will see groups of numbers like these,"
 local patterninstructions3 = "and your job will be to select the numbers that form a pattern."
-local patterninstructions4 = "In this example you would select every fourth number, like this."
+local patterninstructions4 = "In this example you would select every"
 local multiple
 local function patternsgoHome()
 	first = true
@@ -84,7 +84,7 @@ end
 
 function patternShowNumbers(n)
 	local screenGroup = n
-	multiple = math.random(10)
+	multiple = math.random(2,10)
 	numbers = {}
 	for j = 0 , 5, 1 do
 		for i =1, 15, 1  do
@@ -147,7 +147,6 @@ function patternmakeSecondDisappear(n)
 	continue:addEventListener("tap", myfunction)
 	screenGroup:insert(continue)
 	patternShowNumbers(screenGroup)
-	multiple = 4
 	patternShowMultiple(screenGroup)
 end
 
@@ -173,6 +172,16 @@ function patternmakeFourthDisappear(n)
 	local screenGroup = n
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
+	if multiple == 2 then patterninstructions4 = patterninstructions4.." second number, like this."
+	elseif multiple == 3 then patterninstructions4 = patterninstructions4.." third number, like this."
+	elseif multiple == 4 then patterninstructions4 = patterninstructions4.." fourth number, like this."
+	elseif multiple == 5 then patterninstructions4 = patterninstructions4.." fifth number, like this."
+	elseif multiple == 6 then patterninstructions4 = patterninstructions4.." sixth number, like this."
+	elseif multiple == 7 then patterninstructions4 = patterninstructions4.." seventh number, like this."
+	elseif multiple == 8 then patterninstructions4 = patterninstructions4.." eigth number, like this."
+	elseif multiple == 9 then patterninstructions4 = patterninstructions4.." ninth number, like this."
+	elseif multiple == 10 then patterninstructions4 = patterninstructions4.." tenth number, like this."
+	end
 
 	myText = display.newText(patterninstructions4, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
