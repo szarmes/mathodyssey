@@ -20,8 +20,6 @@ local centerY = display.contentCenterY
 
 
 function goToPlay()
-
-
 	storyboard.gotoScene("play")
 end
 

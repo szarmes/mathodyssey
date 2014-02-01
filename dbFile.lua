@@ -22,6 +22,7 @@ function storeTimeTrials(correct,time, correctHa, correctMa, chosenHa, chosenMa,
 	local tablefill =[[INSERT INTO timeTrialsScore VALUES (NULL, ']]..correct..[[',']]..time..[[',']]..correctHa..
 		[[',']]..correctMa..[[',']]..chosenHa..[[',']]..chosenMa..[[',']]..r1..[[',']]..r2..[[',']]
 		..round..[[',']]..level..[['); ]]
+	
 	db:exec( tablefill )
 
 end

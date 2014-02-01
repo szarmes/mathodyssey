@@ -25,22 +25,22 @@ local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 
 local function goNext()
-	storyboard.removeAll()
+	storyboard.purgeAll()
 	storyboard.gotoScene( "menu")
 end
 
 
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
+	storyboard.purgeScene("telltime")
 	storyboard.purgeScene("timetrials")
 	storyboard.purgeScene("timetrialshard")
 	local screenGroup = self.view
 	attemptCount=0
 	correctCount = 0
 	round = -1
-	for row in db:nrows("SELECT * FROM timeTrialsScore ORDER BY id DESC") do
+	for row in db:nrows("SELECT * FROM timeTrialsScore") do
 		round = row.round
-		break
 	end
 	for row in db:nrows("SELECT * FROM timeTrialsScore") do
  	if row.round == round then

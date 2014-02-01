@@ -377,44 +377,35 @@ function correctResponseListener(n)
 end
 
 function generateAnswers()
-	r3 = math.abs(r1-r2)
-	r31 = -1
-	while r31<0 or r31 == r3 do
-		local var = math.random(1,2)
-		if var == 2 then
-			r31 = r3+math.random(1,4)*30
-		else 
-			r31 = r3+math.random(-4,-1)*30
-		end
+	math.randomseed( os.time() )
+	r2 = math.random(23)*30
+	ha1 = math.floor(r2/60) --hours answer
+	ma1 = ((r2/30)%2)*30  --minutes answer
+	while(((ha1*60)+ma1 == (ha*60)+ma)) do
+		r2 = math.random(23)*30
+		ha1 = math.floor(r2/60) --hours answer
+		ma1 = ((r2/30)%2)*30  
 	end
-	r32 = -1
-	while r32<0 or r32 == r3 or r32==r31 do
-		local var = math.random(1,2)
-		if var == 2 then
-			r32 = r3+math.random(1,4)*30
-		else 
-			r32 = r3+math.random(-4,-1)*30
-		end
+	r3 = math.random(23)*30
+	ha2 = math.floor(r3/60) --hours answer
+	ma2 = ((r3/30)%2)*30  
+	while(((ha2*60)+ma2 == (ha*60)+ma)or((ha2*60)+ma2 == (ha1*60)+ma1)) do
+		r3 = math.random(23)*30
+		ha2 = math.floor(r3/60) --hours answer 
+		ma2 = ((r3/30)%2)*30
 	end
-	r33 = -1
-	while r33<0 or r33 == r3 or r33 == r31 or r33 == r32 do
-		local var = math.random(1,2)
-		if var == 2 then
-			r33 = r3+math.random(1,4)*30
-		else 
-			r33 = r3+math.random(-4,-1)*30
-		end
+	r4 = math.random(23)*30
+	ha3 = math.floor(r4/60) --hours answer
+	ma3 =  ((r4/30)%2)*30
+	while((((ha3*60)+ma3 == (ha*60)+ma)or((ha3*60)+ma3 == (ha1*60)+ma1))or((ha3*60)+ma3 == (ha2*60)+ma2)) do
+		r4 = math.random(23)*30
+		ha3 = math.floor(r4/60) --hours answer
+		ma3 =  ((r4/30)%2)*30 
 	end
-
-	ha1 = math.abs(math.floor(math.abs(r31)/60)) --hours answer
-	ma1 = math.abs(math.abs(r31) -(ha1*60)) --minutes answer
-	ha2 = math.abs(math.floor(math.abs(r32)/60)) --hours answer
-	ma2 = math.abs(math.abs(r32) -(ha2*60)) --minutes answer
-	ha3 = math.abs(math.floor(math.abs(r33)/60)) --hours answer
-	ma3 = math.abs(math.abs(r33) -(ha3*60)) --minutes answer
 end
 
 function generateAnswerText()
+	generateAnswers()
 	if (ha == 1) then
 		answerText = ha.." hour and \n"..ma.." minutes"
 	else
