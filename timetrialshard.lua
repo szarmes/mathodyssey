@@ -30,7 +30,7 @@ local instructions = "You have made it to the final location on this planet. Con
 local instructions1 = "Your time telling skills will be truly tested in this mission. You must keep your composure and remain steadfast."
 local instructions2 = "Coming this far and falling short is not an option."
 
-local function goHome()
+local function timetrialshardgoHome()
 	first = true
 	round = -1
 	questionCount = 0
@@ -59,11 +59,10 @@ function scene:createScene( event )
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
 	end
-	newQuestion(screenGroup)
-	displayClocks(screenGroup)
-	generateAnswers()
+	timetrialshardnewQuestion(screenGroup)
+	timetrialsharddisplayClocks(screenGroup)
+	timetrialshardgenerateAnswers()
 end
-
 
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )
@@ -80,19 +79,15 @@ function scene:enterScene( event )
 	end
 end
 
-
 -- Called when scene is about to move offscreen:
 function scene:exitScene( event )
-	
 end
-
 
 -- Called prior to the removal of scene's "view" (display group)
 function scene:destroyScene( event )
-	
 end
 
-function displayClocks(n)
+function timetrialsharddisplayClocks(n)
 	local screenGroup = n
 	clock1 = display.newImage("images/clock.png", centerX-120*xscale, centerY-60*yscale)
 	clock1:scale(0.7*xscale,0.7*yscale)
@@ -140,13 +135,13 @@ function displayClocks(n)
 
 	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
 	home:scale(0.3*xscale,0.3*yscale)
-	home:addEventListener("tap", goHome)
+	home:addEventListener("tap", timetrialshardgoHome)
 	screenGroup:insert(home)
 
-	rotate()
+	timetrialshardrotate()
 end
 
-function rotate() --set up the times
+function timetrialshardrotate() --set up the times
 	minute1:rotate(6*r1)
 	hour1:rotate(0.5*r1)
 	
@@ -154,8 +149,7 @@ function rotate() --set up the times
 	hour2:rotate(0.5*r2)
 end
 
-
-function newQuestion(n) -- this will make a new question
+function timetrialshardnewQuestion(n) -- this will make a new question
 	local screenGroup = n
 	r1 = math.random(24)*15
 	r2 = math.random(47)*15
@@ -168,7 +162,7 @@ function newQuestion(n) -- this will make a new question
 	before = (r2<r1)
 
 	if (first) then
-		local myFunction = function() makeFirstDisappear(screenGroup) end
+		local myFunction = function() timetrialshardmakeFirstDisappear(screenGroup) end
 		continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 		continue:scale(0.3*xscale,0.3*yscale)
 
@@ -176,11 +170,11 @@ function newQuestion(n) -- this will make a new question
 		screenGroup:insert(continue)
 		
 	else 
-		showChoices(screenGroup)
+		timetrialshardshowChoices(screenGroup)
 	end
 end
 
-function makeFirstDisappear(n)
+function timetrialshardmakeFirstDisappear(n)
 	local screenGroup = n
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
@@ -189,7 +183,7 @@ function makeFirstDisappear(n)
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
-	local myFunction = function() makeSecondDisappear(screenGroup) end
+	local myFunction = function() timetrialshardmakeSecondDisappear(screenGroup) end
 	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 	continue:scale(0.3*xscale,0.3*yscale)
 
@@ -198,7 +192,7 @@ function makeFirstDisappear(n)
 	--showAnswer(screenGroup)
 end
 
-function makeSecondDisappear(n)
+function timetrialshardmakeSecondDisappear(n)
 	local screenGroup = n
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
@@ -209,14 +203,14 @@ function makeSecondDisappear(n)
 
 	go = display.newImage("images/go.png", centerX+200*xscale, centerY+120*yscale)
 	go:scale(0.5*xscale,0.5*yscale)
-	go:addEventListener("tap", newSceneListener)
+	go:addEventListener("tap", timetrialshardnewSceneListener)
 	screenGroup:insert(go)
 
 
 	first = false
 end
 
-function showChoices(n)
+function timetrialshardshowChoices(n)
 	local screenGroup = n
 	startTime = system.getTimer()
 	questionText =display.newText( "How far ahead of Clock 1 is Clock 2?", centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
@@ -232,12 +226,12 @@ function showChoices(n)
 		table.remove(a, r)
 		count=count-1
 	end
-	generateAnswerText()
+	timetrialshardgenerateAnswerText()
 	tryAgain.TAanswerText = answerText
 	answer = display.newText(answerText,b[1],centerY+100, 125*xscale,0, "Comic Relief", 16)
 	answer:setFillColor(0)
 	function listener()
-		correctResponseListener(screenGroup)
+		timetrialshardcorrectResponseListener(screenGroup)
 	end
 	answer:addEventListener("tap", listener)
 	screenGroup:insert(answer)
@@ -246,7 +240,7 @@ function showChoices(n)
 	answer1 = display.newText(answer1Text,b[2],centerY+100,125*xscale,0, "Comic Relief", 16)
 	answer1:setFillColor(0,0,0)
 	local function listener1()
-		incorrectResponseListener1(screenGroup)
+		timetrialshardincorrectResponseListener1(screenGroup)
 	end
 	answer1:addEventListener("tap", listener1)
 	screenGroup:insert(answer1)
@@ -255,7 +249,7 @@ function showChoices(n)
 	answer2 = display.newText(answer2Text,b[3],centerY+100,125*xscale,0, "Comic Relief", 16)
 	answer2:setFillColor(0,0,0)
 	local function listener2()
-		incorrectResponseListener2(screenGroup)
+		timetrialshardincorrectResponseListener2(screenGroup)
 	end
 	answer2:addEventListener("tap", listener2)
 	screenGroup:insert(answer2)
@@ -264,64 +258,61 @@ function showChoices(n)
 	answer3 = display.newText(answer3Text,b[4],centerY+100,125*xscale,0, "Comic Relief", 16)
 	answer3:setFillColor(0,0,0)
 	local function listener3()
-		incorrectResponseListener3(screenGroup)
+		timetrialshardincorrectResponseListener3(screenGroup)
 	end
 	answer3:addEventListener("tap", listener3)
 	screenGroup:insert(answer3)
 end
 
-function newSceneListener()
+function timetrialshardnewSceneListener()
 	storyboard.purgeScene("timetrialshard")
 	storyboard.reloadScene()
 end
 
-
-function incorrectResponseListener1(n)
+function timetrialshardincorrectResponseListener1(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	storeTimeTrials(0,totalTime,ha,ma,ha1,ma1,r1,r2,round,3)
 	questionCount = questionCount + 1
-	wrongAnswer(screenGroup)
+	timetrialshardwrongAnswer(screenGroup)
 end
 
-function incorrectResponseListener2(n)
+function timetrialshardincorrectResponseListener2(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	storeTimeTrials(0,totalTime,ha,ma,ha2,ma2,r1,r2,round,3)
 	questionCount = questionCount + 1
-	wrongAnswer(screenGroup)
+	timetrialshardwrongAnswer(screenGroup)
 end
 
-function incorrectResponseListener3(n)
+function timetrialshardincorrectResponseListener3(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	storeTimeTrials(0,totalTime,ha,ma,ha3,ma3,r1,r2,round,3)
 	questionCount = questionCount + 1
-	
-	wrongAnswer(screenGroup)
+	timetrialshardwrongAnswer(screenGroup)
 end
 
-function correctResponseListener(n)
+function timetrialshardcorrectResponseListener(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	storeTimeTrials(1,totalTime,ha,ma,ha,ma,r1,r2,round,3)
 	questionCount = questionCount + 1
-	removeAnswers(screenGroup)
+	timetrialshardremoveAnswers(screenGroup)
 	
 	local reward = display.newText("Good Job!", centerX+70*xscale,centerY+50*yscale,300*xscale,0,"Comic Relief", 30)
 	reward:setFillColor(0)
 	screenGroup:insert(reward)
 
-	local myFunction = function() newSceneListener() end
+	local myFunction = function() timetrialshardnewSceneListener() end
 	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 	continue:scale(0.3*xscale,0.3*yscale)
 
 	continue:addEventListener("tap", myFunction)
-	screenGroup:insert(continue)
-	
+	screenGroup:insert(continue)	
 end
 
-function generateAnswers()
+function timetrialshardgenerateAnswers()
 	math.randomseed( os.time() )
 	r5 = math.random(46)*15
 	ha1 = math.floor(r5/60) --hours answer
@@ -347,11 +338,10 @@ function generateAnswers()
 		ha3 = math.floor(r4/60) --hours answer
 		ma3 = math.abs(r4 -(ha3*60))
 	end
-
 end
 
-function generateAnswerText()
-	generateAnswers()
+function timetrialshardgenerateAnswerText()
+	timetrialshardgenerateAnswers()
 	if (ha == 1) then
 		answerText = ha.." hour and \n"..ma.." minutes"
 	else
@@ -374,7 +364,7 @@ function generateAnswerText()
 	end
 end
 
-function removeAnswers(n)
+function timetrialshardremoveAnswers(n)
 	local screenGroup = n
 	--screenGroup:remove(answer)
 	screenGroup:remove(answer1)
@@ -382,17 +372,16 @@ function removeAnswers(n)
 	screenGroup:remove(answer3)
 	screenGroup:remove(questionText)
 	answer:removeEventListener("tap",listener)
-
 end
 
-function wrongAnswer(n)
+function timetrialshardwrongAnswer(n)
 	local screenGroup = n
-	removeAnswers(screenGroup)
+	timetrialshardremoveAnswers(screenGroup)
 	questionText =display.newText( "Oops, the correct answer was", centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 18 )
 	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
 
-	local myFunction = function() newSceneListener() end
+	local myFunction = function() timetrialshardnewSceneListener() end
 	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 	continue:scale(0.3*xscale,0.3*yscale)
 
