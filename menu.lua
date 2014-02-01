@@ -66,8 +66,6 @@ function scene:createScene( event )
 	about.anchorX = 1
 	screenGroup:insert(about)
 
-	
-
 	title = display.newImage("images/splash.png", centerX,centerY-100*yscale)
 	title:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(title)
@@ -76,6 +74,8 @@ function scene:createScene( event )
 	settings:scale(0.6*xscale,0.6*yscale)
 	settings:addEventListener("tap",goToSettings)
 	screenGroup:insert(settings)
+
+	spawnMeteor(screenGroup)
 
 	audio.play(bgmusic,{loops = -1,channel=1})
 
@@ -94,13 +94,68 @@ end
 
 -- Called when scene is about to move offscreen:
 function scene:exitScene( event )
-	
+	cancelTimers()
 end
 
 
 -- Called prior to the removal of scene's "view" (display group)
 function scene:destroyScene( event )
 	
+end
+
+function spawnMeteor(n)
+	local screenGroup = n
+
+	version = math.random(1,4)
+	if version==1 then
+		meteorx = centerX+200*xscale
+		meteory = centerY-200*yscale
+		meteorxforce = -50
+		meteoryforce = 25
+		meteorrotation = 0
+	elseif version==2 then
+		meteorx = centerX-200*xscale
+		meteory = centerY-200*yscale
+		meteorxforce = 30
+		meteoryforce = 40
+		meteorrotation = -90
+	elseif version==3 then
+		meteorx = centerX-200*xscale
+		meteory = centerY+200*yscale
+		meteorxforce = 23
+		meteoryforce = -40
+		meteorrotation = 155
+	elseif version==4 then
+		meteorx = centerX+400*xscale
+		meteory = centerY+100*yscale
+		meteorxforce = -35
+		meteoryforce = -10
+		meteorrotation = 45
+	end
+
+	meteor = display.newImage("images/meteor.png",meteorx,meteory)
+	meteor:scale(0.6*xscale,0.6*yscale)
+	meteor:rotate(meteorrotation)
+	screenGroup:insert(meteor)
+	physics.addBody(meteor)
+
+	meteor:applyForce(meteorxforce,meteoryforce, meteor.x,meteor.y)
+	local function listener1()
+		respawnMeteor(screenGroup)
+	end
+	timer1 = timer.performWithDelay(7000,listener1)
+end
+
+function cancelTimers()
+	if timer1 ~= nil then
+		timer.cancel(timer1)
+	end
+end
+
+function respawnMeteor(n)
+		local screenGroup = n 
+		screenGroup:remove(meteor)
+		spawnMeteor(screenGroup)
 end
 
 ---------------------------------------------------------------------------------
