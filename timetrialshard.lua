@@ -55,7 +55,7 @@ function scene:createScene( event )
 		dog:scale(0.2*xscale, 0.2*yscale)
 		dog:rotate(30)
 		screenGroup:insert(dog)
-		myText = display.newText( instructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
+		myText = display.newText( instructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
 	end
@@ -98,11 +98,11 @@ function displayClocks(n)
 	clock1:scale(0.7*xscale,0.7*yscale)
 	screenGroup:insert(clock1)
 
-	pm1 = display.newText("PM",centerX-40*xscale,centerY, "Comic Relief", 20)
+	pm1 = display.newText("PM",centerX-40*xscale,centerY, "Comic Relief", 18)
 	pm1:setFillColor(0)
 	screenGroup:insert(pm1)
 
-	minute1 = display.newImage(minute, centerX-120*xscale, centerY-60*yscale, "Comic Relief", 20)
+	minute1 = display.newImage(minute, centerX-120*xscale, centerY-60*yscale, "Comic Relief", 18)
 	minute1:scale(0.8*xscale,0.8)
 	minute1.anchorY = 1
 	screenGroup:insert(minute1)
@@ -116,7 +116,7 @@ function displayClocks(n)
 	clock2:scale(0.7*xscale,0.7*yscale)
 	screenGroup:insert(clock2)
 
-	pm2 = display.newText("PM",centerX+200*xscale,centerY, "Comic Relief", 20)
+	pm2 = display.newText("PM",centerX+200*xscale,centerY, "Comic Relief", 18)
 	pm2:setFillColor(0)
 	screenGroup:insert(pm2)
 
@@ -130,11 +130,11 @@ function displayClocks(n)
 	hour2.anchorY = 1
 	screenGroup:insert(hour2)
 
-	title1 = display.newText( "Clock 1", centerX-200*xscale, centerY-140*yscale, "Comic Relief", 20 )
+	title1 = display.newText( "Clock 1", centerX-200*xscale, centerY-140*yscale, "Comic Relief", 18 )
 	title1:setFillColor(0)
 	screenGroup:insert(title1)
 
-	title2 = display.newText( "Clock 2", centerX+40*xscale, centerY-140*yscale, "Comic Relief", 20 )
+	title2 = display.newText( "Clock 2", centerX+40*xscale, centerY-140*yscale, "Comic Relief", 18 )
 	title2:setFillColor(0)
 	screenGroup:insert(title2)
 
@@ -185,7 +185,7 @@ function makeFirstDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions1, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
+	myText = display.newText( instructions1, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -203,7 +203,7 @@ function makeSecondDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions2, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
+	myText = display.newText( instructions2, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -219,7 +219,7 @@ end
 function showChoices(n)
 	local screenGroup = n
 	startTime = system.getTimer()
-	questionText =display.newText( "How far ahead of Clock 1 is Clock 2?", centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
+	questionText =display.newText( "How far ahead of Clock 1 is Clock 2?", centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
 	a={-175,-50,75,200}
@@ -397,7 +397,7 @@ end
 function wrongAnswer(n)
 	local screenGroup = n
 	removeAnswers(screenGroup)
-	questionText =display.newText( "Oops, the correct answer was", centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 20 )
+	questionText =display.newText( "Oops, the correct answer was", centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 18 )
 	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
 
