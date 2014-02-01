@@ -64,7 +64,11 @@ function scene:createScene( event )
 		dog:rotate(30)
 		screenGroup:insert(dog)
 
+<<<<<<< HEAD
 		myText = display.newText( telltimeinstructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
+=======
+		myText = display.newText( instructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+>>>>>>> duncan
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
 	end
@@ -101,14 +105,14 @@ end
 function displayClocks(n)
 	local screenGroup = n
 	clock1 = display.newImage("images/clock.png", centerX, centerY-60*yscale)
-	clock1:scale(0.7*xscale,0.7*yscale)
+	clock1:scale(0.7*yscale,0.7*yscale)
 	screenGroup:insert(clock1)
 
-	pm1 = display.newText("PM",centerX+80*xscale,centerY, "Comic Relief", 20)
+	pm1 = display.newText("PM",centerX+90*xscale,centerY, "Comic Relief", 18)
 	pm1:setFillColor(0)
 	screenGroup:insert(pm1)
 
-	minute1 = display.newImage(minute, centerX, centerY-60*yscale, "Comic Relief", 20)
+	minute1 = display.newImage(minute, centerX, centerY-60*yscale, "Comic Relief", 18)
 	minute1:scale(0.8*xscale,0.8*yscale)
 	minute1.anchorY = 1
 	screenGroup:insert(minute1)
@@ -118,7 +122,7 @@ function displayClocks(n)
 	hour1.anchorY = 1
 	screenGroup:insert(hour1)
 
-	title1 = display.newText( "Clock 1", centerX-80*xscale, centerY-140*yscale, "Comic Relief", 20 )
+	title1 = display.newText( "Clock 1", centerX-90*xscale, centerY-140*yscale, "Comic Relief", 18 )
 	title1:setFillColor(0)
 	screenGroup:insert(title1)
 
@@ -172,7 +176,7 @@ function makeFirstDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( telltimeinstructions1, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
+	myText = display.newText( instructions1, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -190,7 +194,7 @@ function makeSecondDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( telltimeinstructions2, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
+	myText = display.newText( instructions2, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -208,7 +212,7 @@ function makeThirdDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( telltimeinstructions3, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
+	myText = display.newText( instructions3, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -226,7 +230,7 @@ function makeFourthDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( telltimeinstructions4, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
+	myText = display.newText( instructions4, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -244,7 +248,7 @@ function makeFifthDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( telltimeinstructions5, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
+	myText = display.newText( instructions5, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -262,7 +266,7 @@ function makeSixthDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( telltimeinstructions6, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
+	myText = display.newText( instructions6, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -280,7 +284,8 @@ function makeSeventhDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( telltimeinstructions7, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
+
+	myText = display.newText( instructions7, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -294,7 +299,7 @@ end
 function showChoices(n)
 	local screenGroup = n
 	startTime = system.getTimer()
-	questionText =display.newText( "What time is it?", centerX, centerY+140,400*xscale,200*yscale, "Comic Relief", 20 )
+	questionText =display.newText( "What time is it?", centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
 	a={-175,-50,75,200}
@@ -309,7 +314,7 @@ function showChoices(n)
 	end
 	generateAnswerText()
 	
-	answer = display.newText(answerText,b[1],centerY+100, 125*xscale,0, "Comic Relief", 16)
+	answer = display.newText(answerText,b[1],centerY+100*yscale, 125*xscale,0, "Comic Relief", 16)
 	answer:setFillColor(0)
 	function listener()
 		correctResponseListener(screenGroup)
@@ -317,7 +322,8 @@ function showChoices(n)
 	answer:addEventListener("tap", listener)
 	screenGroup:insert(answer)
 
-	answer1 = display.newText(answer1Text,b[2],centerY+100,125*xscale,0, "Comic Relief", 16)
+
+	answer1 = display.newText(answer1Text,b[2],centerY+100*yscale,125*xscale,0, "Comic Relief", 16)
 	answer1:setFillColor(0,0,0)
 	local function listener1()
 		incorrectResponseListener1(screenGroup)
@@ -325,7 +331,8 @@ function showChoices(n)
 	answer1:addEventListener("tap", listener1)
 	screenGroup:insert(answer1)
 
-	answer2 = display.newText(answer2Text,b[3],centerY+100,125*xscale,0, "Comic Relief", 16)
+	answer2 = nil
+	answer2 = display.newText(answer2Text,b[3],centerY+100*yscale,125*xscale,0, "Comic Relief", 16)
 	answer2:setFillColor(0,0,0)
 	local function listener2()
 		incorrectResponseListener2(screenGroup)
@@ -333,7 +340,8 @@ function showChoices(n)
 	answer2:addEventListener("tap", listener2)
 	screenGroup:insert(answer2)
 
-	answer3 = display.newText(answer3Text,b[4],centerY+100,125*xscale,0, "Comic Relief", 16)
+	answer3 = nil
+	answer3 = display.newText(answer3Text,b[4],centerY+100*yscale,125*xscale,0, "Comic Relief", 16)
 	answer3:setFillColor(0,0,0)
 	local function listener3()
 		incorrectResponseListener3(screenGroup)
@@ -463,7 +471,7 @@ end
 function wrongAnswer(n)
 	local screenGroup = n
 	removeAnswers(screenGroup)
-	questionText =display.newText( "Oops, the correct answer was", centerX, centerY+140*xscale,450*xscale,200*yscale, "Comic Relief", 20 )
+	questionText =display.newText( "Oops, the correct answer was", centerX, centerY+140*xscale,450*xscale,200*yscale, "Comic Relief", 18 )
 	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
 
