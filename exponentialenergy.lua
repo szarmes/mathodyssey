@@ -6,6 +6,7 @@
 
 local storyboard = require( "storyboard" )
 local scene = storyboard.newScene()
+storyboard.purgeAll()
 require "dbFile"
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
@@ -45,17 +46,15 @@ function scene:createScene( event )
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
 	end
-
-
 	
-	--displayNumbers(screenGroup)
+	--eedisplayNumbers(screenGroup)
 	--background = display.newImage("images/cat.jpg",centerX,centerY)
 	--Runtime:addEventListener("touch",moveCatListener)
 	--screenGroup:insert( background )
 
 	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
 	home:scale(0.3*xscale,0.3*yscale)
-	home:addEventListener("tap", goHome)
+	home:addEventListener("tap", eegoHome)
 	screenGroup:insert(home)
 
 end
@@ -77,9 +76,9 @@ function scene:enterScene( event )
 		end
 
 		local screenGroup = self.view
-		generateAnswers()
-		generateAnswerText()
-		displayNumbers(screenGroup)
+		eegenerateAnswers()
+		eegenerateAnswerText()
+		eedisplayNumbers(screenGroup)
 		instructions3 = "In this case the exponent is "..exponent..", since  "..number.. " appears in this repeated multiplication of itself "..exponent.." times."	
 		if exponent == 0 then
 			number = 1
@@ -89,7 +88,7 @@ function scene:enterScene( event )
 			number = math.random(2,5)
 			instructions3 = "In this case the exponent is "..exponent..", since numbers with an exponent of 1 do not change."
 		end
-		newQuestion(screenGroup)
+		eenewQuestion(screenGroup)
 	end
 end
 
@@ -103,7 +102,7 @@ end
 function scene:destroyScene( event )
 	
 end
-function goHome()
+function eegoHome()
 	first = true
 	round = -1
 	questionCount = 0
@@ -112,23 +111,23 @@ function goHome()
 	storyboard.gotoScene( "menu")
 end
 
-function newQuestion(n)
+function eenewQuestion(n)
 	local screenGroup = n
 
 	if (first) then
 		continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 		continue:scale(0.3*xscale,0.3*yscale)
-		local myFunction = function() makeFirstDisappear(screenGroup) end
+		local myFunction = function() eemakeFirstDisappear(screenGroup) end
 		continue:addEventListener("tap", myFunction)
 		screenGroup:insert(continue)
 		first = false
 	else 
-		showChoices(screenGroup)
+		eeshowChoices(screenGroup)
 	end
 
 end
 
-function makeFirstDisappear(n)
+function eemakeFirstDisappear(n)
 	local screenGroup = n
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
@@ -140,7 +139,7 @@ function makeFirstDisappear(n)
 	pointer = display.newImage("images/exppointer.png",centerX,centerY-70*yscale)
 	screenGroup:insert(pointer)
 
-	local myFunction = function() makeSecondDisappear(screenGroup) end
+	local myFunction = function() eemakeSecondDisappear(screenGroup) end
 	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 	continue:scale(0.3*xscale,0.3*yscale)
 
@@ -151,13 +150,14 @@ function makeFirstDisappear(n)
 	timer4 = timer.performWithDelay(500,zoomOutFunction) end 
 	zoomInFunction()
 	timer1 = timer.performWithDelay(1000,zoomInFunction,2)
-	--showAnswer(screenGroup)
+	--eeshowAnsswer(screenGroup)
 end
-function makeSecondDisappear(n)
+function eemakeSecondDisappear(n)
 	local screenGroup = n
 	cancelZoomTimers()
 	screenGroup:remove(questionMarkText)
 	questionMarkText =display.newText( "?", centerX-(qLtemp.width+20)*xscale, centerY-50*yscale, "Comic Relief", 24 )
+	
 	screenGroup:insert(questionMarkText)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
@@ -192,16 +192,16 @@ function makeSecondDisappear(n)
 	screenGroup:insert(oneQuestionMark)
 	screenGroup:insert(oneRight)
 
-	local myFunction = function() makeThirdDisappear(screenGroup) end
+	local myFunction = function() eemakeThirdDisappear(screenGroup) end
 	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 	continue:scale(0.3*xscale,0.3*yscale)
 
 	continue:addEventListener("tap", myFunction)
 	screenGroup:insert(continue)
-	--showAnswer(screenGroup)
+	--eeshowAnsswer(screenGroup)
 end
 
-function makeThirdDisappear(n)
+function eemakeThirdDisappear(n)
 	local screenGroup = n
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
@@ -220,24 +220,21 @@ function makeThirdDisappear(n)
 	questionMarkText =display.newText( exponent, (qL.x+qL.width/2)+5*xscale, centerY-50*yscale, "Comic Relief", 24 )	questionMarkText:setFillColor(0)
 	screenGroup:insert(questionMarkText)
 
-
-
-
 	myText = display.newText( instructions3, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
-	local myFunction = function() makeFourthDisappear(screenGroup) end
+	local myFunction = function() eemakeFourthDisappear(screenGroup) end
 	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 	continue:scale(0.3*xscale,0.3*yscale)
 
 	continue:addEventListener("tap", myFunction)
 	screenGroup:insert(continue)
 
-	--showAnswer(screenGroup)
+	--eeshowAnsswer(screenGroup)
 end
 
-function makeFourthDisappear(n)
+function eemakeFourthDisappear(n)
 	local screenGroup = n
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
@@ -249,19 +246,19 @@ function makeFourthDisappear(n)
 	first = false
 	go = display.newImage("images/go.png", centerX+200*xscale, centerY+120*yscale)
 	go:scale(0.5*xscale,0.5*yscale)
-	go:addEventListener("tap", newSceneListener)
+	go:addEventListener("tap", eenewSceneListener)
 	screenGroup:insert(go)
 
-	--showAnswer(screenGroup)
+	--eeshowAnsswer(screenGroup)
 end
 
-function newSceneListener()
+function eenewSceneListener()
 	cancelZoomTimers()
 	storyboard.purgeScene("exponentialenergy")
 	storyboard.reloadScene()
 end
 
-function generateAnswers()
+function eegenerateAnswers()
 	number = math.random(2,10)
 	exponent = math.random(0,3)
 	if exponent == 0 then
@@ -276,7 +273,7 @@ function generateAnswers()
 	
 end
 
-function showChoices(n)
+function eeshowChoices(n)
 	local screenGroup = n
 	startTime = system.getTimer()
 	questionText =display.newText( "What is the exponent?", centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
@@ -293,21 +290,21 @@ function showChoices(n)
 		table.remove(a, r)
 		count=count-1
 	end
-	generateAnswerText()
+	eegenerateAnswerText()
 	
 	answer = display.newText(exponent,b[1],centerY+100*yscale, 125*xscale,0, "Comic Relief", 30)
 	answer:setFillColor(0)
-	function listener()
-		correctResponseListener(screenGroup)
+	function eelistener()
+		eecorrectResponseListener(screenGroup)
 	end
-	answer:addEventListener("tap", listener)
+	answer:addEventListener("tap", eelistener)
 	screenGroup:insert(answer)
 
 	answer1 = nil
 	answer1 = display.newText(answer1Text,b[2],centerY+100*yscale,125*xscale,0, "Comic Relief", 30)
 	answer1:setFillColor(0,0,0)
 	local function listener1()
-		incorrectResponseListener1(screenGroup)
+		eeincorrectResponseListener1(screenGroup)
 	end
 	answer1:addEventListener("tap", listener1)
 	screenGroup:insert(answer1)
@@ -316,7 +313,7 @@ function showChoices(n)
 	answer2 = display.newText(answer2Text,b[3],centerY+100*yscale,125*xscale,0, "Comic Relief", 30)
 	answer2:setFillColor(0,0,0)
 	local function listener2()
-		incorrectResponseListener2(screenGroup)
+		eeincorrectResponseListener2(screenGroup)
 	end
 	answer2:addEventListener("tap", listener2)
 	screenGroup:insert(answer2)
@@ -325,14 +322,14 @@ function showChoices(n)
 	answer3 = display.newText(answer3Text,b[4],centerY+100*yscale,125*xscale,0, "Comic Relief", 30)
 	answer3:setFillColor(0,0,0)
 	local function listener3()
-		incorrectResponseListener3(screenGroup)
+		eeincorrectResponseListener3(screenGroup)
 	end
 	answer3:addEventListener("tap", listener3)
 	screenGroup:insert(answer3)
 
 end
 
-function generateAnswerText()
+function eegenerateAnswerText()
 
 	if exponent == 3 then
 		answer1Text = 2
@@ -357,7 +354,7 @@ function generateAnswerText()
 
 end
 
-function displayNumbers(n)
+function eedisplayNumbers(n)
 	local screenGroup = n
 	qLtemp = display.newText(equals,-100,-100,"Comic Relief",30)
 	screenGroup:insert(qLtemp)
@@ -371,7 +368,7 @@ function displayNumbers(n)
 	else
 		qR =display.newText( " = "..number, centerX, centerY-40*yscale, "Comic Relief", 30 )
 	end
-	if 	exponent>1 then
+	if 	first==false and exponent>1 then
 		solution = display.newText(" = "..number ^ exponent, centerX+100*xscale, centerY-40*yscale, "Comic Relief", 30)
 		solution:setFillColor(0)
 		screenGroup:insert(solution)
@@ -385,7 +382,7 @@ function displayNumbers(n)
 	
 end
 
-function correctResponseListener(n)
+function eecorrectResponseListener(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	storeEE1(1,totalTime,exponent,exponent,round,1)
@@ -401,12 +398,12 @@ function correctResponseListener(n)
 	timer4 = timer.performWithDelay(500,zoomOutFunction) end 
 	zoomInFunction()
 
-	removeAnswers(screenGroup)
+	eeremoveAnswers(screenGroup)
 	local reward = display.newText("Good Job!", centerX+70*xscale,centerY+50,300,0,"Comic Relief", 30)
 	reward:setFillColor(0)
 	screenGroup:insert(reward)
 
-	local myFunction = function() newSceneListener() end
+	local myFunction = function() eenewSceneListener() end
 	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 	continue:scale(0.3*xscale,0.3*yscale)
 
@@ -417,33 +414,33 @@ function correctResponseListener(n)
 end
 
 
-function incorrectResponseListener1(n)
+function eeincorrectResponseListener1(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	questionCount = questionCount + 1
 	storeEE1(0,totalTime,exponent,answer1Text,round,1)
-	wrongAnswer(screenGroup)
+	eewrongAnswer(screenGroup)
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end
 
-function incorrectResponseListener2(n)
+function eeincorrectResponseListener2(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	questionCount = questionCount + 1
 	storeEE1(0,totalTime,exponent,answer2Text,round,1)
-	wrongAnswer(screenGroup)
+	eewrongAnswer(screenGroup)
 
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end
 
-function incorrectResponseListener3(n)
+function eeincorrectResponseListener3(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	questionCount = questionCount + 1
 	storeEE1(0,totalTime,exponent,answer3Text,round,1)
-	wrongAnswer(screenGroup)
+	eewrongAnswer(screenGroup)
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end
@@ -475,7 +472,7 @@ function cancelZoomTimers()
 end
 
 
-function removeAnswers(n)
+function eeremoveAnswers(n)
 	local screenGroup = n
 	--screenGroup:remove(answer)
 	
@@ -488,14 +485,14 @@ function removeAnswers(n)
 
 end
 
-function wrongAnswer(n)
+function eewrongAnswer(n)
 	local screenGroup = n
-	removeAnswers(screenGroup)
+	eeremoveAnswers(screenGroup)
 	questionText =display.newText( "Oops, the correct answer was", centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 18 )
 	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
 
-	local myFunction = function() newSceneListener() end
+	local myFunction = function() eenewSceneListener() end
 	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 	continue:scale(0.3*xscale,0.3*yscale)
 
