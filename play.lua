@@ -81,19 +81,21 @@ function scene:createScene( event )
 	home:addEventListener("tap", goHome)
 	screenGroup:insert(home)
 
-	spawnMeteor(screenGroup)
 end
 
 
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )
-
+	local screenGroup = self.view	
+	spawnMeteor(screenGroup)
 end
 
 
 -- Called when scene is about to move offscreen:
 function scene:exitScene( event )
-	
+	local screenGroup = self.view	
+	screenGroup:remove(meteor)
+	cancelMeteorTimers()
 end
 
 

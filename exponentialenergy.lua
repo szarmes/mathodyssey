@@ -361,17 +361,16 @@ function eedisplayNumbers(n)
 
 	qL = display.newText(equals,centerX-(qLtemp.width+100)*xscale,centerY-40*yscale,"Comic Relief",30)
 	questionMarkText =display.newText( "?", (qL.x+qL.width/2)+5*xscale, centerY-50*yscale, "Comic Relief", 24 )
-	if exponent==3 then
-		qR =display.newText( " = "..number.."x"..number.."x"..number, centerX, centerY-40*yscale, "Comic Relief", 30 )
-	elseif exponent==2 then
-		qR =display.newText( " = "..number.."x"..number, centerX, centerY-40*yscale, "Comic Relief", 30 )
-	else
-		qR =display.newText( " = "..number, centerX, centerY-40*yscale, "Comic Relief", 30 )
-	end
+	solution = ""
 	if 	first==false and exponent>1 then
-		solution = display.newText(" = "..number ^ exponent, centerX+100*xscale, centerY-40*yscale, "Comic Relief", 30)
-		solution:setFillColor(0)
-		screenGroup:insert(solution)
+		solution= " = "..number ^ exponent
+	end
+	if exponent==3 then
+		qR =display.newText( " = "..number.."x"..number.."x"..number..solution, centerX, centerY-40*yscale, "Comic Relief", 30 )
+	elseif exponent==2 then
+		qR =display.newText( " = "..number.."x"..number..solution, centerX, centerY-40*yscale, "Comic Relief", 30 )
+	else
+		qR =display.newText( " = "..number..solution, centerX, centerY-40*yscale, "Comic Relief", 30 )
 	end
 	qL:setFillColor(0)
 	qR:setFillColor(0)

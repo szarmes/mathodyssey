@@ -19,10 +19,10 @@ local buttonXOffset = 100
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 first = true
-local patterninstructions = "On this planet you will be learning about multiplication which is just repeated addition."
+local patterninstructions = "On this planet you will be learning about multiplication, which is a term for repeated addition."
 local patterninstructions1 = "Your first task will be to find patterns in groups of numbers."
-local patterninstructions2 = "You will see groups of numbers like these,"
-local patterninstructions3 = "and your job will be to select the numbers that form a pattern."
+local patterninstructions2 = "You will be given a number and your job will be to find its multiples."
+local patterninstructions3 = "You will see that the multiples of a given number form a pattern."
 local patterninstructions4 = "In this example you would select every"
 local multiple
 local function patternsgoHome()

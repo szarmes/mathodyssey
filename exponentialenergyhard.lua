@@ -284,15 +284,16 @@ function ee1displayNumbers(n)
 	qLtemp = display.newText(equals,-100,-100,"Comic Relief",30)
 	screenGroup:insert(qLtemp)
 
+	if exponent==3 then
+		qR =display.newText( " = "..number.."x"..number.."x"..number.." =", centerX-35*xscale, centerY-40*yscale, "Comic Relief", 30 )
+	elseif exponent==2 then
+		qR =display.newText( " = "..number.."x"..number.." =", centerX-35*xscale, centerY-40*yscale, "Comic Relief", 30 )
+	else
+		qR =display.newText( " = ", centerX-40*xscale, centerY-35*yscale, "Comic Relief", 30 )
+	end
+
 	qL = display.newText(equals,centerX-(qLtemp.width+100)*xscale,centerY-40*yscale,"Comic Relief",30)
 	questionMarkText =display.newText( exponent, (qL.x+qL.width/2)+5*xscale, centerY-50*yscale, "Comic Relief", 24 )
-	if exponent==3 then
-		qR =display.newText( " = "..number.."x"..number.."x"..number.." =", centerX, centerY-40*yscale, "Comic Relief", 30 )
-	elseif exponent==2 then
-		qR =display.newText( " = "..number.."x"..number.." =", centerX, centerY-40*yscale, "Comic Relief", 30 )
-	else
-		qR =display.newText( " = ", centerX, centerY-40*yscale, "Comic Relief", 30 )
-	end
 	valueText = display.newText( "?", centerX+100*xscale, centerY-40*yscale, "Comic Relief", 24 )
 	valueText:setFillColor(0)
 	qL:setFillColor(0)

@@ -75,9 +75,8 @@ function scene:createScene( event )
 	settings:addEventListener("tap",goToSettings)
 	screenGroup:insert(settings)
 
-	spawnMeteor(screenGroup)
 
-	audio.play(bgmusic,{loops = -1,channel=1})
+	--audio.play(bgmusic,{loops = -1,channel=1})
 
 	--background = display.newImage("images/cat.jpg",centerX,centerY)
 	--Runtime:addEventListener("touch",moveCatListener)
@@ -87,13 +86,17 @@ end
 
 
 -- Called immediately after scene has moved onscreen:
-function scene:enterScene( event )	
+function scene:enterScene( event )
+	local screenGroup = self.view	
+	spawnMeteor(screenGroup)
 	first = true
 end
 
 
 -- Called when scene is about to move offscreen:
 function scene:exitScene( event )
+	local screenGroup = self.view
+	screenGroup:remove(meteor)
 	cancelMeteorTimers()
 end
 

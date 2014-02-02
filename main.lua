@@ -87,7 +87,7 @@ local tablesetup3 = [[CREATE TABLE IF NOT EXISTS bbScore (id INTEGER PRIMARY KEY
 db:exec( tablesetup3 )
 
 
---local drop = [[drop table mapUnlocks]]
+--local drop = [[drop table timeTrialsScore]]
 --local drop1 = [[drop table eeScore]]
 --db:exec( drop )
 --db:exec( drop1 )
