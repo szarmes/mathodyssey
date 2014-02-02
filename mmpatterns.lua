@@ -53,8 +53,11 @@ function scene:createScene( event )
 		myText = display.newText(patterninstructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
+		patternShowNumbers(screenGroup)
+		patternShowMultiple(screenGroup)
 	end
 	patternnewQuestion(screenGroup)
+
 end
 
 -- Called immediately after scene has moved onscreen:
@@ -84,11 +87,16 @@ end
 
 function patternShowNumbers(n)
 	local screenGroup = n
-	multiple = math.random(2,10)
+	multiple = math.random(3,10)
 	numbers = {}
+	bubbles = {}
 	for j = 0 , 5, 1 do
 		for i =1, 15, 1  do
-			numbers[(15*j)+i] = display.newText((15*j)+i, ((i*30)-25)*xscale, (10+(j*30))*yscale, "Comic Relief", 16)
+			bubbles[(15*j)+i] = display.newImage("images/bubble.png",((i*26)+15)*xscale, (20+(j*25))*yscale)
+			bubbles[(15*j)+i]:scale(0.04*xscale, 0.08*yscale)
+			screenGroup:insert(bubbles[(15*j)+i])
+			numbers[(15*j)+i] = display.newText((15*j)+i, ((i*26)+15)*xscale, (19+(j*25))*yscale, "Comic Relief", 14)
+			numbers[(15*j)+i]:setFillColor(0)
 			screenGroup:insert(numbers[(15*j)+i])
 		end
 	end
@@ -96,7 +104,12 @@ end
 
 function patternShowMultiple(n)
 	local screenGroup = n
-	multipleText = display.newText(multiple, 475*xscale, 90*yscale, "Comic Relief", 36)
+	bubble = display.newImage("images/bubble.png", 475*xscale, 90*yscale)
+	bubble:scale(0.1*xscale, 0.2*yscale)
+	bubble:setFillColor(.83,.32,.32)
+	screenGroup:insert(bubble)
+	multipleText = display.newText(multiple, 477*xscale, 80*yscale, "Comic Relief", 36)
+	multipleText:setFillColor(0)
 	screenGroup:insert(multipleText)
 end
 
@@ -105,9 +118,13 @@ function patternShowAnswer(n)
 	for j = 0 , 5, 1 do
 		for i =1, 15, 1  do
 			if (i+(j*15))%multiple == 0 then
-				screenGroup:remove(numbers[(15*j)+i])
-				numbers[(15*j)+i] = display.newText((15*j)+i, ((i*30)-25)*xscale, (10+(j*30))*yscale, "Comic Relief", 16)
-				numbers[(15*j)+i]:setFillColor(0,0,1)
+				screenGroup:remove(bubbles[(15*j)+i])
+				bubbles[(15*j)+i] = display.newImage("images/bubble.png",((i*26)+15)*xscale, (20+(j*25))*yscale)
+				bubbles[(15*j)+i]:scale(0.04*xscale, 0.08*yscale)
+				bubbles[(15*j)+i]:setFillColor(.83,.32,.32)
+				screenGroup:insert(bubbles[(15*j)+i])
+				numbers[(15*j)+i] = display.newText((15*j)+i, ((i*26)+15)*xscale, (19+(j*25))*yscale, "Comic Relief", 14)
+				numbers[(15*j)+i]:setFillColor(0)
 				screenGroup:insert(numbers[(15*j)+i])
 			end
 		end
@@ -146,8 +163,6 @@ function patternmakeSecondDisappear(n)
 
 	continue:addEventListener("tap", myfunction)
 	screenGroup:insert(continue)
-	patternShowNumbers(screenGroup)
-	patternShowMultiple(screenGroup)
 end
 
 function patternmakeThirdDisappear(n)

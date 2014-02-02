@@ -455,8 +455,14 @@ function bbadjustBoard(n)
 		boardsrc = "images/balanced.png"
 	elseif operator == "<" then
 		boardsrc = "images/lessthan.png"
+		lequation.y=lequation.y+20*yscale
+		requation.y=requation.y-10*yscale
+
 	else
 		boardsrc = "images/greaterthan.png"
+		lequation.y=lequation.y-10*yscale
+		requation.y=requation.y+20*yscale
+
 	end
 
 	board = display.newImage(boardsrc,centerX,centerY-40*yscale)
