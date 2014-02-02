@@ -58,6 +58,11 @@ function scene:createScene( event )
 	end
 	patternnewQuestion(screenGroup)
 
+	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
+	home:scale(0.3*xscale,0.3*yscale)
+	home:addEventListener("tap", patternsgoHome)
+	screenGroup:insert(home)
+
 end
 
 -- Called immediately after scene has moved onscreen:

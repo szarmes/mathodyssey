@@ -7,7 +7,7 @@
 
 local storyboard = require( "storyboard" )
 local scene = storyboard.newScene()
-storyboard.removeAll()
+require "menu"
 
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
@@ -18,21 +18,25 @@ local centerY = display.contentCenterY
 
 local function goTott() --play timetrials
 	storyboard.purgeAll()
+	cancelMeteorTimers()
 	storyboard.gotoScene("ttselection")
 end
 
 local function goToee() --play exponential energy
 	storyboard.purgeAll()
+	cancelMeteorTimers()
 	storyboard.gotoScene( "eeselection" )
 end
 
 local function goTomm() --play exponential energy
 	storyboard.purgeAll()
+	cancelMeteorTimers()
 	storyboard.gotoScene( "mmselection" )
 end
 
 local function goTobb() --play exponential energy
 	storyboard.purgeAll()
+	cancelMeteorTimers()
 	storyboard.gotoScene( "bbselection" )
 end
 
@@ -76,6 +80,8 @@ function scene:createScene( event )
 	home:scale(0.3*xscale,0.3*yscale)
 	home:addEventListener("tap", goHome)
 	screenGroup:insert(home)
+
+	spawnMeteor(screenGroup)
 end
 
 

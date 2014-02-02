@@ -25,10 +25,12 @@ end
 
 
 function goToTutorials()
+	cancelMeteorTimers()
 	storyboard.gotoScene("howtoplay")
 end
 
 function goToSettings()
+	cancelMeteorTimers()
 	storyboard.gotoScene("settings")
 end
 
@@ -92,7 +94,7 @@ end
 
 -- Called when scene is about to move offscreen:
 function scene:exitScene( event )
-	cancelTimers()
+	cancelMeteorTimers()
 end
 
 
@@ -153,9 +155,10 @@ function spawnMeteor(n)
 	timer1 = timer.performWithDelay(7000,listener1)
 end
 
-function cancelTimers()
+function cancelMeteorTimers()
 	if timer1 ~= nil then
 		timer.cancel(timer1)
+		physics.removeBody(meteor)
 	end
 end
 
