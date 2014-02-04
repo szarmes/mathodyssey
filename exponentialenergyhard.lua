@@ -149,7 +149,7 @@ function ee2makeSecondDisappear(n)
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
-	solution = display.newText(answerText, centerX+130*xscale, centerY-40*yscale, "Comic Relief", 30)
+	solution = display.newText(answerText, centerX+110*xscale, centerY-40*yscale, "Comic Relief", 30)
 	solution:setFillColor(0)
 	screenGroup:insert(solution)
 
@@ -312,7 +312,7 @@ function ee2correctResponseListener(n)
 	storeEE2(1,totalTime,answerText,answerText,round,3)
 	questionCount = questionCount + 1
 
-	solution = display.newText(answerText, centerX+130*xscale, centerY-40*yscale, "Comic Relief", 30)
+	solution = display.newText(answerText, centerX+110*xscale, centerY-40*yscale, "Comic Relief", 30)
 	solution:setFillColor(0)
 	screenGroup:insert(solution)
 
@@ -380,7 +380,7 @@ function ee2wrongAnswer(n)
 	local screenGroup = n
 	ee2removeAnswers(screenGroup)
 
-	solution = display.newText(answerText, centerX+130*xscale, centerY-40*yscale, "Comic Relief", 30)
+	solution = display.newText(answerText, centerX+110*xscale, centerY-40*yscale, "Comic Relief", 30)
 	solution:setFillColor(0)
 	screenGroup:insert(solution)
 

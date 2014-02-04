@@ -19,6 +19,7 @@ local buttonXOffset = 100
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 first = true
+local round = -1
 local patterninstructions = "On this planet you will be learning about multiplication, which is a term for repeated addition."
 local patterninstructions1 = "Your first task will be to find patterns in groups of numbers."
 local patterninstructions2 = "You will be given a number and your job will be to find its multiples."
@@ -29,6 +30,7 @@ local function patternsgoHome()
 	first = true
 	round = -1
 	mmcorrectCount = 0
+	storyboard.purgeScene("mmpatterns")
 	storyboard.gotoScene( "menu" )
 end
 
@@ -39,17 +41,19 @@ function scene:createScene( event )
 	bg = display.newImage("images/lavabg.png", centerX,centerY+(30*yscale))
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
+	
+	bubble = display.newImage("images/bubble.png", centerX-20*xscale,centerY+100*yscale)
+	bubble:scale(0.74*xscale,0.43*yscale)
+	bubble.alpha = 0.7
+	screenGroup:insert(bubble)
+
+	dog = display.newImage("images/astronaut.png", centerX-260*xscale, centerY+118*yscale)
+	dog:scale(0.2*xscale, 0.2*yscale)
+	dog:rotate(30)
+	screenGroup:insert(dog)
+
+
 	if (first) then
-		bubble = display.newImage("images/bubble.png", centerX-20*xscale,centerY+100*yscale)
-		bubble:scale(0.74*xscale,0.43*yscale)
-		bubble.alpha = 0.7
-		screenGroup:insert(bubble)
-
-		dog = display.newImage("images/astronaut.png", centerX-260*xscale, centerY+118*yscale)
-		dog:scale(0.2*xscale, 0.2*yscale)
-		dog:rotate(30)
-		screenGroup:insert(dog)
-
 		myText = display.newText(patterninstructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
@@ -67,10 +71,18 @@ end
 
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )	
+
+	if round == -1 then
+			for row in db:nrows("SELECT * FROM eeScore ORDER BY id DESC") do
+			  round = row.round+1
+			  break
+			end
+	end
 end
 
 -- Called when scene is about to move offscreen:
 function scene:exitScene( event )
+	 patterninstructions4 = "In this example you would select every"
 end
 
 -- Called prior to the removal of scene's "view" (display group)
@@ -86,7 +98,7 @@ function patternnewQuestion(n) -- this will make a new question
 		continue:addEventListener("tap", myfunction)
 		screenGroup:insert(continue)
 	else 
-		--DO SOME STUFF HERE ABOUT MAKING THE GAME WORK
+		patternGame(n)
 	end
 end
 
@@ -219,6 +231,76 @@ end
 function patternnewSceneListener()
 	storyboard.purgeScene("mmpatterns")
 	storyboard.reloadScene()
+end
+
+function patternShowNumbersWithListeners(n)
+	local screenGroup = n
+	multiple = math.random(3,10)
+	startTime = system.getTimer()
+
+	patternCountFinal = math.floor(60/multiple)
+	patternCount = 0
+	patternShowMultiple(screenGroup)
+	numbers = {}
+	bubbles = {}
+	for j = 0 , 5, 1 do
+		for i =1, 10, 1  do
+			bubbles[(10*j)+i] = display.newImage("images/bubble.png",((i*38)+15)*xscale, (20+(j*31))*yscale)
+			bubbles[(10*j)+i]:scale(0.05*xscale, 0.1*yscale)
+			screenGroup:insert(bubbles[(10*j)+i])
+			numbers[(10*j)+i] = display.newText((10*j)+i, ((i*38)+15)*xscale, (19+(j*31))*yscale, "Comic Relief", 16)
+			numbers[(10*j)+i]:setFillColor(0)
+			if ((10*j)+i)%multiple == 0 then
+				local myFunction = function()
+					bubbles[(10*j)+i]:setFillColor(.83,.32,.32)
+				patternCount = patternCount+1
+					if patternCount==patternCountFinal then
+						endPatternGame(n)
+					end
+				end
+				numbers[(10*j)+i]:addEventListener("tap",myFunction)
+			end
+			screenGroup:insert(numbers[(10*j)+i])
+		end
+	end
+end
+
+function showPatternGameInstructions(n)
+	local screenGroup = n
+	if multiple == 2 then patternGameInstructions= "Find all the multiples of 2."
+	elseif multiple == 3 then patternGameInstructions= "Find all the multiples of 3."
+	elseif multiple == 4 then patternGameInstructions= "Find all the multiples of 4."
+	elseif multiple == 5 then patternGameInstructions= "Find all the multiples of 5."
+	elseif multiple == 6 then patternGameInstructions= "Find all the multiples of 6."
+	elseif multiple == 7 then patternGameInstructions= "Find all the multiples of 7."
+	elseif multiple == 8 then patternGameInstructions= "Find all the multiples of 8."
+	elseif multiple == 9 then patternGameInstructions= "Find all the multiples of 9."
+	elseif multiple == 10 then patternGameInstructions= "Find all the multiples of 10."
+
+	end
+
+	myText = display.newText(patternGameInstructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+	myText:setFillColor(0)
+	screenGroup:insert(myText)
+end
+
+function patternGame(n)
+	local screenGroup = n
+	patternShowNumbersWithListeners(screenGroup)
+	showPatternGameInstructions(screenGroup)
+
+end
+
+function endPatternGame(n)
+	local screenGroup = n
+	screenGroup:remove(myText)
+	myText = display.newText("You did it! Hurray!", centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+	myText:setFillColor(0)
+	screenGroup:insert(myText)
+
+	local totalTime = math.floor((system.getTimer()-startTime)/1000)
+	storePatterns(1,totalTime,multiple,round,1)
+
 end
 
 ---------------------------------------------------------------------------------

@@ -86,6 +86,10 @@ local tablesetup3 = [[CREATE TABLE IF NOT EXISTS bbScore (id INTEGER PRIMARY KEY
 	time INTEGER, correctsign STRING, chosensign STRING, lval INTEGER, rval INTEGER, round INTEGER, level INTEGER);]]
 db:exec( tablesetup3 )
 
+local tablesetup4 = [[CREATE TABLE IF NOT EXISTS mmScore (id INTEGER PRIMARY KEY, correct INTEGER, 
+	time INTEGER, correctanswer STRING, chosenanswer STRING, corectequation INTEGER, chosenequation INTEGER, round INTEGER, level INTEGER);]]
+db:exec( tablesetup4 )
+
 
 --local drop = [[drop table timeTrialsScore]]
 --local drop1 = [[drop table eeScore]]
@@ -93,7 +97,7 @@ db:exec( tablesetup3 )
 --db:exec( drop1 )
 --unlockMap("ee1")
 
-storyboard.gotoScene( "menu")
+--storyboard.gotoScene( "mmpatterns")
 --storyboard.gotoScene( "splash","fade",500)
 
 --[[for row in db:nrows("SELECT * FROM timeTrialsScore ORDER BY id DESC;") do
@@ -113,6 +117,14 @@ local t = display.newText(display.pixelHeight, 100, 100 , native.systemFont, 16)
   t:setFillColor(1,1,1)
 
 ]]
+for row in db:nrows("SELECT * FROM mmScore ORDER BY id DESC;") do
+	print ("I will print the row")
+	print (row)
+
+  local text = row.id.." "..row.correct.." "..row.time.." "..row.correctanswer.." "..row.round.." "..row.level
+  local t = display.newText(text, 100, 100+row.id*20, native.systemFont, 16)
+  t:setFillColor(1,1,1)
+end
 
 
 
