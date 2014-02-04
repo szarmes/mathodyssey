@@ -25,6 +25,12 @@ end
 
 local function goToee1() --play exponential energy
 	storyboard.purgeAll()
+	storyboard.gotoScene( "exponentialenergy1" )
+end
+
+
+local function goToee2() --play exponential energy
+	storyboard.purgeAll()
 	storyboard.gotoScene( "exponentialenergyhard" )
 end
 
@@ -51,6 +57,12 @@ function scene:createScene( event )
 	ee1:addEventListener("tap", goToee1)
 	ee1.anchorX = 0
 	screenGroup:insert(ee1)
+
+	ee2 = display.newImage("images/incomplete.png", centerX+130*xscale,centerY+90*yscale)
+	ee2:scale(0.5*xscale,0.5*yscale)
+	ee2:addEventListener("tap", goToee2)
+	ee2.anchorX = 0
+	screenGroup:insert(ee2)
 	
 	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
 	home:scale(0.3*xscale,0.3*yscale)
@@ -81,10 +93,13 @@ end
 function eeLockLocations(n)
 	local screenGroup = n
 	local lock1check = false
+	local lock2check = false
 	for row in db:nrows("SELECT * FROM mapUnlocks;") do
 		if row.location == "ee1" then
 			lock1check = true
-			break
+		end
+		if row.location == "ee2" then
+			lock2check = true
 		end
 	end
 	if lock1check==false then 
@@ -92,6 +107,13 @@ function eeLockLocations(n)
 		lock1:scale(0.08*xscale,0.08*yscale)
 		screenGroup:insert(lock1)
 		ee1:removeEventListener("tap",goToee1)
+	end
+
+	if lock2check==false then 
+		lock2 = display.newImage("images/lock.png",ee2.x+30*xscale,ee2.y+15*yscale)
+		lock2:scale(0.08*xscale,0.08*yscale)
+		screenGroup:insert(lock2)
+		ee2:removeEventListener("tap",goToee2)
 	end
 end
 

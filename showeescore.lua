@@ -51,8 +51,12 @@ function scene:createScene( event )
 	 	end
 	end
 
-	if correctCount>6 then
+	if correctCount>6 and storyboard.getPrevious()=="exponentialenergy" then
 		unlockMap("ee1")
+	end
+
+	if correctCount>6 and storyboard.getPrevious()=="exponentialenergy1" then
+		unlockMap("ee2")
 	end
 
 	bg = display.newImage("images/eebg.png", centerX,centerY+30*yscale)

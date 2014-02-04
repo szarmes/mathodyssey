@@ -202,7 +202,7 @@ function patternmakeFourthDisappear(n)
 	elseif multiple == 9 then patterninstructions4 = patterninstructions4.." ninth number, like this."
 	elseif multiple == 10 then patterninstructions4 = patterninstructions4.." tenth number, like this."
 	end
-
+	patterninstructions4 = patterninstructions4.." Good luck out there."
 	myText = display.newText(patterninstructions4, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
