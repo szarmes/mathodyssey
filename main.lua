@@ -97,7 +97,7 @@ db:exec( tablesetup4 )
 --db:exec( drop1 )
 --unlockMap("ee1")
 
---storyboard.gotoScene( "mmpatterns")
+storyboard.gotoScene( "balanceboard1")
 --storyboard.gotoScene( "splash","fade",500)
 
 --[[for row in db:nrows("SELECT * FROM timeTrialsScore ORDER BY id DESC;") do
@@ -117,7 +117,7 @@ local t = display.newText(display.pixelHeight, 100, 100 , native.systemFont, 16)
   t:setFillColor(1,1,1)
 
 ]]
-for row in db:nrows("SELECT * FROM mmScore ORDER BY id DESC;") do
+--[[for row in db:nrows("SELECT * FROM mmScore ORDER BY id DESC;") do
 	print ("I will print the row")
 	print (row)
 
@@ -125,7 +125,7 @@ for row in db:nrows("SELECT * FROM mmScore ORDER BY id DESC;") do
   local t = display.newText(text, 100, 100+row.id*20, native.systemFont, 16)
   t:setFillColor(1,1,1)
 end
-
+]]
 
 
 
