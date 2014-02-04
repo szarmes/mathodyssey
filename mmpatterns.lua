@@ -96,13 +96,13 @@ function patternShowNumbers(n)
 	numbers = {}
 	bubbles = {}
 	for j = 0 , 5, 1 do
-		for i =1, 15, 1  do
-			bubbles[(15*j)+i] = display.newImage("images/bubble.png",((i*26)+15)*xscale, (20+(j*25))*yscale)
-			bubbles[(15*j)+i]:scale(0.04*xscale, 0.08*yscale)
-			screenGroup:insert(bubbles[(15*j)+i])
-			numbers[(15*j)+i] = display.newText((15*j)+i, ((i*26)+15)*xscale, (19+(j*25))*yscale, "Comic Relief", 14)
-			numbers[(15*j)+i]:setFillColor(0)
-			screenGroup:insert(numbers[(15*j)+i])
+		for i =1, 10, 1  do
+			bubbles[(10*j)+i] = display.newImage("images/bubble.png",((i*38)+15)*xscale, (20+(j*31))*yscale)
+			bubbles[(10*j)+i]:scale(0.05*xscale, 0.1*yscale)
+			screenGroup:insert(bubbles[(10*j)+i])
+			numbers[(10*j)+i] = display.newText((10*j)+i, ((i*38)+15)*xscale, (19+(j*31))*yscale, "Comic Relief", 16)
+			numbers[(10*j)+i]:setFillColor(0)
+			screenGroup:insert(numbers[(10*j)+i])
 		end
 	end
 end
@@ -121,16 +121,16 @@ end
 function patternShowAnswer(n)
 	local screenGroup = n
 	for j = 0 , 5, 1 do
-		for i =1, 15, 1  do
-			if (i+(j*15))%multiple == 0 then
-				screenGroup:remove(bubbles[(15*j)+i])
-				bubbles[(15*j)+i] = display.newImage("images/bubble.png",((i*26)+15)*xscale, (20+(j*25))*yscale)
-				bubbles[(15*j)+i]:scale(0.04*xscale, 0.08*yscale)
-				bubbles[(15*j)+i]:setFillColor(.83,.32,.32)
-				screenGroup:insert(bubbles[(15*j)+i])
-				numbers[(15*j)+i] = display.newText((15*j)+i, ((i*26)+15)*xscale, (19+(j*25))*yscale, "Comic Relief", 14)
-				numbers[(15*j)+i]:setFillColor(0)
-				screenGroup:insert(numbers[(15*j)+i])
+		for i =1, 10, 1  do
+			if (i+(j*10))%multiple == 0 then
+				screenGroup:remove(bubbles[(10*j)+i])
+				bubbles[(10*j)+i] = display.newImage("images/bubble.png",((i*38)+15)*xscale, (20+(j*31))*yscale)
+				bubbles[(10*j)+i]:scale(0.05*xscale, 0.1*yscale)
+				bubbles[(10*j)+i]:setFillColor(.83,.32,.32)
+				screenGroup:insert(bubbles[(10*j)+i])
+				numbers[(10*j)+i] = display.newText((10*j)+i, ((i*38)+15)*xscale, (19+(j*31))*yscale, "Comic Relief", 16)
+				numbers[(10*j)+i]:setFillColor(0)
+				screenGroup:insert(numbers[(10*j)+i])
 			end
 		end
 	end
