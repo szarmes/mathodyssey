@@ -28,6 +28,11 @@ local function goTobb1() --play timetrials
 	storyboard.gotoScene("balanceboard1")
 end
 
+local function goTobb2() --play timetrials
+	storyboard.purgeAll()
+	storyboard.gotoScene("balanceboard2")
+end
+
 
 local function goHome() --go back to the menu
 	storyboard.gotoScene(storyboard.getPrevious())
@@ -47,11 +52,17 @@ function scene:createScene( event )
 	bb.anchorX = 0
 	screenGroup:insert(bb)
 
-	bb1 = display.newImage("images/incomplete.png", centerX+50*xscale,centerY+30*yscale)
+	bb1 = display.newImage("images/incomplete.png", centerX+10*xscale,centerY+30*yscale)
 	bb1:scale(0.5*xscale,0.5*yscale)
 	bb1:addEventListener("tap", goTobb1)
 	bb1.anchorX = 0
 	screenGroup:insert(bb1)
+
+	bb2 = display.newImage("images/incomplete.png", centerX+85*xscale,centerY-80*yscale)
+	bb2:scale(0.5*xscale,0.5*yscale)
+	bb2:addEventListener("tap", goTobb2)
+	bb2.anchorX = 0
+	screenGroup:insert(bb2)
 	
 	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
 	home:scale(0.3*xscale,0.3*yscale)
@@ -82,10 +93,13 @@ end
 function bbLockLocations(n)
 	local screenGroup = n
 	local lock1check = false
+	local lock2check = false
 	for row in db:nrows("SELECT * FROM mapUnlocks;") do
 		if row.location == "bb1" then
 			lock1check = true
-			break
+		end
+		if row.location == "bb2" then
+			lock2check = true
 		end
 	end
 	if lock1check==false then 
@@ -93,6 +107,13 @@ function bbLockLocations(n)
 		lock1:scale(0.08*xscale,0.08*yscale)
 		screenGroup:insert(lock1)
 		bb1:removeEventListener("tap",goTobb1)
+	end
+
+	if lock2check==false then 
+		lock2 = display.newImage("images/lock.png",bb2.x+30*xscale,bb2.y+15*yscale)
+		lock2:scale(0.08*xscale,0.08*yscale)
+		screenGroup:insert(lock2)
+		bb2:removeEventListener("tap",goTobb2)
 	end
 end
 

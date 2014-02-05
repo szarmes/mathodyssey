@@ -17,13 +17,13 @@ local centerY = display.contentCenterY
 first = true
 local round = -1
 questionCount = 0
-local instructions = "Your new task on this deployment is to choose the value that correctly satisfies the balance board equation."
-local instructions1 = "Use addition and subtraction to find the value of the given equation."
-local instructions2 = "If the board is tilted to the left, find a smaller value to satisfy the equation."
-local instructions3 = "If the board is tilted to the right, find the larger value to satisfy the equation."
-local instructions4 = "If the board is flat, look for a number with equal value to satisfy the equation."
+local instructions = "Now that you're familiar with the Balance Board, numbers will now be replaced with simple equations."
+local instructions1 = "Use addition and subtraction to find the value of both equations. If they are the same, you're looking for the = sign."
+local instructions2 = "If one is bigger than the other, use either the greater-than-sign, >, or the less-than-sign, <, as your equality sign."
+local instructions3 = "Think of > and < as the mouth of a hungry crocodile. The croc always wants to eat more, so it opens to the equation with a larger value."
+local instructions4 = "Once you pick a sign, the Balance Board will adjust to show which equation is larger. It will not move if they are equal."
 local instrucions5
-local instructions6 = "We're pulling for you!"
+local instructions6 = "Good luck out there."
 local operator
 local lnum1
 local lnum2
@@ -55,7 +55,7 @@ function scene:createScene( event )
 		screenGroup:insert(myText)
 	end
 	
-	--bbdisplayNumbers(screenGroup)
+	--bb1displayNumbers(screenGroup)
 	--background = display.newImage("images/cat.jpg",centerX,centerY)
 	--Runtime:addEventListener("touch",moveCatListener)
 	--screenGroup:insert( background )
@@ -87,14 +87,13 @@ function scene:enterScene( event )
 		bb1generateAnswers()
 		bb1generateAnswerText()
 		bb1displayNumbers(screenGroup)
-		bb1adjustBoard(screenGroup)
 
 		if operator == "=" then
-			instructions5 = "In this case, a possible value is "..rval..", since "..lval.." = "..rval.."."
+			instructions5 = "In this case the equality sign is =, since "..lval.." = "..rval.."."
 		elseif operator == "<" then
-			instructions5 = "In this case, a possible value is "..rval..", since "..lval.." is less than "..rval.."."
+			instructions5 = "In this case the equality sign is <, since "..lval.." is less than "..rval.."."
 		else
-			instructions5 = "In this case, a possible value is "..rval..", since " ..lval.." is greater than "..rval.."."
+			instructions5 = "In this case the equality sign is >, since "..lval.." is greater than "..rval.."."
 		end
 		bb1newQuestion(screenGroup)
 	end
@@ -139,7 +138,7 @@ function bb1makeFirstDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions1, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+	myText = display.newText( instructions1, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -156,7 +155,7 @@ function bb1makeSecondDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions2, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+	myText = display.newText( instructions2, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -216,6 +215,8 @@ function bb1makeFifthDisappear(n)
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
+	bb1adjustBoard(screenGroup)
+
 	local myFunction = function() bb1makeSixthDisappear(screenGroup) end
 	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 	continue:scale(0.3*xscale,0.3*yscale)
@@ -257,11 +258,12 @@ function bb1generateAnswers()
 		lval = lnum1+lnum2
 	else
 		loperator = "-"
-		while lnum2>=lnum1 do
+		while lnum2>lnum1 do
 			lnum2 = math.random(0,20)
 		end
 		lval = lnum1-lnum2
 	end
+
 	rnum1 = math.random(5,20)
 	rnum2 = math.random(0,20)
 	roperatornum = math.random(1,2)
@@ -270,7 +272,7 @@ function bb1generateAnswers()
 		rval = rnum1+rnum2
 	else
 		roperator = "-"
-		while rnum2>=rnum1 do 
+		while rnum2>rnum1 do 
 			rnum2 = math.random(0,20)
 		end
 		rval = rnum1-rnum2
@@ -288,7 +290,7 @@ end
 function bb1showChoices(n)
 	local screenGroup = n
 	startTime = system.getTimer()
-	questionText =display.newText( "What value satisfies the equation?", centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+	questionText =display.newText( "What is the equality sign?", centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
 	
@@ -304,7 +306,7 @@ function bb1showChoices(n)
 	end
 	bb1generateAnswerText()
 	
-	answer = display.newText(rval,b[1],centerY+100*yscale, "Comic Relief", 30)
+	answer = display.newText(operator,b[1],centerY+100*yscale, "Comic Relief", 40)
 	answer:setFillColor(0)
 	function bb1listener()
 		bb1correctResponseListener(screenGroup)
@@ -312,7 +314,7 @@ function bb1showChoices(n)
 	answer:addEventListener("tap", bb1listener)
 	screenGroup:insert(answer)
 
-	answer1 = display.newText(answer1Text,b[2],centerY+100*yscale, "Comic Relief", 30)
+	answer1 = display.newText(answer1Text,b[2],centerY+100*yscale, "Comic Relief", 40)
 	answer1:setFillColor(0,0,0)
 	local function listener1()
 		bb1incorrectResponseListener1(screenGroup)
@@ -320,7 +322,7 @@ function bb1showChoices(n)
 	answer1:addEventListener("tap", listener1)
 	screenGroup:insert(answer1)
 
-	answer2 = display.newText(answer2Text,b[3],centerY+100*yscale, "Comic Relief", 30)
+	answer2 = display.newText(answer2Text,b[3],centerY+100*yscale, "Comic Relief", 40)
 	answer2:setFillColor(0,0,0)
 	local function listener2()
 		bb1incorrectResponseListener2(screenGroup)
@@ -331,35 +333,18 @@ function bb1showChoices(n)
 end
 
 function bb1generateAnswerText()
+
 	if operator == "=" then
-		answer1Text = math.random(0,50)
-		while answer1Text <= lval do
-			answer1Text = math.random(0,50)
-		end
-		answer2Text = math.random(0,50)
-		while answer2Text >= lval do
-			answer2Text = math.random(0,50)
-		end
+		answer1Text = "<"
+		answer2Text = ">"
 	end
 	if operator == "<" then
-		print(operator)
-		answer1Text = lval
-		answer2Text = math.random(0,50)
-		while answer2Text >= lval do
-			answer2Text = math.random(0,50)
-		end
-		print ("answer1: "..answer1Text)
-		print ("answer2: "..answer2Text)
+		answer1Text = "="
+		answer2Text = ">"
 	end
 	if operator == ">" then
-		print(operator)
-		answer1Text = lval
-		answer2Text = math.random(0,50)
-		while answer2Text <= lval do
-			answer2Text = math.random(0,50)
-		end
-		print ("answer1: "..answer1Text)
-		print ("answer2: "..answer2Text)
+		answer1Text = "="
+		answer2Text = "<"
 	end
 
 end
@@ -379,11 +364,11 @@ function bb1displayNumbers(n)
 	lequation:setFillColor(0)
 	screenGroup:insert(lequation)
 
-	requation = display.newText("?",centerX+150*xscale,centerY-60*yscale,"Comic Relief",30)
+	requation = display.newText(rnum1..roperator..rnum2,centerX+150*xscale,centerY-60*yscale,"Comic Relief",30)
 	requation:setFillColor(0)
 	screenGroup:insert(requation)
 
-	operatorText = display.newText(operator,centerX,centerY-60*yscale,"Comic Relief",40)
+	operatorText = display.newText("?",centerX,centerY-60*yscale,"Comic Relief",40)
 	operatorText:setFillColor(0)
 	screenGroup:insert(operatorText)
 	
@@ -443,6 +428,7 @@ function bb1removeAnswers(n)
 	screenGroup:remove(answer3)
 	screenGroup:remove(questionText)
 	answer:removeEventListener("tap",bb1listener)
+	bb1adjustBoard(screenGroup)
 	
 
 end

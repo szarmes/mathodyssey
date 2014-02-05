@@ -51,8 +51,11 @@ function scene:createScene( event )
 	 	end
 	end
 
-	if correctCount>6 then
+	if correctCount>6 and storyboard.getPrevious() == "balanceboard"then
 		unlockMap("bb1")
+	end
+	if correctCount>6 and storyboard.getPrevious() == "balanceboard1"then
+		unlockMap("bb2")
 	end
 
 	bg = display.newImage("images/bbbg.png", centerX,centerY+30*yscale)
