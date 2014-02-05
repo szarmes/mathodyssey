@@ -51,9 +51,9 @@ function scene:createScene( event )
 	 	end
 	end
 
-	--[[if correctCount>6 then
+	if correctCount>6 then
 		unlockMap("bb1")
-	end]]
+	end
 
 	bg = display.newImage("images/bbbg.png", centerX,centerY+30*yscale)
 	bg:scale(0.8*xscale,0.7*yscale)
