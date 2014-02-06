@@ -90,10 +90,15 @@ local tablesetup4 = [[CREATE TABLE IF NOT EXISTS mmScore (id INTEGER PRIMARY KEY
 	time INTEGER, correctanswer STRING, chosenanswer STRING, corectequation INTEGER, chosenequation INTEGER, round INTEGER, level INTEGER);]]
 db:exec( tablesetup4 )
 
+local tablesetup5 = [[CREATE TABLE IF NOT EXISTS firstTime (id INTEGER PRIMARY KEY, first INTEGER );]]
+db:exec( tablesetup5 )
 
---local drop = [[drop table timeTrialsScore]]
---local drop1 = [[drop table eeScore]]
+local tablesetup6 = [[CREATE TABLE IF NOT EXISTS companionSelect (id INTEGER PRIMARY KEY, companion INTEGER );]]
+db:exec( tablesetup6 )
+--local drop = [[drop table companionSelect]]
 --db:exec( drop )
+--local drop1 = [[drop table eeScore]]
+
 --db:exec( drop1 )
 --unlockMap("ee1")
 

@@ -52,10 +52,23 @@ function storeBB(correct,time, correctsign, chosensign, lval,rval, round,level)
 end
 
 function storePatterns(correct,time, multiple,round,level)
-	print ("Storing the Score")
 	local tablefill =[[INSERT INTO mmScore VALUES (NULL, ']]..correct..[[',']]..time..[[',']]..multiple..
 		[[',NULL,NULL,NULL, ']]..round..[[',']]..level..[['); ]]
-	print(db:exec( tablefill ))
+	db:exec( tablefill )
+
+end
+
+function storeFirst(n)
+	
+	local tablefill =[[INSERT INTO firstTime VALUES (NULL, ']]..n..[['); ]]
+	db:exec( tablefill )
+
+end
+
+function storeCompanion(n)
+	
+	local tablefill =[[INSERT INTO companionSelect VALUES (NULL, ']]..n..[['); ]]
+	db:exec( tablefill )
 
 end
 

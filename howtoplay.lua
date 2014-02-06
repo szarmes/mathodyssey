@@ -39,7 +39,7 @@ function scene:createScene( event )
 	screenGroup:insert(bubble)
 
 
-	dog = display.newImage("images/astronaut.png", centerX-240*xscale, centerY+118*yscale)
+	dog = display.newImage(companionText, centerX-240*xscale, centerY+118*yscale)
 	dog:scale(0.2*xscale, 0.2*yscale)
 	--dog:rotate(30)
 	screenGroup:insert(dog)

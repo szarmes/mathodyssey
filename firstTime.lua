@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------
 --
--- menu.lua
+-- firstTime.lua
 --
 ---------------------------------------------------------------------------------
 
@@ -10,7 +10,7 @@ require "dbFile"
 
 
 local buttonXOffset = 100
-
+local companionText = ""
 
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
@@ -18,22 +18,34 @@ local buttonXOffset = 100
 
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
-companionText = "images/astronaut.png"
 
 
-function goToPlay()
-	storyboard.gotoScene("play")
+function goToMenu()
+	storyboard.gotoScene("menu")
 end
 
-
-function goToTutorials()
-	cancelMeteorTimers()
-	storyboard.gotoScene("howtoplay")
+function firstyes()
+storeFirst(1)
+goToMenu()
 end
 
-function goToSettings()
-	cancelMeteorTimers()
-	storyboard.gotoScene("settings")
+function firstno()
+storeFirst(0)
+goToMenu()
+end
+
+function storeDog(n)
+	local screenGroup = n
+	storeCompanion(0)
+	companionText = "images/dog.png"
+	consent(screenGroup)
+end
+
+function storeAstro(n)
+	local screenGroup = n
+	storeCompanion(1)
+	companionText = "images/astronaut.png"
+	consent(screenGroup)
 end
 
 
@@ -41,43 +53,17 @@ end
 function scene:createScene( event )
 	local screenGroup = self.view
 
-	bg = display.newImage("images/bg.png", centerX,centerY+(30*yscale))
+	bg = display.newImage("images/bg.png", centerX*xscale,centerY+30*yscale)
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 
-	play = display.newImage("images/play.png", centerX-200*xscale ,centerY)
-	play:scale(0.7*xscale,0.6*yscale)
-	play:addEventListener("tap",goToPlay)
-	play.anchorX = 0
-	screenGroup:insert(play)
-
-	howtoplay = display.newImage("images/tutorial.png", centerX - 240*xscale ,centerY+70*yscale)
-	howtoplay:scale(0.6*xscale,0.6*yscale)
-	howtoplay:addEventListener("tap",goToTutorials)
-	howtoplay.anchorX = 0
-	screenGroup:insert(howtoplay)
+	bubble = display.newImage("images/bubble.png", centerX-20*xscale,centerY)
+	bubble:scale(0.8*xscale,0.5*yscale)
+	bubble.alpha = 0.7
+	screenGroup:insert(bubble)
 
 
-	create = display.newImage("images/create.png", centerX+240*xscale ,centerY)
-	create:scale(0.6*xscale,0.6*yscale)
-	create.anchorX = 1
-	screenGroup:insert(create)
-
-	about = display.newImage("images/about.png", centerX+225*xscale ,centerY+70*yscale)
-	about:scale(0.6*xscale,0.6*yscale)
-	about.anchorX = 1
-	screenGroup:insert(about)
-
-	title = display.newImage("images/splash.png", centerX,centerY-100*yscale)
-	title:scale(0.8*xscale,0.8*yscale)
-	screenGroup:insert(title)
-
-	settings = display.newImage("images/settings.png",20*xscale,centerY+130*yscale)
-	settings:scale(0.6*xscale,0.6*yscale)
-	settings:addEventListener("tap",goToSettings)
-	screenGroup:insert(settings)
-
-
+	chooseAnimal(screenGroup)
 	--audio.play(bgmusic,{loops = -1,channel=1})
 
 	--background = display.newImage("images/cat.jpg",centerX,centerY)
@@ -92,23 +78,6 @@ function scene:enterScene( event )
 	local screenGroup = self.view	
 	spawnMeteor(screenGroup)
 	first = true
-
-	local firstCheck = false
-	for row in db:nrows("SELECT * FROM companionSelect;") do
-		if row.companion == 1 then
-			firstCheck = true
-			companionText = "images/astronaut.png"
-		end
-
-		if row.companion == 0 then
-			firstCheck = true
-			companionText = "images/dog.png"
-		end
-	end
-	if firstCheck == false then
-		storyboard.gotoScene("firstTime")
-	end
-
 end
 
 
@@ -189,6 +158,66 @@ function respawnMeteor(n)
 		screenGroup:remove(meteor)
 		spawnMeteor(screenGroup)
 end
+
+function consent(n)
+	local screenGroup = n 
+
+	screenGroup:remove(dog)
+	screenGroup:remove(astronaut)
+	screenGroup:remove(prompt)
+
+	dog = display.newImage(companionText, centerX-240*xscale, centerY+118*yscale)
+	dog:scale(0.2*xscale, 0.2*yscale)
+	--dog:rotate(30)
+	screenGroup:insert(dog)
+
+	local promptText = "Will you allow us to use your game data for educational purposes?"
+
+	prompt = display.newText(promptText, centerX,centerY+30*yscale, 400*xscale,200*yscale, "Comic Relief",20 )
+	prompt:setFillColor(0)
+	screenGroup:insert(prompt)
+
+	local yes = display.newText("YES", centerX+60*xscale,centerY+30*yscale, "Comic Relief",24 )
+	yes:setFillColor(0)
+	yes:addEventListener("tap",firstyes)
+	screenGroup:insert(yes)
+	local no = display.newText("NO", centerX-60*xscale,centerY+30*yscale, "Comic Relief",24 )
+	no:setFillColor(0)
+	no:addEventListener("tap",firstno)
+	screenGroup:insert(no)
+
+end
+
+function chooseAnimal(n)
+	local screenGroup = n 
+
+	bubble:scale(1,1.7)
+
+	dog = display.newImage("images/dog.png", centerX+140*xscale, centerY+30*yscale)
+	dog:scale(0.2*xscale, 0.2*yscale)
+	local myFunction = function()
+		storeDog(screenGroup)
+	end
+	dog:addEventListener("tap",myFunction)
+	screenGroup:insert(dog)
+
+	astronaut = display.newImage("images/astronaut.png", centerX-140*xscale, centerY+30*yscale)
+	astronaut:scale(0.2*xscale, 0.2*yscale)
+	local myFunction1 = function()
+		storeAstro(screenGroup)
+	end
+	astronaut:addEventListener("tap",myFunction1)
+	screenGroup:insert(astronaut)
+
+	local promptText = "Choose Your Companion"
+
+	prompt = display.newText(promptText, centerX,centerY, 400*xscale,200*yscale, "Comic Relief",20 )
+	prompt:setFillColor(0)
+	screenGroup:insert(prompt)
+
+
+end
+
 
 ---------------------------------------------------------------------------------
 -- END OF YOUR IMPLEMENTATION
