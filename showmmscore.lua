@@ -51,7 +51,7 @@ function scene:createScene( event )
 	end
 
 	if correctCount>6 and storyboard.getPrevious() == "mmrepeat"then
-		unlockMap("mm3")
+		unlockMap("mm2")
 	end
 
 	bg = display.newImage("images/lavabg.png", centerX,centerY+30*yscale)

@@ -65,16 +65,29 @@ function scene:createScene( event )
 	screenGroup:insert(ee)
 
 	local mm = display.newImage("images/lavaplanet.png", centerX-70*xscale,centerY+10*yscale)
-	mm:scale(0.1*xscale,0.1*yscale)
+	mm:scale(0.2*xscale,0.2*yscale)
 	mm:addEventListener("tap", goTomm)
 	mm.anchorX = 0
 	screenGroup:insert(mm)
+
+	local mmMoon = display.newImage("images/mmmoon.png", centerX-100*xscale,centerY+50*yscale)
+	mmMoon:scale(0.06*xscale,0.06*yscale)
+	mmMoon:addEventListener("tap", goTomm)
+	mmMoon.anchorX = 0
+	screenGroup:insert(mmMoon)
 
 	local bb = display.newImage("images/bbplanet.png", centerX+130*xscale,centerY+40*yscale)
 	bb:scale(0.1*xscale,0.1*yscale)
 	bb:addEventListener("tap", goTobb)
 	bb.anchorX = 0
 	screenGroup:insert(bb)
+
+
+	local dd = display.newImage("images/ddplanet.png", centerX+140*xscale,centerY-60*yscale)
+	dd:scale(0.14*xscale,0.14*yscale)
+	dd:addEventListener("tap", goTobb)
+	dd.anchorX = 0
+	screenGroup:insert(dd)
 
 	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
 	home:scale(0.3*xscale,0.3*yscale)

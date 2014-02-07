@@ -297,9 +297,15 @@ function endPatternGame(n)
 	myText = display.newText("You did it! Hurray!", centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
-	unlockMap("mm2")
+	unlockMap("mm1")
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	storePatterns(1,totalTime,multiple,round,1)
+
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
+
+	continue:addEventListener("tap", patternsgoHome)
+	screenGroup:insert(continue)
 
 end
 

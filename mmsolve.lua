@@ -139,7 +139,7 @@ function mmsolvemakeSecondDisappear(n)
 
 	solution = display.newText(number*multiplier, centerX-20*xscale, centerY-40*yscale, "Comic Relief", 30)
 	solution.anchorX = 0
-	solution:setFillColor(1)
+	solution:setFillColor(0)
 	screenGroup:insert(solution)
 
 	local myFunction = function() mmsolvemakeThirdDisappear(screenGroup) end
@@ -183,7 +183,7 @@ function mmsolveshowChoices(n)
 	local screenGroup = n
 	startTime = system.getTimer()
 	questionText =display.newText( "What is the correct equation?", centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
-	questionText:setFillColor(1)
+	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
 	
 	a={-175,-50,75,200}
@@ -198,7 +198,7 @@ function mmsolveshowChoices(n)
 	end
 	
 	answer = display.newText(answerText,b[1],centerY+100*yscale, 125*xscale,0, "Comic Relief", 20)
-	answer:setFillColor(1)
+	answer:setFillColor(0)
 	function mmsolvelistener()
 		mmsolvecorrectResponseListener(screenGroup)
 	end
@@ -207,7 +207,7 @@ function mmsolveshowChoices(n)
 
 	answer1 = nil
 	answer1 = display.newText(answer1Text,b[2],centerY+100*yscale,125*xscale,0, "Comic Relief", 20)
-	answer1:setFillColor(1)
+	answer1:setFillColor(0)
 	local function listener1()
 		mmsolveincorrectResponseListener1(screenGroup)
 	end
@@ -216,7 +216,7 @@ function mmsolveshowChoices(n)
 
 	answer2 = nil
 	answer2 = display.newText(answer2Text,b[3],centerY+100*yscale,125*xscale,0, "Comic Relief", 20)
-	answer2:setFillColor(1)
+	answer2:setFillColor(0)
 	local function listener2()
 		mmsolveincorrectResponseListener2(screenGroup)
 	end
@@ -225,7 +225,7 @@ function mmsolveshowChoices(n)
 
 	answer3 = nil
 	answer3 = display.newText(answer3Text,b[4],centerY+100*yscale,125*xscale,0, "Comic Relief", 20)
-	answer3:setFillColor(1)
+	answer3:setFillColor(0)
 	local function listener3()
 		mmsolveincorrectResponseListener3(screenGroup)
 	end
@@ -266,7 +266,7 @@ end
 function mmsolvedisplayNumbers(n)
 	local screenGroup = n
 	question = display.newText(number.."x"..multiplier.."=", centerX-60*xscale, centerY-40*yscale, "Comic Relief", 30)
-	question:setFillColor(1)
+	question:setFillColor(0)
 	screenGroup:insert(question)
 end
 
@@ -279,12 +279,12 @@ function mmsolvecorrectResponseListener(n)
 
 	solution = display.newText(number*multiplier, centerX-20*xscale, centerY-40*yscale, "Comic Relief", 30)
 	solution.anchorX = 0
-	solution:setFillColor(1)
+	solution:setFillColor(0)
 	screenGroup:insert(solution)
 
 	mmsolveremoveAnswers(screenGroup)
 	local reward = display.newText("Good Job!", centerX+70*xscale,centerY+50,300,0,"Comic Relief", 30)
-	reward:setFillColor(1)
+	reward:setFillColor(0)
 	screenGroup:insert(reward)
 
 	local myFunction = function() mmsolvenewSceneListener() end
@@ -347,12 +347,12 @@ function mmsolvewrongAnswer(n)
 	mmsolveremoveAnswers(screenGroup)
 
 	solution = display.newText(number*multiplier, centerX-20*xscale, centerY-40*yscale, "Comic Relief", 30)
-	solution:setFillColor(1)
+	solution:setFillColor(0)
 	solution.anchorX = 0
 	screenGroup:insert(solution)
 
 	questionText =display.newText( "Oops, the correct answer was", centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 18 )
-	questionText:setFillColor(1)
+	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
 
 	local myFunction = function() mmsolvenewSceneListener() end
