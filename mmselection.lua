@@ -17,19 +17,19 @@ local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 local mm1
 
-local function goTomm1() --play timetrials
+local function goTomm() --play timetrials
 	storyboard.purgeAll()
 	storyboard.gotoScene("mmpatterns")
 end
 
-local function goTomm2() --play timetrials
+local function goTomm1() --play timetrials
 	storyboard.purgeAll()
 	storyboard.gotoScene("mmrepeat")
 end
 
-local function goTott3() --play exponential energy
+local function goTomm2() --play exponential energy
 	storyboard.purgeAll()
-	storyboard.gotoScene( "timetrialshard" )
+	storyboard.gotoScene( "mmsolve" )
 end
 
 local function goHome() --go back to the menu
@@ -44,13 +44,19 @@ function scene:createScene( event )
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 
-	mm1 = display.newImage("images/incomplete.png", -10*xscale,centerY+120*yscale)
+	mm = display.newImage("images/incomplete.png", -10*xscale,centerY+120*yscale)
+	mm:scale(0.5*xscale,0.5*yscale)
+	mm:addEventListener("tap", goTomm)
+	mm.anchorX = 0
+	screenGroup:insert(mm)
+
+	mm1 = display.newImage("images/incomplete.png", 140*xscale,centerY+10*yscale)
 	mm1:scale(0.5*xscale,0.5*yscale)
 	mm1:addEventListener("tap", goTomm1)
 	mm1.anchorX = 0
 	screenGroup:insert(mm1)
 
-	mm2 = display.newImage("images/incomplete.png", 140*xscale,centerY+10*yscale)
+	mm2 = display.newImage("images/incomplete.png", centerX+100*xscale,centerY-60*yscale)
 	mm2:scale(0.5*xscale,0.5*yscale)
 	mm2:addEventListener("tap", goTomm2)
 	mm2.anchorX = 0
@@ -85,7 +91,31 @@ end
 
 function mmLockLocations(n)
 	local screenGroup = n
+	local lock1check = false
+	local lock2check = false
+	for row in db:nrows("SELECT * FROM mapUnlocks;") do
+		if row.location == "mm1" then
+			lock1check = true
+		end
+		if row.location == "mm2" then
+			lock2check = true
+		end
+	end
+	if lock1check==false then 
+		lock1 = display.newImage("images/lock.png",mm1.x+30*xscale,mm1.y+15*yscale)
+		lock1:scale(0.08*xscale,0.08*yscale)
+		screenGroup:insert(lock1)
+		mm1:removeEventListener("tap",goTomm1)
+	end
+
+	if lock2check==false then 
+		lock2 = display.newImage("images/lock.png",mm2.x+30*xscale,mm2.y+15*yscale)
+		lock2:scale(0.08*xscale,0.08*yscale)
+		screenGroup:insert(lock2)
+		mm2:removeEventListener("tap",goTomm2)
+	end
 end
+
 
 ---------------------------------------------------------------------------------
 -- END OF YOUR IMPLEMENTATION

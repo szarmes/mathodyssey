@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------
 --
--- exponentialenergyhard.lua
+-- mmsolve.lua
 --
 ---------------------------------------------------------------------------------
 
@@ -17,10 +17,10 @@ local centerY = display.contentCenterY
 first = true
 local round = -1
 questionCount = 0
-local instructions = "In this next area, you will be required to find the addition statement that represents the given multiplication."
+local instructions = "Your new task is to solve the given multiplication equation."
 local instructions1 = "Remember, multiplication represent how many times a number appears in a repeated addtion of itself."
 local instructions2
-local instructions3 = "Watch your step out there, it can be tricky."
+local instructions3 = "Keep it up, you're almost there!"
 local exponent
 local number
 local equals
@@ -48,7 +48,7 @@ function scene:createScene( event )
 
 	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
 	home:scale(0.3*xscale,0.3*yscale)
-	home:addEventListener("tap", mmrepeatgoHome)
+	home:addEventListener("tap", mmsolvegoHome)
 	screenGroup:insert(home)
 
 end
@@ -70,17 +70,13 @@ function scene:enterScene( event )
 		end
 
 		local screenGroup = self.view
-		mmrepeatgenerateAnswers()
-		mmrepeatgenerateAnswerText()
-		mmrepeatdisplayNumbers(screenGroup)
-		numberText = ""..number
-		numcount = 1
-		while numcount<multiplier do
-			numberText = numberText.."+"..number
-			numcount = numcount + 1
-		end
-		instructions2 = "In this case, the correct equation is "..numberText	
-		mmrepeatnewQuestion(screenGroup)
+		mmsolvegenerateAnswers()
+		mmsolvegenerateAnswerText()
+		mmsolvedisplayNumbers(screenGroup)
+		numberText = number*multiplier
+
+		instructions2 = "In this case, the correct value is "..numberText	
+		mmsolvenewQuestion(screenGroup)
 	end
 end
 
@@ -94,30 +90,30 @@ end
 function scene:destroyScene( event )
 	
 end
-function mmrepeatgoHome()
+function mmsolvegoHome()
 	first = true
 	round = -1
 	questionCount = 0
-	storyboard.purgeScene("mmrepeat")
+	storyboard.purgeScene("mmsolve")
 	storyboard.gotoScene( "menu")
 end
 
-function mmrepeatnewQuestion(n)
+function mmsolvenewQuestion(n)
 	local screenGroup = n
 
 	if (first) then
 		continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 		continue:scale(0.3*xscale,0.3*yscale)
-		local myFunction = function() mmrepeatmakeFirstDisappear(screenGroup) end
+		local myFunction = function() mmsolvemakeFirstDisappear(screenGroup) end
 		continue:addEventListener("tap", myFunction)
 		screenGroup:insert(continue)
 	else 
-		mmrepeatshowChoices(screenGroup)
+		mmsolveshowChoices(screenGroup)
 	end
 
 end
 
-function mmrepeatmakeFirstDisappear(n)
+function mmsolvemakeFirstDisappear(n)
 	local screenGroup = n
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
@@ -125,14 +121,14 @@ function mmrepeatmakeFirstDisappear(n)
 	myText = display.newText( instructions1, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
-	local myFunction = function() mmrepeatmakeSecondDisappear(screenGroup) end
+	local myFunction = function() mmsolvemakeSecondDisappear(screenGroup) end
 	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 	continue:scale(0.3*xscale,0.3*yscale)
 	screenGroup:insert(continue)
 	continue:addEventListener("tap", myFunction)
 	--showAnswer(screenGroup)
 end
-function mmrepeatmakeSecondDisappear(n)
+function mmsolvemakeSecondDisappear(n)
 	local screenGroup = n
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
@@ -141,12 +137,12 @@ function mmrepeatmakeSecondDisappear(n)
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
-	solution = display.newText(answerText.."="..number*multiplier, centerX-20*xscale, centerY-40*yscale, "Comic Relief", 30)
+	solution = display.newText(number*multiplier, centerX-20*xscale, centerY-40*yscale, "Comic Relief", 30)
 	solution.anchorX = 0
 	solution:setFillColor(1)
 	screenGroup:insert(solution)
 
-	local myFunction = function() mmrepeatmakeThirdDisappear(screenGroup) end
+	local myFunction = function() mmsolvemakeThirdDisappear(screenGroup) end
 	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 	continue:scale(0.3*xscale,0.3*yscale)
 
@@ -154,7 +150,7 @@ function mmrepeatmakeSecondDisappear(n)
 	screenGroup:insert(continue)
 end
 
-function mmrepeatmakeThirdDisappear(n)
+function mmsolvemakeThirdDisappear(n)
 	local screenGroup = n
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
@@ -166,16 +162,16 @@ function mmrepeatmakeThirdDisappear(n)
 	first = false
 	go = display.newImage("images/go.png", centerX+200*xscale, centerY+120*yscale)
 	go:scale(0.5*xscale,0.5*yscale)
-	go:addEventListener("tap", mmrepeatnewSceneListener)
+	go:addEventListener("tap", mmsolvenewSceneListener)
 	screenGroup:insert(go)
 end
 
-function mmrepeatnewSceneListener()
-	storyboard.purgeScene("mmrepeat")
+function mmsolvenewSceneListener()
+	storyboard.purgeScene("mmsolve")
 	storyboard.reloadScene()
 end
 
-function mmrepeatgenerateAnswers()
+function mmsolvegenerateAnswers()
 	number = math.random(2,9)
 	multiplier = math.random(2,5)
 	if multiplier == 1 then
@@ -183,7 +179,7 @@ function mmrepeatgenerateAnswers()
 	end	
 end
 
-function mmrepeatshowChoices(n)
+function mmsolveshowChoices(n)
 	local screenGroup = n
 	startTime = system.getTimer()
 	questionText =display.newText( "What is the correct equation?", centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
@@ -203,17 +199,17 @@ function mmrepeatshowChoices(n)
 	
 	answer = display.newText(answerText,b[1],centerY+100*yscale, 125*xscale,0, "Comic Relief", 20)
 	answer:setFillColor(1)
-	function mmrepeatlistener()
-		mmrepeatcorrectResponseListener(screenGroup)
+	function mmsolvelistener()
+		mmsolvecorrectResponseListener(screenGroup)
 	end
-	answer:addEventListener("tap", mmrepeatlistener)
+	answer:addEventListener("tap", mmsolvelistener)
 	screenGroup:insert(answer)
 
 	answer1 = nil
 	answer1 = display.newText(answer1Text,b[2],centerY+100*yscale,125*xscale,0, "Comic Relief", 20)
 	answer1:setFillColor(1)
 	local function listener1()
-		mmrepeatincorrectResponseListener1(screenGroup)
+		mmsolveincorrectResponseListener1(screenGroup)
 	end
 	answer1:addEventListener("tap", listener1)
 	screenGroup:insert(answer1)
@@ -222,7 +218,7 @@ function mmrepeatshowChoices(n)
 	answer2 = display.newText(answer2Text,b[3],centerY+100*yscale,125*xscale,0, "Comic Relief", 20)
 	answer2:setFillColor(1)
 	local function listener2()
-		mmrepeatincorrectResponseListener2(screenGroup)
+		mmsolveincorrectResponseListener2(screenGroup)
 	end
 	answer2:addEventListener("tap", listener2)
 	screenGroup:insert(answer2)
@@ -231,67 +227,67 @@ function mmrepeatshowChoices(n)
 	answer3 = display.newText(answer3Text,b[4],centerY+100*yscale,125*xscale,0, "Comic Relief", 20)
 	answer3:setFillColor(1)
 	local function listener3()
-		mmrepeatincorrectResponseListener3(screenGroup)
+		mmsolveincorrectResponseListener3(screenGroup)
 	end
 	answer3:addEventListener("tap", listener3)
 	screenGroup:insert(answer3)
 
 end
 
-function mmrepeatgenerateAnswerText()
+function mmsolvegenerateAnswerText()
 
 	if multiplier == 5 then
-		answerText = number.."+"..number.."+"..number.."+"..number.."+"..number
-		answer1Text = number.."+"..number.."+"..number.."+"..number
-		answer2Text = number.."+"..number.."+"..number
-		answer3Text = number.."+"..number
+		answerText = number*5
+		answer1Text = number*4
+		answer2Text =  number*3
+		answer3Text =  number*2
 	end
 	if multiplier == 4 then
-		answer1Text = number.."+"..number.."+"..number.."+"..number.."+"..number
-		answerText = number.."+"..number.."+"..number.."+"..number
-		answer2Text = number.."+"..number.."+"..number
-		answer3Text = number.."+"..number
+		answer1Text =  number*5
+		answerText =  number*4
+		answer2Text =  number*3
+		answer3Text =  number*2
 	end
 	if multiplier == 3 then
-		answer2Text = number.."+"..number.."+"..number.."+"..number.."+"..number
-		answer1Text = number.."+"..number.."+"..number.."+"..number
-		answerText = number.."+"..number.."+"..number
-		answer3Text = number.."+"..number
+		answer2Text =  number*5
+		answer1Text =  number*4
+		answerText =  number*3
+		answer3Text =  number*2
 	end
 	if multiplier == 2 then
-		answer3Text = number.."+"..number.."+"..number.."+"..number.."+"..number
-		answer1Text = number.."+"..number.."+"..number.."+"..number
-		answer2Text = number.."+"..number.."+"..number
-		answerText = number.."+"..number
+		answer3Text =  number*5
+		answer1Text =  number*4
+		answer2Text = number*3
+		answerText =  number*2
 	end
 
 end
 
-function mmrepeatdisplayNumbers(n)
+function mmsolvedisplayNumbers(n)
 	local screenGroup = n
 	question = display.newText(number.."x"..multiplier.."=", centerX-60*xscale, centerY-40*yscale, "Comic Relief", 30)
 	question:setFillColor(1)
 	screenGroup:insert(question)
 end
 
-function mmrepeatcorrectResponseListener(n)
+function mmsolvecorrectResponseListener(n)
 	local screenGroup = n
 	screenGroup:remove(valueText)
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	storeRepeat(1,totalTime,answerText,answerText,round,2)
+	storeRepeat(1,totalTime,answerText,answerText,round,3)
 	questionCount = questionCount + 1
 
-	solution = display.newText(answerText.."="..number*multiplier, centerX-20*xscale, centerY-40*yscale, "Comic Relief", 30)
+	solution = display.newText(number*multiplier, centerX-20*xscale, centerY-40*yscale, "Comic Relief", 30)
 	solution.anchorX = 0
 	solution:setFillColor(1)
 	screenGroup:insert(solution)
 
-	mmrepeatremoveAnswers(screenGroup)
+	mmsolveremoveAnswers(screenGroup)
 	local reward = display.newText("Good Job!", centerX+70*xscale,centerY+50,300,0,"Comic Relief", 30)
 	reward:setFillColor(1)
 	screenGroup:insert(reward)
 
-	local myFunction = function() mmrepeatnewSceneListener() end
+	local myFunction = function() mmsolvenewSceneListener() end
 	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 	continue:scale(0.3*xscale,0.3*yscale)
 
@@ -301,39 +297,39 @@ function mmrepeatcorrectResponseListener(n)
 end
 
 
-function mmrepeatincorrectResponseListener1(n)
+function mmsolveincorrectResponseListener1(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	questionCount = questionCount + 1
-	storeRepeat(0,totalTime,answerText,answer1Text,round,2)
-	mmrepeatwrongAnswer(screenGroup)
+	storeRepeat(0,totalTime,answerText,answer1Text,round,3)
+	mmsolvewrongAnswer(screenGroup)
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end
 
-function mmrepeatincorrectResponseListener2(n)
+function mmsolveincorrectResponseListener2(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	questionCount = questionCount + 1
-	storeRepeat(0,totalTime,answerText,answer2Text,round,2)
-	mmrepeatwrongAnswer(screenGroup)
+	storeRepeat(0,totalTime,answerText,answer2Text,round,3)
+	mmsolvewrongAnswer(screenGroup)
 
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end
 
-function mmrepeatincorrectResponseListener3(n)
+function mmsolveincorrectResponseListener3(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	questionCount = questionCount + 1
-	storeRepeat(0,totalTime,answerText,answer3Text,round,2)
-	mmrepeatwrongAnswer(screenGroup)
+	storeRepeat(0,totalTime,answerText,answer3Text,round,3)
+	mmsolvewrongAnswer(screenGroup)
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end
 
 
-function mmrepeatremoveAnswers(n)
+function mmsolveremoveAnswers(n)
 	local screenGroup = n
 	--screenGroup:remove(answer)
 	screenGroup:remove(valueText)
@@ -341,16 +337,16 @@ function mmrepeatremoveAnswers(n)
 	screenGroup:remove(answer2)
 	screenGroup:remove(answer3)
 	screenGroup:remove(questionText)
-	answer:removeEventListener("tap",mmrepeatlistener)
+	answer:removeEventListener("tap",mmsolvelistener)
 	
 
 end
 
-function mmrepeatwrongAnswer(n)
+function mmsolvewrongAnswer(n)
 	local screenGroup = n
-	mmrepeatremoveAnswers(screenGroup)
+	mmsolveremoveAnswers(screenGroup)
 
-	solution = display.newText(answerText.."="..number*multiplier, centerX-20*xscale, centerY-40*yscale, "Comic Relief", 30)
+	solution = display.newText(number*multiplier, centerX-20*xscale, centerY-40*yscale, "Comic Relief", 30)
 	solution:setFillColor(1)
 	solution.anchorX = 0
 	screenGroup:insert(solution)
@@ -359,7 +355,7 @@ function mmrepeatwrongAnswer(n)
 	questionText:setFillColor(1)
 	screenGroup:insert(questionText)
 
-	local myFunction = function() mmrepeatnewSceneListener() end
+	local myFunction = function() mmsolvenewSceneListener() end
 	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 	continue:scale(0.3*xscale,0.3*yscale)
 

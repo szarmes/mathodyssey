@@ -297,7 +297,7 @@ function endPatternGame(n)
 	myText = display.newText("You did it! Hurray!", centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
-
+	unlockMap("mm2")
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	storePatterns(1,totalTime,multiple,round,1)
 
