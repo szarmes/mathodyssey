@@ -1,73 +1,80 @@
 ---------------------------------------------------------------------------------
 --
--- splash.lua
---This scene is the splash screen and will transition to the menu scene after 3 seconds
+-- showeescore.lua
+--This scene will flash "Good Job" then return to the previous scene
 --
 ---------------------------------------------------------------------------------
 
 local storyboard = require( "storyboard" )
 local scene = storyboard.newScene()
 storyboard.removeAll()
+require "mmrepeat"
 
+
+local attemptCount=0
+local correctCount=0
+
+
+  
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------
 
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
-local mm1
 
-local function goTomm1() --play timetrials
-	storyboard.purgeAll()
-	storyboard.gotoScene("mmpatterns")
+local function goNext()
+	storyboard.removeAll()
+	storyboard.gotoScene( "menu")
 end
 
-local function goTomm2() --play timetrials
-	storyboard.purgeAll()
-	storyboard.gotoScene("mmrepeat")
-end
-
-local function goTott3() --play exponential energy
-	storyboard.purgeAll()
-	storyboard.gotoScene( "timetrialshard" )
-end
-
-local function goHome() --go back to the menu
-	storyboard.gotoScene(storyboard.getPrevious())
-end
 
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
+	storyboard.purgeScene("balanceboard")
+	--storyboard.purgeScene("exponentialenergyhard")
 	local screenGroup = self.view
+	attemptCount=0
+	correctCount = 0
+	local round = -1
+	for row in db:nrows("SELECT * FROM mmScore ORDER BY id DESC") do
+		round = row.round
+		break
+	end
+	for row in db:nrows("SELECT * FROM mmScore") do
+	 	if row.round == round then
+	 		attemptCount = attemptCount+1
+	 		if row.correct == 1 then
+	 			correctCount= correctCount+1
+	 		end
+	 	end
+	end
+
+	if correctCount>6 and storyboard.getPrevious() == "mmrepeat"then
+		unlockMap("mm3")
+	end
 
 	bg = display.newImage("images/lavabg.png", centerX,centerY+30*yscale)
-	bg:scale(0.8*xscale,0.8*yscale)
+	bg:scale(0.8*xscale,0.7*yscale)
 	screenGroup:insert(bg)
 
-	mm1 = display.newImage("images/incomplete.png", -10*xscale,centerY+120*yscale)
-	mm1:scale(0.5*xscale,0.5*yscale)
-	mm1:addEventListener("tap", goTomm1)
-	mm1.anchorX = 0
-	screenGroup:insert(mm1)
+	
+	local reward = display.newText("You answered "..correctCount.." out of "..attemptCount.." questions correctly!", centerX,centerY,300*xscale,200*yscale,"Comic Relief", 30)
+	reward:setFillColor(1)
+	screenGroup:insert(reward)
 
-	mm2 = display.newImage("images/incomplete.png", 140*xscale,centerY+10*yscale)
-	mm2:scale(0.5*xscale,0.5*yscale)
-	mm2:addEventListener("tap", goTomm2)
-	mm2.anchorX = 0
-	screenGroup:insert(mm2)
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+140*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
 
-
-	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
-	home:scale(0.3*xscale,0.3*yscale)
-	home:addEventListener("tap", goHome)
-	screenGroup:insert(home)
-
-	mmLockLocations(screenGroup)
+	continue:addEventListener("tap", goNext)
+	screenGroup:insert(continue)
+	
 end
 
 
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )
+	--timer.performWithDelay(500,continue,1)
 
 end
 
@@ -83,9 +90,6 @@ function scene:destroyScene( event )
 	
 end
 
-function mmLockLocations(n)
-	local screenGroup = n
-end
 
 ---------------------------------------------------------------------------------
 -- END OF YOUR IMPLEMENTATION

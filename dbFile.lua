@@ -55,6 +55,12 @@ function storePatterns(correct,time, multiple,round,level)
 	local tablefill =[[INSERT INTO mmScore VALUES (NULL, ']]..correct..[[',']]..time..[[',']]..multiple..
 		[[',NULL,NULL,NULL, ']]..round..[[',']]..level..[['); ]]
 	db:exec( tablefill )
+end
+
+function storeRepeat(correct,time, correctanswer, chosenanswer,round,level)
+	local tablefill =[[INSERT INTO mmScore VALUES (NULL, ']]..correct..[[',']]..time..[[',']]..correctanswer..
+		[[',']]..chosenanswer..[[',NULL,NULL, ']]..round..[[',']]..level..[['); ]]
+	db:exec( tablefill )
 
 end
 
