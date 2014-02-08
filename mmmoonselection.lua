@@ -7,7 +7,7 @@
 
 local storyboard = require( "storyboard" )
 local scene = storyboard.newScene()
-require "menu"
+storyboard.removeAll()
 
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
@@ -15,106 +15,61 @@ require "menu"
 
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
+local mm1
 
-local function goTott() --play timetrials
+local function goTommmoon() --play timetrials
 	storyboard.purgeAll()
-	cancelMeteorTimers()
-	storyboard.gotoScene("ttselection")
+	storyboard.gotoScene("perimeter")
 end
 
-local function goToee() --play exponential energy
+local function goTommmoon1() --play timetrials
 	storyboard.purgeAll()
-	cancelMeteorTimers()
-	storyboard.gotoScene( "eeselection" )
+	storyboard.gotoScene("perimeter")
 end
 
-local function goTomm() --play exponential energy
-	storyboard.purgeAll()
-	cancelMeteorTimers()
-	storyboard.gotoScene( "mmselection" )
-end
-
-local function goTommMoon() --play exponential energy
-	storyboard.purgeAll()
-	cancelMeteorTimers()
-	storyboard.gotoScene( "mmmoonselection" )
-end
-
-local function goTobb() --play exponential energy
-	storyboard.purgeAll()
-	cancelMeteorTimers()
-	storyboard.gotoScene( "bbselection" )
-end
 
 local function goHome() --go back to the menu
-	storyboard.gotoScene("menu")
+	storyboard.gotoScene(storyboard.getPrevious())
 end
 
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
 	local screenGroup = self.view
 
-	bg = display.newImage("images/galaxybg.png", centerX,centerY+30*yscale)
+	bg = display.newImage("images/mmmoonbg.png", centerX,centerY+30*yscale)
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 
-	local tt = display.newImage("images/timeplanet.png", 25*xscale,centerY-20*yscale)
-	tt:scale(0.5*xscale,0.5*yscale)
-	tt:addEventListener("tap", goTott)
-	tt.anchorX = 0
-	screenGroup:insert(tt)
+	mmmoon = display.newImage("images/incomplete.png", -10*xscale,centerY+120*yscale)
+	mmmoon:scale(0.5*xscale,0.5*yscale)
+	mmmoon:addEventListener("tap", goTommmoon)
+	mmmoon.anchorX = 0
+	screenGroup:insert(mmmoon)
 
-	local ee = display.newImage("images/expplanet.png", 250*xscale,centerY-90*yscale)
-	ee:scale(0.6*xscale,0.6*yscale)
-	ee:addEventListener("tap", goToee)
-	ee.anchorX = 0
-	screenGroup:insert(ee)
-
-	local mm = display.newImage("images/lavaplanet.png", centerX-70*xscale,centerY+10*yscale)
-	mm:scale(0.2*xscale,0.2*yscale)
-	mm:addEventListener("tap", goTomm)
-	mm.anchorX = 0
-	screenGroup:insert(mm)
-
-	local mmMoon = display.newImage("images/mmmoon.png", centerX-100*xscale,centerY+50*yscale)
-	mmMoon:scale(0.06*xscale,0.06*yscale)
-	mmMoon:addEventListener("tap", goTommMoon)
-	mmMoon.anchorX = 0
-	screenGroup:insert(mmMoon)
-
-	local bb = display.newImage("images/bbplanet.png", centerX+130*xscale,centerY+40*yscale)
-	bb:scale(0.1*xscale,0.1*yscale)
-	bb:addEventListener("tap", goTobb)
-	bb.anchorX = 0
-	screenGroup:insert(bb)
-
-
-	local dd = display.newImage("images/ddplanet.png", centerX+140*xscale,centerY-60*yscale)
-	dd:scale(0.14*xscale,0.14*yscale)
-	dd:addEventListener("tap", goTobb)
-	dd.anchorX = 0
-	screenGroup:insert(dd)
+	mmmoon1 = display.newImage("images/incomplete.png", 140*xscale,centerY+10*yscale)
+	mmmoon1:scale(0.5*xscale,0.5*yscale)
+	mmmoon1:addEventListener("tap", goTommmoon1)
+	mmmoon1.anchorX = 0
+	screenGroup:insert(mmmoon1)
 
 	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
 	home:scale(0.3*xscale,0.3*yscale)
 	home:addEventListener("tap", goHome)
 	screenGroup:insert(home)
 
+	mmmoonLockLocations(screenGroup)
 end
 
 
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )
-	local screenGroup = self.view	
-	spawnMeteor(screenGroup)
+
 end
 
 
 -- Called when scene is about to move offscreen:
 function scene:exitScene( event )
-	local screenGroup = self.view	
-	screenGroup:remove(meteor)
-	cancelMeteorTimers()
+	
 end
 
 
@@ -122,6 +77,25 @@ end
 function scene:destroyScene( event )
 	
 end
+
+function mmmoonLockLocations(n)
+	local screenGroup = n
+	local lock1check = false
+	local lock2check = false
+	for row in db:nrows("SELECT * FROM mapUnlocks;") do
+		if row.location == "mmmoon1" then
+			lock1check = true
+		end
+	end
+	if lock1check==false then 
+		lock1 = display.newImage("images/lock.png",mmmoon1.x+30*xscale,mmmoon1.y+15*yscale)
+		lock1:scale(0.08*xscale,0.08*yscale)
+		screenGroup:insert(lock1)
+		mmmoon1:removeEventListener("tap",goTommmoon1)
+	end
+
+end
+
 
 ---------------------------------------------------------------------------------
 -- END OF YOUR IMPLEMENTATION

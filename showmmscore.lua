@@ -54,6 +54,15 @@ function scene:createScene( event )
 		unlockMap("mm2")
 	end
 
+
+	if correctCount>6 and storyboard.getPrevious() == "mmsolve"then
+		unlockMap("mmmoon")
+	end
+
+	if correctCount>6 and storyboard.getPrevious() == "perimeter"then
+		unlockMap("area")
+	end
+
 	bg = display.newImage("images/lavabg.png", centerX,centerY+30*yscale)
 	bg:scale(0.8*xscale,0.7*yscale)
 	screenGroup:insert(bg)
