@@ -69,7 +69,7 @@ function scene:createScene( event )
 
 	
 	local reward = display.newText("You answered "..correctCount.." out of "..attemptCount.." questions correctly!", centerX,centerY,300*xscale,200*yscale,"Comic Relief", 30)
-	reward:setFillColor(1)
+	reward:setFillColor(0)
 	screenGroup:insert(reward)
 
 	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+140*yscale)

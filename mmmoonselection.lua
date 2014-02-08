@@ -24,7 +24,7 @@ end
 
 local function goTommmoon1() --play timetrials
 	storyboard.purgeAll()
-	storyboard.gotoScene("perimeter")
+	storyboard.gotoScene("area")
 end
 
 
@@ -83,7 +83,7 @@ function mmmoonLockLocations(n)
 	local lock1check = false
 	local lock2check = false
 	for row in db:nrows("SELECT * FROM mapUnlocks;") do
-		if row.location == "mmmoon1" then
+		if row.location == "area" then
 			lock1check = true
 		end
 	end
