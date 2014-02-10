@@ -73,7 +73,7 @@ end
 function scene:enterScene( event )	
 
 	if round == -1 then
-			for row in db:nrows("SELECT * FROM eeScore ORDER BY id DESC") do
+			for row in db:nrows("SELECT * FROM mmScore ORDER BY id DESC") do
 			  round = row.round+1
 			  break
 			end

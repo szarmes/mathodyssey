@@ -79,7 +79,7 @@ end
 function tutorial1(n)
 	local screenGroup = n
 
-	myText = display.newImage( "images/tutorialtext1.png", centerX, centerY)
+	myText = display.newImage( "images/tutorialtext1.png", centerX-20*xscale, centerY)
 	myText:scale(0.5*xscale,0.5*yscale)
 	screenGroup:insert(myText)
 	local myFunction = function() 
@@ -98,7 +98,7 @@ end
 function tutorial2(n)
 	local screenGroup = n
 
-	myText = display.newImage( "images/tutorialtext2.png", centerX, centerY)
+	myText = display.newImage( "images/tutorialtext2.png", centerX-20*xscale, centerY)
 	myText:scale(0.5*xscale,0.5*yscale)
 	screenGroup:insert(myText)
 	local myFunction = function() 
@@ -131,7 +131,7 @@ end
 function tutorial3(n)
 	local screenGroup = n
 
-	myText = display.newImage( "images/tutorialtext3.png", centerX, centerY)
+	myText = display.newImage( "images/tutorialtext3.png", centerX-20*xscale, centerY)
 	myText:scale(0.5*xscale,0.5*yscale)
 	screenGroup:insert(myText)
 

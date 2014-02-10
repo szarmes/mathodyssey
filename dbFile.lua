@@ -51,6 +51,14 @@ function storeBB(correct,time, correctsign, chosensign, lval,rval, round,level)
 
 end
 
+function storeDD(correct,time, numerator, denominator, chosennum,round,level)
+
+	local tablefill =[[INSERT INTO ddScore VALUES (NULL, ']]..correct..[[',']]..time..[[',']]..numerator..
+		[[',']]..denominator..[[',']]..chosennum..[[',']]..round..[[',']]..level..[['); ]]
+	db:exec( tablefill )
+
+end
+
 function storePatterns(correct,time, multiple,round,level)
 	local tablefill =[[INSERT INTO mmScore VALUES (NULL, ']]..correct..[[',']]..time..[[',']]..multiple..
 		[[',NULL,NULL,NULL, ']]..round..[[',']]..level..[['); ]]

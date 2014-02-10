@@ -95,6 +95,10 @@ db:exec( tablesetup5 )
 
 local tablesetup6 = [[CREATE TABLE IF NOT EXISTS companionSelect (id INTEGER PRIMARY KEY, companion INTEGER );]]
 db:exec( tablesetup6 )
+
+local tablesetup7 = [[CREATE TABLE IF NOT EXISTS ddScore (id INTEGER PRIMARY KEY, correct INTEGER,
+	time INTEGER, numerator INTEGER, denominator INTEGER, chosennum INTEGER, round INTEGER, level INTEGER );]]
+db:exec( tablesetup7 )
 --local drop = [[drop table companionSelect]]
 --db:exec( drop )
 --local drop1 = [[drop table eeScore]]
