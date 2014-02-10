@@ -20,17 +20,17 @@ local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 first = true
 local round = -1
-local dd1instructions = "On this planet you will be learning about Division, a term used to describe how you split up a number."
-local dd1instructions1 = "Your first task will be to split a group of asteroids into two smaller groups of asteroids, each of which having the same amount."
-local dd1instructions2 = "To accomplish this, drag the asteroids into the areas provided for each group."
-local dd1instructions3 = "You will find out that division is a lot easier than it looks."
-local dd1instructions4 
+local ddinstructions = "On this planet you will be learning about Division, a term used to describe how you split up a number."
+local ddinstructions1 = "Your first task will be to split a group of asteroids into two smaller groups of asteroids, each of which having the same amount."
+local ddinstructions2 = "To accomplish this, drag the asteroids into the areas provided for each group."
+local ddinstructions3 = "You will find out that division is a lot easier than it looks."
+local ddinstructions4 
 local groups
 local asteroidnum
 local asteroids
 local endGroup
 
-local function dd1goHome()
+local function ddgoHome()
 	first = true
 	round = -1
 	mmcorrectCount = 0
@@ -59,17 +59,17 @@ function scene:createScene( event )
 
 
 	if (first) then
-		myText = display.newText(dd1instructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+		myText = display.newText(ddinstructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
-		dd1ShowNumbers(screenGroup)
-		--dd1ShowMultiple(screenGroup)
+		ddShowNumbers(screenGroup)
+		--ddShowMultiple(screenGroup)
 	end
-	dd1newQuestion(screenGroup)
+	ddnewQuestion(screenGroup)
 
 	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
 	home:scale(0.3*xscale,0.3*yscale)
-	home:addEventListener("tap", dd1goHome)
+	home:addEventListener("tap", ddgoHome)
 	screenGroup:insert(home)
 
 end
@@ -78,7 +78,7 @@ end
 function scene:enterScene( event )	
 
 	if round == -1 then
-			for row in db:nrows("SELECT * FROM mmScore ORDER BY id DESC") do
+			for row in db:nrows("SELECT * FROM ddScore ORDER BY id DESC") do
 			  round = row.round+1
 			  break
 			end
@@ -94,24 +94,24 @@ end
 function scene:destroyScene( event )	
 end
 
-function dd1newQuestion(n) -- this will make a new question
+function ddnewQuestion(n) -- this will make a new question
 	local screenGroup = n
 	if (first) then
-		local myfunction = function() dd1makeFirstDisappear(screenGroup) end
+		local myfunction = function() ddmakeFirstDisappear(screenGroup) end
 		continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 		continue:scale(0.3*xscale,0.3*yscale)
 		continue:addEventListener("tap", myfunction)
 		screenGroup:insert(continue)
 	else 
-		dd1Game(n)
+		ddGame(n)
 	end
 end
 
-function dd1ShowNumbers(n)
+function ddShowNumbers(n)
 	local screenGroup = n
 	asteroidnum = math.random(5,10)*2
 	groups = 2
-	dd1showGroups(screenGroup)
+	ddshowGroups(screenGroup)
 	asteroids = {}
 	for j = 0 ,1, 1 do
 		for i =1, asteroidnum/2, 1  do
@@ -129,7 +129,7 @@ function dd1ShowNumbers(n)
 	end
 end
 
-function dd1showGroups(n)
+function ddshowGroups(n)
 	local screenGroup = n
 	
 	group1 = display.newImage("images/bubble.png",centerX-130*xscale,centerY-10*yscale)
@@ -173,13 +173,13 @@ function dragAsteroid(event)
     end
 
     if event.phase == "ended" or event.phase == "cancelled" then
-    	dd1checkEndGame()
+    	ddcheckEndGame()
     end
 
  
 end
 
-function dd1checkEndGame()
+function ddcheckEndGame()
 	group1count = asteroidnum/2
 	group2count = asteroidnum/2
 	local g1counter = 0
@@ -198,7 +198,7 @@ function dd1checkEndGame()
     group1counter.text = g1counter
     group2counter.text = g2counter
     if group1count==0 and group2count==0 then
-    	enddd1Game()
+    	endddGame()
     end
   
 end
@@ -219,16 +219,16 @@ function hasCollided(obj1, obj2)
 end
 
 
-function dd1makeFirstDisappear(n)
+function ddmakeFirstDisappear(n)
 	local screenGroup = n
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText(dd1instructions1, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
+	myText = display.newText(ddinstructions1, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
-	local myfunction = function() dd1makeSecondDisappear(screenGroup) end
+	local myfunction = function() ddmakeSecondDisappear(screenGroup) end
 	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 	continue:scale(0.3*xscale,0.3*yscale)
 
@@ -236,16 +236,16 @@ function dd1makeFirstDisappear(n)
 	screenGroup:insert(continue)
 end
 
-function dd1makeSecondDisappear(n)
+function ddmakeSecondDisappear(n)
 	local screenGroup = n
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText(dd1instructions2, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+	myText = display.newText(ddinstructions2, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
-	local myfunction = function() dd1makeThirdDisappear(screenGroup) end
+	local myfunction = function() ddmakeThirdDisappear(screenGroup) end
 	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 	continue:scale(0.3*xscale,0.3*yscale)
 
@@ -253,16 +253,16 @@ function dd1makeSecondDisappear(n)
 	screenGroup:insert(continue)
 end
 
-function dd1makeThirdDisappear(n)
+function ddmakeThirdDisappear(n)
 	local screenGroup = n
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText(dd1instructions3, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+	myText = display.newText(ddinstructions3, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
-	local myfunction = function() dd1makeFourthDisappear(screenGroup) end
+	local myfunction = function() ddmakeFourthDisappear(screenGroup) end
 	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 	continue:scale(0.3*xscale,0.3*yscale)
 
@@ -271,13 +271,13 @@ function dd1makeThirdDisappear(n)
 
 end
 
-function dd1makeFourthDisappear(n)
+function ddmakeFourthDisappear(n)
 	local screenGroup = n
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
-	dd1instructions4 = "In this example you would divide the field of "..asteroidnum.." asteroids into two equal groups of "..(asteroidnum/2).."."
-	dd1instructions4 = dd1instructions4.." Good luck out there."
-	myText = display.newText(dd1instructions4, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+	ddinstructions4 = "In this example you would divide the field of "..asteroidnum.." asteroids into two equal groups of "..(asteroidnum/2).."."
+	ddinstructions4 = ddinstructions4.." Good luck out there."
+	myText = display.newText(ddinstructions4, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -286,13 +286,13 @@ function dd1makeFourthDisappear(n)
 	first = false
 	go = display.newImage("images/go.png", centerX+200*xscale, centerY+120*yscale)
 	go:scale(0.5*xscale,0.5*yscale)
-	go:addEventListener("tap", dd1newSceneListener)
+	go:addEventListener("tap", ddnewSceneListener)
 	screenGroup:insert(go)
 
-	dd1ShowAnswer(screenGroup)
+	ddShowAnswer(screenGroup)
 end
 
-function dd1ShowAnswer(n)
+function ddShowAnswer(n)
 	local screenGroup = n
 
 	for j = 1 , asteroidnum, 1 do
@@ -313,30 +313,30 @@ function dd1ShowAnswer(n)
 
 end
 
-function dd1newSceneListener()
+function ddnewSceneListener()
 	storyboard.purgeScene("divisiondash")
 	storyboard.reloadScene()
 end
 
 
-function showdd1GameInstructions(n)
+function showddGameInstructions(n)
 	local screenGroup = n
-	dd1GameInstructions= "Split the field of "..asteroidnum.." asteroids into "..groups.. " equal groups, by dragging them into position."
+	ddGameInstructions= "Split the field of "..asteroidnum.." asteroids into "..groups.. " equal groups, by dragging them into position."
 	
 
-	myText = display.newText(dd1GameInstructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+	myText = display.newText(ddGameInstructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 end
 
-function dd1Game(n)
+function ddGame(n)
 	local screenGroup = n
-	dd1ShowNumbers(screenGroup)
-	showdd1GameInstructions(screenGroup)
+	ddShowNumbers(screenGroup)
+	showddGameInstructions(screenGroup)
 
 end
 
-function enddd1Game(n)
+function endddGame(n)
 	local screenGroup = endGroup
 	screenGroup:remove(myText)
 	myText = display.newText("Congratulations! You successfully divided "..asteroidnum.." by two, to form two groups of "..(asteroidnum/2)..".", centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
@@ -349,7 +349,7 @@ function enddd1Game(n)
 	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 	continue:scale(0.3*xscale,0.3*yscale)
 
-	continue:addEventListener("tap", dd1goHome)
+	continue:addEventListener("tap", ddgoHome)
 	screenGroup:insert(continue)
 
 end
