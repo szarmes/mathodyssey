@@ -10,8 +10,6 @@ require "dbFile"
 
 
 local buttonXOffset = 100
-
-companionText = "images/astronaut.png"
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------

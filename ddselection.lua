@@ -15,8 +15,7 @@ storyboard.removeAll()
 
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
-local ee
-local ee1
+
 
 local function goTodd() --play timetrials
 	storyboard.purgeAll()
