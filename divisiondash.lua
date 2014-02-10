@@ -21,8 +21,8 @@ local centerY = display.contentCenterY
 first = true
 local round = -1
 local dd1instructions = "On this planet you will be learning about Division, a term used to describe how you split up a number."
-local dd1instructions1 = "Your first task will be to split a group of asteroids into two smaller groups of asteroids, each of which has the same amount."
-local dd1instructions2 = "You will be given an asteroid field, and you will have to drag the asteroids into two equal groups."
+local dd1instructions1 = "Your first task will be to split a group of asteroids into two smaller groups of asteroids, each of which having the same amount."
+local dd1instructions2 = "To accomplish this, drag the asteroids into the areas provided for each group."
 local dd1instructions3 = "You will find out that division is a lot easier than it looks."
 local dd1instructions4 
 local groups
@@ -87,7 +87,7 @@ end
 
 -- Called when scene is about to move offscreen:
 function scene:exitScene( event )
-	 dd1instructions4 = "In this example you would select every"
+	
 end
 
 -- Called prior to the removal of scene's "view" (display group)
@@ -131,20 +131,30 @@ end
 
 function dd1showGroups(n)
 	local screenGroup = n
-	if groups == 2 then
-		group1 = display.newImage("images/bubble.png",centerX-130*xscale,centerY-10*yscale)
-		group1:scale(.3*xscale,.3*yscale)
-		group1.alpha = 0.7
-		screenGroup:insert(group1)
+	
+	group1 = display.newImage("images/bubble.png",centerX-130*xscale,centerY-10*yscale)
+	group1:scale(.3*xscale,.3*yscale)
+	group1.alpha = 0.7
+	screenGroup:insert(group1)
 
-		group2 = display.newImage("images/bubble.png",centerX+130*xscale,centerY-10*yscale)
-		group2:scale(.3*xscale,.3*yscale)
-		group2.alpha = 0.7
-		screenGroup:insert(group2)
+	group2 = display.newImage("images/bubble.png",centerX+130*xscale,centerY-10*yscale)
+	group2:scale(.3*xscale,.3*yscale)
+	group2.alpha = 0.7
+	screenGroup:insert(group2)
 
-		group1count = asteroidnum/2
-		group2count = asteroidnum/2
+	group1count = asteroidnum/2
+	group2count = asteroidnum/2
+
+	if first == false then
+		group1counter = display.newText(0,group1.x+80*xscale,group1.y+20*yscale, "Comic Relief",16)
+		group1counter:setFillColor(0)
+		screenGroup:insert(group1counter)
+
+		group2counter = display.newText(0,group2.x+80*xscale,group2.y+20*yscale, "Comic Relief",16)
+		group2counter:setFillColor(0)
+		screenGroup:insert(group2counter)
 	end
+	
 end
 
 function dragAsteroid(event)
@@ -172,15 +182,21 @@ end
 function dd1checkEndGame()
 	group1count = asteroidnum/2
 	group2count = asteroidnum/2
+	local g1counter = 0
+	local g2counter = 0
 
 	for i = 1,asteroidnum,1 do
     	if hasCollided(asteroids[i],group1) then
     		group1count = group1count-1
+    		g1counter=g1counter+1
     	end
     	if hasCollided(asteroids[i],group2) then
     		group2count = group2count-1
+    		g2counter = g2counter+1
     	end
     end
+    group1counter.text = g1counter
+    group2counter.text = g2counter
     if group1count==0 and group2count==0 then
     	enddd1Game()
     end
