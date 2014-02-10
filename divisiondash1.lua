@@ -285,8 +285,8 @@ function dd1ShowAnswer(n)
 		screenGroup:remove(asteroids[j])
 	end
 	for i = 1,groupnum, 1 do
-		for j = 1 , asteroidnum/2, 1 do
-			asteroids[j] = display.newImage("images/asteroid.png",(groups[i].x-100*xscale+(j*20))*xscale, 140*yscale)
+		for j = 1 , asteroidnum/groupnum, 1 do
+			asteroids[j] = display.newImage("images/asteroid.png",(groups[i].x-200/groupnum*xscale+(j*20))*xscale, 140*yscale)
 			asteroids[j]:scale(0.08*xscale, 0.08*yscale)
 			screenGroup:insert(asteroids[j])
 		end
