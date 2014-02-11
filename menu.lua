@@ -121,7 +121,9 @@ end
 -- Called when scene is about to move offscreen:
 function scene:exitScene( event )
 	local screenGroup = self.view
-	screenGroup:remove(meteor)
+	if meteor ~= nil then
+		screenGroup:remove(meteor)
+	end
 	cancelMeteorTimers()
 end
 
