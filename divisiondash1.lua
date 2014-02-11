@@ -371,7 +371,7 @@ function dd1generateAnswerText()
 		answer1Text = math.random(1,10)
 	end
 	answer2Text = math.random(1,10)
-	while answer2Text == answerText or answer2Text == answerText do
+	while answer2Text == answerText or answer2Text == answer1Text do
 		answer2Text = math.random(1,10)
 	end
 	answer3Text = math.random(1,10)
