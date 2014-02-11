@@ -46,7 +46,7 @@ function scene:createScene( event )
 	bg:scale(0.6*xscale,0.6*yscale)
 	screenGroup:insert(bg)
 
-	bb = display.newImage("images/incomplete.png", -10*xscale,centerY+120*yscale)
+	bb = display.newImage("images/incomplete.png", centerX-200*xscale,centerY-120*yscale)
 	bb:scale(0.5*xscale,0.5*yscale)
 	bb:addEventListener("tap", goTobb)
 	bb.anchorX = 0

@@ -40,13 +40,13 @@ function scene:createScene( event )
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 
-	mmmoon = display.newImage("images/incomplete.png", -10*xscale,centerY+120*yscale)
+	mmmoon = display.newImage("images/incomplete.png", centerX-110*xscale,centerY-90*yscale)
 	mmmoon:scale(0.5*xscale,0.5*yscale)
 	mmmoon:addEventListener("tap", goTommmoon)
 	mmmoon.anchorX = 0
 	screenGroup:insert(mmmoon)
 
-	mmmoon1 = display.newImage("images/incomplete.png", 140*xscale,centerY+10*yscale)
+	mmmoon1 = display.newImage("images/incomplete.png", centerX+40*xscale,centerY+10*yscale)
 	mmmoon1:scale(0.5*xscale,0.5*yscale)
 	mmmoon1:addEventListener("tap", goTommmoon1)
 	mmmoon1.anchorX = 0

@@ -44,7 +44,7 @@ function scene:createScene( event )
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 
-	mm = display.newImage("images/incomplete.png", -10*xscale,centerY+120*yscale)
+	mm = display.newImage("images/incomplete.png", centerX-200*xscale,centerY+100*yscale)
 	mm:scale(0.5*xscale,0.5*yscale)
 	mm:addEventListener("tap", goTomm)
 	mm.anchorX = 0

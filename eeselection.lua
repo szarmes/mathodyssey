@@ -46,7 +46,7 @@ function scene:createScene( event )
 	bg:scale(0.6*xscale,0.6*yscale)
 	screenGroup:insert(bg)
 
-	ee = display.newImage("images/incomplete.png", -10*xscale,centerY+120*yscale)
+	ee = display.newImage("images/incomplete.png", centerX-190*xscale,centerY+80*yscale)
 	ee:scale(0.5*xscale,0.5*yscale)
 	ee:addEventListener("tap", goToee)
 	ee.anchorX = 0
