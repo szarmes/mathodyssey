@@ -31,6 +31,11 @@ function goToTutorials()
 	storyboard.gotoScene("howtoplay")
 end
 
+function goToCredits()
+	cancelMeteorTimers()
+	storyboard.gotoScene("credit")
+end
+
 function goToSettings()
 	cancelMeteorTimers()
 	storyboard.gotoScene("settings")
@@ -66,6 +71,7 @@ function scene:createScene( event )
 	about = display.newImage("images/about.png", centerX+225*xscale ,centerY+70*yscale)
 	about:scale(0.6*xscale,0.6*yscale)
 	about.anchorX = 1
+	about:addEventListener("tap",goToCredits)
 	screenGroup:insert(about)
 
 	title = display.newImage("images/splash.png", centerX,centerY-100*yscale)
