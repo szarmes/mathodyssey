@@ -8,7 +8,6 @@
 local storyboard = require( "storyboard" )
 local widget = require( "widget" )
 require "dbFile"
-local tryAgain = require("tryagain")
 
 local scene = storyboard.newScene()
 storyboard.removeAll()
@@ -40,7 +39,6 @@ end
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
 	storyboard.reloadScene()
-	storyboard.purgeScene("tryagain")
 	local screenGroup = self.view	
 	bg = display.newImage("images/ttbg.png", centerX,centerY+30*yscale)
 	bg:scale(0.8*xscale,0.8*yscale)
@@ -232,7 +230,6 @@ function timetrialshardshowChoices(n)
 		count=count-1
 	end
 	timetrialshardgenerateAnswerText()
-	tryAgain.TAanswerText = answerText
 	answer = display.newText(answerText,b[1],centerY+100, 125*xscale,0, "Comic Relief", 16)
 	answer:setFillColor(0)
 	function listener()

@@ -187,7 +187,7 @@ end
 function mmsolveshowChoices(n)
 	local screenGroup = n
 	startTime = system.getTimer()
-	questionText =display.newText( "What is the correct equation?", centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+	questionText =display.newText( "What is the correct value?", centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
 	
