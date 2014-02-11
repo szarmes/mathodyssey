@@ -53,6 +53,17 @@ function scene:createScene( event )
 	home:addEventListener("tap", areagoHome)
 	screenGroup:insert(home)
 
+	if first==false then
+		hintbutton = display.newImage(companionText,display.contentWidth-20*xscale,90*yscale)
+		hintbutton:scale(-0.14*xscale,0.14*yscale)
+
+		local function areahint()
+			provideHint(screenGroup,instructions3)
+		end
+		hintbutton:addEventListener("tap",areahint)
+		screenGroup:insert(hintbutton)
+	end
+
 end
 
 

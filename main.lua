@@ -19,6 +19,9 @@ musicmuted = false
 xscale = 1
 yscale = 1
 
+local centerX = display.contentCenterX
+local centerY = display.contentCenterY
+
 local storyboard = require( "storyboard" )
 
 function mutesfx()
@@ -65,9 +68,28 @@ end
 toScale()
 
 
-function refresh()
-	storyboard.purgeScene(storyboard.getCurrentSceneName())
-	storyboard.reloadScene()
+function provideHint(n,str)
+	local screenGroup = n
+	
+	hintbubble =  display.newImage("images/bubble.png", centerX-20*xscale,centerY)
+	hintbubble:scale(0.8*xscale,0.5*yscale)
+	screenGroup:insert(hintbubble)
+
+	hinttext = display.newText(str,centerX,centerY+40*yscale,400*xscale,200*yscale,"Comic Relief",18)
+	hinttext:setFillColor(0)
+	screenGroup:insert(hinttext)
+
+	closebutton = display.newText("Close",centerX+180*xscale,centerY+50*yscale,"Comic Relief",18)
+	closebutton:setFillColor(0)
+	local function closeHint()
+		screenGroup:remove(hintbubble)
+		screenGroup:remove(hinttext)
+		screenGroup:remove(closebutton)
+	end
+	closebutton:addEventListener("tap",closeHint)
+	screenGroup:insert(closebutton)
+
+
 end
 
 

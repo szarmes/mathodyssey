@@ -19,8 +19,8 @@ first = true
 questionCount = 0
 local round = -1
 local dd2instructions = "Your division skills will now be put to the test."
-local dd2instructions1 = "In this mode, the number on top, the numerator, represents the number of asteroids in the field."
-local dd2instructions2 = "The number on the bottom, the denominator, represents how many groups the field needs to be split into."
+local dd2instructions1 = "In this mode, the number on top represents the number of asteroids in the field."
+local dd2instructions2 = "The number on the bottom represents how many groups the field needs to be split into."
 local dd2instructions3 = "Find the answer by figuring out how many asteroids will go into each group to make them have equal amounts."
 local dd2instructions4 
 local groups
@@ -69,11 +69,16 @@ function scene:createScene( event )
 	home:scale(0.3*xscale,0.3*yscale)
 	home:addEventListener("tap", dd2goHome)
 	screenGroup:insert(home)
+	if first==false then
+		hintbutton = display.newImage(companionText,display.contentWidth-20*xscale,90*yscale)
+		hintbutton:scale(-0.14*xscale,0.14*yscale)
 
-	refreshbutton = display.newImage("images/refresh.png",display.contentWidth-20*xscale,70*yscale)
-	refreshbutton:scale(0.4*xscale,0.4*yscale)
-	refreshbutton:addEventListener("tap",refresh)
-	screenGroup:insert(refreshbutton)
+		local function dd2hint()
+			provideHint(screenGroup,dd2instructions3)
+		end
+		hintbutton:addEventListener("tap",dd2hint)
+		screenGroup:insert(hintbutton)
+	end
 
 end
 
@@ -122,33 +127,24 @@ function dd2ShowNumbers(n)
 	while asteroidnum%groupnum~=0 do
 		groupnum = math.random(2,4)
 	end
-	asteroids = {}
-	for j = 0 ,1, 1 do
-		for i =1, asteroidnum/2, 1  do
-			asteroids[((asteroidnum/2)*j)+i] = display.newImage("images/asteroid.png",((i*30))*xscale, centerY-40*yscale-(j+1)*40*yscale)
-			asteroids[((asteroidnum/2)*j)+i]:scale(0.08*xscale, 0.08*yscale)
-			--physics.addBody(asteroids[(6*j)+i],{radius = 10})
-			screenGroup:insert(asteroids[((asteroidnum/2)*j)+i])
-		end
-	end
-	numeratorText = display.newText(asteroidnum,centerX-20*xscale,centerY-30*yscale,"Comic Relief",24)
+	numeratorText = display.newText(asteroidnum,centerX-20*xscale,centerY-60*yscale,"Comic Relief",24)
 	numeratorText:setFillColor(0)
 	screenGroup:insert(numeratorText)
 
-	line = display.newLine(centerX-45*xscale,centerY-8*yscale,centerX+10*xscale,centerY-8*yscale)
+	line = display.newLine(centerX-45*xscale,centerY-38*yscale,centerX+10*xscale,centerY-38*yscale)
 	line:setStrokeColor(0)
 	line.strokeWidth =3
 	screenGroup:insert(line)
 
-	denominatorText = display.newText(groupnum,centerX-20*xscale,centerY,"Comic Relief",24)
+	denominatorText = display.newText(groupnum,centerX-20*xscale,centerY-30,"Comic Relief",24)
 	denominatorText:setFillColor(0)
 	screenGroup:insert(denominatorText)
 
-	equalsText = display.newText("=",centerX+30*xscale,centerY-15*yscale,"Comic Relief",24)
+	equalsText = display.newText("=",centerX+30*xscale,centerY-45*yscale,"Comic Relief",24)
 	equalsText:setFillColor(0)
 	screenGroup:insert(equalsText)
 
-	solutionText = display.newText("?",centerX+60*xscale,centerY-15*yscale,"Comic Relief",24)
+	solutionText = display.newText("?",centerX+60*xscale,centerY-45*yscale,"Comic Relief",24)
 	solutionText:setFillColor(0)
 	screenGroup:insert(solutionText)
 	if first == false then
@@ -233,7 +229,7 @@ end
 function dd2ShowAnswer(n)
 	local screenGroup = n
 	screenGroup:remove(solutionText)
-	solutionText = display.newText(asteroidnum/groupnum,centerX+60*xscale,centerY-15*yscale,"Comic Relief",24)
+	solutionText = display.newText(asteroidnum/groupnum,centerX+60*xscale,centerY-45*yscale,"Comic Relief",24)
 	solutionText:setFillColor(0)
 	screenGroup:insert(solutionText)
 
@@ -259,7 +255,7 @@ end
 function dd2showChoices(n)
 	local screenGroup = n
 	startTime = system.getTimer()
-	questionText = display.newText("If you divide "..asteroidnum.. " asteroids into "..groupnum.." groups, how many asteroids are in each group?", centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+	questionText = display.newText("If you divide "..asteroidnum.. " asteroids into "..groupnum.." groups, how many asteroids are in each group?", centerX, centerY+120*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
 
@@ -275,7 +271,7 @@ function dd2showChoices(n)
 	end
 	dd2generateAnswerText()
 	
-	answer = display.newText(answerText,b[1],centerY+120*yscale, "Comic Relief",24)
+	answer = display.newText(answerText,b[1],centerY+100*yscale, "Comic Relief",24)
 	answer:setFillColor(0)
 	function dd2listener()
 		dd2correctResponseListener(screenGroup)
@@ -283,7 +279,7 @@ function dd2showChoices(n)
 	answer:addEventListener("tap", dd2listener)
 	screenGroup:insert(answer)
 
-	answer1 = display.newText(answer1Text,b[2],centerY+120*yscale, "Comic Relief", 24)
+	answer1 = display.newText(answer1Text,b[2],centerY+100*yscale, "Comic Relief", 24)
 	answer1:setFillColor(0,0,0)
 	local function listener1()
 		dd2incorrectResponseListener1(screenGroup)
@@ -291,7 +287,7 @@ function dd2showChoices(n)
 	answer1:addEventListener("tap", listener1)
 	screenGroup:insert(answer1)
 
-	answer2 = display.newText(answer2Text,b[3],centerY+120*yscale, "Comic Relief", 24)
+	answer2 = display.newText(answer2Text,b[3],centerY+100*yscale, "Comic Relief", 24)
 	answer2:setFillColor(0,0,0)
 	local function listener2()
 		dd2incorrectResponseListener2(screenGroup)
@@ -299,7 +295,7 @@ function dd2showChoices(n)
 	answer2:addEventListener("tap", listener2)
 	screenGroup:insert(answer2)
 
-	answer3 = display.newText(answer3Text,b[4],centerY+120*yscale, "Comic Relief", 24)
+	answer3 = display.newText(answer3Text,b[4],centerY+100*yscale, "Comic Relief", 24)
 	answer3:setFillColor(0,0,0)
 	local function listener3()
 		dd2incorrectResponseListener3(screenGroup)

@@ -71,10 +71,16 @@ function scene:createScene( event )
 	home:addEventListener("tap", dd1goHome)
 	screenGroup:insert(home)
 
-	refreshbutton = display.newImage("images/refresh.png",display.contentWidth-20*xscale,70*yscale)
-	refreshbutton:scale(0.4*xscale,0.4*yscale)
-	refreshbutton:addEventListener("tap",refresh)
-	screenGroup:insert(refreshbutton)
+	if first==false then
+		hintbutton = display.newImage(companionText,display.contentWidth-20*xscale,90*yscale)
+		hintbutton:scale(-0.14*xscale,0.14*yscale)
+
+		local function dd1hint()
+			provideHint(screenGroup,dd1instructions3)
+		end
+		hintbutton:addEventListener("tap",dd1hint)
+		screenGroup:insert(hintbutton)
+	end
 
 end
 
