@@ -26,7 +26,7 @@ local centerY = display.contentCenterY
 
 local function goNext()
 	storyboard.purgeAll()
-	storyboard.gotoScene( "menu")
+	storyboard.gotoScene( "ttselection")
 end
 
 
@@ -50,15 +50,42 @@ function scene:createScene( event )
 	 		end
 	 	end
 	end
-	if correctCount>6 and storyboard.getPrevious() == "telltime" then
-		unlockMap("tt2")
-	end
-	if correctCount>6 and storyboard.getPrevious() == "timetrials" then
-		unlockMap("tt3")
-	end
+	
 	bg = display.newImage("images/ttbg.png", centerX,centerY+30*yscale)
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
+
+	if correctCount>6 and storyboard.getPrevious() == "telltime" then
+		local mapcheck = false
+		for row in db:nrows("SELECT * FROM mapUnlocks;") do
+			if row.location == "tt2" then
+				mapcheck = true
+				break
+			end
+		end
+		if mapcheck == false then
+			unlockText = display.newText("New area unlocked!",centerX,centerY+100*yscale,"Comic Relief",24)
+			unlockText:setFillColor(0)
+			screenGroup:insert(unlockText)
+		end
+		unlockMap("tt2")
+	end
+	if correctCount>6 and storyboard.getPrevious() == "timetrials" then
+		local mapcheck = false
+		for row in db:nrows("SELECT * FROM mapUnlocks;") do
+			if row.location == "tt3" then
+				mapcheck = true
+				break
+			end
+		end
+		if mapcheck == false then
+			unlockText = display.newText("New area unlocked!",centerX,centerY+100*yscale,"Comic Relief",24)
+			unlockText:setFillColor(0)
+			screenGroup:insert(unlockText)
+		end
+		unlockMap("tt3")
+	end
+
 	--display.setDefault( "background", 1, 1, 1 )
 	local reward = display.newText("You answered "..correctCount.." out of "..attemptCount.." questions correctly!", centerX,centerY,300*xscale,200*yscale,"Comic Relief", 30)
 	reward:setFillColor(0)

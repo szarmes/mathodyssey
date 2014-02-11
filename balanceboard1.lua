@@ -17,13 +17,13 @@ local centerY = display.contentCenterY
 first = true
 local round = -1
 questionCount = 0
-local instructions = "Now that you're familiar with the Balance Board, numbers will now be replaced with simple equations."
-local instructions1 = "Use addition and subtraction to find the value of both equations. If they are the same, you're looking for the = sign."
-local instructions2 = "If one is bigger than the other, use either the greater-than-sign, >, or the less-than-sign, <, as your equality sign."
-local instructions3 = "Think of > and < as the mouth of a hungry crocodile. The croc always wants to eat more, so it opens to the equation with a larger value."
-local instructions4 = "Once you pick a sign, the Balance Board will adjust to show which equation is larger. It will not move if they are equal."
-local instrucions5
-local instructions6 = "Good luck out there."
+local bb1instructions = "Now that you're familiar with the Balance Board, numbers will now be replaced with simple equations."
+local bb1instructions1 = "Use addition and subtraction to find the value of both equations. If they are the same, you're looking for the = sign."
+local bb1instructions2 = "If one is bigger than the other, use either the greater-than-sign, >, or the less-than-sign, <, as your equality sign."
+local bb1instructions3 = "Think of > and < as the mouth of a hungry crocodile. The croc always wants to eat more, so it opens to the equation with a larger value."
+local bb1instructions4 = "Once you pick a sign, the Balance Board will adjust to show which equation is larger. It will not move if they are equal."
+local bb1instrucions5
+local bb1instructions6 = "Good luck out there."
 local operator
 local lnum1
 local lnum2
@@ -50,7 +50,7 @@ function scene:createScene( event )
 		dog:scale(0.2*xscale, 0.2*yscale)
 		dog:rotate(30)
 		screenGroup:insert(dog)
-		myText = display.newText( instructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+		myText = display.newText( bb1instructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
 	end
@@ -70,7 +70,7 @@ function scene:createScene( event )
 		hintbutton:scale(-0.14*xscale,0.14*yscale)
 
 		local function bb1hint()
-			provideHint(screenGroup,instructions1)
+			provideHint(screenGroup,bb1instructions1)
 		end
 		hintbutton:addEventListener("tap",bb1hint)
 		screenGroup:insert(hintbutton)
@@ -100,11 +100,11 @@ function scene:enterScene( event )
 		bb1displayNumbers(screenGroup)
 
 		if operator == "=" then
-			instructions5 = "In this case the equality sign is =, since "..lval.." = "..rval.."."
+			bb1instructions5 = "In this case the equality sign is =, since "..lval.." = "..rval.."."
 		elseif operator == "<" then
-			instructions5 = "In this case the equality sign is <, since "..lval.." is less than "..rval.."."
+			bb1instructions5 = "In this case the equality sign is <, since "..lval.." is less than "..rval.."."
 		else
-			instructions5 = "In this case the equality sign is >, since "..lval.." is greater than "..rval.."."
+			bb1instructions5 = "In this case the equality sign is >, since "..lval.." is greater than "..rval.."."
 		end
 		bb1newQuestion(screenGroup)
 	end
@@ -125,7 +125,7 @@ function bb1goHome()
 	round = -1
 	questionCount = 0
 	storyboard.purgeScene("balanceboard1")
-	storyboard.gotoScene( "menu")
+	storyboard.gotoScene( "bbselection")
 end
 
 function bb1newQuestion(n)
@@ -149,7 +149,7 @@ function bb1makeFirstDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions1, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
+	myText = display.newText( bb1instructions1, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -166,7 +166,7 @@ function bb1makeSecondDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions2, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
+	myText = display.newText( bb1instructions2, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -184,7 +184,7 @@ function bb1makeThirdDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions3, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+	myText = display.newText( bb1instructions3, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -203,7 +203,7 @@ function bb1makeFourthDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions4, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+	myText = display.newText( bb1instructions4, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -222,7 +222,7 @@ function bb1makeFifthDisappear(n)
 	screenGroup:remove(continue)
 	
 
-	myText = display.newText( instructions5, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
+	myText = display.newText( bb1instructions5, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 20 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -242,7 +242,7 @@ function bb1makeSixthDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions6, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+	myText = display.newText( bb1instructions6, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 

@@ -31,7 +31,8 @@ local function patternsgoHome()
 	round = -1
 	mmcorrectCount = 0
 	storyboard.purgeScene("mmpatterns")
-	storyboard.gotoScene( "menu" )
+	storyboard.purgeScene("mmselection")
+	storyboard.gotoScene( "mmselection" )
 end
 
 
@@ -67,16 +68,7 @@ function scene:createScene( event )
 	home:addEventListener("tap", patternsgoHome)
 	screenGroup:insert(home)
 
-	if first==false then
-		hintbutton = display.newImage(companionText,display.contentWidth-20*xscale,90*yscale)
-		hintbutton:scale(-0.14*xscale,0.14*yscale)
-
-		local function patternshint()
-			provideHint(screenGroup,patterninstructions3)
-		end
-		hintbutton:addEventListener("tap",patternshint)
-		screenGroup:insert(hintbutton)
-	end
+	
 
 end
 
@@ -307,6 +299,16 @@ function endPatternGame(n)
 	screenGroup:remove(myText)
 	myText = display.newText("You did it! Hurray!", centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
+	local mapcheck = false
+	for row in db:nrows("SELECT * FROM mapUnlocks;") do
+		if row.location == "mm1" then
+			mapcheck = true
+			break
+		end
+	end
+	if mapcheck == false then
+		myText.text = myText.text.." New area unlocked." 
+	end
 	screenGroup:insert(myText)
 	unlockMap("mm1")
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)

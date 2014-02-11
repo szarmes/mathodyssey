@@ -33,7 +33,7 @@ local function dd2goHome()
 	round = -1
 	mmcorrectCount = 0
 	storyboard.purgeScene("divisiondash2")
-	storyboard.gotoScene( "menu" )
+	storyboard.gotoScene( "ddselection" )
 end
 
 

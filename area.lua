@@ -107,7 +107,7 @@ function areagoHome()
 	round = -1
 	questionCount = 0
 	storyboard.purgeScene("area")
-	storyboard.gotoScene( "menu")
+	storyboard.gotoScene( "mmmoonselection")
 end
 
 function areanewQuestion(n)

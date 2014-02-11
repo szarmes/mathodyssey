@@ -17,10 +17,10 @@ local centerY = display.contentCenterY
 first = true
 local round = -1
 questionCount = 0
-local instructions = "In this next area, you will be required to find the multiplication statement that represents the exponent."
-local instructions1 = "Remember, exponents represent how many times a number appears in a repeated multiplication of itself."
-local instructions2
-local instructions3 = "Watch your step, and stay focused. You're our only hope."
+local ee1instructions = "In this next area, you will be required to find the multiplication statement that represents the exponent."
+local ee1instructions1 = "Remember, exponents represent how many times a number appears in a repeated multiplication of itself."
+local ee1instructions2
+local ee1instructions3 = "Watch your step, and stay focused. You're our only hope."
 local exponent
 local number
 local equals
@@ -42,7 +42,7 @@ function scene:createScene( event )
 		dog:scale(0.2*xscale, 0.2*yscale)
 		dog:rotate(30)
 		screenGroup:insert(dog)
-		myText = display.newText( instructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+		myText = display.newText( ee1instructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
 	end
@@ -64,7 +64,7 @@ function scene:createScene( event )
 		hintbutton:scale(-0.14*xscale,0.14*yscale)
 
 		local function ee1hint()
-			provideHint(screenGroup,instructions1)
+			provideHint(screenGroup,ee1instructions1)
 		end
 		hintbutton:addEventListener("tap",ee1hint)
 		screenGroup:insert(hintbutton)
@@ -97,7 +97,7 @@ function scene:enterScene( event )
 			numberText = numberText.."x"..number
 			numcount = numcount + 1
 		end
-		instructions2 = "In this case, the correct equation is "..numberText..", since  "..exponent.. " is the exponent."	
+		ee1instructions2 = "In this case, the correct equation is "..numberText..", since  "..exponent.. " is the exponent."	
 		ee1newQuestion(screenGroup)
 	end
 end
@@ -117,7 +117,7 @@ function ee1goHome()
 	round = -1
 	questionCount = 0
 	storyboard.purgeScene("exponentialenergy1")
-	storyboard.gotoScene( "menu")
+	storyboard.gotoScene( "eeselection")
 end
 
 function ee1newQuestion(n)
@@ -140,7 +140,7 @@ function ee1makeFirstDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions1, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
+	myText = display.newText( ee1instructions1, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 	local myFunction = function() ee1makeSecondDisappear(screenGroup) end
@@ -155,7 +155,7 @@ function ee1makeSecondDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 	screenGroup:remove(valueText)
-	myText = display.newText( instructions2, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
+	myText = display.newText( ee1instructions2, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -177,7 +177,7 @@ function ee1makeThirdDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions3, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+	myText = display.newText( ee1instructions3, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -196,7 +196,7 @@ function ee1newSceneListener()
 end
 
 function ee1generateAnswers()
-	number = math.random(2,10)
+	number = math.random(2,9)
 	exponent = math.random(1,4)
 	if exponent == 1 then
 		number = number + 1
@@ -224,7 +224,7 @@ function ee1showChoices(n)
 		count=count-1
 	end
 	
-	answer = display.newText(answerText,b[1],centerY+100*yscale, 125*xscale,0, "Comic Relief", 20)
+	answer = display.newText(answerText,b[1],centerY+100*yscale, "Comic Relief", 20)
 	answer:setFillColor(0)
 	function ee1listener()
 		ee1correctResponseListener(screenGroup)
@@ -233,7 +233,7 @@ function ee1showChoices(n)
 	screenGroup:insert(answer)
 
 	answer1 = nil
-	answer1 = display.newText(answer1Text,b[2],centerY+100*yscale,125*xscale,0, "Comic Relief", 20)
+	answer1 = display.newText(answer1Text,b[2],centerY+100*yscale, "Comic Relief", 20)
 	answer1:setFillColor(0,0,0)
 	local function listener1()
 		ee1incorrectResponseListener1(screenGroup)
@@ -242,7 +242,7 @@ function ee1showChoices(n)
 	screenGroup:insert(answer1)
 
 	answer2 = nil
-	answer2 = display.newText(answer2Text,b[3],centerY+100*yscale,125*xscale,0, "Comic Relief", 20)
+	answer2 = display.newText(answer2Text,b[3],centerY+100*yscale, "Comic Relief", 20)
 	answer2:setFillColor(0,0,0)
 	local function listener2()
 		ee1incorrectResponseListener2(screenGroup)
@@ -251,7 +251,7 @@ function ee1showChoices(n)
 	screenGroup:insert(answer2)
 
 	answer3 = nil
-	answer3 = display.newText(answer3Text,b[4],centerY+100*yscale,125*xscale,0, "Comic Relief", 20)
+	answer3 = display.newText(answer3Text,b[4],centerY+100*yscale, "Comic Relief", 20)
 	answer3:setFillColor(0,0,0)
 	local function listener3()
 		ee1incorrectResponseListener3(screenGroup)

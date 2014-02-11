@@ -17,10 +17,10 @@ local centerY = display.contentCenterY
 first = true
 local round = -1
 questionCount = 0
-local instructions = "Your new task is to solve the given multiplication equation."
-local instructions1 = "Remember, multiplication represent how many times a number appears in a repeated addtion of itself."
-local instructions2
-local instructions3 = "Keep it up, you're almost there!"
+local solveinstructions = "Your new task is to solve the given multiplication equation."
+local solveinstructions1 = "Remember, multiplication represent how many times a number appears in a repeated addtion of itself."
+local solveinstructions2
+local solveinstructions3 = "Keep it up, you're almost there!"
 local exponent
 local number
 local equals
@@ -41,7 +41,7 @@ function scene:createScene( event )
 		dog:scale(0.2*xscale, 0.2*yscale)
 		dog:rotate(30)
 		screenGroup:insert(dog)
-		myText = display.newText( instructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+		myText = display.newText( solveinstructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
 	end
@@ -56,7 +56,7 @@ function scene:createScene( event )
 		hintbutton:scale(-0.14*xscale,0.14*yscale)
 
 		local function mmsolvehint()
-			provideHint(screenGroup,instructions1)
+			provideHint(screenGroup,solveinstructions1)
 		end
 		hintbutton:addEventListener("tap",mmsolvehint)
 		screenGroup:insert(hintbutton)
@@ -86,7 +86,7 @@ function scene:enterScene( event )
 		mmsolvedisplayNumbers(screenGroup)
 		numberText = number*multiplier
 
-		instructions2 = "In this case, the correct value is "..numberText	
+		solveinstructions2 = "In this case, the correct value is "..numberText	
 		mmsolvenewQuestion(screenGroup)
 	end
 end
@@ -106,7 +106,7 @@ function mmsolvegoHome()
 	round = -1
 	questionCount = 0
 	storyboard.purgeScene("mmsolve")
-	storyboard.gotoScene( "menu")
+	storyboard.gotoScene( "mmselection")
 end
 
 function mmsolvenewQuestion(n)
@@ -129,7 +129,7 @@ function mmsolvemakeFirstDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions1, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
+	myText = display.newText( solveinstructions1, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 	local myFunction = function() mmsolvemakeSecondDisappear(screenGroup) end
@@ -144,7 +144,7 @@ function mmsolvemakeSecondDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 	screenGroup:remove(valueText)
-	myText = display.newText( instructions2, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
+	myText = display.newText( solveinstructions2, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -166,7 +166,7 @@ function mmsolvemakeThirdDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions3, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+	myText = display.newText( solveinstructions3, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -208,7 +208,7 @@ function mmsolveshowChoices(n)
 		count=count-1
 	end
 	
-	answer = display.newText(answerText,b[1],centerY+100*yscale, 125*xscale,0, "Comic Relief", 20)
+	answer = display.newText(answerText,b[1],centerY+100*yscale, "Comic Relief", 20)
 	answer:setFillColor(0)
 	function mmsolvelistener()
 		mmsolvecorrectResponseListener(screenGroup)
@@ -217,7 +217,7 @@ function mmsolveshowChoices(n)
 	screenGroup:insert(answer)
 
 	answer1 = nil
-	answer1 = display.newText(answer1Text,b[2],centerY+100*yscale,125*xscale,0, "Comic Relief", 20)
+	answer1 = display.newText(answer1Text,b[2],centerY+100*yscale, "Comic Relief", 20)
 	answer1:setFillColor(0)
 	local function listener1()
 		mmsolveincorrectResponseListener1(screenGroup)
@@ -226,7 +226,7 @@ function mmsolveshowChoices(n)
 	screenGroup:insert(answer1)
 
 	answer2 = nil
-	answer2 = display.newText(answer2Text,b[3],centerY+100*yscale,125*xscale,0, "Comic Relief", 20)
+	answer2 = display.newText(answer2Text,b[3],centerY+100*yscale, "Comic Relief", 20)
 	answer2:setFillColor(0)
 	local function listener2()
 		mmsolveincorrectResponseListener2(screenGroup)
@@ -235,7 +235,7 @@ function mmsolveshowChoices(n)
 	screenGroup:insert(answer2)
 
 	answer3 = nil
-	answer3 = display.newText(answer3Text,b[4],centerY+100*yscale,125*xscale,0, "Comic Relief", 20)
+	answer3 = display.newText(answer3Text,b[4],centerY+100*yscale,"Comic Relief", 20)
 	answer3:setFillColor(0)
 	local function listener3()
 		mmsolveincorrectResponseListener3(screenGroup)

@@ -33,7 +33,7 @@ local function goTomm2() --play exponential energy
 end
 
 local function goHome() --go back to the menu
-	storyboard.gotoScene(storyboard.getPrevious())
+	storyboard.gotoScene("play")
 end
 
 -- Called when the scene's view does not exist:

@@ -107,7 +107,7 @@ function perimetergoHome()
 	round = -1
 	questionCount = 0
 	storyboard.purgeScene("perimeter")
-	storyboard.gotoScene( "menu")
+	storyboard.gotoScene( "mmmoonselection")
 end
 
 function perimeternewQuestion(n)

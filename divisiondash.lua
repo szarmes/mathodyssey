@@ -35,7 +35,8 @@ local function ddgoHome()
 	round = -1
 	mmcorrectCount = 0
 	storyboard.purgeScene("divisiondash")
-	storyboard.gotoScene( "menu" )
+	storyboard.purgeScene("ddselection")
+	storyboard.gotoScene( "ddselection" )
 end
 
 
@@ -352,6 +353,17 @@ function endddGame(n)
 	screenGroup:remove(myText)
 	myText = display.newText("Congratulations! You successfully divided "..asteroidnum.." by two, to form two groups of "..(asteroidnum/2)..".", centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
+
+	local mapcheck = false
+	for row in db:nrows("SELECT * FROM mapUnlocks;") do
+		if row.location == "dd1" then
+			mapcheck = true
+			break
+		end
+	end
+	if mapcheck == false then
+		myText.text = myText.text.." New area unlocked!" 
+	end
 	screenGroup:insert(myText)
 	unlockMap("dd1")
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)

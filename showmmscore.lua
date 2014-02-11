@@ -25,7 +25,7 @@ local centerY = display.contentCenterY
 
 local function goNext()
 	storyboard.removeAll()
-	storyboard.gotoScene( "menu")
+	storyboard.gotoScene( "mmselection")
 end
 
 
@@ -50,25 +50,66 @@ function scene:createScene( event )
 	 	end
 	end
 
-	if correctCount>6 and storyboard.getPrevious() == "mmrepeat"then
-		unlockMap("mm2")
-	end
 
 
-	if correctCount>6 and storyboard.getPrevious() == "mmsolve"then
-		unlockMap("mmmoon")
-	end
-
-	if correctCount>6 and storyboard.getPrevious() == "perimeter"then
-		unlockMap("area")
-	end
 
 	bg = display.newImage("images/lavabg.png", centerX,centerY+30*yscale)
 	bg:scale(0.8*xscale,0.7*yscale)
 	screenGroup:insert(bg)
 
+	if correctCount>6 and storyboard.getPrevious() == "perimeter"then
+		local mapcheck = false
+		for row in db:nrows("SELECT * FROM mapUnlocks;") do
+			if row.location == "area" then
+				mapcheck = true
+				break
+			end
+		end
+		if mapcheck == false then
+			unlockText = display.newText("New area unlocked!",centerX,centerY+100*yscale,"Comic Relief",24)
+			unlockText:setFillColor(0)
+			screenGroup:insert(unlockText)
+		end
+		unlockMap("area")
+	end
+
+	if correctCount>6 and storyboard.getPrevious() == "mmrepeat"then
+		local mapcheck = false
+		for row in db:nrows("SELECT * FROM mapUnlocks;") do
+			if row.location == "mm2" then
+				mapcheck = true
+				break
+			end
+		end
+		if mapcheck == false then
+			unlockText = display.newText("New area unlocked!",centerX,centerY+100*yscale,"Comic Relief",24)
+			unlockText:setFillColor(0)
+			screenGroup:insert(unlockText)
+		end
+		unlockMap("mm2")	
+
+		
+	end
+	if correctCount>6 and storyboard.getPrevious() == "mmsolve"then	
+		local mapcheck = false
+		for row in db:nrows("SELECT * FROM mapUnlocks;") do
+			if row.location == "mmmoon" then
+				mapcheck = true
+				break
+			end
+		end
+		if mapcheck == false then
+			unlockText = display.newText("Moon and 2 planets unlocked!",centerX,centerY+100*yscale,"Comic Relief",24)
+			unlockText:setFillColor(0)
+			screenGroup:insert(unlockText)
+		end
+		unlockMap("ttplanet")
+		unlockMap("ddplanet")
+		unlockMap("mmmoon")
+	end
+
 	
-	local reward = display.newText("You answered "..correctCount.." out of "..attemptCount.." questions correctly!", centerX,centerY,300*xscale,200*yscale,"Comic Relief", 30)
+	local reward = display.newText("You answered "..correctCount.." out of "..attemptCount.." questions correctly!", centerX,centerY,300*xscale,200*yscale,"Comic Relief", 24)
 	reward:setFillColor(0)
 	screenGroup:insert(reward)
 

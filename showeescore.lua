@@ -26,7 +26,7 @@ local centerY = display.contentCenterY
 
 local function goNext()
 	storyboard.removeAll()
-	storyboard.gotoScene( "menu")
+	storyboard.gotoScene( "eeselection")
 end
 
 
@@ -50,18 +50,11 @@ function scene:createScene( event )
 	 		end
 	 	end
 	end
-
-	if correctCount>6 and storyboard.getPrevious()=="exponentialenergy" then
-		unlockMap("ee1")
-	end
-
-	if correctCount>6 and storyboard.getPrevious()=="exponentialenergy1" then
-		unlockMap("ee2")
-	end
-
 	bg = display.newImage("images/eebg.png", centerX,centerY+30*yscale)
 	bg:scale(0.8*xscale,0.7*yscale)
 	screenGroup:insert(bg)
+
+	
 
 	explosion = display.newImage("images/explosion.png",centerX,centerY)
 	explosion:scale(0.2*xscale,0.2*yscale)
@@ -100,6 +93,38 @@ end
 function addImages(n) --sample listener
 	local screenGroup = n
 	--screenGroup:remove(explosion)
+	if correctCount>6 and storyboard.getPrevious()=="exponentialenergy" then
+		local mapcheck = false
+		for row in db:nrows("SELECT * FROM mapUnlocks;") do
+			if row.location == "ee1" then
+				mapcheck = true
+				break
+			end
+		end
+		if mapcheck == false then
+			unlockText = display.newText("New area unlocked!",centerX,centerY+100*yscale,"Comic Relief",24)
+			unlockText:setFillColor(0)
+			screenGroup:insert(unlockText)
+		end
+		unlockMap("ee1")
+	end
+
+	if correctCount>6 and storyboard.getPrevious()=="exponentialenergy1" then
+		local mapcheck = false
+		for row in db:nrows("SELECT * FROM mapUnlocks;") do
+			if row.location == "ee2" then
+				mapcheck = true
+				break
+			end
+		end
+		if mapcheck == false then
+			unlockText = display.newText("New area unlocked!",centerX,centerY+100*yscale,"Comic Relief",24)
+			unlockText:setFillColor(0)
+			screenGroup:insert(unlockText)
+		end
+		unlockMap("ee2")
+	end
+
 
 	local reward = display.newText("You answered "..correctCount.." out of "..attemptCount.." questions correctly!", centerX,centerY,300*xscale,200*yscale,"Comic Relief", 30)
 	reward:setFillColor(0)
