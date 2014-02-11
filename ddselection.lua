@@ -27,6 +27,11 @@ local function goTodd1() --play timetrials
 	storyboard.gotoScene("divisiondash1")
 end
 
+local function goTodd2() --play timetrials
+	storyboard.purgeAll()
+	storyboard.gotoScene("divisiondash2")
+end
+
 
 local function goHome() --go back to the menu
 	storyboard.gotoScene(storyboard.getPrevious())
@@ -51,6 +56,12 @@ function scene:createScene( event )
 	dd1:addEventListener("tap", goTodd1)
 	dd1.anchorX = 0
 	screenGroup:insert(dd1)
+
+	dd2 = display.newImage("images/incomplete.png", centerX+120*xscale,centerY-80*yscale)
+	dd2:scale(0.5*xscale,0.5*yscale)
+	dd2:addEventListener("tap", goTodd2)
+	dd2.anchorX = 0
+	screenGroup:insert(dd2)
 	
 	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
 	home:scale(0.3*xscale,0.3*yscale)
@@ -86,9 +97,9 @@ function ddLockLocations(n)
 		if row.location == "dd1" then
 			lock1check = true
 		end
-		--[[if row.location == "ee2" then
+		if row.location == "dd2" then
 			lock2check = true
-		end]]
+		end
 	end
 	if lock1check==false then 
 		lock1 = display.newImage("images/lock.png",dd1.x+30*xscale,dd1.y+15*yscale)
@@ -97,12 +108,12 @@ function ddLockLocations(n)
 		dd1:removeEventListener("tap",goTodd1)
 	end
 
-	--[[if lock2check==false then 
-		lock2 = display.newImage("images/lock.png",ee2.x+30*xscale,ee2.y+15*yscale)
+	if lock2check==false then 
+		lock2 = display.newImage("images/lock.png",dd2.x+30*xscale,dd2.y+15*yscale)
 		lock2:scale(0.08*xscale,0.08*yscale)
 		screenGroup:insert(lock2)
-		ee2:removeEventListener("tap",goToee2)
-	end]]
+		dd2:removeEventListener("tap",goTodd2)
+	end
 end
 
 ---------------------------------------------------------------------------------
