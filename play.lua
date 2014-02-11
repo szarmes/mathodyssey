@@ -65,19 +65,19 @@ function scene:createScene( event )
 	screenGroup:insert(bg)
 
 	tt = display.newImage("images/timeplanet.png", 25*xscale,centerY-20*yscale)
-	tt:scale(0.5*xscale,0.5*yscale)
+	tt:scale(0.08*xscale,0.08*yscale)
 	tt:addEventListener("tap", goTott)
 	tt.anchorX = 0
 	screenGroup:insert(tt)
 
 	ee = display.newImage("images/expplanet.png", 250*xscale,centerY-90*yscale)
-	ee:scale(0.6*xscale,0.6*yscale)
+	ee:scale(0.13*xscale,0.13*yscale)
 	ee:addEventListener("tap", goToee)
 	ee.anchorX = 0
 	screenGroup:insert(ee)
 
 	mm = display.newImage("images/lavaplanet.png", centerX-70*xscale,centerY+10*yscale)
-	mm:scale(0.2*xscale,0.2*yscale)
+	mm:scale(0.11*xscale,0.11*yscale)
 	mm:addEventListener("tap", goTomm)
 	mm.anchorX = 0
 	screenGroup:insert(mm)
@@ -96,7 +96,7 @@ function scene:createScene( event )
 
 
 	dd = display.newImage("images/ddplanet.png", centerX+140*xscale,centerY-60*yscale)
-	dd:scale(0.14*xscale,0.14*yscale)
+	dd:scale(0.08*xscale,0.08*yscale)
 	dd:addEventListener("tap", goTodd)
 	dd.anchorX = 0
 	screenGroup:insert(dd)
