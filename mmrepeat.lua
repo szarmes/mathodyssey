@@ -17,10 +17,10 @@ local centerY = display.contentCenterY
 first = true
 local round = -1
 questionCount = 0
-local instructions = "In this next area, you will be required to find the addition statement that represents the given multiplication."
-local instructions1 = "Remember, multiplication represent how many times a number appears in a repeated addtion of itself."
-local instructions2
-local instructions3 = "Watch your step out there, it can be tricky."
+local repeatinstructions = "In this next area, you will be required to find the addition statement that represents the given multiplication."
+local repeatinstructions1 = "Remember, multiplication represent how many times a number appears in a repeated addtion of itself."
+local repeatinstructions2
+local repeatinstructions3 = "Watch your step out there, it can be tricky."
 local exponent
 local number
 local equals
@@ -41,7 +41,7 @@ function scene:createScene( event )
 		dog:scale(0.2*xscale, 0.2*yscale)
 		dog:rotate(30)
 		screenGroup:insert(dog)
-		myText = display.newText( instructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+		myText = display.newText( repeatinstructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
 	end
@@ -56,7 +56,7 @@ function scene:createScene( event )
 		hintbutton:scale(-0.14*xscale,0.14*yscale)
 
 		local function repeathint()
-			provideHint(screenGroup,instructions1)
+			provideHint(screenGroup,repeatinstructions1)
 		end
 		hintbutton:addEventListener("tap",repeathint)
 		screenGroup:insert(hintbutton)
@@ -90,7 +90,7 @@ function scene:enterScene( event )
 			numberText = numberText.."+"..number
 			numcount = numcount + 1
 		end
-		instructions2 = "In this case, the correct equation is "..numberText	
+		repeatinstructions2 = "In this case, the correct equation is "..numberText	
 		mmrepeatnewQuestion(screenGroup)
 	end
 end
@@ -110,7 +110,7 @@ function mmrepeatgoHome()
 	round = -1
 	questionCount = 0
 	storyboard.purgeScene("mmrepeat")
-	storyboard.gotoScene( "menu")
+	storyboard.gotoScene( "mmselection")
 end
 
 function mmrepeatnewQuestion(n)
@@ -133,7 +133,7 @@ function mmrepeatmakeFirstDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions1, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
+	myText = display.newText( repeatinstructions1, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 	local myFunction = function() mmrepeatmakeSecondDisappear(screenGroup) end
@@ -148,7 +148,7 @@ function mmrepeatmakeSecondDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 	screenGroup:remove(valueText)
-	myText = display.newText( instructions2, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
+	myText = display.newText( repeatinstructions2, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -170,7 +170,7 @@ function mmrepeatmakeThirdDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions3, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+	myText = display.newText( repeatinstructions3, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 

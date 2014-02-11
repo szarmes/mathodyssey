@@ -34,7 +34,7 @@ end
 
 
 local function goHome() --go back to the menu
-	storyboard.gotoScene(storyboard.getPrevious())
+	storyboard.gotoScene("play")
 end
 
 -- Called when the scene's view does not exist:
@@ -92,6 +92,7 @@ end
 function ddLockLocations(n)
 	local screenGroup = n
 	local lock1check = false
+	local lock2check = false
 	--local lock2check = false
 	for row in db:nrows("SELECT * FROM mapUnlocks;") do
 		if row.location == "dd1" then

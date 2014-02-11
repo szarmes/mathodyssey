@@ -17,10 +17,10 @@ local centerY = display.contentCenterY
 first = true
 local round = -1
 questionCount = 0
-local instructions = "New orders have just come in from Star Command. You are now required to solve equations with exponents."
-local instructions1 = "Now that you've seen the power of exponents, you can apply multiplication and figure out the value they change a number to."
-local instructions2
-local instructions3 = "Remember, failure is not an option. We are counting on you to succeed."
+local ee2instructions = "New orders have just come in from Star Command. You are now required to solve equations with exponents."
+local ee2instructions1 = "Now that you've seen the power of exponents, you can apply multiplication and figure out the value they change a number to."
+local ee2instructions2
+local ee2instructions3 = "Remember, failure is not an option. We are counting on you to succeed."
 local exponent
 local number
 local equals
@@ -42,7 +42,7 @@ function scene:createScene( event )
 		dog:scale(0.2*xscale, 0.2*yscale)
 		dog:rotate(30)
 		screenGroup:insert(dog)
-		myText = display.newText( instructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+		myText = display.newText( ee2instructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
 	end
@@ -64,7 +64,7 @@ function scene:createScene( event )
 		hintbutton:scale(-0.14*xscale,0.14*yscale)
 
 		local function ee2hint()
-			provideHint(screenGroup,instructions1)
+			provideHint(screenGroup,ee2instructions1)
 		end
 		hintbutton:addEventListener("tap",ee2hint)
 		screenGroup:insert(hintbutton)
@@ -92,12 +92,12 @@ function scene:enterScene( event )
 		ee2generateAnswers()
 		ee2generateAnswerText()
 		ee2displayNumbers(screenGroup)
-		instructions2 = "In this case the value is "..number^exponent..", since  "..number.. " appears in this repeated multiplication of itself "..exponent.." times."	
+		ee2instructions2 = "In this case the value is "..number^exponent..", since  "..number.. " appears in this repeated multiplication of itself "..exponent.." times."	
 		if exponent == 0 then
-			instructions2 = "In this case the value is 1, since any number with an exponent of 0 equals 1."
+			ee2instructions2 = "In this case the value is 1, since any number with an exponent of 0 equals 1."
 		end
 		if exponent == 1 then
-			instructions2 = "In this case the value is "..number..", since numbers with an exponent of 1 do not change."
+			ee2instructions2 = "In this case the value is "..number..", since numbers with an exponent of 1 do not change."
 		end
 		ee2newQuestion(screenGroup)
 	end
@@ -118,7 +118,7 @@ function ee2goHome()
 	round = -1
 	questionCount = 0
 	storyboard.purgeScene("exponentialenergyhard")
-	storyboard.gotoScene( "menu")
+	storyboard.gotoScene( "eeselection")
 end
 
 function ee2newQuestion(n)
@@ -141,7 +141,7 @@ function ee2makeFirstDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions1, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
+	myText = display.newText( ee2instructions1, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 	local myFunction = function() ee2makeSecondDisappear(screenGroup) end
@@ -156,7 +156,7 @@ function ee2makeSecondDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 	screenGroup:remove(valueText)
-	myText = display.newText( instructions2, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
+	myText = display.newText( ee2instructions2, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -178,7 +178,7 @@ function ee2makeThirdDisappear(n)
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText( instructions3, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+	myText = display.newText( ee2instructions3, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -228,7 +228,7 @@ function ee2showChoices(n)
 		count=count-1
 	end
 	
-	answer = display.newText(answerText,b[1],centerY+100*yscale, 125*xscale,0, "Comic Relief", 30)
+	answer = display.newText(answerText,b[1],centerY+100*yscale, "Comic Relief", 30)
 	answer:setFillColor(0)
 	function ee2listener()
 		ee2correctResponseListener(screenGroup)
@@ -237,7 +237,7 @@ function ee2showChoices(n)
 	screenGroup:insert(answer)
 
 	answer1 = nil
-	answer1 = display.newText(answer1Text,b[2],centerY+100*yscale,125*xscale,0, "Comic Relief", 30)
+	answer1 = display.newText(answer1Text,b[2],centerY+100*yscale, "Comic Relief", 30)
 	answer1:setFillColor(0,0,0)
 	local function listener1()
 		ee2incorrectResponseListener1(screenGroup)
@@ -246,7 +246,7 @@ function ee2showChoices(n)
 	screenGroup:insert(answer1)
 
 	answer2 = nil
-	answer2 = display.newText(answer2Text,b[3],centerY+100*yscale,125*xscale,0, "Comic Relief", 30)
+	answer2 = display.newText(answer2Text,b[3],centerY+100*yscale,"Comic Relief", 30)
 	answer2:setFillColor(0,0,0)
 	local function listener2()
 		ee2incorrectResponseListener2(screenGroup)
@@ -255,7 +255,7 @@ function ee2showChoices(n)
 	screenGroup:insert(answer2)
 
 	answer3 = nil
-	answer3 = display.newText(answer3Text,b[4],centerY+100*yscale,125*xscale,0, "Comic Relief", 30)
+	answer3 = display.newText(answer3Text,b[4],centerY+100*yscale, "Comic Relief", 30)
 	answer3:setFillColor(0,0,0)
 	local function listener3()
 		ee2incorrectResponseListener3(screenGroup)

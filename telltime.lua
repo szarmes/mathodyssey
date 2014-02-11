@@ -41,7 +41,7 @@ local function telltimegoHome()
 	first = true
 	round = -1
 	ttcorrectCount = 0
-	storyboard.gotoScene( "menu" )
+	storyboard.gotoScene( "ttselection" )
 end
 
 -- Called when the scene's view does not exist:

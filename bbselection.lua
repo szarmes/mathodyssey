@@ -9,6 +9,7 @@ local storyboard = require( "storyboard" )
 local scene = storyboard.newScene()
 storyboard.removeAll()
 
+
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------
@@ -35,7 +36,7 @@ end
 
 
 local function goHome() --go back to the menu
-	storyboard.gotoScene(storyboard.getPrevious())
+	storyboard.gotoScene("play")
 end
 
 -- Called when the scene's view does not exist:
@@ -75,6 +76,7 @@ end
 
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )
+	
 
 end
 
