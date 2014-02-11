@@ -50,13 +50,13 @@ function scene:createScene( event )
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 
-	play = display.newImage("images/play.png", centerX-200*xscale ,centerY)
+	play = display.newImage("images/play.png", centerX-238*xscale ,centerY)
 	play:scale(0.7*xscale,0.6*yscale)
 	play:addEventListener("tap",goToPlay)
 	play.anchorX = 0
 	screenGroup:insert(play)
 
-	howtoplay = display.newImage("images/tutorial.png", centerX - 240*xscale ,centerY+70*yscale)
+	howtoplay = display.newImage("images/tutorial.png", centerX-240*xscale ,centerY+70*yscale)
 	howtoplay:scale(0.6*xscale,0.6*yscale)
 	howtoplay:addEventListener("tap",goToTutorials)
 	howtoplay.anchorX = 0
@@ -68,7 +68,7 @@ function scene:createScene( event )
 	create.anchorX = 1
 	screenGroup:insert(create)
 
-	about = display.newImage("images/about.png", centerX+225*xscale ,centerY+70*yscale)
+	about = display.newImage("images/about.png", centerX+250*xscale ,centerY+70*yscale)
 	about:scale(0.6*xscale,0.6*yscale)
 	about.anchorX = 1
 	about:addEventListener("tap",goToCredits)
