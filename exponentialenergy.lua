@@ -57,6 +57,11 @@ function scene:createScene( event )
 	home:addEventListener("tap", eegoHome)
 	screenGroup:insert(home)
 
+	refreshbutton = display.newImage("images/refresh.png",display.contentWidth-20*xscale,70*yscale)
+	refreshbutton:scale(0.4*xscale,0.4*yscale)
+	refreshbutton:addEventListener("tap",refresh)
+	screenGroup:insert(refreshbutton)
+
 end
 
 

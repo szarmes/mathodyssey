@@ -19,6 +19,8 @@ musicmuted = false
 xscale = 1
 yscale = 1
 
+local storyboard = require( "storyboard" )
+
 function mutesfx()
 	if sfxmuted == false then
 		audio.pause(2)
@@ -63,7 +65,10 @@ end
 toScale()
 
 
-
+function refresh()
+	storyboard.purgeScene(storyboard.getCurrentSceneName())
+	storyboard.reloadScene()
+end
 
 
 local storyboard = require( "storyboard" )
