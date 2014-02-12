@@ -137,7 +137,7 @@ db:exec( tablesetup8 )
 --db:exec( drop1 )
 --unlockMap("ee1")
 
-storyboard.gotoScene( "createdivision")
+storyboard.gotoScene( "menu")
 --storyboard.gotoScene( "splash","fade",500)
 
 --[[for row in db:nrows("SELECT * FROM timeTrialsScore ORDER BY id DESC;") do

@@ -19,36 +19,26 @@ local buttonXOffset = 100
 
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
-companionText = "images/astronaut.png"
 
 
-function goToPlay(n)
-	n:remove(meteor)
-	cancelMeteorTimers()
-	storyboard.gotoScene("play")
-end
-function goToTrain(n)
-	cancelMeteorTimers()
-	storyboard.purgeScene("menu")
-	storyboard.gotoScene("train")
+function goHome()
+	storyboard.gotoScene("menu")
 end
 
-
-function goToTutorials()
-	cancelMeteorTimers()
-	storyboard.purgeScene("menu")
-	storyboard.gotoScene("howtoplay")
+function goCreateAdd()
+	storyboard.gotoScene("createaddition")
+end
+function goCreateSub()
+	storyboard.gotoScene("createsubtraction")
+end
+function goCreateMult()
+	storyboard.gotoScene("createmultiplication")
+end
+function goCreateDiv()
+	storyboard.gotoScene("createdivision")
 end
 
-function goToCredits()
-	cancelMeteorTimers()
-	storyboard.gotoScene("credit")
-end
 
-function goToSettings()
-	cancelMeteorTimers()
-	storyboard.gotoScene("settings")
-end
 
 
 -- Called when the scene's view does not exist:
@@ -59,42 +49,39 @@ function scene:createScene( event )
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 
-	play = display.newImage("images/play.png", centerX-238*xscale ,centerY)
-	play:scale(0.7*xscale,0.6*yscale)
-	local function go2play()
-			goToPlay(screenGroup)
-	end
-	play:addEventListener("tap",go2play)
-	play.anchorX = 0
-	screenGroup:insert(play)
 
-	howtoplay = display.newImage("images/tutorial.png", centerX-240*xscale ,centerY+70*yscale)
-	howtoplay:scale(0.6*xscale,0.6*yscale)
-	howtoplay:addEventListener("tap",goToTutorials)
-	howtoplay.anchorX = 0
-	screenGroup:insert(howtoplay)
+	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
+	home:scale(0.3*xscale,0.3*yscale)
+	home:addEventListener("tap", goHome)
+	screenGroup:insert(home)
 
 
-	train = display.newImage("images/train.png", centerX+220*xscale ,centerY)
-	train:scale(0.7*xscale,0.7*yscale)
-	train.anchorX = 1
-	train:addEventListener("tap",goToTrain)
-	screenGroup:insert(train)
+	create = display.newImage("images/create.png", centerX-100*xscale ,centerY-100*yscale)
+	create:scale(0.5*xscale,0.5*yscale)
+	screenGroup:insert(create)
 
-	about = display.newImage("images/about.png", centerX+250*xscale ,centerY+70*yscale)
-	about:scale(0.6*xscale,0.6*yscale)
-	about.anchorX = 1
-	about:addEventListener("tap",goToCredits)
-	screenGroup:insert(about)
+	practice = display.newImage("images/practice.png", centerX+100*xscale ,centerY-100*yscale)
+	practice:scale(0.6*xscale,0.6*yscale)
+	screenGroup:insert(practice)
 
-	title = display.newImage("images/splash.png", centerX,centerY-100*yscale)
-	title:scale(0.8*xscale,0.8*yscale)
-	screenGroup:insert(title)
+	createadd = display.newImage("images/addition.png", centerX-100*xscale ,centerY-10*yscale)
+	createadd:addEventListener("tap",goCreateAdd)
+	screenGroup:insert(createadd)
 
-	settings = display.newImage("images/settings.png",20*xscale,centerY+130*yscale)
-	settings:scale(0.6*xscale,0.6*yscale)
-	settings:addEventListener("tap",goToSettings)
-	screenGroup:insert(settings)
+	createsub = display.newImage("images/subtraction.png", centerX-100*xscale ,centerY+40*yscale)
+	createsub:addEventListener("tap",goCreateSub)
+	screenGroup:insert(createsub)
+
+	createmult = display.newImage("images/multiplication.png", centerX-100*xscale ,centerY+90*yscale)
+	createmult:addEventListener("tap",goCreateMult)
+	screenGroup:insert(createmult)
+
+	creatediv = display.newImage("images/division.png", centerX-100*xscale ,centerY+120*yscale)
+	creatediv:scale(1,0.5)
+	creatediv:rotate(30)
+	creatediv:addEventListener("tap",goCreateDiv)
+	screenGroup:insert(creatediv)
+
 
 
 	--audio.play(bgmusic,{loops = -1,channel=1})
@@ -110,7 +97,7 @@ end
 function scene:enterScene( event )
 	local screenGroup = self.view	
 	print ("enterScene")
-	spawnMeteor(screenGroup)
+	--spawnMeteor(screenGroup)
 	first = true
 
 	local firstCheck = false
