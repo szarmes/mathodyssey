@@ -73,7 +73,7 @@ function scene:createScene( event )
 	createadd:addEventListener("tap",goCreateAdd)
 	screenGroup:insert(createadd)
 
-	createsub = display.newImage("images/subtraction.png", centerX-97*xscale ,centerY+20*yscale)
+	createsub = display.newImage("images/subtraction.png", centerX-96*xscale ,centerY+20*yscale)
 	createsub:addEventListener("tap",goCreateSub)
 	screenGroup:insert(createsub)
 
@@ -81,9 +81,8 @@ function scene:createScene( event )
 	createmult:addEventListener("tap",goCreateMult)
 	screenGroup:insert(createmult)
 
-	creatediv = display.newImage("images/division.png", centerX-100*xscale ,centerY+120*yscale)
-	creatediv:scale(1,0.5)
-	creatediv:rotate(30)
+	creatediv = display.newImage("images/division.png", centerX-98*xscale ,centerY+120*yscale)
+	creatediv:scale(1,0.8)
 	creatediv:addEventListener("tap",goCreateDiv)
 	screenGroup:insert(creatediv)
 
