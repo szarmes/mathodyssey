@@ -30,7 +30,7 @@ local centerY = display.contentCenterY
 companionText = "images/astronaut.png"
 
 function goHome()
-	storyboard.purgeScene("createsubtraction")
+	storyboard.removeScene("createsubtraction")
 	storyboard.gotoScene("train")
 end
 
