@@ -29,7 +29,7 @@ local centerY = display.contentCenterY
 companionText = "images/astronaut.png"
 
 function goHome()
-	--storyboard.purgeScene("createquestion")
+	storyboard.purgeScene("createmultiplication")
 	storyboard.gotoScene("train")
 end
 
@@ -60,7 +60,6 @@ end
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )
 	local screenGroup = self.view	
-	startTime = system.getTimer()
 end
 
 
@@ -76,6 +75,7 @@ end
 
 function insertButtons(n)
 	local screenGroup = n
+	startTime = system.getTimer()
 	buttons = {}
 	buttonbgs = {}
 	--1 to 9
@@ -124,7 +124,7 @@ function insertButtons(n)
 	submitbg = display.newImage("images/button.png",centerX+130*xscale,centerY-20*yscale)
 	submitbg:scale(0.4*xscale,0.15*yscale)
 	local function myFunction()
-		if leftnum~=0 and rightnum~=0 then
+		if leftnum~=0 or rightnum~=0 then
 			submit(screenGroup)
 		end
 	end

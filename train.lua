@@ -22,19 +22,24 @@ local centerY = display.contentCenterY
 
 
 function goHome()
+	
 	storyboard.gotoScene("menu")
 end
 
 function goCreateAdd()
+	--storyboard.purgeAll()
 	storyboard.gotoScene("createaddition")
 end
 function goCreateSub()
+	--storyboard.purgeAll()
 	storyboard.gotoScene("createsubtraction")
 end
 function goCreateMult()
+	--storyboard.purgeAll()
 	storyboard.gotoScene("createmultiplication")
 end
 function goCreateDiv()
+	--storyboard.purgeAll()
 	storyboard.gotoScene("createdivision")
 end
 
@@ -64,15 +69,15 @@ function scene:createScene( event )
 	practice:scale(0.6*xscale,0.6*yscale)
 	screenGroup:insert(practice)
 
-	createadd = display.newImage("images/addition.png", centerX-100*xscale ,centerY-10*yscale)
+	createadd = display.newImage("images/addition.png", centerX-100*xscale ,centerY-30*yscale)
 	createadd:addEventListener("tap",goCreateAdd)
 	screenGroup:insert(createadd)
 
-	createsub = display.newImage("images/subtraction.png", centerX-100*xscale ,centerY+40*yscale)
+	createsub = display.newImage("images/subtraction.png", centerX-97*xscale ,centerY+20*yscale)
 	createsub:addEventListener("tap",goCreateSub)
 	screenGroup:insert(createsub)
 
-	createmult = display.newImage("images/multiplication.png", centerX-100*xscale ,centerY+90*yscale)
+	createmult = display.newImage("images/multiplication.png", centerX-100*xscale ,centerY+70*yscale)
 	createmult:addEventListener("tap",goCreateMult)
 	screenGroup:insert(createmult)
 
@@ -95,27 +100,8 @@ end
 
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )
-	local screenGroup = self.view	
-	print ("enterScene")
-	--spawnMeteor(screenGroup)
-	first = true
-
-	local firstCheck = false
-	for row in db:nrows("SELECT * FROM companionSelect;") do
-		if row.companion == 1 then
-			firstCheck = true
-			companionText = "images/astronaut.png"
-		end
-
-		if row.companion == 0 then
-			firstCheck = true
-			companionText = "images/dog.png"
-		end
-	end
-	if firstCheck == false then
-		storyboard.gotoScene("firstTime")
-	end
-
+	
+	storyboard.purgeAll()
 end
 
 

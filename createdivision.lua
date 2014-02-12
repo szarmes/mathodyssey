@@ -18,7 +18,7 @@ local leftnum = 0
 local rightnum = 0
 local answernum = 0
 local startTime
-
+local operatortext
 
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
@@ -29,7 +29,7 @@ local centerY = display.contentCenterY
 companionText = "images/astronaut.png"
 
 function goHome()
-	--storyboard.purgeScene("createquestion")
+	storyboard.purgeScene("createdivision")
 	storyboard.gotoScene("train")
 end
 
@@ -76,6 +76,7 @@ end
 
 function insertButtons(n)
 	local screenGroup = n
+	startTime = system.getTimer()
 	buttons = {}
 	buttonbgs = {}
 	--1 to 9

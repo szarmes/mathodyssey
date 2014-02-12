@@ -18,6 +18,7 @@ local leftnum = 0
 local rightnum = 0
 local answernum = 0
 local startTime
+local operatortext
 
 
 ---------------------------------------------------------------------------------
@@ -29,7 +30,7 @@ local centerY = display.contentCenterY
 companionText = "images/astronaut.png"
 
 function goHome()
-	--storyboard.purgeScene("createquestion")
+	storyboard.purgeScene("createsubtraction")
 	storyboard.gotoScene("train")
 end
 
@@ -76,6 +77,7 @@ end
 
 function insertButtons(n)
 	local screenGroup = n
+	startTime = system.getTimer()
 	buttons = {}
 	buttonbgs = {}
 	--1 to 9
@@ -124,7 +126,7 @@ function insertButtons(n)
 	submitbg = display.newImage("images/button.png",centerX+130*xscale,centerY-20*yscale)
 	submitbg:scale(0.4*xscale,0.15*yscale)
 	local function myFunction()
-		if leftnum~=0 and rightnum~=0 then
+		if leftnum~=0 then
 			submit(screenGroup)
 		end
 	end
