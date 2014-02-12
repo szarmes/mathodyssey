@@ -57,6 +57,21 @@ function goHome()
 end
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )
+	local firstCheck = false
+	for row in db:nrows("SELECT * FROM companionSelect;") do
+		if row.companion == 1 then
+			firstCheck = true
+			companionText = "images/astronaut.png"
+		end
+
+		if row.companion == 0 then
+			firstCheck = true
+			companionText = "images/dog.png"
+		end
+	end
+	if firstCheck == false then
+		storyboard.gotoScene("firstTime")
+	end
 end
 
 

@@ -20,19 +20,18 @@ local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 
 
-function goToMenu()
-	storyboard.purgeAll()
-	storyboard.gotoScene("menu")
+function goToStory(n)
+	storyboard.gotoScene("howtoplay")
 end
 
 function firstyes()
 storeFirst(1)
-goToMenu()
+goToStory()
 end
 
 function firstno()
 storeFirst(0)
-goToMenu()
+goToStory()
 end
 
 function storeDog(n)
@@ -77,16 +76,12 @@ end
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )
 	local screenGroup = self.view	
-	spawnMeteor(screenGroup)
 	first = true
 end
 
 
 -- Called when scene is about to move offscreen:
 function scene:exitScene( event )
-	local screenGroup = self.view
-	screenGroup:remove(meteor)
-	cancelMeteorTimers()
 end
 
 

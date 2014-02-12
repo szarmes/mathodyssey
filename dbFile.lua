@@ -102,5 +102,13 @@ function unlockMap(location)
 	end
 end
 
+function storeQuestion(correct,time,left,right,answer,operator)
+	
+	local tablefill =[[INSERT INTO createdQuestions VALUES (NULL, ']]..correct..[[',']]..time..[[',']]..left..
+		[[',']]..right..[[',']]..answer..[[',']]..operator..[['); ]]
+	db:exec( tablefill )
+
+end
+
 
 ----------------

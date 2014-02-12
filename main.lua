@@ -126,6 +126,10 @@ db:exec( tablesetup6 )
 local tablesetup7 = [[CREATE TABLE IF NOT EXISTS ddScore (id INTEGER PRIMARY KEY, correct INTEGER,
 	time INTEGER, numerator INTEGER, denominator INTEGER, chosennum INTEGER, round INTEGER, level INTEGER );]]
 db:exec( tablesetup7 )
+
+local tablesetup8 = [[CREATE TABLE IF NOT EXISTS createdQuestions (id INTEGER PRIMARY KEY, correct INTEGER,
+	time INTEGER, left INTEGER, right INTEGER, answer INTEGER, operator STRING );]]
+db:exec( tablesetup8 )
 --local drop = [[drop table companionSelect]]
 --db:exec( drop )
 --local drop1 = [[drop table eeScore]]
@@ -133,7 +137,7 @@ db:exec( tablesetup7 )
 --db:exec( drop1 )
 --unlockMap("ee1")
 
-storyboard.gotoScene( "menu")
+storyboard.gotoScene( "createdivision")
 --storyboard.gotoScene( "splash","fade",500)
 
 --[[for row in db:nrows("SELECT * FROM timeTrialsScore ORDER BY id DESC;") do
