@@ -94,7 +94,10 @@ function comic2(n)
 
 	continue:addEventListener("tap", myFunction)
 	screenGroup:insert(continue)
-
+	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
+	home:scale(0.3*xscale,0.3*yscale)
+	home:addEventListener("tap", goHome)
+	screenGroup:insert(home)
 end
 
 
@@ -115,7 +118,10 @@ function tutorial1(n)
 
 	continue:addEventListener("tap", myFunction)
 	screenGroup:insert(continue)
-
+	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
+	home:scale(0.3*xscale,0.3*yscale)
+	home:addEventListener("tap", goHome)
+	screenGroup:insert(home)
 end
 
 function tutorial2(n)
@@ -147,7 +153,10 @@ function tutorial2(n)
 
 	back:addEventListener("tap", myFunction1)
 	screenGroup:insert(back)
-
+	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
+	home:scale(0.3*xscale,0.3*yscale)
+	home:addEventListener("tap", goHome)
+	screenGroup:insert(home)
 end
 
 
@@ -168,7 +177,10 @@ function tutorial3(n)
 
 	back:addEventListener("tap", myFunction1)
 	screenGroup:insert(back)
-
+	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
+	home:scale(0.3*xscale,0.3*yscale)
+	home:addEventListener("tap", goHome)
+	screenGroup:insert(home)
 end
 
 ---------------------------------------------------------------------------------

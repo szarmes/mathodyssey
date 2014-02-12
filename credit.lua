@@ -73,7 +73,7 @@ end
 function showcredits(n)
 	local screenGroup = n
 
-	myText = display.newText( "Developers: Matthew Bojey & Duncan Szarmes\nGraphics: Matthew Bojey, Chris Chanin, & Duncan Szarmes\nVoice Over: Nyomi Bojey\nComposer: Tate Kindrick \nText: textcraft.net", centerX, centerY,1000*xscale,400*yscale,"Comic Relief",32)
+	myText = display.newText( "Developers: Matthew Bojey & Duncan Szarmes\nGraphics: Matthew Bojey, Chris Chanin, & Duncan Szarmes\nNarrator: Nyomi Wolfe\nComposer: Tate Kindrick \nText: textcraft.net", centerX, centerY,1000*xscale,400*yscale,"Comic Relief",32)
 	myText:setFillColor(0)
 	myText:scale(0.5*xscale,0.5*yscale)
 	screenGroup:insert(myText)
