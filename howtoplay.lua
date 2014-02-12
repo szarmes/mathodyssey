@@ -29,27 +29,24 @@ function scene:createScene( event )
 	storyboard.reloadScene()
 	local screenGroup = self.view
 	
-	bg = display.newImage("images/bg.png", centerX*xscale,centerY+30*yscale)
-	bg:scale(0.8*xscale,0.8*yscale)
+	bg = display.newImage("images/mathmuseum.png", centerX*xscale,centerY*yscale)
+	bg:scale(0.5*xscale,0.5*yscale)
 	screenGroup:insert(bg)
+	local myFunction = function() 
+		screenGroup:remove(bg)
+		screenGroup:remove(continue)
+		comic2(screenGroup) 
+	end
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
 
-	bubble = display.newImage("images/bubble.png", centerX-20*xscale,centerY)
-	bubble:scale(0.8*xscale,0.5*yscale)
-	bubble.alpha = 0.7
-	screenGroup:insert(bubble)
-
-
-	dog = display.newImage(companionText, centerX-240*xscale, centerY+118*yscale)
-	dog:scale(0.2*xscale, 0.2*yscale)
-	--dog:rotate(30)
-	screenGroup:insert(dog)
+	continue:addEventListener("tap", myFunction)
+	screenGroup:insert(continue)
 
 	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
 	home:scale(0.3*xscale,0.3*yscale)
 	home:addEventListener("tap", goHome)
 	screenGroup:insert(home)
-
-	tutorial1(screenGroup)
 	
 end
 
@@ -72,6 +69,32 @@ end
 -- Called prior to the removal of scene's "view" (display group)
 function scene:destroyScene( event )
 	
+end
+
+function comic2(n)
+	local screenGroup = n
+	bg = display.newImage("images/stolen.png", centerX*xscale,centerY*yscale)
+	bg:scale(0.5*xscale,0.5*yscale)
+	screenGroup:insert(bg)
+	local myFunction = function() 
+		screenGroup:remove(bg)
+		bg = display.newImage("images/bg.png", centerX*xscale,centerY+30*yscale)
+		bg:scale(0.8*xscale,0.8*yscale)
+		screenGroup:insert(bg)
+		dog = display.newImage(companionText, centerX-200*xscale, centerY+80*yscale)
+		dog:scale(0.2*xscale, 0.2*yscale)
+		hintbubble =  display.newImage("images/bubble.png", centerX-10*xscale,centerY)
+		hintbubble:scale(0.86*xscale,0.5*yscale)
+		screenGroup:insert(hintbubble)
+		screenGroup:remove(continue)
+		tutorial1(screenGroup) 
+	end
+	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+	continue:scale(0.3*xscale,0.3*yscale)
+
+	continue:addEventListener("tap", myFunction)
+	screenGroup:insert(continue)
+
 end
 
 
