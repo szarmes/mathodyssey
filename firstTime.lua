@@ -21,6 +21,7 @@ local centerY = display.contentCenterY
 
 
 function goToMenu()
+	storyboard.purgeAll()
 	storyboard.gotoScene("menu")
 end
 

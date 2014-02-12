@@ -86,6 +86,7 @@ function comic2(n)
 		hintbubble =  display.newImage("images/bubble.png", centerX-10*xscale,centerY)
 		hintbubble:scale(0.86*xscale,0.5*yscale)
 		screenGroup:insert(hintbubble)
+		screenGroup:insert(dog)
 		screenGroup:remove(continue)
 		tutorial1(screenGroup) 
 	end
@@ -94,10 +95,8 @@ function comic2(n)
 
 	continue:addEventListener("tap", myFunction)
 	screenGroup:insert(continue)
-	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
-	home:scale(0.3*xscale,0.3*yscale)
-	home:addEventListener("tap", goHome)
 	screenGroup:insert(home)
+
 end
 
 
@@ -118,10 +117,8 @@ function tutorial1(n)
 
 	continue:addEventListener("tap", myFunction)
 	screenGroup:insert(continue)
-	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
-	home:scale(0.3*xscale,0.3*yscale)
-	home:addEventListener("tap", goHome)
 	screenGroup:insert(home)
+
 end
 
 function tutorial2(n)
@@ -153,10 +150,6 @@ function tutorial2(n)
 
 	back:addEventListener("tap", myFunction1)
 	screenGroup:insert(back)
-	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
-	home:scale(0.3*xscale,0.3*yscale)
-	home:addEventListener("tap", goHome)
-	screenGroup:insert(home)
 end
 
 
@@ -170,6 +163,7 @@ function tutorial3(n)
 	local myFunction1 = function()
 	 screenGroup:remove(back)
 	 screenGroup:remove(myText)
+	 screenGroup:remove(home)
 	 tutorial2(screenGroup) 
 	end
 	back = display.newImage("images/continue.png", centerX+120*xscale, centerY+130*yscale)
@@ -177,10 +171,7 @@ function tutorial3(n)
 
 	back:addEventListener("tap", myFunction1)
 	screenGroup:insert(back)
-	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
-	home:scale(0.3*xscale,0.3*yscale)
-	home:addEventListener("tap", goHome)
-	screenGroup:insert(home)
+
 end
 
 ---------------------------------------------------------------------------------

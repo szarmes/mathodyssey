@@ -12,6 +12,7 @@ require "dbFile"
 local buttonXOffset = 100
 
 
+
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------
@@ -21,13 +22,16 @@ local centerY = display.contentCenterY
 companionText = "images/astronaut.png"
 
 
-function goToPlay()
+function goToPlay(n)
+	n:remove(meteor)
+	cancelMeteorTimers()
 	storyboard.gotoScene("play")
 end
 
 
 function goToTutorials()
 	cancelMeteorTimers()
+	storyboard.purgeScene("menu")
 	storyboard.gotoScene("howtoplay")
 end
 
@@ -52,7 +56,10 @@ function scene:createScene( event )
 
 	play = display.newImage("images/play.png", centerX-238*xscale ,centerY)
 	play:scale(0.7*xscale,0.6*yscale)
-	play:addEventListener("tap",goToPlay)
+	local function go2play()
+			goToPlay(screenGroup)
+	end
+	play:addEventListener("tap",go2play)
 	play.anchorX = 0
 	screenGroup:insert(play)
 
@@ -96,6 +103,7 @@ end
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )
 	local screenGroup = self.view	
+	print ("enterScene")
 	spawnMeteor(screenGroup)
 	first = true
 
@@ -120,11 +128,6 @@ end
 
 -- Called when scene is about to move offscreen:
 function scene:exitScene( event )
-	local screenGroup = self.view
-	if meteor ~= nil then
-		screenGroup:remove(meteor)
-	end
-	cancelMeteorTimers()
 end
 
 
@@ -135,7 +138,6 @@ end
 
 function spawnMeteor(n)
 	local screenGroup = n
-
 	version = math.random(1,4)
 	if version==1 then
 		meteorx = centerX+200*xscale
@@ -193,9 +195,9 @@ function cancelMeteorTimers()
 end
 
 function respawnMeteor(n)
-		local screenGroup = n 
-		screenGroup:remove(meteor)
-		spawnMeteor(screenGroup)
+	local screenGroup = n 
+	screenGroup:remove(meteor)
+	spawnMeteor(screenGroup)
 end
 
 ---------------------------------------------------------------------------------
