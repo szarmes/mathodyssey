@@ -56,6 +56,7 @@ function scene:createScene( event )
 		hintbutton:scale(-0.14*xscale,0.14*yscale)
 
 		local function mmsolvehint()
+			hintbutton:removeEventListener("tap",mmsolvehint)
 			provideHint(screenGroup,solveinstructions1)
 		end
 		hintbutton:addEventListener("tap",mmsolvehint)

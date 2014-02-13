@@ -76,6 +76,7 @@ function scene:createScene( event )
 		hintbutton:scale(-0.14*xscale,0.14*yscale)
 
 		local function dd1hint()
+			hintbutton:removeEventListener("tap", dd1hint)
 			provideHint(screenGroup,dd1instructions3)
 		end
 		hintbutton:addEventListener("tap",dd1hint)

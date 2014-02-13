@@ -144,6 +144,7 @@ function timetrialsdisplayClocks(n)
 		hintbutton:scale(-0.14*xscale,0.14*yscale)
 
 		local function tt1hint()
+			hintbutton:removeEventListener("tap",tt1hint)
 			provideHint(screenGroup,instructions1)
 		end
 		hintbutton:addEventListener("tap",tt1hint)

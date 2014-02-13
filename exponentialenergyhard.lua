@@ -64,6 +64,7 @@ function scene:createScene( event )
 		hintbutton:scale(-0.14*xscale,0.14*yscale)
 
 		local function ee2hint()
+			hintbutton:removeEventListener("tap",ee2hint)
 			provideHint(screenGroup,ee2instructions1)
 		end
 		hintbutton:addEventListener("tap",ee2hint)

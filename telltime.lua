@@ -131,6 +131,7 @@ function telltimedisplayClocks(n)
 		hintbutton:scale(-0.14*xscale,0.14*yscale)
 
 		local function tthint()
+			hintbutton:removeEventListener("tap",tthint)
 			provideHint(screenGroup,telltimeinstructions2)
 		end
 		hintbutton:addEventListener("tap",tthint)

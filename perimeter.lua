@@ -58,6 +58,7 @@ function scene:createScene( event )
 		hintbutton:scale(-0.14*xscale,0.14*yscale)
 
 		local function perimeterhint()
+			hintbutton:removeEventListener("tap",perimeterhint)
 			provideHint(screenGroup,instructions2)
 		end
 		hintbutton:addEventListener("tap",perimeterhint)

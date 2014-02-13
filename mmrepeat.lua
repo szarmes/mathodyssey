@@ -56,6 +56,7 @@ function scene:createScene( event )
 		hintbutton:scale(-0.14*xscale,0.14*yscale)
 
 		local function repeathint()
+			hintbutton:removeEventListener("tap",repeathint)
 			provideHint(screenGroup,repeatinstructions1)
 		end
 		hintbutton:addEventListener("tap",repeathint)

@@ -141,6 +141,7 @@ function timetrialsharddisplayClocks(n)
 		hintbutton:scale(-0.14*xscale,0.14*yscale)
 
 		local function tt2hint()
+			hintbutton:removeEventListener("tap",tt2hint)
 			provideHint(screenGroup,instructions2)
 		end
 		hintbutton:addEventListener("tap",tt2hint)

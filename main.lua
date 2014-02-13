@@ -76,7 +76,7 @@ function provideHint(n,str)
 	hintbubble:scale(0.8*xscale,0.5*yscale)
 	screenGroup:insert(hintbubble)
 
-	hinttext = display.newText(str,centerX,centerY+40*yscale,400*xscale,200*yscale,"Comic Relief",18)
+	hinttext = display.newText("Hint!"..str,centerX,centerY+40*yscale,400*xscale,200*yscale,"Comic Relief",18)
 	hinttext:setFillColor(0)
 	screenGroup:insert(hinttext)
 
@@ -86,9 +86,16 @@ function provideHint(n,str)
 		screenGroup:remove(hintbubble)
 		screenGroup:remove(hinttext)
 		screenGroup:remove(closebutton)
+		local function myFunction()
+			provideHint(screenGroup, str)
+		end
+		hintbutton:addEventListener("tap", myFunction)
+
 	end
 	closebutton:addEventListener("tap",closeHint)
 	screenGroup:insert(closebutton)
+
+
 
 
 end
