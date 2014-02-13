@@ -19,6 +19,7 @@ musicmuted = false
 xscale = 1
 yscale = 1
 
+
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 

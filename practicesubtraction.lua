@@ -89,7 +89,7 @@ function insertButtons(n)
 	--1 to 9
 	for i = 0,2,1 do
 		for j = 1,3,1 do
-			buttonbgs[(3*i)+j] = display.newImage("images/button.png",40+50*j*xscale,centerY+50*yscale-50*i*yscale)
+			buttonbgs[(3*i)+j] = display.newImage(buttonSource,40+50*j*xscale,centerY+50*yscale-50*i*yscale)
 			buttonbgs[(3*i)+j]:scale(0.14*xscale,0.14*yscale)
 			local function myFunction()
 				recordPress((3*i)+j)
@@ -102,7 +102,7 @@ function insertButtons(n)
 		end
 	end
 	--zero
-	zerobg = display.newImage("images/button.png",40+75*1*xscale,centerY+100*yscale)
+	zerobg = display.newImage(buttonSource,40+75*1*xscale,centerY+100*yscale)
 	zerobg:scale(0.3*xscale,0.14*yscale)
 	zerobutton = display.newText("0",40+75*1*xscale,centerY+100*yscale,"Comic Relief",24)
 	zerobutton:setFillColor(0)
@@ -129,7 +129,7 @@ function insertButtons(n)
 	equaltext:setFillColor(0)
 	screenGroup:insert(equaltext)
 	--submit
-	submitbg = display.newImage("images/button.png",centerX+130*xscale,centerY-20*yscale)
+	submitbg = display.newImage(buttonSource,centerX+130*xscale,centerY-20*yscale)
 	submitbg:scale(0.4*xscale,0.15*yscale)
 	local function myFunction()
 		if leftnum~=0 or rightnum~=0 then
@@ -143,7 +143,7 @@ function insertButtons(n)
 	screenGroup:insert(submittext)
 	--clear
 
-	clearbg = display.newImage("images/button.png",centerX+130*xscale,centerY+40*yscale)
+	clearbg = display.newImage(buttonSource,centerX+130*xscale,centerY+40*yscale)
 	clearbg:scale(0.4*xscale,0.15*yscale)
 	screenGroup:insert(clearbg)
 	cleartext = display.newText("Clear",centerX+130*xscale,centerY+40*yscale,"Comic Relief",24)
@@ -178,7 +178,7 @@ function insertButtons(n)
 	screenGroup:insert(righttext)
 
 
-	answerbg = display.newImage("images/button.png",centerX+130*xscale,centerY-100*yscale)
+	answerbg = display.newImage(buttonSource,centerX+130*xscale,centerY-100*yscale)
 	answerbg:scale(0.35*xscale,0.17*yscale)
 	answertext = display.newText("",centerX+130*xscale,centerY-100*yscale,"Comic Relief",24)
 	answertext:setFillColor(0)

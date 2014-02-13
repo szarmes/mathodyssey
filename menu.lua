@@ -10,6 +10,7 @@ require "dbFile"
 
 
 local buttonXOffset = 100
+buttonSource = "images/button.png"
 
 
 
@@ -112,6 +113,16 @@ function scene:enterScene( event )
 	print ("enterScene")
 	first = true
 
+	local goldButton = false
+	for row in db:nrows("SELECT * FROM mapUnlocks;") do
+		if row.location == "finishGame" then
+			goldButton = true
+		end
+	end
+	if goldButton == true then
+		buttonSource = "images/goldbutton.png"
+	end
+
 	local firstCheck = false
 	for row in db:nrows("SELECT * FROM companionSelect;") do
 		if row.companion == 1 then
@@ -206,6 +217,8 @@ function respawnMeteor(n)
 	screenGroup:remove(meteor)
 	spawnMeteor(screenGroup)
 end
+
+
 
 ---------------------------------------------------------------------------------
 -- END OF YOUR IMPLEMENTATION

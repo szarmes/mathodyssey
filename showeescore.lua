@@ -125,6 +125,22 @@ function addImages(n) --sample listener
 		unlockMap("ee2")
 	end
 
+	if correctCount>6 and storyboard.getPrevious()=="exponentialenergyhard" then
+		local mapcheck = false
+		for row in db:nrows("SELECT * FROM mapUnlocks;") do
+			if row.location == "finishGame" then
+				mapcheck = true
+				break
+			end
+		end
+		if mapcheck == false then
+			unlockText = display.newText("Golden Calculator unlocked in Training Area!",centerX,centerY+100*yscale,"Comic Relief",20)
+			unlockText:setFillColor(0)
+			screenGroup:insert(unlockText)
+		end
+		unlockMap("finishGame")
+	end
+
 
 	local reward = display.newText("You answered "..correctCount.." out of "..attemptCount.." questions correctly!", centerX,centerY,300*xscale,200*yscale,"Comic Relief", 30)
 	reward:setFillColor(0)
