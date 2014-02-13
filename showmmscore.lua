@@ -25,7 +25,11 @@ local centerY = display.contentCenterY
 
 local function goNext()
 	storyboard.removeAll()
-	storyboard.gotoScene( "mmselection")
+	if storyboard.getPrevious() == "perimeter" or storyboard.getPrevious() == "area" then
+		storyboard.gotoScene("mmmoonselection")
+	else
+		storyboard.gotoScene( "mmselection")
+	end
 end
 
 
@@ -52,10 +56,15 @@ function scene:createScene( event )
 
 
 
-
-	bg = display.newImage("images/lavabg.png", centerX,centerY+30*yscale)
-	bg:scale(0.8*xscale,0.7*yscale)
-	screenGroup:insert(bg)
+	if storyboard.getPrevious() == "perimeter" or storyboard.getPrevious() == "area" then
+		bg = display.newImage("images/mmmoonbg.png", centerX,centerY+30*yscale)
+		bg:scale(0.8*xscale,0.7*yscale)
+		screenGroup:insert(bg)
+	else
+		bg = display.newImage("images/mmmoonbg.png", centerX,centerY+30*yscale)
+		bg:scale(0.8*xscale,0.7*yscale)
+		screenGroup:insert(bg)
+	end
 
 	if correctCount>6 and storyboard.getPrevious() == "perimeter"then
 		local mapcheck = false
