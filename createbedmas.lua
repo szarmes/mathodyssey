@@ -20,7 +20,6 @@ local buttonbgs
 
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
-companionText = "images/astronaut.png"
 
 function goHome()
 	storyboard.purgeScene("createbedmas")
