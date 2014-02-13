@@ -110,5 +110,13 @@ function storeQuestion(correct,time,left,right,answer,operator)
 
 end
 
+function storeAnswer(correct,time,left,right,answer,operator)
+	
+	local tablefill =[[INSERT INTO answeredQuestions VALUES (NULL, ']]..correct..[[',']]..time..[[',']]..left..
+		[[',']]..right..[[',']]..answer..[[',']]..operator..[['); ]]
+	db:exec( tablefill )
+
+end
+
 
 ----------------

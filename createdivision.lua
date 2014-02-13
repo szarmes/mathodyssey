@@ -46,6 +46,11 @@ function scene:createScene( event )
 	home:scale(0.3*xscale,0.3*yscale)
 	home:addEventListener("tap", goHome)
 	screenGroup:insert(home)
+
+
+	dog = display.newImage(companionText, centerX-240*xscale, centerY+118*yscale)
+	dog:scale(0.2*xscale, 0.2*yscale)
+	screenGroup:insert(dog)
 	
 	insertButtons(screenGroup)
 	--audio.play(bgmusic,{loops = -1,channel=1})
@@ -147,6 +152,11 @@ function insertButtons(n)
 		leftnum = 0
 		rightnum = 0
 		answernum = 0
+		if incorrect~=nil then
+			screenGroup:remove(bubble)
+			screenGroup:remove(incorrect)
+			incorrect = nil
+		end
 	end
 	clearallbg:addEventListener("tap",myFunction)
 	screenGroup:insert(clearallbg)
@@ -167,6 +177,11 @@ function insertButtons(n)
 		elseif highlighted == "answer" then
 			answertext.text=""
 			answernum = 0
+		end
+		if incorrect~=nil then
+			screenGroup:remove(bubble)
+			screenGroup:remove(incorrect)
+			incorrect = nil
 		end
 	end
 	clearbg:addEventListener("tap",myFunction)
@@ -280,21 +295,43 @@ function submit(n)
 	local  screenGroup = n
 	totalTime = math.floor((system.getTimer() -startTime)/1000)
 	if leftnum / rightnum == answernum then
+		unlockMap("practicediv")
 		storeQuestion(1,totalTime,leftnum,rightnum,answernum,"/")
-		storyboard.purgeScene("createdivision")
-		leftnum = 0
-		rightnum = 0
-		answernum = 0
-		highlighted = "left"
-		storyboard.reloadScene()
+		bubble = display.newImage("images/bubble.png", centerX-225*xscale,centerY)
+		bubble:scale(0.15*xscale,0.3*yscale)
+		screenGroup:insert(bubble)
+		
+		rewardText = display.newText("Question created!",centerX-225*xscale,centerY,60*xscale,60*yscale,"Comic Relief",12)
+		rewardText:setFillColor(0)
+		screenGroup:insert(rewardText)
+
+		continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+		continue:scale(0.3*xscale,0.3*yscale)
+		continue:addEventListener("tap", divideNewSceneListener)
+		screenGroup:insert(continue)
+
 	else
 		storeQuestion(0,totalTime,leftnum,rightnum,answernum,"/")
 		if incorrect==nil then
-			incorrect = display.newText("!",centerX+200*xscale,centerY-20*yscale,"Comic Relief",40)
-			incorrect:setFillColor(.8,0,0)
+			bubble = display.newImage("images/bubble.png", centerX-225*xscale,centerY)
+			bubble:scale(0.15*xscale,0.3*yscale)
+			screenGroup:insert(bubble)
+			
+			incorrect = display.newText("Woops, try again",centerX-225*xscale,centerY,60*xscale,60*yscale,"Comic Relief",14)
+			incorrect:setFillColor(0)
 			screenGroup:insert(incorrect)
 		end
 	end
+end
+
+function divideNewSceneListener()
+	storyboard.purgeScene("createdivision")
+	leftnum = 0
+	rightnum = 0
+	answernum = 0
+	highlighted = "left"
+	storyboard.reloadScene()
+
 end
 ---------------------------------------------------------------------------------
 -- END OF YOUR IMPLEMENTATION

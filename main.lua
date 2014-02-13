@@ -130,6 +130,10 @@ db:exec( tablesetup7 )
 local tablesetup8 = [[CREATE TABLE IF NOT EXISTS createdQuestions (id INTEGER PRIMARY KEY, correct INTEGER,
 	time INTEGER, left INTEGER, right INTEGER, answer INTEGER, operator STRING );]]
 db:exec( tablesetup8 )
+
+local tablesetup8 = [[CREATE TABLE IF NOT EXISTS answeredQuestions (id INTEGER PRIMARY KEY, correct INTEGER,
+	time INTEGER, left INTEGER, right INTEGER, answer INTEGER, operator STRING );]]
+db:exec( tablesetup8 )
 --local drop = [[drop table companionSelect]]
 --db:exec( drop )
 --local drop1 = [[drop table eeScore]]

@@ -22,25 +22,41 @@ local centerY = display.contentCenterY
 
 
 function goHome()
-	
+	storyboard.removeScene("train")
 	storyboard.gotoScene("menu")
 end
 
 function goCreateAdd()
-	--storyboard.purgeAll()
+	storyboard.removeScene("train")
 	storyboard.gotoScene("createaddition")
 end
 function goCreateSub()
-	--storyboard.purgeAll()
+	storyboard.removeScene("train")
 	storyboard.gotoScene("createsubtraction")
 end
 function goCreateMult()
-	--storyboard.purgeAll()
+	storyboard.removeScene("train")
 	storyboard.gotoScene("createmultiplication")
 end
 function goCreateDiv()
-	--storyboard.purgeAll()
+	storyboard.removeScene("train")
 	storyboard.gotoScene("createdivision")
+end
+function gopracticeAdd()
+	storyboard.removeScene("train")
+	storyboard.gotoScene("practiceaddition")
+end
+function gopracticeSub()
+	storyboard.removeScene("train")
+	storyboard.gotoScene("practicesubtraction")
+end
+function gopracticeMult()
+	storyboard.removeScene("train")
+	storyboard.gotoScene("practicemultiplication")
+end
+function gopracticeDiv()
+	storyboard.removeScene("train")
+	storyboard.gotoScene("practicedivision")
 end
 
 
@@ -62,7 +78,7 @@ function scene:createScene( event )
 
 
 	create = display.newImage("images/create.png", centerX-100*xscale ,centerY-100*yscale)
-	create:scale(0.5*xscale,0.5*yscale)
+	create:scale(0.6*xscale,0.6*yscale)
 	screenGroup:insert(create)
 
 	practice = display.newImage("images/practice.png", centerX+100*xscale ,centerY-100*yscale)
@@ -86,8 +102,24 @@ function scene:createScene( event )
 	creatediv:addEventListener("tap",goCreateDiv)
 	screenGroup:insert(creatediv)
 
+	practiceadd = display.newImage("images/addition.png", centerX+100*xscale ,centerY-30*yscale)
+	practiceadd:addEventListener("tap",gopracticeAdd)
+	screenGroup:insert(practiceadd)
 
+	practicesub = display.newImage("images/subtraction.png", centerX+104*xscale ,centerY+20*yscale)
+	practicesub:addEventListener("tap",gopracticeSub)
+	screenGroup:insert(practicesub)
 
+	practicemult = display.newImage("images/multiplication.png", centerX+100*xscale ,centerY+70*yscale)
+	practicemult:addEventListener("tap",gopracticeMult)
+	screenGroup:insert(practicemult)
+
+	practicediv = display.newImage("images/division.png", centerX+102*xscale ,centerY+120*yscale)
+	practicediv:scale(1,0.8)
+	practicediv:addEventListener("tap",gopracticeDiv)
+	screenGroup:insert(practicediv)
+
+	trainLockLocations(screenGroup)
 	--audio.play(bgmusic,{loops = -1,channel=1})
 
 	--background = display.newImage("images/cat.jpg",centerX,centerY)
@@ -177,6 +209,54 @@ function respawnMeteor(n)
 	screenGroup:remove(meteor)
 	spawnMeteor(screenGroup)
 end
+
+function trainLockLocations(n)
+	local screenGroup = n
+	local lock1check = false
+	local lock2check = false
+	local lock3check = false
+	local lock4check = false
+	for row in db:nrows("SELECT * FROM mapUnlocks;") do
+		if row.location == "practiceadd" then
+			lock1check = true
+		end
+		if row.location == "practicesub" then
+			lock2check = true
+		end
+		if row.location == "practicemult" then
+			lock3check = true
+		end
+		if row.location == "practicediv" then
+			lock4check = true
+		end
+	end
+	if lock1check==false then 
+		lock1 = display.newImage("images/lock.png",practiceadd.x+30*xscale,practiceadd.y+15*yscale)
+		lock1:scale(0.08*xscale,0.08*yscale)
+		screenGroup:insert(lock1)
+		practiceadd:removeEventListener("tap",gopracticeAdd)
+	end
+
+	if lock2check==false then 
+		lock2 = display.newImage("images/lock.png",practicesub.x+30*xscale,practicesub.y+15*yscale)
+		lock2:scale(0.08*xscale,0.08*yscale)
+		screenGroup:insert(lock2)
+		practicesub:removeEventListener("tap",gopracticeSub)
+	end
+	if lock3check==false then 
+		lock3 = display.newImage("images/lock.png",practicemult.x+30*xscale,practicemult.y+15*yscale)
+		lock3:scale(0.08*xscale,0.08*yscale)
+		screenGroup:insert(lock3)
+		practicemult:removeEventListener("tap",gopracticeMult)
+	end
+	if lock4check==false then 
+		lock4 = display.newImage("images/lock.png",practicediv.x+30*xscale,practicediv.y+15*yscale)
+		lock4:scale(0.08*xscale,0.08*yscale)
+		screenGroup:insert(lock4)
+		practicediv:removeEventListener("tap",gopracticeDiv)
+	end
+end
+
 
 ---------------------------------------------------------------------------------
 -- END OF YOUR IMPLEMENTATION
