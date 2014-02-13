@@ -110,7 +110,6 @@ end
 function scene:enterScene( event )
 	local screenGroup = self.view	
 	print ("enterScene")
-	spawnMeteor(screenGroup)
 	first = true
 
 	local firstCheck = false
@@ -127,6 +126,8 @@ function scene:enterScene( event )
 	end
 	if firstCheck == false then
 		storyboard.gotoScene("firstTime")
+	else
+		spawnMeteor(screenGroup)
 	end
 
 end
