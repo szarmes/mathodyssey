@@ -38,7 +38,7 @@ end
 function goToTutorials()
 	cancelMeteorTimers()
 	storyboard.purgeScene("menu")
-	storyboard.gotoScene("howtoplay")
+	storyboard.gotoScene("story")
 end
 
 function goToCredits()
