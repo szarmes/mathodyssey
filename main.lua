@@ -76,7 +76,7 @@ function provideHint(n,str)
 	hintbubble:scale(0.8*xscale,0.5*yscale)
 	screenGroup:insert(hintbubble)
 
-	hinttext = display.newText("Hint!"..str,centerX,centerY+40*yscale,400*xscale,200*yscale,"Comic Relief",18)
+	hinttext = display.newText("Hint! "..str,centerX,centerY+40*yscale,400*xscale,200*yscale,"Comic Relief",18)
 	hinttext:setFillColor(0)
 	screenGroup:insert(hinttext)
 
@@ -139,9 +139,9 @@ local tablesetup8 = [[CREATE TABLE IF NOT EXISTS createdQuestions (id INTEGER PR
 	time INTEGER, left INTEGER, right INTEGER, answer INTEGER, operator STRING );]]
 db:exec( tablesetup8 )
 
-local tablesetup8 = [[CREATE TABLE IF NOT EXISTS answeredQuestions (id INTEGER PRIMARY KEY, correct INTEGER,
+local tablesetup9 = [[CREATE TABLE IF NOT EXISTS answeredQuestions (id INTEGER PRIMARY KEY, correct INTEGER,
 	time INTEGER, left INTEGER, right INTEGER, answer INTEGER, operator STRING );]]
-db:exec( tablesetup8 )
+db:exec( tablesetup9 )
 --local drop = [[drop table mapUnlocks]]
 --db:exec( drop )
 --local drop1 = [[drop table eeScore]]
@@ -149,8 +149,8 @@ db:exec( tablesetup8 )
 --db:exec( drop1 )
 --unlockMap("ee1")
 
---storyboard.gotoScene( "menu")
-storyboard.gotoScene( "splash","fade",500)
+storyboard.gotoScene( "menu")
+--storyboard.gotoScene( "splash","fade",500)
 
 --[[for row in db:nrows("SELECT * FROM timeTrialsScore ORDER BY id DESC;") do
   local text = row.id.." "..row.correct.." "..row.time.." "..row.correctHa.." "..row.chosenHa.." "..row.round

@@ -25,7 +25,11 @@ local centerY = display.contentCenterY
 
 local function goNext()
 	storyboard.removeAll()
-	storyboard.gotoScene( "ddselection")
+	if storyboard.getPrevious() == "fraction" or storyboard.getPrevious() == "fraction" then
+		storyboard.gotoScene("ddmoonselection")
+	else
+		storyboard.gotoScene( "ddselection")
+	end
 end
 
 
@@ -75,6 +79,43 @@ function scene:createScene( event )
 
 
 	end
+
+	if correctCount>6 and storyboard.getPrevious() == "divisiondash2"then
+
+		local mapcheck = false
+		for row in db:nrows("SELECT * FROM mapUnlocks;") do
+			if row.location == "fraction" then
+				mapcheck = true
+				break
+			end
+		end
+		if mapcheck == false then
+			unlockText = display.newText("Moon unlocked!",centerX,centerY+100*yscale,"Comic Relief",24)
+			unlockText:setFillColor(0)
+			screenGroup:insert(unlockText)
+		end
+		unlockMap("ddmoon")
+		
+	end
+
+	if correctCount>6 and storyboard.getPrevious() == "fraction"then
+
+		local mapcheck = false
+		for row in db:nrows("SELECT * FROM mapUnlocks;") do
+			if row.location == "fraction1" then
+				mapcheck = true
+				break
+			end
+		end
+		if mapcheck == false then
+			unlockText = display.newText("New area unlocked!",centerX,centerY+100*yscale,"Comic Relief",24)
+			unlockText:setFillColor(0)
+			screenGroup:insert(unlockText)
+		end
+		unlockMap("fraction1")
+		
+	end
+	
 	
 	local reward = display.newText("You answered "..correctCount.." out of "..attemptCount.." questions correctly!", centerX,centerY,300*xscale,200*yscale,"Comic Relief", 30)
 	reward:setFillColor(0)

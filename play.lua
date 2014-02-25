@@ -52,6 +52,12 @@ local function goTodd() --play exponential energy
 	storyboard.gotoScene( "ddselection" )
 end
 
+local function goToddmoon() --play exponential energy
+	storyboard.purgeAll()
+	cancelMeteorTimers()
+	storyboard.gotoScene( "ddmoonselection" )
+end
+
 local function goHome() --go back to the menu
 	storyboard.gotoScene("menu")
 end
@@ -101,6 +107,12 @@ function scene:createScene( event )
 	dd.anchorX = 0
 	screenGroup:insert(dd)
 
+	ddmoon = display.newImage("images/mmmoon.png", centerX+120*xscale,centerY-100*yscale)
+	ddmoon:scale(0.06*xscale,0.06*yscale)
+	ddmoon:addEventListener("tap", goToddmoon)
+	ddmoon.anchorX = 0
+	screenGroup:insert(ddmoon)
+
 	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
 	home:scale(0.3*xscale,0.3*yscale)
 	home:addEventListener("tap", goHome)
@@ -138,6 +150,7 @@ function playLockLocations(n)
 	local lock3check = false
 	local lock4check = false
 	local lock5check = false
+	local lock6check = false
 	for row in db:nrows("SELECT * FROM mapUnlocks;") do
 		if row.location == "mmplanet" then
 			lock1check = true
@@ -153,6 +166,9 @@ function playLockLocations(n)
 		end
 		if row.location == "ddplanet" then
 			lock5check = true
+		end
+		if row.location == "ddmoon" then
+			lock6check = true
 		end
 	end
 	if lock1check==false then 
@@ -185,6 +201,12 @@ function playLockLocations(n)
 		lock2:scale(0.08*xscale,0.08*yscale)
 		screenGroup:insert(lock2)
 		dd:removeEventListener("tap",goTodd)
+	end
+	if lock6check==false then 
+		lock2 = display.newImage("images/lock.png",ddmoon.x+30*xscale,ddmoon.y-15*yscale)
+		lock2:scale(0.08*xscale,0.08*yscale)
+		screenGroup:insert(lock2)
+		ddmoon:removeEventListener("tap",goToddmoon)
 	end
 end
 

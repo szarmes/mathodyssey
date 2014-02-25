@@ -8,7 +8,6 @@ local storyboard = require( "storyboard" )
 local scene = storyboard.newScene()
 require "dbFile"
 
-
 local buttonXOffset = 100
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
@@ -18,22 +17,22 @@ local centerY = display.contentCenterY
 first = true
 questionCount = 0
 local round = -1
-local dd2instructions = "Your division skills will now be put to the test."
-local dd2instructions1 = "In this mode, the number on top represents the number of asteroids in the field."
-local dd2instructions2 = "The number on the bottom represents how many groups the field needs to be split into."
-local dd2instructions3 = "Find the answer by figuring out how many asteroids will go into each group to make them have equal amounts."
-local dd2instructions4 
+local fractioninstructions = "Now that you know about division you will learn about fractions, a term to describe a portion of a whole number."
+local fractioninstructions1 = "In a division equation we call the top number the numerator, and the bottom number the denominator."
+local fractioninstructions2 = "Fractions are just division equations which have a numerator that is smaller than the denominator."
+local fractioninstructions3 = "You will be given division equations, and will be asked to pick out which is a fraction."
+local fractioninstructions4 
 local groups
 local asteroidnum
 local asteroids
 local endGroup
 
-local function dd2goHome()
+local function fractiongoHome()
 	first = true
 	round = -1
 	mmcorrectCount = 0
-	storyboard.purgeScene("divisiondash2")
-	storyboard.gotoScene( "ddselection" )
+	storyboard.purgeScene("fraction")
+	storyboard.gotoScene( "ddmoonselection" )
 end
 
 
@@ -41,7 +40,7 @@ end
 function scene:createScene( event )
 	local screenGroup = self.view
 	endGroup = screenGroup
-	bg = display.newImage("images/ddbg.png", centerX,centerY+(30*yscale))
+	bg = display.newImage("images/mmmoonbg.png", centerX,centerY+(30*yscale))
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 	
@@ -56,28 +55,28 @@ function scene:createScene( event )
 		dog:scale(0.2*xscale, 0.2*yscale)
 		dog:rotate(30)
 		screenGroup:insert(dog)
-		--dd2ShowMultiple(screenGroup)
+		--fractionShowMultiple(screenGroup)
 
-		myText = display.newText(dd2instructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+		myText = display.newText(fractioninstructions, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 		myText:setFillColor(0)
 		screenGroup:insert(myText)
-		dd2ShowNumbers(screenGroup)
+		fractionShowNumbers(screenGroup)
 	end
-	dd2newQuestion(screenGroup)
+	fractionnewQuestion(screenGroup)
 
 	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
 	home:scale(0.3*xscale,0.3*yscale)
-	home:addEventListener("tap", dd2goHome)
+	home:addEventListener("tap", fractiongoHome)
 	screenGroup:insert(home)
 	if first==false then
 		hintbutton = display.newImage(companionText,display.contentWidth-20*xscale,90*yscale)
 		hintbutton:scale(-0.14*xscale,0.14*yscale)
 
-		local function dd2hint()
-			hintbutton:removeEventListener("tap",dd2hint)
-			provideHint(screenGroup,dd2instructions3)
+		local function fractionhint()
+			hintbutton:removeEventListener("tap",fractionhint)
+			provideHint(screenGroup,fractioninstructions2)
 		end
-		hintbutton:addEventListener("tap",dd2hint)
+		hintbutton:addEventListener("tap",fractionhint)
 		screenGroup:insert(hintbutton)
 	end
 
@@ -108,62 +107,56 @@ end
 function scene:destroyScene( event )	
 end
 
-function dd2newQuestion(n) -- this will make a new question
+function fractionnewQuestion(n) -- this will make a new question
 	local screenGroup = n
 	if (first) then
-		local myfunction = function() dd2makeFirstDisappear(screenGroup) end
+		local myfunction = function() fractionmakeFirstDisappear(screenGroup) end
 		continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 		continue:scale(0.3*xscale,0.3*yscale)
 		continue:addEventListener("tap", myfunction)
 		screenGroup:insert(continue)
 	else 
-		dd2Game(n)
+		fractionGame(n)
 	end
 end
 
-function dd2ShowNumbers(n)
+function fractionShowNumbers(n)
 	local screenGroup = n
-	asteroidnum = math.random(3,10)*2
-	groupnum = math.random(2,6)
-	while asteroidnum%groupnum~=0 do
-		groupnum = math.random(2,4)
+	asteroidnum = math.random(1,10)
+	groupnum = math.random(1,20)
+	while groupnum<=asteroidnum do
+		groupnum = math.random(1,20)
 	end
-	numeratorText = display.newText(asteroidnum,centerX-20*xscale,centerY-60*yscale,"Comic Relief",24)
+	numeratorText = display.newText("numerator",centerX-20*xscale,centerY-60*yscale,"Comic Relief",24)
 	numeratorText:setFillColor(0)
 	screenGroup:insert(numeratorText)
 
-	line = display.newLine(centerX-45*xscale,centerY-38*yscale,centerX+10*xscale,centerY-38*yscale)
+	line = display.newLine(centerX-85*xscale,centerY-38*yscale,centerX+40*xscale,centerY-38*yscale)
 	line:setStrokeColor(0)
 	line.strokeWidth =3
 	screenGroup:insert(line)
 
-	denominatorText = display.newText(groupnum,centerX-20*xscale,centerY-30,"Comic Relief",24)
+	denominatorText = display.newText("denominator",centerX-20*xscale,centerY-30,"Comic Relief",24)
 	denominatorText:setFillColor(0)
 	screenGroup:insert(denominatorText)
 
-	equalsText = display.newText("=",centerX+30*xscale,centerY-45*yscale,"Comic Relief",24)
-	equalsText:setFillColor(0)
-	screenGroup:insert(equalsText)
 
-	solutionText = display.newText("?",centerX+60*xscale,centerY-45*yscale,"Comic Relief",24)
-	solutionText:setFillColor(0)
-	screenGroup:insert(solutionText)
 	if first == false then
 		startTime = system.getTimer()
 	end
 end
 
 
-function dd2makeFirstDisappear(n)
+function fractionmakeFirstDisappear(n)
 	local screenGroup = n
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText(dd2instructions1, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+	myText = display.newText(fractioninstructions1, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
-	local myfunction = function() dd2makeSecondDisappear(screenGroup) end
+	local myfunction = function() fractionmakeSecondDisappear(screenGroup) end
 	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 	continue:scale(0.3*xscale,0.3*yscale)
 
@@ -171,16 +164,16 @@ function dd2makeFirstDisappear(n)
 	screenGroup:insert(continue)
 end
 
-function dd2makeSecondDisappear(n)
+function fractionmakeSecondDisappear(n)
 	local screenGroup = n
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText(dd2instructions2, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
+	myText = display.newText(fractioninstructions2, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
-	local myfunction = function() dd2makeThirdDisappear(screenGroup) end
+	local myfunction = function() fractionmakeThirdDisappear(screenGroup) end
 	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 	continue:scale(0.3*xscale,0.3*yscale)
 
@@ -188,16 +181,16 @@ function dd2makeSecondDisappear(n)
 	screenGroup:insert(continue)
 end
 
-function dd2makeThirdDisappear(n)
+function fractionmakeThirdDisappear(n)
 	local screenGroup = n
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
 
-	myText = display.newText(dd2instructions3, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
+	myText = display.newText(fractioninstructions3, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
-	local myfunction = function() dd2makeFourthDisappear(screenGroup) end
+	local myfunction = function() fractionmakeFourthDisappear(screenGroup) end
 	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 	continue:scale(0.3*xscale,0.3*yscale)
 
@@ -206,13 +199,13 @@ function dd2makeThirdDisappear(n)
 
 end
 
-function dd2makeFourthDisappear(n)
+function fractionmakeFourthDisappear(n)
 	local screenGroup = n
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
-	dd2instructions4 = "In this example you would divide the field of "..asteroidnum.." asteroids into "..groupnum.." equal groups of "..(asteroidnum/groupnum).."."
-	dd2instructions4 = dd2instructions4.." Good luck out there."
-	myText = display.newText(dd2instructions4, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+	fractioninstructions4 = "This division equation creates a fraction, since "..asteroidnum.." (the numerator) is smaller than "..groupnum.." (the denominator)."
+	fractioninstructions4 = fractioninstructions4.." Good luck out there."
+	myText = display.newText(fractioninstructions4, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 
@@ -221,42 +214,50 @@ function dd2makeFourthDisappear(n)
 	first = false
 	go = display.newImage("images/go.png", centerX+200*xscale, centerY+120*yscale)
 	go:scale(0.5*xscale,0.5*yscale)
-	go:addEventListener("tap", dd2newSceneListener)
+	go:addEventListener("tap", fractionnewSceneListener)
 	screenGroup:insert(go)
 
-	dd2ShowAnswer(screenGroup)
+	fractionShowAnswer(screenGroup)
 end
 
-function dd2ShowAnswer(n)
+function fractionShowAnswer(n)
 	local screenGroup = n
-	screenGroup:remove(solutionText)
-	solutionText = display.newText(asteroidnum/groupnum,centerX+60*xscale,centerY-45*yscale,"Comic Relief",24)
-	solutionText:setFillColor(0)
-	screenGroup:insert(solutionText)
+	topText = display.newText(asteroidnum,centerX+90*xscale,centerY-60*yscale,"Comic Relief",24)
+	topText:setFillColor(0)
+	screenGroup:insert(topText)
+
+	line1 = display.newLine(centerX+65*xscale,centerY-38*yscale,centerX+120*xscale,centerY-38*yscale)
+	line1:setStrokeColor(0)
+	line1.strokeWidth =3
+	screenGroup:insert(line1)
+
+	bottomText = display.newText(groupnum,centerX+90*xscale,centerY-30,"Comic Relief",24)
+	bottomText:setFillColor(0)
+	screenGroup:insert(bottomText)
 
 
 end
 
-function dd2newSceneListener()
-	storyboard.purgeScene("divisiondash2")
+function fractionnewSceneListener()
+	storyboard.purgeScene("fraction")
 	storyboard.reloadScene()
 end
 
 
 
 
-function dd2Game(n)
+function fractionGame(n)
 	local screenGroup = n
-	dd2ShowNumbers(screenGroup)
-	dd2showChoices(screenGroup)
+	fractionShowNumbers(screenGroup)
+	fractionshowChoices(screenGroup)
 
 end
 
 
-function dd2showChoices(n)
+function fractionshowChoices(n)
 	local screenGroup = n
 	startTime = system.getTimer()
-	questionText = display.newText("If you divide "..asteroidnum.. " asteroids into "..groupnum.." groups, how many asteroids are in each group?", centerX, centerY+120*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+	questionText = display.newText("Which is the fraction?", centerX, centerY+120*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
 
@@ -270,73 +271,122 @@ function dd2showChoices(n)
 		table.remove(a, r)
 		count=count-1
 	end
-	dd2generateAnswerText()
+	fractiongenerateAnswerText()
 	
-	answer = display.newText(answerText,b[1],centerY+100*yscale, "Comic Relief",24)
+	answer = display.newText(asteroidnum,b[1],centerY+80*yscale, "Comic Relief",24)
 	answer:setFillColor(0)
-	function dd2listener()
-		dd2correctResponseListener(screenGroup)
+	function fractionlistener()
+		fractioncorrectResponseListener(screenGroup)
 	end
-	answer:addEventListener("tap", dd2listener)
+	answer:addEventListener("tap", fractionlistener)
 	screenGroup:insert(answer)
+	
+	answerline = display.newLine(b[1]-20*xscale,centerY+100*yscale,b[1]+20*xscale,centerY+100*yscale)
+	answerline:setStrokeColor(0)
+	answerline.strokeWidth =3
+	answerline:addEventListener("tap", fractionlistener)
+	screenGroup:insert(answerline)
 
-	answer1 = display.newText(answer1Text,b[2],centerY+100*yscale, "Comic Relief", 24)
+	answerdenom = display.newText(groupnum,b[1],centerY+115*yscale, "Comic Relief",24)
+	answerdenom:setFillColor(0)
+	answerdenom:addEventListener("tap", fractionlistener)
+	screenGroup:insert(answerdenom)
+
+	answer1 = display.newText(asteroidnum1,b[2],centerY+80*yscale, "Comic Relief", 24)
 	answer1:setFillColor(0,0,0)
 	local function listener1()
-		dd2incorrectResponseListener1(screenGroup)
+		fractionincorrectResponseListener1(screenGroup)
 	end
 	answer1:addEventListener("tap", listener1)
 	screenGroup:insert(answer1)
 
-	answer2 = display.newText(answer2Text,b[3],centerY+100*yscale, "Comic Relief", 24)
+	answer1line = display.newLine(b[2]-20*xscale,centerY+100*yscale,b[2]+20*xscale,centerY+100*yscale)
+	answer1line:setStrokeColor(0)
+	answer1line.strokeWidth =3
+	answer1line:addEventListener("tap", listener1)
+	screenGroup:insert(answer1line)
+
+	answer1denom = display.newText(groupnum1,b[2],centerY+115*yscale, "Comic Relief",24)
+	answer1denom:setFillColor(0)
+	answer1denom:addEventListener("tap", listener1)
+	screenGroup:insert(answer1denom)
+
+	answer2 = display.newText(asteroidnum2,b[3],centerY+80*yscale, "Comic Relief", 24)
 	answer2:setFillColor(0,0,0)
 	local function listener2()
-		dd2incorrectResponseListener2(screenGroup)
+		fractionincorrectResponseListener2(screenGroup)
 	end
 	answer2:addEventListener("tap", listener2)
 	screenGroup:insert(answer2)
 
-	answer3 = display.newText(answer3Text,b[4],centerY+100*yscale, "Comic Relief", 24)
+	answer2line = display.newLine(b[3]-20*xscale,centerY+100*yscale,b[3]+20*xscale,centerY+100*yscale)
+	answer2line:setStrokeColor(0)
+	answer2line.strokeWidth =3
+	answer2line:addEventListener("tap", listener2)
+	screenGroup:insert(answer2line)
+
+	answer2denom = display.newText(groupnum2,b[3],centerY+115*yscale, "Comic Relief",24)
+	answer2denom:setFillColor(0)
+	answer2denom:addEventListener("tap", listener2)
+	screenGroup:insert(answer2denom)
+
+	answer3 = display.newText(asteroidnum3,b[4],centerY+80*yscale, "Comic Relief", 24)
 	answer3:setFillColor(0,0,0)
 	local function listener3()
-		dd2incorrectResponseListener3(screenGroup)
+		fractionincorrectResponseListener3(screenGroup)
 	end
 	answer3:addEventListener("tap", listener3)
 	screenGroup:insert(answer3)
 
+	answer3line = display.newLine(b[4]-20*xscale,centerY+100*yscale,b[4]+20*xscale,centerY+100*yscale)
+	answer3line:setStrokeColor(0)
+	answer3line.strokeWidth =3
+	answer3line:addEventListener("tap", listener3)
+	screenGroup:insert(answer3line)
+
+	answer3denom = display.newText(groupnum3,b[4],centerY+115*yscale, "Comic Relief",24)
+	answer3denom:setFillColor(0)
+	answer3denom:addEventListener("tap", listener3)
+	screenGroup:insert(answer3denom)
+
+
 end
 
-function dd2generateAnswerText()
-	answerText = asteroidnum/groupnum
-	answer1Text = math.random(1,10)
-	while answer1Text == answerText do
-		answer1Text = math.random(1,10)
+function fractiongenerateAnswerText()
+	
+	asteroidnum1 = math.random(1,10)
+	groupnum1 = math.random(1,20)
+	while groupnum1>asteroidnum1 do
+		groupnum1 = math.random(1,20)
 	end
-	answer2Text = math.random(1,10)
-	while answer2Text == answerText or answer2Text == answer1Text do
-		answer2Text = math.random(1,10)
+
+	asteroidnum2 = math.random(1,10)
+	groupnum2 = math.random(1,20)
+	while groupnum2>asteroidnum2 do
+		groupnum2 = math.random(1,20)
 	end
-	answer3Text = math.random(1,10)
-	while answer3Text == answerText or answer3Text == answer1Text or answer3Text == answer2Text do
-		answer3Text = math.random(1,10)
+	asteroidnum3 = math.random(1,10)
+	groupnum3 = math.random(1,20)
+	while groupnum3>asteroidnum3 do
+		groupnum3 = math.random(1,20)
 	end
 end
 
 
-function dd2correctResponseListener(n)
+function fractioncorrectResponseListener(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	storeDD(1,totalTime,asteroidnum,groupnum,answerText,round,3)
+	storeDD(1,totalTime,asteroidnum,groupnum,0,round,4)
 	questionCount = questionCount + 1
 
-	dd2removeAnswers(screenGroup)
+	fractionremoveAnswers(screenGroup)
 	local reward = display.newText("Good Job!", centerX+70*xscale,centerY+50,300,0,"Comic Relief", 30)
 	reward:setFillColor(0)
 	screenGroup:insert(reward)
 
-	dd2ShowAnswer(screenGroup)
+	fractionShowAnswer(screenGroup)
 
-	local myFunction = function() dd2newSceneListener() end
+	local myFunction = function() fractionnewSceneListener() end
 	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 	continue:scale(0.3*xscale,0.3*yscale)
 
@@ -347,61 +397,69 @@ function dd2correctResponseListener(n)
 end
 
 
-function dd2incorrectResponseListener1(n)
+function fractionincorrectResponseListener1(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	questionCount = questionCount + 1
-	storeDD(0,totalTime,asteroidnum,groupnum,answer1Text,round,3)
-	dd2wrongAnswer(screenGroup)
+	storeDD(0,totalTime,asteroidnum1,groupnum1,0,round,4)
+	fractionwrongAnswer(screenGroup)
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end
 
-function dd2incorrectResponseListener2(n)
+function fractionincorrectResponseListener2(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	questionCount = questionCount + 1
-	storeDD(0,totalTime,asteroidnum,groupnum,answer2Text,round,3)
-	dd2wrongAnswer(screenGroup)
+	storeDD(0,totalTime,asteroidnum2,groupnum2,0,round,4)
+	fractionwrongAnswer(screenGroup)
 
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end
 
-function dd2incorrectResponseListener3(n)
+function fractionincorrectResponseListener3(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	questionCount = questionCount + 1
-	storeDD(0,totalTime,asteroidnum,groupnum,answer3Text,round,3)
-	dd2wrongAnswer(screenGroup)
+	storeDD(0,totalTime,asteroidnum3,groupnum3,0,round,4)
+	fractionwrongAnswer(screenGroup)
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end
 
 
-function dd2removeAnswers(n)
+function fractionremoveAnswers(n)
 	local screenGroup = n
 	--screenGroup:remove(answer)
 	
 	screenGroup:remove(answer1)
+	screenGroup:remove(answer1line)
+	screenGroup:remove(answer1denom)
 	screenGroup:remove(answer2)
+	screenGroup:remove(answer2line)
+	screenGroup:remove(answer2denom)
 	screenGroup:remove(answer3)
+	screenGroup:remove(answer3line)
+	screenGroup:remove(answer3denom)
 	screenGroup:remove(questionText)
-	answer:removeEventListener("tap",dd2listener)
+	answer:removeEventListener("tap",fractionlistener)
+	answerline:removeEventListener("tap",fractionlistener)
+	answerdenom:removeEventListener("tap",fractionlistener)
 	
 
 end
 
-function dd2wrongAnswer(n)
+function fractionwrongAnswer(n)
 	local screenGroup = n
-	dd2removeAnswers(screenGroup)
+	fractionremoveAnswers(screenGroup)
 	questionText =display.newText( "Oops, the correct answer was", centerX, centerY+140*yscale,450*xscale,200*yscale, "Comic Relief", 18 )
 	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
 
-	dd2ShowAnswer(screenGroup)
+	fractionShowAnswer(screenGroup)
 
-	local myFunction = function() dd2newSceneListener() end
+	local myFunction = function() fractionnewSceneListener() end
 	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 	continue:scale(0.3*xscale,0.3*yscale)
 
@@ -410,7 +468,7 @@ function dd2wrongAnswer(n)
 end
 
 
-function enddd2Game(n)
+function endfractionGame(n)
 	local screenGroup = endGroup
 	screenGroup:remove(myText)
 	myText = display.newText("Congratulations! You successfully divided "..asteroidnum.." by".. groupnum..", to form "..groupnum.." groups of "..(asteroidnum/2)..".", centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
@@ -422,7 +480,7 @@ function enddd2Game(n)
 	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 	continue:scale(0.3*xscale,0.3*yscale)
 
-	continue:addEventListener("tap", dd2goHome)
+	continue:addEventListener("tap", fractiongoHome)
 	screenGroup:insert(continue)
 
 end

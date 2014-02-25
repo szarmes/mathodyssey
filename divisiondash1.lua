@@ -429,7 +429,7 @@ function dd1incorrectResponseListener2(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	questionCount = questionCount + 1
-	storeDD(2,totalTime,asteroidnum,groupnum,answer2Text,round,2)
+	storeDD(0,totalTime,asteroidnum,groupnum,answer2Text,round,2)
 	dd1wrongAnswer(screenGroup)
 
 	--storyboard.purgeScene("exponentialenergy")
@@ -440,7 +440,7 @@ function dd1incorrectResponseListener3(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	questionCount = questionCount + 1
-	storeDD(2,totalTime,asteroidnum,groupnum,answer3Text,round,2)
+	storeDD(0,totalTime,asteroidnum,groupnum,answer3Text,round,2)
 	dd1wrongAnswer(screenGroup)
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
