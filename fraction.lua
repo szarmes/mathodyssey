@@ -17,10 +17,10 @@ local centerY = display.contentCenterY
 first = true
 questionCount = 0
 local round = -1
-local fractioninstructions = "Now that you know about division you will learn about fractions, a term to describe a portion of a whole number."
-local fractioninstructions1 = "In a division equation we call the top number the numerator, and the bottom number the denominator."
-local fractioninstructions2 = "Fractions are just division equations which have a numerator that is smaller than the denominator."
-local fractioninstructions3 = "You will be given division equations, and will be asked to pick out which is a fraction."
+local fractioninstructions = "Now that you know about division you will learn about fractions, another term that describes a division equation."
+local fractioninstructions1 = "In both fractions and division equations we call the top number the numerator, and the bottom number the denominator."
+local fractioninstructions2 = "The fractions we will be working with will have a value that is less than 1, meaning the numerator is smaller than the denominator."
+local fractioninstructions3 = "You'll be given a set of fractions, and will be asked to pick out which holds a value less than 1."
 local fractioninstructions4 
 local groups
 local asteroidnum
@@ -203,7 +203,7 @@ function fractionmakeFourthDisappear(n)
 	local screenGroup = n
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
-	fractioninstructions4 = "This division equation creates a fraction, since "..asteroidnum.." (the numerator) is smaller than "..groupnum.." (the denominator)."
+	fractioninstructions4 = "This fraction's value is less than 1, since "..asteroidnum.." (the numerator) is smaller than "..groupnum.." (the denominator)."
 	fractioninstructions4 = fractioninstructions4.." Good luck out there."
 	myText = display.newText(fractioninstructions4, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	myText:setFillColor(0)
@@ -257,7 +257,7 @@ end
 function fractionshowChoices(n)
 	local screenGroup = n
 	startTime = system.getTimer()
-	questionText = display.newText("Which is the fraction?", centerX, centerY+120*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
+	questionText = display.newText("Which fraction is less than 1?", centerX, centerY+120*yscale,400*xscale,200*yscale, "Comic Relief", 18 )
 	questionText:setFillColor(0)
 	screenGroup:insert(questionText)
 
