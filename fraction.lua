@@ -475,7 +475,7 @@ function endfractionGame(n)
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	storeDD(1,totalTime,asteroidnum,2,asteroidnum,round,1)
+	storeDD(1,totalTime,asteroidnum,groupnum,asteroidnum,round,4)
 
 	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
 	continue:scale(0.3*xscale,0.3*yscale)
