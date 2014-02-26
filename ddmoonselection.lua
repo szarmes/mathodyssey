@@ -24,7 +24,7 @@ end
 
 local function goToddmoon1() --play timetrials
 	storyboard.purgeAll()
-	storyboard.gotoScene("fraction")
+	storyboard.gotoScene("fraction1")
 end
 
 

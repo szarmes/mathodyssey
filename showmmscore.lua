@@ -61,7 +61,7 @@ function scene:createScene( event )
 		bg:scale(0.8*xscale,0.7*yscale)
 		screenGroup:insert(bg)
 	else
-		bg = display.newImage("images/mmmoonbg.png", centerX,centerY+30*yscale)
+		bg = display.newImage("images/lavabg.png", centerX,centerY+30*yscale)
 		bg:scale(0.8*xscale,0.7*yscale)
 		screenGroup:insert(bg)
 	end

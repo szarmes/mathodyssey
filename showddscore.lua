@@ -25,7 +25,7 @@ local centerY = display.contentCenterY
 
 local function goNext()
 	storyboard.removeAll()
-	if storyboard.getPrevious() == "fraction" or storyboard.getPrevious() == "fraction" then
+	if storyboard.getPrevious() == "fraction" or storyboard.getPrevious() == "fraction1" or storyboard.getPrevious() == "fraction2" then
 		storyboard.gotoScene("ddmoonselection")
 	else
 		storyboard.gotoScene( "ddselection")
@@ -55,10 +55,15 @@ function scene:createScene( event )
 	end
 
 	
-
-	bg = display.newImage("images/ddbg.png", centerX,centerY+30*yscale)
-	bg:scale(0.8*xscale,0.7*yscale)
-	screenGroup:insert(bg)
+	if storyboard.getPrevious() == "fraction" or storyboard.getPrevious() == "fraction1" or storyboard.getPrevious() == "fraction2" then
+		bg = display.newImage("images/mmmoonbg.png", centerX,centerY+30*yscale)
+		bg:scale(0.8*xscale,0.7*yscale)
+		screenGroup:insert(bg)
+	else
+		bg = display.newImage("images/ddbg.png", centerX,centerY+30*yscale)
+		bg:scale(0.8*xscale,0.7*yscale)
+		screenGroup:insert(bg)
+	end
 
 	if correctCount>6 and storyboard.getPrevious() == "divisiondash1"then
 
@@ -113,6 +118,24 @@ function scene:createScene( event )
 			screenGroup:insert(unlockText)
 		end
 		unlockMap("fraction1")
+		
+	end
+
+	if correctCount>6 and storyboard.getPrevious() == "fraction1"then
+
+		local mapcheck = false
+		for row in db:nrows("SELECT * FROM mapUnlocks;") do
+			if row.location == "fraction2" then
+				mapcheck = true
+				break
+			end
+		end
+		if mapcheck == false then
+			unlockText = display.newText("New area unlocked!",centerX,centerY+100*yscale,"Comic Relief",24)
+			unlockText:setFillColor(0)
+			screenGroup:insert(unlockText)
+		end
+		unlockMap("fraction2")
 		
 	end
 	
