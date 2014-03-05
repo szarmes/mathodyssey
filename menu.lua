@@ -43,11 +43,13 @@ end
 
 function goToCredits()
 	cancelMeteorTimers()
+	storyboard.purgeScene("menu")
 	storyboard.gotoScene("credit")
 end
 
 function goToSettings()
 	cancelMeteorTimers()
+	storyboard.purgeScene("menu")
 	storyboard.gotoScene("settings")
 end
 

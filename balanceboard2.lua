@@ -405,7 +405,7 @@ end
 function bb2correctResponseListener(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	storeBB(1,totalTime,operator,operator,lval,rval,round,2)
+	storeBB(1,totalTime,operator,operator,lval,rval,round,3)
 	questionCount = questionCount + 1
 
 	bb2removeAnswers(screenGroup)
@@ -428,7 +428,7 @@ function bb2incorrectResponseListener1(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	questionCount = questionCount + 1
-	storeBB(0,totalTime,operator,answer1Text,lval,rval,round,2)
+	storeBB(0,totalTime,operator,answer1Text,lval,rval,round,3)
 	bb2wrongAnswer(screenGroup)
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
@@ -438,7 +438,7 @@ function bb2incorrectResponseListener2(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	questionCount = questionCount + 1
-	storeBB(0,totalTime,operator,answer2Text,lval,rval,round,2)
+	storeBB(0,totalTime,operator,answer2Text,lval,rval,round,3)
 	bb2wrongAnswer(screenGroup)
 
 	--storyboard.purgeScene("exponentialenergy")

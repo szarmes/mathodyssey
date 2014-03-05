@@ -395,7 +395,7 @@ end
 function fraction1correctResponseListener(n)
 	local screenGroup = n
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	storeDD(1,totalTime,asteroidnum,groupnum,0,round,4)
+	storeDD(1,totalTime,asteroidnum,groupnum,0,round,5)
 	questionCount = questionCount + 1
 
 	fraction1removeAnswers(screenGroup)

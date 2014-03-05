@@ -7,6 +7,11 @@
 local storyboard = require( "storyboard" )
 local scene = storyboard.newScene()
 require "dbFile"
+local parse = require( "mod_parse" )
+
+parse:init( { appId = "ni9gpjglpS7C6uCwOuTAnVV0nySg4g7hxHLnRFlq", 
+	apiKey = "rn3sImdi93KlhtBXsQbNXC7mBV41OvveyljmXFmI" } )
+
 
 
 local buttonXOffset = 100
@@ -295,6 +300,17 @@ function submit(n)
 	if leftnum + rightnum == answernum then
 		unlockMap("practiceadd")
 		storeQuestion(1,totalTime,leftnum,rightnum,answernum,"+")
+
+		local function onCreateUser( event )
+		  print( event.response.createdAt )
+		  print( event.response.sessionToken )
+		end
+		 
+		--create Parse User
+		local dataTable = { ["timespent"] = totalTime, ["leftnum"] = leftnum, ["rightnum"] = rightnum,["answernum"] = answernum, ["operator"] = "+" }
+		parse:createObject( "Question", dataTable, onCreateObject )
+
+
 		bubble = display.newImage("images/bubble.png", centerX-225*xscale,centerY)
 		bubble:scale(0.15*xscale,0.3*yscale)
 		screenGroup:insert(bubble)
