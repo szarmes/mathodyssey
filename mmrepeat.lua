@@ -148,7 +148,7 @@ function mmrepeatmakeSecondDisappear(n)
 	local screenGroup = n
 	screenGroup:remove(myText)
 	screenGroup:remove(continue)
-	screenGroup:remove(valueText)
+	
 	myText = display.newText( repeatinstructions2, centerX, centerY+140*yscale,400*xscale,200*yscale, "Comic Relief", 16 )
 	myText:setFillColor(0)
 	screenGroup:insert(myText)
@@ -288,7 +288,7 @@ end
 
 function mmrepeatcorrectResponseListener(n)
 	local screenGroup = n
-	screenGroup:remove(valueText)
+	
 	local totalTime = math.floor((system.getTimer()-startTime)/1000)
 	storeRepeat(1,totalTime,answerText,answerText,round,2)
 	questionCount = questionCount + 1
@@ -348,7 +348,7 @@ end
 function mmrepeatremoveAnswers(n)
 	local screenGroup = n
 	--screenGroup:remove(answer)
-	screenGroup:remove(valueText)
+	
 	screenGroup:remove(answer1)
 	screenGroup:remove(answer2)
 	screenGroup:remove(answer3)
