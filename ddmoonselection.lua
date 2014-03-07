@@ -40,7 +40,7 @@ end
 function scene:createScene( event )
 	local screenGroup = self.view
 
-	bg = display.newImage("images/mmmoonbg.png", centerX,centerY+30*yscale)
+	bg = display.newImage("images/mmmoonmap.png", centerX,centerY+30*yscale)
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 

@@ -58,7 +58,7 @@ function scene:createScene( event )
 	tt2.anchorX = 0
 	screenGroup:insert(tt2)
 	
-	tt3 = display.newImage("images/incomplete.png", 450*xscale,centerY-10*yscale)
+	tt3 = display.newImage("images/incomplete.png", 350*xscale,centerY-10*yscale)
 	tt3:scale(0.5*xscale,0.5*yscale)
 	tt3:addEventListener("tap", goTott3)
 	tt3.anchorX = 0

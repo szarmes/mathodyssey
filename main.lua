@@ -59,11 +59,15 @@ function toScale()
 	end
 	if string.sub(system.getInfo("model"),1,5) == "Droid" then
 		xscale = xscale*1.5
-		yscale = yscale*1.5
+		yscale = yscale*1.3
 	end
 	if string.sub(system.getInfo("model"),1,9) == "Nexus One" then
 		xscale = xscale*1.5
-		yscale = yscale*1.5
+		yscale = yscale*1.3
+	end
+	if string.sub(system.getInfo("model"),0,2) == "GT" then
+		xscale = xscale*0.8
+		yscale = yscale*0.8
 	end
 end
 toScale()
@@ -149,8 +153,8 @@ db:exec( tablesetup9 )
 --db:exec( drop1 )
 --unlockMap("ee1")
 
---storyboard.gotoScene( "fraction1")
-storyboard.gotoScene( "splash","fade",500)
+storyboard.gotoScene( "menu")
+--storyboard.gotoScene( "splash","fade",500)
 
 --[[for row in db:nrows("SELECT * FROM timeTrialsScore ORDER BY id DESC;") do
   local text = row.id.." "..row.correct.." "..row.time.." "..row.correctHa.." "..row.chosenHa.." "..row.round

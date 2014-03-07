@@ -44,7 +44,7 @@ function scene:createScene( event )
 	local screenGroup = self.view
 
 	bg = display.newImage("images/bbbg.png", centerX,centerY+30*yscale)
-	bg:scale(0.6*xscale,0.6*yscale)
+	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 
 	bb = display.newImage("images/incomplete.png", centerX-200*xscale,centerY-120*yscale)

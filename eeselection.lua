@@ -42,23 +42,23 @@ end
 function scene:createScene( event )
 	local screenGroup = self.view
 
-	bg = display.newImage("images/eemap.png", centerX,centerY+30*yscale)
-	bg:scale(0.6*xscale,0.6*yscale)
+	bg = display.newImage("images/eemap.png", centerX,centerY)
+	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 
-	ee = display.newImage("images/incomplete.png", centerX-190*xscale,centerY+80*yscale)
+	ee = display.newImage("images/incomplete.png", centerX-210*xscale,centerY+80*yscale)
 	ee:scale(0.5*xscale,0.5*yscale)
 	ee:addEventListener("tap", goToee)
 	ee.anchorX = 0
 	screenGroup:insert(ee)
 
-	ee1 = display.newImage("images/incomplete.png", centerX,centerY-40*yscale)
+	ee1 = display.newImage("images/incomplete.png", centerX-20*xscale,centerY-130*yscale)
 	ee1:scale(0.5*xscale,0.5*yscale)
 	ee1:addEventListener("tap", goToee1)
 	ee1.anchorX = 0
 	screenGroup:insert(ee1)
 
-	ee2 = display.newImage("images/incomplete.png", centerX+130*xscale,centerY+90*yscale)
+	ee2 = display.newImage("images/incomplete.png", centerX+120*xscale,centerY+120*yscale)
 	ee2:scale(0.5*xscale,0.5*yscale)
 	ee2:addEventListener("tap", goToee2)
 	ee2.anchorX = 0

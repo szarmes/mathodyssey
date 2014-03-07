@@ -40,23 +40,23 @@ end
 function scene:createScene( event )
 	local screenGroup = self.view
 
-	bg = display.newImage("images/lavabg.png", centerX,centerY+30*yscale)
+	bg = display.newImage("images/lavamap.png", centerX,centerY+30*yscale)
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 
-	mm = display.newImage("images/incomplete.png", centerX-200*xscale,centerY+100*yscale)
+	mm = display.newImage("images/incomplete.png", centerX-200*xscale,centerY-10*yscale)
 	mm:scale(0.5*xscale,0.5*yscale)
 	mm:addEventListener("tap", goTomm)
 	mm.anchorX = 0
 	screenGroup:insert(mm)
 
-	mm1 = display.newImage("images/incomplete.png", 140*xscale,centerY+10*yscale)
+	mm1 = display.newImage("images/incomplete.png", centerX-10*xscale,centerY+90*yscale)
 	mm1:scale(0.5*xscale,0.5*yscale)
 	mm1:addEventListener("tap", goTomm1)
 	mm1.anchorX = 0
 	screenGroup:insert(mm1)
 
-	mm2 = display.newImage("images/incomplete.png", centerX+100*xscale,centerY-60*yscale)
+	mm2 = display.newImage("images/incomplete.png", centerX+110*xscale,centerY-90*yscale)
 	mm2:scale(0.5*xscale,0.5*yscale)
 	mm2:addEventListener("tap", goTomm2)
 	mm2.anchorX = 0
