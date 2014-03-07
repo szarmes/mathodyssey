@@ -41,23 +41,23 @@ end
 function scene:createScene( event )
 	local screenGroup = self.view
 
-	bg = display.newImage("images/ddbg.png", centerX,centerY+30*yscale)
+	bg = display.newImage("images/ddmap.png", centerX,centerY+30*yscale)
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 
-	dd = display.newImage("images/incomplete.png", centerX-210*xscale,centerY-40*yscale)
+	dd = display.newImage("images/incomplete.png", centerX-220*xscale,centerY+80*yscale)
 	dd:scale(0.5*xscale,0.5*yscale)
 	dd:addEventListener("tap", goTodd)
 	dd.anchorX = 0
 	screenGroup:insert(dd)
 
-	dd1 = display.newImage("images/incomplete.png", centerX+10*xscale,centerY+20*yscale)
+	dd1 = display.newImage("images/incomplete.png", centerX-80*xscale,centerY-80*yscale)
 	dd1:scale(0.5*xscale,0.5*yscale)
 	dd1:addEventListener("tap", goTodd1)
 	dd1.anchorX = 0
 	screenGroup:insert(dd1)
 
-	dd2 = display.newImage("images/incomplete.png", centerX+120*xscale,centerY-80*yscale)
+	dd2 = display.newImage("images/incomplete.png", centerX+150*xscale,centerY+60*yscale)
 	dd2:scale(0.5*xscale,0.5*yscale)
 	dd2:addEventListener("tap", goTodd2)
 	dd2.anchorX = 0
