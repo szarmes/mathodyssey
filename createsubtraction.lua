@@ -310,7 +310,9 @@ function submit(n)
 		 
 		--create Parse User
 		local dataTable = { ["timespent"] = totalTime, ["leftnum"] = leftnum, ["rightnum"] = rightnum,["answernum"] = answernum, ["operator"] = "-" }
-		parse:createObject( "Question", dataTable, onCreateObject )
+		if consent==true then
+			parse:createObject( "Question", dataTable, onCreateObject )
+		end
 
 
 		bubble = display.newImage("images/bubble.png", centerX-225*xscale,centerY)

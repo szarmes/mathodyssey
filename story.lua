@@ -29,24 +29,23 @@ function scene:createScene( event )
 	storyboard.reloadScene()
 	local screenGroup = self.view
 	
-	bg = display.newImage("images/mathmuseum.png", centerX*xscale,centerY*yscale)
-	bg:scale(0.5*xscale,0.5*yscale)
+	bg = display.newImage("images/bg.png", centerX*xscale,centerY+30*yscale)
+	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
-	local myFunction = function() 
-		screenGroup:remove(bg)
-		screenGroup:remove(continue)
-		comic2(screenGroup) 
-	end
-	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
-	continue:scale(0.3*xscale,0.3*yscale)
-
-	continue:addEventListener("tap", myFunction)
-	screenGroup:insert(continue)
+	dog = display.newImage(companionText, centerX-200*xscale, centerY+100*yscale)
+	dog:scale(0.2*xscale, 0.2*yscale)
+	hintbubble =  display.newImage("images/bubble.png", centerX-10*xscale,centerY)
+	hintbubble:scale(0.86*xscale,0.5*yscale)
+	screenGroup:insert(hintbubble)
+	screenGroup:insert(dog)
 
 	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
 	home:scale(0.3*xscale,0.3*yscale)
 	home:addEventListener("tap", goHome)
 	screenGroup:insert(home)
+
+
+	tutorial1(screenGroup) 
 	
 end
 

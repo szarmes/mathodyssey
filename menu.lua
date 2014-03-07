@@ -125,6 +125,14 @@ function scene:enterScene( event )
 		buttonSource = "images/goldbutton.png"
 	end
 
+
+	consent = true
+	for row in db:nrows("SELECT * FROM firstTime;") do
+		if row.first == 0 then
+			consent = false
+		end
+	end
+
 	local firstCheck = false
 	for row in db:nrows("SELECT * FROM companionSelect;") do
 		if row.companion == 1 then
