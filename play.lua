@@ -102,7 +102,7 @@ function scene:createScene( event )
 	tt = display.newImage("images/timeplanet.png", 25*xscale,centerY-20*yscale)
 	tt:scale(0.08*xscale,0.08*yscale)
 
-	local function thrusttt()
+	function thrusttt()
 		if inMotion==false then
 			thrust(screenGroup,"tt")
 		end
@@ -113,7 +113,7 @@ function scene:createScene( event )
 
 	ee = display.newImage("images/expplanet.png", 250*xscale,centerY-90*yscale)
 	ee:scale(0.13*xscale,0.13*yscale)
-	local function thrustee()
+	function thrustee()
 		if inMotion==false then
 			thrust(screenGroup,"ee")
 		end
@@ -124,7 +124,7 @@ function scene:createScene( event )
 
 	mm = display.newImage("images/lavaplanet.png", centerX-70*xscale,centerY+10*yscale)
 	mm:scale(0.11*xscale,0.11*yscale)
-	local function thrustmm()
+	function thrustmm()
 		if inMotion==false then
 			thrust(screenGroup,"mm")
 		end
@@ -135,7 +135,7 @@ function scene:createScene( event )
 
 	mmmoon = display.newImage("images/mmmoon.png", centerX-100*xscale,centerY+50*yscale)
 	mmmoon:scale(0.06*xscale,0.06*yscale)
-	local function thrustmmmoon()
+	function thrustmmmoon()
 		if inMotion==false then
 			thrust(screenGroup,"mmmoon")
 		end
@@ -146,7 +146,7 @@ function scene:createScene( event )
 
 	bb = display.newImage("images/bbplanet.png", centerX+130*xscale,centerY+40*yscale)
 	bb:scale(0.1*xscale,0.1*yscale)
-	local function thrustbb()
+	function thrustbb()
 		if inMotion==false then
 			thrust(screenGroup,"bb")
 		end
@@ -158,7 +158,7 @@ function scene:createScene( event )
 
 	dd = display.newImage("images/ddplanet.png", centerX+140*xscale,centerY-60*yscale)
 	dd:scale(0.08*xscale,0.08*yscale)
-	local function thrustdd()
+	function thrustdd()
 		if inMotion==false then
 			thrust(screenGroup,"dd")
 		end
@@ -169,7 +169,7 @@ function scene:createScene( event )
 
 	ddmoon = display.newImage("images/mmmoon.png", centerX+120*xscale,centerY-100*yscale)
 	ddmoon:scale(0.06*xscale,0.06*yscale)
-	local function thrustddmoon()
+	function thrustddmoon()
 		if inMotion==false then
 			thrust(screenGroup,"ddmoon")
 		end
@@ -240,38 +240,38 @@ function playLockLocations(n)
 		lock1 = display.newImage("images/lock.png",mm.x+30*xscale,mm.y+15*yscale)
 		lock1:scale(0.08*xscale,0.08*yscale)
 		screenGroup:insert(lock1)
-		mm:removeEventListener("tap",goTomm)
+		mm:removeEventListener("tap",thrustmm)
 	end
 
 	if lock2check==false then 
 		lock2 = display.newImage("images/lock.png",mmmoon.x+30*xscale,mmmoon.y+15*yscale)
 		lock2:scale(0.08*xscale,0.08*yscale)
 		screenGroup:insert(lock2)
-		mmmoon:removeEventListener("tap",goTommmoon)
+		mmmoon:removeEventListener("tap",thrustmmmoon)
 	end
 	if lock3check==false then 
 		lock2 = display.newImage("images/lock.png",tt.x+30*xscale,tt.y+15*yscale)
 		lock2:scale(0.08*xscale,0.08*yscale)
 		screenGroup:insert(lock2)
-		tt:removeEventListener("tap",goTott)
+		tt:removeEventListener("tap",thrusttt)
 	end
 	if lock4check==false then 
 		lock2 = display.newImage("images/lock.png",ee.x+30*xscale,ee.y+15*yscale)
 		lock2:scale(0.08*xscale,0.08*yscale)
 		screenGroup:insert(lock2)
-		ee:removeEventListener("tap",goToee)
+		ee:removeEventListener("tap",thrustee)
 	end
 	if lock5check==false then 
 		lock2 = display.newImage("images/lock.png",dd.x+30*xscale,dd.y+15*yscale)
 		lock2:scale(0.08*xscale,0.08*yscale)
 		screenGroup:insert(lock2)
-		dd:removeEventListener("tap",goTodd)
+		dd:removeEventListener("tap",thrustdd)
 	end
 	if lock6check==false then 
 		lock2 = display.newImage("images/lock.png",ddmoon.x+30*xscale,ddmoon.y-15*yscale)
 		lock2:scale(0.08*xscale,0.08*yscale)
 		screenGroup:insert(lock2)
-		ddmoon:removeEventListener("tap",goToddmoon)
+		ddmoon:removeEventListener("tap",thrustddmoon)
 	end
 end
 
@@ -461,7 +461,7 @@ function showShip(n)
 		ship = display.newImage(shipSrc,ddmoon.x+30*xscale,ddmoon.y-15*yscale)
 		ship:scale(0.15*xscale,0.15*yscale)
 		screenGroup:insert(ship)
-	elseif ship7check==true  then
+	else
 		ship = display.newImage(shipSrc,bb.x+30*xscale,bb.y-15*yscale)
 		ship:scale(0.15*xscale,0.15*yscale)
 		screenGroup:insert(ship)

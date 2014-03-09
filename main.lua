@@ -102,6 +102,8 @@ function provideHint(n,str)
 end
 
 
+
+
 local storyboard = require( "storyboard" )
 --storyboard.gotoScene( "splash", "fade", 1000 ) --start the splash screen with a 2 second fade animation
 --Setup the table if it doesn't exist
@@ -149,6 +151,7 @@ db:exec( tablesetup10 )
 --local drop = [[drop table mapUnlocks]]
 --db:exec( drop )
 --local drop1 = [[drop table eeScore]]
+
 
 --db:exec( drop1 )
 --unlockMap("ee1")
