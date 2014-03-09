@@ -26,6 +26,11 @@ local patterninstructions2 = "You will be given a number and your job will be to
 local patterninstructions3 = "You will see that the multiples of a given number form a pattern."
 local patterninstructions4 = "In this example you would select every"
 local multiple
+ipadOffset = 0
+if string.sub(system.getInfo("model"),1,4) == "iPad" then
+		ipadOffset = 30
+end
+
 local function patternsgoHome()
 	first = true
 	round = -1
@@ -81,6 +86,7 @@ function scene:enterScene( event )
 			  break
 			end
 	end
+
 end
 
 -- Called when scene is about to move offscreen:
@@ -112,10 +118,10 @@ function patternShowNumbers(n)
 	bubbles = {}
 	for j = 0 , 5, 1 do
 		for i =1, 10, 1  do
-			bubbles[(10*j)+i] = display.newImage("images/bubble.png",((i*38)+15)*xscale, (20+(j*31))*yscale)
+			bubbles[(10*j)+i] = display.newImage("images/bubble.png",((i*38*xscale)+15*xscale), (20*yscale+(j*31*yscale))-ipadOffset)
 			bubbles[(10*j)+i]:scale(0.05*xscale, 0.1*yscale)
 			screenGroup:insert(bubbles[(10*j)+i])
-			numbers[(10*j)+i] = display.newText((10*j)+i, ((i*38)+15)*xscale, (19+(j*31))*yscale, "Comic Relief", 16)
+			numbers[(10*j)+i] = display.newText((10*j)+i, ((i*38*xscale)+15*xscale), (19*yscale+(j*31*yscale))-ipadOffset, "Comic Relief", 16)
 			numbers[(10*j)+i]:setFillColor(0)
 			screenGroup:insert(numbers[(10*j)+i])
 		end
@@ -139,11 +145,11 @@ function patternShowAnswer(n)
 		for i =1, 10, 1  do
 			if (i+(j*10))%multiple == 0 then
 				screenGroup:remove(bubbles[(10*j)+i])
-				bubbles[(10*j)+i] = display.newImage("images/bubble.png",((i*38)+15)*xscale, (20+(j*31))*yscale)
+				bubbles[(10*j)+i] = display.newImage("images/bubble.png",((i*38)+15)*xscale, (20+(j*31))*yscale-ipadOffset)
 				bubbles[(10*j)+i]:scale(0.05*xscale, 0.1*yscale)
 				bubbles[(10*j)+i]:setFillColor(.83,.32,.32)
 				screenGroup:insert(bubbles[(10*j)+i])
-				numbers[(10*j)+i] = display.newText((10*j)+i, ((i*38)+15)*xscale, (19+(j*31))*yscale, "Comic Relief", 16)
+				numbers[(10*j)+i] = display.newText((10*j)+i, ((i*38)+15)*xscale, (19+(j*31))*yscale-ipadOffset, "Comic Relief", 16)
 				numbers[(10*j)+i]:setFillColor(0)
 				screenGroup:insert(numbers[(10*j)+i])
 			end
@@ -248,10 +254,10 @@ function patternShowNumbersWithListeners(n)
 	bubbles = {}
 	for j = 0 , 5, 1 do
 		for i =1, 10, 1  do
-			bubbles[(10*j)+i] = display.newImage("images/bubble.png",((i*38)+15)*xscale, (20+(j*31))*yscale)
+			bubbles[(10*j)+i] = display.newImage("images/bubble.png",((i*38)+15)*xscale, (20+(j*31))*yscale-ipadOffset)
 			bubbles[(10*j)+i]:scale(0.05*xscale, 0.1*yscale)
 			screenGroup:insert(bubbles[(10*j)+i])
-			numbers[(10*j)+i] = display.newText((10*j)+i, ((i*38)+15)*xscale, (19+(j*31))*yscale, "Comic Relief", 16)
+			numbers[(10*j)+i] = display.newText((10*j)+i, ((i*38)+15)*xscale, (19+(j*31))*yscale-ipadOffset, "Comic Relief", 16)
 			numbers[(10*j)+i]:setFillColor(0)
 			if ((10*j)+i)%multiple == 0 then
 				local myFunction = function()
