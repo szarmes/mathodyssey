@@ -24,7 +24,6 @@ companionText = "images/astronaut.png"
 
 
 function goToPlay(n)
-	n:remove(meteor)
 	cancelMeteorTimers()
 	storyboard.gotoScene("play")
 end
@@ -99,7 +98,7 @@ function scene:createScene( event )
 	settings:addEventListener("tap",goToSettings)
 	screenGroup:insert(settings)
 
-
+	spawnMeteor(screenGroup)
 	--audio.play(bgmusic,{loops = -1,channel=1})
 
 	--background = display.newImage("images/cat.jpg",centerX,centerY)
@@ -147,8 +146,6 @@ function scene:enterScene( event )
 	end
 	if firstCheck == false then
 		storyboard.gotoScene("firstTime")
-	else
-		spawnMeteor(screenGroup)
 	end
 
 end
@@ -206,10 +203,11 @@ function spawnMeteor(n)
 	meteor:scale(0.6*xscale,0.6*yscale)
 	meteor:rotate(meteorrotation)
 	screenGroup:insert(meteor)
-	physics.addBody(meteor)
+	physics.addBody(meteor,"kinematic")
 
-	meteor:applyForce(meteorxforce,meteoryforce, meteor.x,meteor.y)
+	meteor:setLinearVelocity(meteorxforce*4,meteoryforce*4)
 	local function listener1()
+		cancelMeteorTimers()
 		respawnMeteor(screenGroup)
 	end
 	timer1 = timer.performWithDelay(7000,listener1)
@@ -218,15 +216,16 @@ end
 function cancelMeteorTimers()
 	if timer1 ~= nil then
 		timer.cancel(timer1)
-		physics.removeBody(meteor)
+		timer1 = nil
+		meteor:removeSelf()
 	end
 end
 
 function respawnMeteor(n)
 	local screenGroup = n 
-	screenGroup:remove(meteor)
 	spawnMeteor(screenGroup)
 end
+
 
 
 

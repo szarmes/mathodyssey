@@ -14,6 +14,7 @@ physics.start()
 physics.setGravity(0,0) --dont want gravity... might want it later but not yet 
 --physics.setDrawMode( "debug" ) --turns on debug view, will let us debug physics objects
 bgmusic = audio.loadStream("sounds/space.wav")
+thrustSound = audio.loadStream("sounds/shipsound.wav")
 sfxmuted = false
 musicmuted = false
 xscale = 1
@@ -98,10 +99,6 @@ function provideHint(n,str)
 	end
 	closebutton:addEventListener("tap",closeHint)
 	screenGroup:insert(closebutton)
-
-
-
-
 end
 
 
@@ -146,6 +143,9 @@ db:exec( tablesetup8 )
 local tablesetup9 = [[CREATE TABLE IF NOT EXISTS answeredQuestions (id INTEGER PRIMARY KEY, correct INTEGER,
 	time INTEGER, left INTEGER, right INTEGER, answer INTEGER, operator STRING );]]
 db:exec( tablesetup9 )
+
+local tablesetup10 = [[CREATE TABLE IF NOT EXISTS lastPlanet (id INTEGER PRIMARY KEY, location STRING);]]
+db:exec( tablesetup10 )
 --local drop = [[drop table mapUnlocks]]
 --db:exec( drop )
 --local drop1 = [[drop table eeScore]]
@@ -153,8 +153,8 @@ db:exec( tablesetup9 )
 --db:exec( drop1 )
 --unlockMap("ee1")
 
---storyboard.gotoScene( "play")
-storyboard.gotoScene( "splash","fade",500)
+storyboard.gotoScene( "menu")
+--storyboard.gotoScene( "splash","fade",500)
 
 --[[for row in db:nrows("SELECT * FROM timeTrialsScore ORDER BY id DESC;") do
   local text = row.id.." "..row.correct.." "..row.time.." "..row.correctHa.." "..row.chosenHa.." "..row.round

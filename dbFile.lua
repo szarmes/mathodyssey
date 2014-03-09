@@ -118,5 +118,14 @@ function storeAnswer(correct,time,left,right,answer,operator)
 
 end
 
+function storeLastPlanet(planet)
+
+	local tablefill =[[Delete from lastPlanet]]
+	db:exec( tablefill )
+	tablefill =[[INSERT INTO lastPlanet VALUES (NULL, ']]..planet..[['); ]]
+	db:exec( tablefill )
+
+end
+
 
 ----------------
