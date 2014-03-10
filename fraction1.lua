@@ -7,7 +7,6 @@
 local storyboard = require( "storyboard" )
 local scene = storyboard.newScene()
 require "dbFile"
-companionText = "images/astronaut.png"
 
 local buttonXOffset = 100
 ---------------------------------------------------------------------------------

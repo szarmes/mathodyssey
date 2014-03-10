@@ -25,6 +25,14 @@ local centerY = display.contentCenterY
 local shipSrc = "images/ship2.png"
 
 
+local function goTospacestation() --play timetrials
+	--cancelMeteorTimers()
+	storeLastPlanet("tt")
+	storyboard.gotoScene("ttselection")
+	storyboard.removeScene("play")
+end
+
+
 local function goTott() --play timetrials
 	--cancelMeteorTimers()
 	storeLastPlanet("tt")
@@ -178,6 +186,17 @@ function scene:createScene( event )
 	ddmoon.anchorX = 0
 	screenGroup:insert(ddmoon)
 
+	spacestation = display.newImage("images/spacestation.png", centerX-180*xscale,centerY+100*yscale)
+	spacestation:scale(0.05*xscale,0.05*yscale)
+	function thrustspacestation()
+		if inMotion==false then
+			thrust(screenGroup,"spacestation")
+		end
+	end
+	spacestation:addEventListener("tap", thrustspacestation)
+	spacestation.anchorX = 0
+	screenGroup:insert(spacestation)
+
 	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
 	home:scale(0.3*xscale,0.3*yscale)
 	home:addEventListener("tap", goHome)
@@ -317,6 +336,9 @@ local function goToNewPlanet(dest)
 	if dest == "tt" then
 		goTott()
 	end
+	if dest == "spacestation" then
+		goTospacestation()
+	end
 
 end
 
@@ -351,6 +373,11 @@ function thrust(n,dest)
 	if dest == "tt" then
 		destinationx = tt.x+20*xscale
 		destinationy = tt.y
+		
+	end
+	if dest == "spacestation" then
+		destinationx = spacestation.x+20*xscale
+		destinationy = spacestation.y
 		
 	end
 	if dest~=currentPlanet then

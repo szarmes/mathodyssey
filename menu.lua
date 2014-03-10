@@ -105,13 +105,6 @@ function scene:createScene( event )
 	--Runtime:addEventListener("touch",moveCatListener)
 	--screenGroup:insert( background )
 
-end
-
-
--- Called immediately after scene has moved onscreen:
-function scene:enterScene( event )
-	local screenGroup = self.view	
-	print ("enterScene")
 	first = true
 
 	local goldButton = false
@@ -148,6 +141,15 @@ function scene:enterScene( event )
 		storyboard.gotoScene("firstTime")
 	end
 
+
+end
+
+
+-- Called immediately after scene has moved onscreen:
+function scene:enterScene( event )
+	local screenGroup = self.view	
+	print ("enterScene")
+	
 end
 
 

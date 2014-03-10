@@ -66,9 +66,13 @@ function toScale()
 		xscale = xscale*1.4
 		yscale = yscale*1.4
 	end
-	if string.sub(system.getInfo("model"),0,2) == "GT" then
+	if string.sub(system.getInfo("model"),1,2) == "GT" then
 		xscale = xscale*0.9
 		yscale = yscale*0.9
+	end
+	if string.sub(system.getInfo("model"),1,9) == "Sensation" then
+		xscale = xscale*1.2
+		yscale = yscale*1.2
 	end
 end
 toScale()
@@ -156,7 +160,7 @@ db:exec( tablesetup10 )
 --db:exec( drop1 )
 --unlockMap("ee1")
 
-storyboard.gotoScene( "menu")
+storyboard.gotoScene( "play")
 --storyboard.gotoScene( "splash","fade",500)
 
 --[[for row in db:nrows("SELECT * FROM timeTrialsScore ORDER BY id DESC;") do
@@ -185,7 +189,5 @@ local t = display.newText(display.pixelHeight, 100, 100 , native.systemFont, 16)
   t:setFillColor(1,1,1)
 end
 ]]
-
-
 
 

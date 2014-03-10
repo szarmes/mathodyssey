@@ -21,7 +21,7 @@ local centerY = display.contentCenterY
 
 
 function goToStory(n)
-	storyboard.gotoScene("howtoplay")
+	storyboard.gotoScene("story")
 end
 
 function firstyes()
