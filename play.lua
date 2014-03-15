@@ -16,6 +16,7 @@ local destinationy
 local thrustTimer
 local endGroup
 local inMotion = false
+local beaconCount = 0
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------
@@ -27,8 +28,8 @@ local shipSrc = "images/ship2.png"
 
 local function goTospacestation() --play timetrials
 	--cancelMeteorTimers()
-	storeLastPlanet("tt")
-	storyboard.gotoScene("ttselection")
+	storeLastPlanet("spacestation")
+	storyboard.gotoScene("spacestation")
 	storyboard.removeScene("play")
 end
 
@@ -88,14 +89,16 @@ local function goToddmoon() --play exponential energy
 
 end
 
-local function goHome(n) --go back to the menu
-	if thrustTimer~=nil then
-		timer.cancel(thrustTimer)
-	end
-	land(destinationx,destinationy,n)
-	--cancelMeteorTimers()
-	storyboard.gotoScene("menu")
+local function goHome(event) --go back to the menu
+	if event.phase == "ended" then
+		if thrustTimer~=nil then
+			timer.cancel(thrustTimer)
+		end
+		land(destinationx,destinationy,endGroup)
+		--cancelMeteorTimers()
+		storyboard.gotoScene("menu")
 		storyboard.removeScene("play")
+	end
 
 end
 
@@ -186,8 +189,8 @@ function scene:createScene( event )
 	ddmoon.anchorX = 0
 	screenGroup:insert(ddmoon)
 
-	spacestation = display.newImage("images/spacestation.png", centerX-180*xscale,centerY+100*yscale)
-	spacestation:scale(0.05*xscale,0.05*yscale)
+	spacestation = display.newImage("images/spacestation.png", centerX-220*xscale,centerY+100*yscale)
+	spacestation:scale(0.16*xscale,0.16*yscale)
 	function thrustspacestation()
 		if inMotion==false then
 			thrust(screenGroup,"spacestation")
@@ -197,12 +200,31 @@ function scene:createScene( event )
 	spacestation.anchorX = 0
 	screenGroup:insert(spacestation)
 
-	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
+	local home = widget.newButton
+		{
+		    defaultFile = "images/home.png",
+		    overFile = "images/homepressed.png",
+		    onEvent = goHome
+		}
 	home:scale(0.3*xscale,0.3*yscale)
-	home:addEventListener("tap", goHome)
+	home.x = display.contentWidth-20*xscale
+	home.y = 22*yscale
 	screenGroup:insert(home)
 
+	beacon1 = display.newImage("images/beacon1.png", centerX-174*xscale,centerY+52*yscale)
+	beacon1:scale(0.2*xscale,0.2*yscale)
+	screenGroup:insert(beacon1)
+	beacon1.isVisible = true
+
+	beacon2 = display.newImage("images/beacon2.png", centerX-174*xscale,centerY+52*yscale)
+	beacon2:scale(0.2*xscale,0.2*yscale)
+	screenGroup:insert(beacon2)
+	beacon2.isVisible = false
+
 	playLockLocations(screenGroup)
+
+
+	timer1 = timer.performWithDelay(1000,swapBeacon,-1)
 
 	--spawnMeteor(screenGroup)
 end
@@ -212,6 +234,7 @@ end
 function scene:enterScene( event )
 	local screenGroup = self.view	
 	showShip(screenGroup)
+	endGroup = screenGroup
 
 end
 
@@ -219,6 +242,7 @@ end
 -- Called when scene is about to move offscreen:
 function scene:exitScene( event )
 	local screenGroup = self.view	
+	timer.cancel(timer1)
 end
 
 
@@ -431,6 +455,7 @@ function showShip(n)
 	local ship5check = false
 	local ship6check = false
 	local ship7check = false
+	local ship8check = false
 	for row in db:nrows("SELECT * FROM lastPlanet;") do
 		if row.location == "mm" then
 			ship1check = true
@@ -460,6 +485,10 @@ function showShip(n)
 			ship7check = true
 			currentPlanet="bb"
 		end
+		if row.location == "spacestation" then
+			ship8check = true
+			currentPlanet="spacestation"
+		end
 	end
 	if ship1check==true then 
 		ship = display.newImage(shipSrc,mm.x+30*xscale,mm.y+15*yscale)
@@ -488,6 +517,10 @@ function showShip(n)
 		ship = display.newImage(shipSrc,ddmoon.x+30*xscale,ddmoon.y-15*yscale)
 		ship:scale(0.15*xscale,0.15*yscale)
 		screenGroup:insert(ship)
+	elseif ship8check==true  then
+		ship = display.newImage(shipSrc,spacestation.x+30*xscale,spacestation.y-15*yscale)
+		ship:scale(0.15*xscale,0.15*yscale)
+		screenGroup:insert(ship)
 	else
 		ship = display.newImage(shipSrc,bb.x+30*xscale,bb.y-15*yscale)
 		ship:scale(0.15*xscale,0.15*yscale)
@@ -496,7 +529,17 @@ function showShip(n)
 	--physics.addBody(ship,"kinematic")
 end
 
-
+function swapBeacon()
+	if beaconCount == 0 then
+		beacon1.isVisible=false
+		beacon2.isVisible=true
+		beaconCount = 1
+	else
+		beacon2.isVisible=false
+		beacon1.isVisible=true
+		beaconCount = 0
+	end
+end
 
 ---------------------------------------------------------------------------------
 -- END OF YOUR IMPLEMENTATION

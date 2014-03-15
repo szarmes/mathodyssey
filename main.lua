@@ -12,6 +12,8 @@ display.setStatusBar( display.HiddenStatusBar )  --hides the status bar on the t
 physics = require "physics"	 --need physics to handle collisions. start/stop with physics.start() and physics.stop()
 physics.start()
 physics.setGravity(0,0) --dont want gravity... might want it later but not yet 
+widget = require("widget")
+
 --physics.setDrawMode( "debug" ) --turns on debug view, will let us debug physics objects
 bgmusic = audio.loadStream("sounds/space.wav")
 thrustSound = audio.loadStream("sounds/shipsound.wav")
@@ -152,6 +154,9 @@ db:exec( tablesetup9 )
 
 local tablesetup10 = [[CREATE TABLE IF NOT EXISTS lastPlanet (id INTEGER PRIMARY KEY, location STRING);]]
 db:exec( tablesetup10 )
+
+local tablesetup11 = [[CREATE TABLE IF NOT EXISTS coins (id INTEGER PRIMARY KEY, amount INTEGER);]]
+db:exec( tablesetup11 )
 --local drop = [[drop table mapUnlocks]]
 --db:exec( drop )
 --local drop1 = [[drop table eeScore]]
@@ -160,7 +165,7 @@ db:exec( tablesetup10 )
 --db:exec( drop1 )
 --unlockMap("ee1")
 
-storyboard.gotoScene( "play")
+storyboard.gotoScene( "menu")
 --storyboard.gotoScene( "splash","fade",500)
 
 --[[for row in db:nrows("SELECT * FROM timeTrialsScore ORDER BY id DESC;") do

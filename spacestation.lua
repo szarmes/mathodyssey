@@ -1,16 +1,12 @@
 ---------------------------------------------------------------------------------
 --
--- settings.lua
+-- menu.lua
 --
 ---------------------------------------------------------------------------------
 
 local storyboard = require( "storyboard" )
 local scene = storyboard.newScene()
-local widget = require( "widget" )
-
-local buttonXOffset = 100
-
-
+require "dbFile"
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------
@@ -19,77 +15,52 @@ local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 
 
-local function goHome(event)
-	if event.phase == "ended" then
-		storyboard.gotoScene( "menu" )
-	end
+local coinnum = 0
+
+function goHome()
+	storyboard.removeScene("spacestation")
+	storyboard.gotoScene("play")
 end
+
+
+
 
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
 	local screenGroup = self.view
 
-	bg = display.newImage("images/spacebg.png", centerX,centerY+30*yscale)
+	for row in db:nrows("SELECT * FROM coins;") do
+		if row.amount~=nil then
+			coinnum = coinnum + row.amount
+		end
+	end
+
+	bg = display.newImage("images/spacebg.png", centerX,centerY+(30*yscale))
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 
-	title = display.newImage("images/splash.png", centerX,centerY-100*yscale)
-	title:scale(0.8*xscale,0.8*yscale)
+
+	title = display.newImage("images/customize.png", centerX,centerY-120*yscale)
+	title:scale(0.6*xscale,0.6*yscale)
 	screenGroup:insert(title)
-	
-	local home = widget.newButton
-		{
-		    defaultFile = "images/home.png",
-		    overFile = "images/homepressed.png",
-		    onEvent = goHome
-		}
+
+	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
 	home:scale(0.3*xscale,0.3*yscale)
-	home.x = 20*xscale
-	home.y = centerY+130*yscale
+	home:addEventListener("tap", goHome)
 	screenGroup:insert(home)
-	-- Handle press events for the checkbox
 
-	-- Create the widget
-	local sfxmuteSwitch = widget.newSwitch
-	{
-	    left = centerX-40,
-	    top = centerY-15,
-	    style = "onOff",
-	    id = "sfxmuteSwitch",
-	   	onPress = onsfxPress
-	}
-	if sfxmuted==true then
-		sfxmuteSwitch:setState({isOn = true})
-	end
+	coins = display.newImage("images/coins.png",10*xscale,22*yscale)
+	coins:scale(0.3*xscale,0.15*yscale)
+	screenGroup:insert(coins)
 
-	screenGroup:insert(sfxmuteSwitch)
+	coinamount = display.newText("x"..coinnum,60*xscale,22*yscale,"Comic Relief",20)
+	coinamount:setFillColor(.776,.666,.349)
+	screenGroup:insert(coinamount)
 
-	local musicmuteSwitch = widget.newSwitch
-	{
-	    left = centerX-40,
-	    top = centerY+30*yscale,
-	    style = "onOff",
-	    id = "musicmuteSwitch",
-	    onPress = onmusicPress
-	}
-	if musicmuted==true then
-		musicmuteSwitch:setState({isOn = true})
-	end
-	screenGroup:insert(musicmuteSwitch)
 
-	sfxon = display.newImage("images/SFX-On.png", centerX-100,centerY)
-	sfxon:scale(0.3*xscale,0.3*yscale)
-	screenGroup:insert(sfxon)
-	sfxoff = display.newImage("images/SFX-Off.png", centerX+100,centerY)
-	sfxoff:scale(0.3*xscale,0.3*yscale)
-	screenGroup:insert(sfxoff)
 
-	musicon = display.newImage("images/Music-On.png", centerX-100,centerY+50*yscale)
-	musicon:scale(0.3*xscale,0.3*yscale)
-	screenGroup:insert(musicon)
-	musicoff = display.newImage("images/Music-Off.png", centerX+100,centerY+50*yscale)
-	musicoff:scale(0.3*xscale,0.3*yscale)
-	screenGroup:insert(musicoff)
+	
+	--audio.play(bgmusic,{loops = -1,channel=1})
 
 	--background = display.newImage("images/cat.jpg",centerX,centerY)
 	--Runtime:addEventListener("touch",moveCatListener)
@@ -99,13 +70,14 @@ end
 
 
 -- Called immediately after scene has moved onscreen:
-function scene:enterScene( event )	
+function scene:enterScene( event )
+	storyboard.purgeAll()
+
 end
 
 
 -- Called when scene is about to move offscreen:
 function scene:exitScene( event )
-	
 end
 
 
@@ -114,13 +86,6 @@ function scene:destroyScene( event )
 	
 end
 
-function onsfxPress( event )
-    mutesfx()
-end
-
-function onmusicPress( event )
-    mutemusic()
-end
 
 ---------------------------------------------------------------------------------
 -- END OF YOUR IMPLEMENTATION

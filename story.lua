@@ -29,7 +29,7 @@ function scene:createScene( event )
 	storyboard.reloadScene()
 	local screenGroup = self.view
 	
-	bg = display.newImage("images/bg.png", centerX*xscale,centerY+30*yscale)
+	bg = display.newImage("images/spacebg.png", centerX*xscale,centerY+30*yscale)
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 	dog = display.newImage(companionText, centerX-200*xscale, centerY+100*yscale)
@@ -39,9 +39,15 @@ function scene:createScene( event )
 	screenGroup:insert(hintbubble)
 	screenGroup:insert(dog)
 
-	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
+	local home = widget.newButton
+		{
+		    defaultFile = "images/home.png",
+		    overFile = "images/homepressed.png",
+		    onEvent = goHome
+		}
 	home:scale(0.3*xscale,0.3*yscale)
-	home:addEventListener("tap", goHome)
+	home.x = display.contentWidth-20*xscale
+	home.y = 22*yscale
 	screenGroup:insert(home)
 
 
@@ -50,9 +56,11 @@ function scene:createScene( event )
 end
 
 
-function goHome()
-	storyboard.purgeScene("howtoplay")
-	storyboard.gotoScene("menu")
+function goHome(event)
+	if event.phase == "ended" then
+		storyboard.purgeScene("howtoplay")
+		storyboard.gotoScene("menu")
+	end
 end
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )
@@ -92,7 +100,7 @@ function comic2(n)
 	screenGroup:insert(bg)
 	local myFunction = function() 
 		screenGroup:remove(bg)
-		bg = display.newImage("images/bg.png", centerX*xscale,centerY+30*yscale)
+		bg = display.newImage("images/spacebg.png", centerX*xscale,centerY+30*yscale)
 		bg:scale(0.8*xscale,0.8*yscale)
 		screenGroup:insert(bg)
 		dog = display.newImage(companionText, centerX-200*xscale, centerY+100*yscale)
@@ -131,7 +139,6 @@ function tutorial1(n)
 
 	continue:addEventListener("tap", myFunction)
 	screenGroup:insert(continue)
-	screenGroup:insert(home)
 
 end
 

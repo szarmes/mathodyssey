@@ -21,42 +21,60 @@ local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 
 
-function goHome()
-	storyboard.removeScene("train")
-	storyboard.gotoScene("menu")
+function goHome(event)
+	if ( "ended" == event.phase ) then
+		storyboard.removeScene("train")
+		storyboard.gotoScene("menu")
+	end
 end
 
-function goCreateAdd()
-	storyboard.removeScene("train")
-	storyboard.gotoScene("createaddition")
+function goCreateAdd(event)
+	if ( "ended" == event.phase ) then
+		storyboard.removeScene("train")
+		storyboard.gotoScene("createaddition")
+	end
 end
-function goCreateSub()
-	storyboard.removeScene("train")
-	storyboard.gotoScene("createsubtraction")
+function goCreateSub(event)
+	if ( "ended" == event.phase ) then
+		storyboard.removeScene("train")
+		storyboard.gotoScene("createsubtraction")
+	end
 end
-function goCreateMult()
-	storyboard.removeScene("train")
-	storyboard.gotoScene("createmultiplication")
+function goCreateMult(event)
+	if ( "ended" == event.phase ) then
+		storyboard.removeScene("train")
+		storyboard.gotoScene("createmultiplication")
+	end
 end
-function goCreateDiv()
-	storyboard.removeScene("train")
-	storyboard.gotoScene("createdivision")
+function goCreateDiv(event)
+	if ( "ended" == event.phase ) then
+		storyboard.removeScene("train")
+		storyboard.gotoScene("createdivision")
+	end
 end
-function gopracticeAdd()
-	storyboard.removeScene("train")
-	storyboard.gotoScene("practiceaddition")
+function gopracticeAdd(event)
+	if ( "ended" == event.phase ) then
+		storyboard.removeScene("train")
+		storyboard.gotoScene("practiceaddition")
+	end
 end
-function gopracticeSub()
-	storyboard.removeScene("train")
-	storyboard.gotoScene("practicesubtraction")
+function gopracticeSub(event)
+	if ( "ended" == event.phase ) then
+		storyboard.removeScene("train")
+		storyboard.gotoScene("practicesubtraction")
+	end
 end
-function gopracticeMult()
-	storyboard.removeScene("train")
-	storyboard.gotoScene("practicemultiplication")
+function gopracticeMult(event)
+	if ( "ended" == event.phase ) then
+		storyboard.removeScene("train")
+		storyboard.gotoScene("practicemultiplication")
+	end
 end
-function gopracticeDiv()
-	storyboard.removeScene("train")
-	storyboard.gotoScene("practicedivision")
+function gopracticeDiv(event)
+	if ( "ended" == event.phase ) then
+		storyboard.removeScene("train")
+		storyboard.gotoScene("practicedivision")
+	end
 end
 
 
@@ -66,14 +84,20 @@ end
 function scene:createScene( event )
 	local screenGroup = self.view
 
-	bg = display.newImage("images/bg.png", centerX,centerY+(30*yscale))
+	bg = display.newImage("images/spacebg.png", centerX,centerY+(30*yscale))
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 
 
-	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
+	local home = widget.newButton
+		{
+		    defaultFile = "images/home.png",
+		    overFile = "images/homepressed.png",
+		    onEvent = goHome
+		}
 	home:scale(0.3*xscale,0.3*yscale)
-	home:addEventListener("tap", goHome)
+	home.x = display.contentWidth-20*xscale
+	home.y = 22*yscale
 	screenGroup:insert(home)
 
 
@@ -85,38 +109,84 @@ function scene:createScene( event )
 	practice:scale(0.6*xscale,0.6*yscale)
 	screenGroup:insert(practice)
 
-	createadd = display.newImage("images/addition.png", centerX-100*xscale ,centerY-30*yscale)
-	createadd:addEventListener("tap",goCreateAdd)
+	local createadd = widget.newButton
+		{
+		    defaultFile = "images/addition.png",
+		    overFile = "images/additionpressed.png",
+		    onEvent = goCreateAdd
+		}
+	createadd.x = centerX-100*xscale
+	createadd.y = centerY-30*yscale
 	screenGroup:insert(createadd)
 
-	createsub = display.newImage("images/subtraction.png", centerX-96*xscale ,centerY+20*yscale)
-	createsub:addEventListener("tap",goCreateSub)
+	local createsub = widget.newButton
+		{
+		    defaultFile = "images/subtraction.png",
+		    overFile = "images/subtractionpressed.png",
+		    onEvent = goCreateSub
+		}
+	createsub.x = centerX-96*xscale
+	createsub.y = centerY+20*yscale
 	screenGroup:insert(createsub)
 
-	createmult = display.newImage("images/multiplication.png", centerX-100*xscale ,centerY+70*yscale)
-	createmult:addEventListener("tap",goCreateMult)
+	local createmult = widget.newButton
+		{
+		    defaultFile = "images/multiplication.png",
+		    overFile = "images/multiplicationpressed.png",
+		    onEvent = goCreateMult
+		}
+	createmult.x = centerX-100*xscale
+	createmult.y = centerY+70*yscale
 	screenGroup:insert(createmult)
 
-	creatediv = display.newImage("images/division.png", centerX-98*xscale ,centerY+120*yscale)
-	creatediv:scale(1,0.8)
-	creatediv:addEventListener("tap",goCreateDiv)
+	local creatediv = widget.newButton
+		{
+		    defaultFile = "images/division.png",
+		    overFile = "images/divisionpressed.png",
+		    onEvent = goCreateDiv
+		}
+	creatediv.x = centerX-98*xscale
+	creatediv.y = centerY+120*yscale
 	screenGroup:insert(creatediv)
 
-	practiceadd = display.newImage("images/addition.png", centerX+100*xscale ,centerY-30*yscale)
-	practiceadd:addEventListener("tap",gopracticeAdd)
+	local practiceadd = widget.newButton
+		{
+		    defaultFile = "images/addition.png",
+		    overFile = "images/additionpressed.png",
+		    onEvent = gopracticeAdd
+		}
+	practiceadd.x = centerX+100*xscale
+	practiceadd.y = centerY-30*xscale
 	screenGroup:insert(practiceadd)
 
-	practicesub = display.newImage("images/subtraction.png", centerX+104*xscale ,centerY+20*yscale)
-	practicesub:addEventListener("tap",gopracticeSub)
+	local practicesub = widget.newButton
+		{
+		    defaultFile = "images/subtraction.png",
+		    overFile = "images/subtractionpressed.png",
+		    onEvent = gopracticeSub
+		}
+	practicesub.x = centerX+104*xscale
+	practicesub.y = centerY+20*yscale
 	screenGroup:insert(practicesub)
 
-	practicemult = display.newImage("images/multiplication.png", centerX+100*xscale ,centerY+70*yscale)
-	practicemult:addEventListener("tap",gopracticeMult)
+	local practicemult = widget.newButton
+		{
+		    defaultFile = "images/multiplication.png",
+		    overFile = "images/multiplicationpressed.png",
+		    onEvent = gopracticeMult
+		}
+	practicemult.x = centerX+100*xscale
+	practicemult.y = centerY+70*yscale
 	screenGroup:insert(practicemult)
 
-	practicediv = display.newImage("images/division.png", centerX+102*xscale ,centerY+120*yscale)
-	practicediv:scale(1,0.8)
-	practicediv:addEventListener("tap",gopracticeDiv)
+	local practicediv = widget.newButton
+		{
+		    defaultFile = "images/division.png",
+		    overFile = "images/divisionpressed.png",
+		    onEvent = gopracticeDiv
+		}
+	practicediv.x = centerX+102*xscale
+	practicediv.y = centerY+120*yscale
 	screenGroup:insert(practicediv)
 
 	trainLockLocations(screenGroup)

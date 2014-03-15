@@ -29,18 +29,23 @@ function scene:createScene( event )
 	storyboard.reloadScene()
 	local screenGroup = self.view
 	
-	bg = display.newImage("images/bg.png", centerX*xscale,centerY+30*yscale)
+	bg = display.newImage("images/spacebg.png", centerX*xscale,centerY+30*yscale)
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 
 	bubble = display.newImage("images/bubble.png", centerX-20*xscale,centerY)
 	bubble:scale(0.8*xscale,1*yscale)
-	bubble.alpha = 0.7
 	screenGroup:insert(bubble)
 
-	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
+	local home = widget.newButton
+		{
+		    defaultFile = "images/home.png",
+		    overFile = "images/homepressed.png",
+		    onEvent = goHome
+		}
 	home:scale(0.3*xscale,0.3*yscale)
-	home:addEventListener("tap", goHome)
+	home.x = display.contentWidth-20*xscale
+	home.y = 22*yscale
 	screenGroup:insert(home)
 
 	showcredits(screenGroup)
@@ -48,9 +53,10 @@ function scene:createScene( event )
 end
 
 
-function goHome()
-	storyboard.purgeScene("credits")
-	storyboard.gotoScene("menu")
+function goHome(event)
+	if event.phase == "ended" then
+		storyboard.gotoScene("menu")
+	end
 end
 -- Called immediately after scene has moved onscreen:
 function scene:enterScene( event )
@@ -73,7 +79,7 @@ end
 function showcredits(n)
 	local screenGroup = n
 
-	myText = display.newText( "Developers: Matthew Bojey & Duncan Szarmes\nGraphics: Matthew Bojey, Chris Chanin, & Duncan Szarmes\nNarrator: Nyomi Wolfe\nComposer: Tate Kindrick \nText: textcraft.net", centerX, centerY,1000*xscale,400*yscale,"Comic Relief",32)
+	myText = display.newText( "Developers: Matthew Bojey & Duncan Szarmes\nGraphics: Matthew Bojey, Chris Chanin, & Duncan Szarmes\nComposer: Tate Kindrick \nText: textcraft.net", centerX, centerY,1000*xscale,400*yscale,"Comic Relief",32)
 	myText:setFillColor(0)
 	myText:scale(0.5*xscale,0.5*yscale)
 	screenGroup:insert(myText)

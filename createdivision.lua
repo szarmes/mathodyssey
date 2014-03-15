@@ -32,23 +32,31 @@ local operatortext
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 
-function goHome()
-	storyboard.removeScene("createdivision")
-	storyboard.gotoScene("train")
-end
 
+function goHome(event)
+	if event.phase == "ended" then
+		storyboard.removeScene("createdivision")
+		storyboard.gotoScene("train")
+	end
+end
 
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
 	local screenGroup = self.view
 
-	bg = display.newImage("images/bg.png", centerX,centerY+(30*yscale))
+	bg = display.newImage("images/spacebg.png", centerX,centerY+(30*yscale))
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 
-	home = display.newImage("images/home.png",display.contentWidth-20*xscale,22*yscale)
+	local home = widget.newButton
+		{
+		    defaultFile = "images/home.png",
+		    overFile = "images/homepressed.png",
+		    onEvent = goHome
+		}
 	home:scale(0.3*xscale,0.3*yscale)
-	home:addEventListener("tap", goHome)
+	home.x = display.contentWidth-20*xscale
+	home.y = 22*yscale
 	screenGroup:insert(home)
 
 
@@ -91,12 +99,21 @@ function insertButtons(n)
 	--1 to 9
 	for i = 0,2,1 do
 		for j = 1,3,1 do
-			buttonbgs[(3*i)+j] = display.newImage(buttonSource,40+50*j*xscale,centerY+50*yscale-50*i*yscale)
-			buttonbgs[(3*i)+j]:scale(0.14*xscale,0.14*yscale)
-			local function myFunction()
-				recordPress((3*i)+j)
+			local function myFunction(event)
+				if event.phase == "ended" then
+					recordPress((3*i)+j)
+				end
 			end
-			buttonbgs[(3*i)+j]:addEventListener("tap",myFunction)
+			buttonbgs[(3*i)+j] = widget.newButton
+			{
+			    defaultFile = "images/goldbutton.png",
+			    overFile = "images/goldbuttonpressed.png",
+			    onEvent = myFunction
+			}
+			buttonbgs[(3*i)+j].x = 40+50*j*xscale
+			buttonbgs[(3*i)+j].y = centerY+50*yscale-50*i*yscale
+			buttonbgs[(3*i)+j]:scale(0.14*xscale,0.14*yscale)
+			
 			screenGroup:insert(buttonbgs[(3*i)+j])
 			buttons[(3*i)+j] = display.newText((3*i+j),40+50*j*xscale,centerY+50*yscale-50*i*yscale, "Comic Relief",24)
 			buttons[(3*i)+j]:setFillColor(0)
@@ -104,17 +121,117 @@ function insertButtons(n)
 		end
 	end
 	--zero
-	zerobg = display.newImage(buttonSource,40+75*1*xscale,centerY+100*yscale)
+	local function myFunction(event)
+		if event.phase == "ended" then
+			recordPress(0)
+		end
+	end
+	zerobg = widget.newButton
+		{
+		    defaultFile = buttonSource,
+		    overFile = buttonPressedSource,
+		    onEvent = myFunction
+		}
+
+	zerobg.x = 40+75*1*xscale
+	zerobg.y = centerY+100*yscale
 	zerobg:scale(0.3*xscale,0.14*yscale)
 	zerobutton = display.newText("0",40+75*1*xscale,centerY+100*yscale,"Comic Relief",24)
 	zerobutton:setFillColor(0)
-	local function myFunction()
-		recordPress(zerobutton.text)
-	end
-	zerobg:addEventListener("tap",myFunction)
+
 	screenGroup:insert(zerobg)
 	screenGroup:insert(zerobutton)
-	--division
+	--submit
+	local function myFunction(event)
+		if event.phase=="ended" then
+			if leftnum~=0 or rightnum~=0 then
+				submit(screenGroup)
+			end
+		end
+	end
+	submitbg = widget.newButton
+		{
+		    defaultFile = buttonSource,
+		    overFile = buttonPressedSource,
+		    onEvent = myFunction
+		}
+	submitbg.x = centerX+130*xscale
+	submitbg.y = centerY-20*yscale
+	submitbg:scale(0.4*xscale,0.15*yscale)
+	screenGroup:insert(submitbg)
+	
+	submittext = display.newText("Submit",centerX+130*xscale,centerY-20*yscale,"Comic Relief",24)
+	submittext:setFillColor(0)
+	screenGroup:insert(submittext)
+
+	--clear
+	local function myFunction(event)
+		if event.phase=="ended" then
+			if highlighted== "left" then
+			lefttext.text=""
+			leftnum = 0
+			elseif highlighted == "right" then
+			righttext.text=""
+			rightnum = 0
+			elseif highlighted == "answer" then
+				answertext.text=""
+				answernum = 0
+			end
+			if incorrect~=nil then
+				screenGroup:remove(bubble)
+				screenGroup:remove(incorrect)
+				incorrect = nil
+			end
+		end
+	end
+	clearbg = widget.newButton
+		{
+		    defaultFile = buttonSource,
+		    overFile = buttonPressedSource,
+		    onEvent = myFunction
+		}
+	clearbg.x = centerX+130*xscale
+	clearbg.y = centerY+100*yscale
+	clearbg:scale(0.4*xscale,0.15*yscale)
+	screenGroup:insert(clearbg)
+	cleartext = display.newText("Clear",centerX+130*xscale,centerY+100*yscale,"Comic Relief",24)
+	cleartext:setFillColor(0)
+	clearbg:addEventListener("tap",myFunction)
+	screenGroup:insert(clearbg)
+	screenGroup:insert(cleartext)
+
+	--clear all
+	local function myFunction(event)
+		if event.phase=="ended" then
+			lefttext.text=""
+			righttext.text=""
+			answertext.text=""
+			leftnum = 0
+			rightnum = 0
+			answernum = 0
+			if incorrect~=nil then
+				screenGroup:remove(bubble)
+				screenGroup:remove(incorrect)
+				incorrect = nil
+			end
+		end
+	end
+	clearallbg = widget.newButton
+		{
+		    defaultFile = buttonSource,
+		    overFile = buttonPressedSource,
+		    onEvent = myFunction
+		}
+	clearallbg.x = centerX+130*xscale
+	clearallbg.y = centerY+40*yscale
+	clearallbg:scale(0.4*xscale,0.15*yscale)
+	screenGroup:insert(clearallbg)
+	clearalltext = display.newText("Clear All",centerX+130*xscale,centerY+40*yscale,"Comic Relief",24)
+	clearalltext:setFillColor(0)
+	clearallbg:addEventListener("tap",myFunction)
+	screenGroup:insert(clearallbg)
+	screenGroup:insert(clearalltext)
+	
 	
 	--textbox
 	textbox = display.newImage("images/bubble.png",centerX-40*xscale,centerY-100*yscale)
@@ -130,67 +247,7 @@ function insertButtons(n)
 	equaltext = display.newText("=",centerX+40*xscale,centerY-105*yscale,"Comic Relief",40)
 	equaltext:setFillColor(0)
 	screenGroup:insert(equaltext)
-	--submit
-	submitbg = display.newImage(buttonSource,centerX+130*xscale,centerY-20*yscale)
-	submitbg:scale(0.4*xscale,0.15*yscale)
-	local function myFunction()
-		if  rightnum~=0 then
-			submit(screenGroup)
-		end
-	end
-	submitbg:addEventListener("tap",myFunction)
-	screenGroup:insert(submitbg)
-	submittext = display.newText("Submit",centerX+130*xscale,centerY-20*yscale,"Comic Relief",24)
-	submittext:setFillColor(0)
-	screenGroup:insert(submittext)
-	--clear
-	clearallbg = display.newImage(buttonSource,centerX+130*xscale,centerY+40*yscale)
-	clearallbg:scale(0.4*xscale,0.15*yscale)
-	screenGroup:insert(clearallbg)
-	clearalltext = display.newText("Clear All",centerX+130*xscale,centerY+40*yscale,"Comic Relief",24)
-	clearalltext:setFillColor(0)
-	local function myFunction()
-		lefttext.text=""
-		righttext.text=""
-		answertext.text=""
-		leftnum = 0
-		rightnum = 0
-		answernum = 0
-		if incorrect~=nil then
-			screenGroup:remove(bubble)
-			screenGroup:remove(incorrect)
-			incorrect = nil
-		end
-	end
-	clearallbg:addEventListener("tap",myFunction)
-	screenGroup:insert(clearallbg)
-	screenGroup:insert(clearalltext)
-
-	clearbg = display.newImage(buttonSource,centerX+130*xscale,centerY+100*yscale)
-	clearbg:scale(0.4*xscale,0.15*yscale)
-	screenGroup:insert(clearbg)
-	cleartext = display.newText("Clear",centerX+130*xscale,centerY+100*yscale,"Comic Relief",24)
-	cleartext:setFillColor(0)
-	local function myFunction()
-		if highlighted== "left" then
-			lefttext.text=""
-			leftnum = 0
-		elseif highlighted == "right" then
-		righttext.text=""
-		rightnum = 0
-		elseif highlighted == "answer" then
-			answertext.text=""
-			answernum = 0
-		end
-		if incorrect~=nil then
-			screenGroup:remove(bubble)
-			screenGroup:remove(incorrect)
-			incorrect = nil
-		end
-	end
-	clearbg:addEventListener("tap",myFunction)
-	screenGroup:insert(clearbg)
-	screenGroup:insert(cleartext)
+	
 
 	leftbg = display.newImage(buttonSource,centerX-210*xscale,centerY-100*yscale)
 	leftbg:scale(0.35*xscale,0.17*yscale)
@@ -301,7 +358,7 @@ function submit(n)
 	if leftnum / rightnum == answernum then
 		unlockMap("practicediv")
 		storeQuestion(1,totalTime,leftnum,rightnum,answernum,"/")
-
+		addCoins(1)
 		local function onCreateUser( event )
 		  print( event.response.createdAt )
 		  print( event.response.sessionToken )
@@ -345,7 +402,7 @@ function divideNewSceneListener()
 	rightnum = 0
 	answernum = 0
 	highlighted = "left"
-	storyboard.reloadScene()
+	storyboard.gotoScene("createdivision")
 
 end
 ---------------------------------------------------------------------------------

@@ -11,6 +11,7 @@ require "dbFile"
 
 local buttonXOffset = 100
 buttonSource = "images/button.png"
+buttonPressedSource = "images/buttonpressed.png"
 
 
 
@@ -23,33 +24,35 @@ local centerY = display.contentCenterY
 companionText = "images/astronaut.png"
 
 
-function goToPlay(n)
-	cancelMeteorTimers()
-	storyboard.gotoScene("play")
+function goToPlay(event)
+	if ( "ended" == event.phase ) then
+		--cancelMeteorTimers()
+		storyboard.gotoScene("play")
+	end
 end
-function goToTrain(n)
-	cancelMeteorTimers()
-	storyboard.purgeScene("menu")
-	storyboard.gotoScene("train")
-end
-
-
-function goToTutorials()
-	cancelMeteorTimers()
-	storyboard.purgeScene("menu")
-	storyboard.gotoScene("story")
+function goToTrain(event)
+	if ( "ended" == event.phase ) then
+		storyboard.gotoScene("train")
+	end
 end
 
-function goToCredits()
-	cancelMeteorTimers()
-	storyboard.purgeScene("menu")
-	storyboard.gotoScene("credit")
+
+function goToStory(event)
+	if ( "ended" == event.phase ) then
+		storyboard.gotoScene("story")
+	end
 end
 
-function goToSettings()
-	cancelMeteorTimers()
-	storyboard.purgeScene("menu")
-	storyboard.gotoScene("settings")
+function goToCredits(event)
+	if ( "ended" == event.phase ) then
+		storyboard.gotoScene("credit")
+	end
+end
+
+function goToSettings(event)
+	if ( "ended" == event.phase ) then
+		storyboard.gotoScene("settings")
+	end
 end
 
 
@@ -61,44 +64,66 @@ function scene:createScene( event )
 	bg:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(bg)
 
-	play = display.newImage("images/play.png", centerX-238*xscale ,centerY)
+	local play = widget.newButton
+		{
+		    defaultFile = "images/play.png",
+		    overFile = "images/playpressed.png",
+		    onEvent = goToPlay
+		}
+	play.x = centerX-145*xscale
+	play.y = centerY
 	play:scale(0.7*xscale,0.6*yscale)
-	local function go2play()
-			goToPlay(screenGroup)
-	end
-	play:addEventListener("tap",go2play)
-	play.anchorX = 0
 	screenGroup:insert(play)
 
-	howtoplay = display.newImage("images/tutorial.png", centerX-240*xscale ,centerY+70*yscale)
-	howtoplay:scale(0.6*xscale,0.6*yscale)
-	howtoplay:addEventListener("tap",goToTutorials)
-	howtoplay.anchorX = 0
-	screenGroup:insert(howtoplay)
+	local story = widget.newButton
+		{
+		    defaultFile = "images/story.png",
+		    overFile = "images/storypressed.png",
+		    onEvent = goToStory
+		}
+	story.x = centerX-145*xscale
+	story.y = centerY+70*yscale
+	story:scale(0.6*xscale,0.6*yscale)
+	screenGroup:insert(story)
 
-
-	train = display.newImage("images/train.png", centerX+220*xscale ,centerY)
+	local train = widget.newButton
+		{
+		    defaultFile = "images/train.png",
+		    overFile = "images/trainpressed.png",
+		    onEvent = goToTrain
+		}
+	train.x = centerX+120*xscale
+	train.y = centerY
 	train:scale(0.7*xscale,0.7*yscale)
-	train.anchorX = 1
-	train:addEventListener("tap",goToTrain)
 	screenGroup:insert(train)
 
-	about = display.newImage("images/about.png", centerX+250*xscale ,centerY+70*yscale)
-	about:scale(0.6*xscale,0.6*yscale)
-	about.anchorX = 1
-	about:addEventListener("tap",goToCredits)
-	screenGroup:insert(about)
+	local credits = widget.newButton
+		{
+		    defaultFile = "images/credits.png",
+		    overFile = "images/creditspressed.png",
+		    onEvent = goToCredits
+		}
+	credits.x = centerX+120*xscale
+	credits.y = centerY+70*yscale
+	credits:scale(0.6*xscale,0.6*yscale)
+	screenGroup:insert(credits)
 
 	title = display.newImage("images/splash.png", centerX,centerY-100*yscale)
 	title:scale(0.8*xscale,0.8*yscale)
 	screenGroup:insert(title)
 
-	settings = display.newImage("images/settings.png",20*xscale,centerY+130*yscale)
-	settings:scale(0.6*xscale,0.6*yscale)
-	settings:addEventListener("tap",goToSettings)
+	local settings = widget.newButton
+		{
+		    defaultFile = "images/settings.png",
+		    overFile = "images/settingspressed.png",
+		    onEvent = goToSettings
+		}
+	settings.x = 20*xscale
+	settings.y = centerY+130*yscale
+	settings:scale(0.7*xscale,0.7*yscale)
 	screenGroup:insert(settings)
 
-	spawnMeteor(screenGroup)
+	--spawnMeteor(screenGroup)
 	--audio.play(bgmusic,{loops = -1,channel=1})
 
 	--background = display.newImage("images/cat.jpg",centerX,centerY)
@@ -115,6 +140,7 @@ function scene:createScene( event )
 	end
 	if goldButton == true then
 		buttonSource = "images/goldbutton.png"
+		buttonPressedSource = "images/goldbuttonpressed.png"
 	end
 
 
@@ -209,7 +235,7 @@ function spawnMeteor(n)
 
 	meteor:setLinearVelocity(meteorxforce*4,meteoryforce*4)
 	local function listener1()
-		cancelMeteorTimers()
+		--cancelMeteorTimers()
 		respawnMeteor(screenGroup)
 	end
 	timer1 = timer.performWithDelay(7000,listener1)

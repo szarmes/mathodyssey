@@ -127,5 +127,20 @@ function storeLastPlanet(planet)
 
 end
 
+function addCoins(amount)
+	local coins = 0
+	for row in db:nrows("SELECT * FROM coins;") do
+		if row.amount~=nil then
+			coins = coins + row.amount
+		end
+	end
+	coins = coins+amount
+	local tablefill =[[Delete from coins]]
+	db:exec( tablefill )
+	tablefill =[[INSERT INTO coins VALUES (NULL, ']]..coins..[['); ]]
+	db:exec( tablefill )
+
+end
+
 
 ----------------
