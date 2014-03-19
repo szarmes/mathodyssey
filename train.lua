@@ -7,6 +7,7 @@
 local storyboard = require( "storyboard" )
 local scene = storyboard.newScene()
 require "dbFile"
+local parse = require "mod_parse"
 
 
 local buttonXOffset = 100
@@ -189,12 +190,14 @@ function scene:createScene( event )
 	practicediv.y = centerY+120*yscale
 	screenGroup:insert(practicediv)
 
-	trainLockLocations(screenGroup)
+	--trainLockLocations(screenGroup)
 	--audio.play(bgmusic,{loops = -1,channel=1})
 
 	--background = display.newImage("images/cat.jpg",centerX,centerY)
 	--Runtime:addEventListener("touch",moveCatListener)
 	--screenGroup:insert( background )
+
+	pullData()
 
 end
 
@@ -325,6 +328,79 @@ function trainLockLocations(n)
 		screenGroup:insert(lock4)
 		practicediv:removeEventListener("tap",gopracticeDiv)
 	end
+end
+
+
+function pullData()
+
+	local lastPulled = "2014-03-05T19:31:09.981Z"
+	local now = formatDate(os.date("*t"))
+
+	for row in db:nrows("SELECT * FROM lastPulled;") do
+		if row.date~=nil then
+			lastPulled = row.date
+		end
+	end
+
+	local function onGetAdd( event )
+	  if not event.error then
+	  	for i = 1,#event.results,1  do
+		   storeQuestion(1,-1,event.results[i].leftnum,event.results[i].rightnum,event.results[i].answernum,"+")
+		end
+	  end
+	end
+
+	local function onGetSub( event )
+	  if not event.error then
+	  	for i = 1,#event.results,1  do
+		  storeQuestion(1,-1,event.results[i].leftnum,event.results[i].rightnum,event.results[i].answernum,"-")
+		end
+	  end
+	end
+
+	local function onGetMult( event )
+	  if not event.error then
+	  	for i = 1,#event.results,1  do
+		   storeQuestion(1,-1,event.results[i].leftnum,event.results[i].rightnum,event.results[i].answernum,"*")
+		end
+	  end
+	end
+
+	local function onGetDiv( event )
+	  if not event.error then
+	  	for i = 1,#event.results,1  do
+		    storeQuestion(1,-1,event.results[i].leftnum,event.results[i].rightnum,event.results[i].answernum,"/")
+		end
+	  end
+	end
+
+	local queryTable = { 
+	  ["where"] = { ["operator"] = "+", ["createdAt"] = {["$gt"]= {["__type"]= "Date",["iso"]=lastPulled}}}
+	  
+	}
+
+	local queryTable1 = { 
+	  ["where"] = { ["operator"] = "-", ["createdAt"] = {["$gt"]= {["__type"]= "Date",["iso"]=lastPulled}}}
+	  
+	}
+
+	local queryTable2 = { 
+	  ["where"] = { ["operator"] = "*", ["createdAt"] = {["$gt"]= {["__type"]= "Date",["iso"]=lastPulled}}}
+	  
+	}
+
+	local queryTable3 = { 
+	  ["where"] = { ["operator"] = "/", ["createdAt"] = {["$gt"]= {["__type"]= "Date",["iso"]=lastPulled}}}
+	  
+	}
+	parse:getObjects( "Question", queryTable, onGetAdd )
+	parse:getObjects( "Question", queryTable1, onGetSub)
+	parse:getObjects( "Question", queryTable2, onGetMult )
+	parse:getObjects( "Question", queryTable3, onGetDiv )
+
+	storeLastPulled(now)
+
+
 end
 
 

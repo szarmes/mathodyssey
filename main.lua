@@ -5,6 +5,7 @@
 -----------------------------------------------------------------------------------------
 --basic setup stuff
 require "dbFile"
+local parse = require "mod_parse"
 
 audio.setSessionProperty(audio.MixMode, audio.AmbientMixMode)  --allows device audio to continue uninterrupted 
 display.setStatusBar( display.HiddenStatusBar )  --hides the status bar on the top of the device
@@ -157,6 +158,9 @@ db:exec( tablesetup10 )
 
 local tablesetup11 = [[CREATE TABLE IF NOT EXISTS coins (id INTEGER PRIMARY KEY, amount INTEGER);]]
 db:exec( tablesetup11 )
+
+local tablesetup12 = [[CREATE TABLE IF NOT EXISTS lastPulled (id INTEGER PRIMARY KEY, operator INTEGER, date DATETIME);]]
+db:exec( tablesetup12 )
 --local drop = [[drop table mapUnlocks]]
 --db:exec( drop )
 --local drop1 = [[drop table eeScore]]
@@ -195,4 +199,32 @@ local t = display.newText(display.pixelHeight, 100, 100 , native.systemFont, 16)
 end
 ]]
 
+
+function formatDate(date)
+	local month = date.month
+	if month<10 then
+		month = "0"..month
+	end
+	local day = date.day
+	if day<10 then
+		day = "0"..day
+	end
+	local hour = date.hour
+	if hour<10 then
+		hour = "0"..hour
+	end
+	local min = date.min
+	if min<10 then
+		min = "0"..min
+	end
+	local sec = date.sec
+	if sec<10 then
+		sec = "0"..sec
+	end
+	print(date.year.."-"..month.."-"..day.."T"..hour..":"..min..":"..sec..".000Z")
+
+	return date.year.."-"..month.."-"..day.."T"..hour..":"..min..":"..sec..".000Z"
+end
+
+--formatDate(os.date("*t"))
 

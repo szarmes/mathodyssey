@@ -142,5 +142,13 @@ function addCoins(amount)
 
 end
 
+function storeLastPulled(date)
+	local tablefill =[[Delete from lastPulled]]
+	db:exec( tablefill )
+	tablefill =[[INSERT INTO lastPulled VALUES (NULL, NULL,']]..date..[['); ]]
+	db:exec( tablefill )
+
+end
+
 
 ----------------

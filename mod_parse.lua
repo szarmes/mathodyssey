@@ -242,6 +242,11 @@ function Parse:getUser( objId, _callback  )
   return self:sendRequest( uri, {}, Parse.USER, Parse.GET, _callback )
 end
 
+function Parse:getQuestion( objId, _callback  )
+  local uri = Parse:getEndpoint( Parse.OBJECT .. "/" .. objId )
+  return self:sendRequest( uri, {}, Parse.QUESTIONS, Parse.GET, _callback )
+end
+
 --query based
 function Parse:getUsers( queryTable, _callback )
   queryTable = queryTable or {}
