@@ -124,7 +124,7 @@ function scene:createScene( event )
 	screenGroup:insert(settings)
 
 	--spawnMeteor(screenGroup)
-	--audio.play(bgmusic,{loops = -1,channel=1})
+	audio.play(bgmusic,{loops = -1,channel=1})
 
 	--background = display.newImage("images/cat.jpg",centerX,centerY)
 	--Runtime:addEventListener("touch",moveCatListener)

@@ -18,6 +18,8 @@ widget = require("widget")
 --physics.setDrawMode( "debug" ) --turns on debug view, will let us debug physics objects
 bgmusic = audio.loadStream("sounds/space.wav")
 thrustSound = audio.loadStream("sounds/shipsound.wav")
+launchSound = audio.loadStream("sounds/launch.wav")
+
 sfxmuted = false
 musicmuted = false
 xscale = 1
@@ -169,7 +171,7 @@ db:exec( tablesetup12 )
 --db:exec( drop1 )
 --unlockMap("ee1")
 
-storyboard.gotoScene( "menu")
+storyboard.gotoScene( "splash")
 --storyboard.gotoScene( "splash","fade",500)
 
 --[[for row in db:nrows("SELECT * FROM timeTrialsScore ORDER BY id DESC;") do
