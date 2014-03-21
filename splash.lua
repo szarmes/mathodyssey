@@ -23,7 +23,7 @@ local cloud2
 local titlecount = 1
 local function scaleTitle()
 	titlecount=titlecount+1
-	title:scale(titlescale*xscale,titlescale*xscale)
+	title:scale(titlescale,titlescale)
 	titlescale= titlescale+.0002
 	if titlecount>100 then
 		titlescale= titlescale+.001
@@ -31,13 +31,13 @@ local function scaleTitle()
 end
 
 local function scaleBg()
-	bg:scale(1.0008*xscale,1.0008*yscale)
+	bg:scale(1.0008,1.0008)
 end
 
 local cloud1count = 1
 local function scaleCloud1()
-	cloud1:scale(1.001*xscale,1.001*yscale)
-	cloud1.x = cloud1.x-1
+	cloud1:scale(1.001,1.001)
+	cloud1.x = cloud1.x-1*xscale
 	if cloud1count%2==0 then
 		cloud1.y = cloud1.y-1
 	end
@@ -46,7 +46,7 @@ end
 
 local cloud2count = 1
 local function scaleCloud2()
-	cloud2:scale(1.001*xscale,1.001*yscale)
+	cloud2:scale(1.001,1.001)
 	if cloud2count%2==0 then
 		cloud2.y = cloud2.y-1
 	end
@@ -55,7 +55,7 @@ end
 
 local cloud3count = 1
 local function scaleCloud3()
-	cloud3:scale(1.001*xscale,1.001*yscale)
+	cloud3:scale(1.001,1.001)
 	cloud3.x = cloud3.x-1
 	if cloud3count%2==0 then
 		cloud3.y = cloud3.y+1
@@ -65,7 +65,7 @@ end
 
 local cloud4count = 1
 local function scaleCloud4()
-	cloud4:scale(1.001*xscale,1.001*yscale)
+	cloud4:scale(1.001,1.001)
 	cloud4.x = cloud4.x+1
 	if cloud4count%2==0 then
 		cloud4.y = cloud4.y-1
@@ -75,9 +75,9 @@ end
 
 local cometcount = 1
 local function scaleComet()
-	comet.x = comet.x+3
+	comet.x = comet.x+5
 	
-	comet.y = comet.y-2
+	comet.y = comet.y-3
 
 	cometcount=cometcount+1
 end
@@ -96,16 +96,22 @@ end
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
 	local screenGroup = self.view
-	bg = display.newImage("splash/bg.png", centerX-100*xscale,centerY-100*yscale)
-	bg:scale(0.8*xscale,0.8*yscale)
-	screenGroup:insert(bg)
 
+	if string.sub(system.getInfo("model"),1,5) == "Droid" or string.sub(system.getInfo("model"),1,9) == "Nexus One" then
+		bg = display.newImage("splash/bg.png", centerX+100,centerY)
+		bg:scale(0.8*xscale,0.8*yscale)
+		screenGroup:insert(bg)
+	else
+		bg = display.newImage("splash/bg.png", centerX-100*xscale,centerY-100*yscale)
+		bg:scale(0.8*xscale,0.8*yscale)
+		screenGroup:insert(bg)
+	end
 	cloud4 = display.newImage("splash/cloud4.png", centerX+200*xscale,centerY-50*yscale)
 	cloud4:scale(0.4*xscale,0.4*yscale)
 	screenGroup:insert(cloud4)
 	
-	comet = display.newImage("splash/comet.png", centerX-300*xscale,centerY+100*yscale)
-	comet:scale(0.03*xscale,0.02*yscale)
+	comet = display.newImage("splash/comet.png", centerX-450*xscale,centerY+180*yscale)
+	comet:scale(0.02*xscale,0.013*yscale)
 	comet.alpha = 0.7
 	comet:rotate(-30)
 	screenGroup:insert(comet)
@@ -133,7 +139,7 @@ function scene:createScene( event )
 
 	audio.play(launchSound,{loops = 0,channel=3})
 	timer.performWithDelay(10,scaleTitle,200)
-	timer.performWithDelay(10,scaleBg,200)
+	timer.performWithDelay(10,scaleBg,145)
 	timer.performWithDelay(10,scaleCloud1,200)
 	timer.performWithDelay(10,scaleCloud2,200)
 	timer.performWithDelay(10,scaleCloud3,200)
