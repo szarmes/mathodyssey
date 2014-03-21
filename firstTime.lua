@@ -10,7 +10,6 @@ require "dbFile"
 
 
 local buttonXOffset = 100
-local companionText = ""
 
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
@@ -21,6 +20,7 @@ local centerY = display.contentCenterY
 
 
 function goToStory(n)
+	storeShip(2)
 	storyboard.gotoScene("story")
 end
 
@@ -61,9 +61,9 @@ function scene:createScene( event )
 	bubble:scale(0.8*xscale,0.5*yscale)
 	bubble.alpha = 0.7
 	screenGroup:insert(bubble)
-
-
-	chooseAnimal(screenGroup)
+	storeCompanion(1)
+	companionText = "images/astronaut.png"
+	consent(screenGroup)
 	--audio.play(bgmusic,{loops = -1,channel=1})
 
 	--background = display.newImage("images/cat.jpg",centerX,centerY)
@@ -94,9 +94,6 @@ end
 function consent(n)
 	local screenGroup = n 
 
-	screenGroup:remove(dog)
-	screenGroup:remove(astronaut)
-	screenGroup:remove(prompt)
 
 	dog = display.newImage(companionText, centerX-240*xscale, centerY+118*yscale)
 	dog:scale(0.2*xscale, 0.2*yscale)

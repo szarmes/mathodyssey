@@ -21,7 +21,7 @@ buttonPressedSource = "images/buttonpressed.png"
 
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
-companionText = "images/astronaut.png"
+
 
 
 function goToPlay(event)

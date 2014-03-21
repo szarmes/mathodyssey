@@ -19,6 +19,7 @@ widget = require("widget")
 bgmusic = audio.loadStream("sounds/space.wav")
 thrustSound = audio.loadStream("sounds/shipsound.wav")
 launchSound = audio.loadStream("sounds/launch.wav")
+companionText=""
 
 sfxmuted = false
 musicmuted = false
@@ -163,15 +164,17 @@ db:exec( tablesetup11 )
 
 local tablesetup12 = [[CREATE TABLE IF NOT EXISTS lastPulled (id INTEGER PRIMARY KEY, operator INTEGER, date DATETIME);]]
 db:exec( tablesetup12 )
---local drop = [[drop table mapUnlocks]]
+
+local tablesetup13 = [[CREATE TABLE IF NOT EXISTS shipSelect (id INTEGER PRIMARY KEY, ship INTEGER );]]
+db:exec( tablesetup13)
+--local drop = [[drop table companionSelect]]
 --db:exec( drop )
 --local drop1 = [[drop table eeScore]]
-
 
 --db:exec( drop1 )
 --unlockMap("ee1")
 
-storyboard.gotoScene( "splash")
+storyboard.gotoScene( "spacestation")
 --storyboard.gotoScene( "splash","fade",500)
 
 --[[for row in db:nrows("SELECT * FROM timeTrialsScore ORDER BY id DESC;") do

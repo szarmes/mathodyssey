@@ -23,7 +23,8 @@ local beaconCount = 0
 
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
-local shipSrc = "images/ship2.png"
+local shipSrc
+local shipThrustSrc
 
 
 local function goTospacestation() --play timetrials
@@ -105,6 +106,18 @@ end
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
 	local screenGroup = self.view
+
+	for row in db:nrows("SELECT * FROM shipSelect;") do
+		if row.ship == 2 then
+			shipSrc = "images/ship2.png"
+			shipThrustSrc = "images/ship2thrust.png"
+		end
+
+		if row.ship == 1 then
+			shipSrc = "images/ship1.png"
+			shipThrustSrc = "images/ship1thrust.png"
+		end
+	end
 
 	bg = display.newImage("images/spacebg.png", centerX,centerY+30*yscale)
 	bg:scale(0.8*xscale,0.8*yscale)
@@ -326,7 +339,7 @@ function addThrusters(n)
 
 	screenGroup:remove(ship)
 
-	ship = display.newImage("images/ship2thrust.png",shipx,shipy)
+	ship = display.newImage(shipThrustSrc,shipx,shipy)
 	ship:scale(0.15*xscale,0.15*yscale)
 	screenGroup:insert(ship)
 

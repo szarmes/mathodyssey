@@ -80,8 +80,17 @@ function storeFirst(n)
 end
 
 function storeCompanion(n)
-	
-	local tablefill =[[INSERT INTO companionSelect VALUES (NULL, ']]..n..[['); ]]
+	local tablefill =[[Delete from companionSelect]]
+	db:exec( tablefill )
+	tablefill =[[INSERT INTO companionSelect VALUES (NULL, ']]..n..[['); ]]
+	db:exec( tablefill )
+
+end
+
+function storeShip(n)
+	local tablefill =[[Delete from shipSelect]]
+	db:exec( tablefill )
+	tablefill =[[INSERT INTO shipSelect VALUES (NULL, ']]..n..[['); ]]
 	db:exec( tablefill )
 
 end

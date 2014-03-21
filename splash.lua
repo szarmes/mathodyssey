@@ -138,7 +138,7 @@ function scene:createScene( event )
 
 
 	audio.play(launchSound,{loops = 0,channel=3})
-	timer.performWithDelay(10,scaleTitle,200)
+	timer.performWithDelay(10,scaleTitle,160)
 	timer.performWithDelay(10,scaleBg,145)
 	timer.performWithDelay(10,scaleCloud1,200)
 	timer.performWithDelay(10,scaleCloud2,200)
