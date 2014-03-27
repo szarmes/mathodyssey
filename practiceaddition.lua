@@ -104,8 +104,8 @@ function insertButtons(n)
 			end
 			buttonbgs[(3*i)+j] = widget.newButton
 			{
-			    defaultFile = "images/goldbutton.png",
-			    overFile = "images/goldbuttonpressed.png",
+			   	defaultFile = buttonSource,
+		    	overFile = buttonPressedSource,
 			    onEvent = myFunction
 			}
 			buttonbgs[(3*i)+j].x = 40+50*j*xscale

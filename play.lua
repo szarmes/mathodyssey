@@ -108,6 +108,12 @@ function scene:createScene( event )
 	local screenGroup = self.view
 
 	for row in db:nrows("SELECT * FROM shipSelect;") do
+
+		if row.ship == 3 then
+			shipSrc = "images/ship3.png"
+			shipThrustSrc = "images/ship3thrust.png"
+		end
+
 		if row.ship == 2 then
 			shipSrc = "images/ship2.png"
 			shipThrustSrc = "images/ship2thrust.png"

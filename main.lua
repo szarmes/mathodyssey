@@ -173,8 +173,8 @@ db:exec( tablesetup13)
 
 --db:exec( drop1 )
 --unlockMap("ee1")
-
-storyboard.gotoScene( "spacestation")
+--storeShip(3)
+storyboard.gotoScene( "splash")
 --storyboard.gotoScene( "splash","fade",500)
 
 --[[for row in db:nrows("SELECT * FROM timeTrialsScore ORDER BY id DESC;") do

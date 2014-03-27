@@ -159,6 +159,11 @@ function scene:createScene( event )
 	local shipchecky
 
 	for row in db:nrows("SELECT * FROM shipSelect;") do
+
+		if row.ship == 3 then
+			shipcheckx = ship3.x
+			shipchecky = centerY
+		end
 		if row.ship == 2 then
 			shipcheckx = ship2.x
 			shipchecky = centerY
