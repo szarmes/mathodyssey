@@ -70,7 +70,7 @@ function scene:createScene( event )
 		hintbutton:scale(-0.14*xscale,0.14*yscale)
 
 		local function bbhint()
-			hintbutton:removeEventListener("tap",bbhint)
+			--hintbutton:removeSelf()
 			provideHint(screenGroup,bbinstructions2)
 		end
 		hintbutton:addEventListener("tap",bbhint)
@@ -362,43 +362,49 @@ function bbdisplayNumbers(n)
 end
 
 function bbcorrectResponseListener(n)
-	local screenGroup = n
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	storeBB(1,totalTime,operator,operator,lval,rval,round,1)
-	questionCount = questionCount + 1
+	if hintOn==false then
+		local screenGroup = n
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		storeBB(1,totalTime,operator,operator,lval,rval,round,1)
+		questionCount = questionCount + 1
 
-	bbremoveAnswers(screenGroup)
-	local reward = display.newText("Good Job!", centerX+70*xscale,centerY+50,300,0,"Comic Relief", 30)
-	reward:setFillColor(0)
-	screenGroup:insert(reward)
+		bbremoveAnswers(screenGroup)
+		local reward = display.newText("Good Job!", centerX+70*xscale,centerY+50,300,0,"Comic Relief", 30)
+		reward:setFillColor(0)
+		screenGroup:insert(reward)
 
-	local myFunction = function() bbnewSceneListener() end
-	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
-	continue:scale(0.3*xscale,0.3*yscale)
+		local myFunction = function() bbnewSceneListener() end
+		continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+		continue:scale(0.3*xscale,0.3*yscale)
 
-	continue:addEventListener("tap", myFunction)
-	screenGroup:insert(continue)
+		continue:addEventListener("tap", myFunction)
+		screenGroup:insert(continue)
+	end
 
 	
 end
 
 
-function bbincorrectResponseListener1(n)
-	local screenGroup = n
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	questionCount = questionCount + 1
-	storeBB(0,totalTime,operator,answer1Text,lval,rval,round,1)
-	bbwrongAnswer(screenGroup)
+function bbincorrectResponseListener1(n) 
+	if hintOn==false then
+		local screenGroup = n
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		questionCount = questionCount + 1
+		storeBB(0,totalTime,operator,answer1Text,lval,rval,round,1)
+		bbwrongAnswer(screenGroup)
+	end
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end
 
 function bbincorrectResponseListener2(n)
-	local screenGroup = n
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	questionCount = questionCount + 1
-	storeBB(0,totalTime,operator,answer2Text,lval,rval,round,1)
-	bbwrongAnswer(screenGroup)
+	if hintOn==false then
+		local screenGroup = n
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		questionCount = questionCount + 1
+		storeBB(0,totalTime,operator,answer2Text,lval,rval,round,1)
+		bbwrongAnswer(screenGroup)
+	end
 
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")

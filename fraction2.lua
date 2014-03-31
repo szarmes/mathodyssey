@@ -418,56 +418,63 @@ end
 
 
 function fraction2correctResponseListener(n)
-	local screenGroup = n
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	storeDD(1,totalTime,asteroidnum,groupnum,0,round,6)
-	questionCount = questionCount + 1
+	if hintOn==false then
+		local screenGroup = n
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		storeDD(1,totalTime,asteroidnum,groupnum,0,round,6)
+		questionCount = questionCount + 1
 
-	fraction2removeAnswers(screenGroup)
-	local reward = display.newText("Good Job!", centerX+70*xscale,centerY+50,300,0,"Comic Relief", 30)
-	reward:setFillColor(0)
-	screenGroup:insert(reward)
+		fraction2removeAnswers(screenGroup)
+		local reward = display.newText("Good Job!", centerX+70*xscale,centerY+50,300,0,"Comic Relief", 30)
+		reward:setFillColor(0)
+		screenGroup:insert(reward)
 
-	fraction2ShowAnswer(screenGroup)
+		fraction2ShowAnswer(screenGroup)
 
-	local myFunction = function() fraction2newSceneListener() end
-	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
-	continue:scale(0.3*xscale,0.3*yscale)
+		local myFunction = function() fraction2newSceneListener() end
+		continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+		continue:scale(0.3*xscale,0.3*yscale)
 
-	continue:addEventListener("tap", myFunction)
-	screenGroup:insert(continue)
+		continue:addEventListener("tap", myFunction)
+		screenGroup:insert(continue)
+	end
 
 	
 end
 
 
-function fraction2incorrectResponseListener1(n)
-	local screenGroup = n
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	questionCount = questionCount + 1
-	storeDD(0,totalTime,asteroidnum1,groupnum1,0,round,6)
-	fraction2wrongAnswer(screenGroup)
+function fraction2incorrectResponseListener1(n) 
+	if hintOn==false then
+		local screenGroup = n
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		questionCount = questionCount + 1
+		storeDD(0,totalTime,asteroidnum1,groupnum1,0,round,6)
+		fraction2wrongAnswer(screenGroup)
+	end
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end
 
 function fraction2incorrectResponseListener2(n)
-	local screenGroup = n
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	questionCount = questionCount + 1
-	storeDD(0,totalTime,asteroidnum2,groupnum2,0,round,6)
-	fraction2wrongAnswer(screenGroup)
-
+	if hintOn==false then
+		local screenGroup = n
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		questionCount = questionCount + 1
+		storeDD(0,totalTime,asteroidnum2,groupnum2,0,round,6)
+		fraction2wrongAnswer(screenGroup)
+	end
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end
 
 function fraction2incorrectResponseListener3(n)
-	local screenGroup = n
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	questionCount = questionCount + 1
-	storeDD(0,totalTime,asteroidnum3,groupnum3,0,round,6)
-	fraction2wrongAnswer(screenGroup)
+	if hintOn==false then
+		local screenGroup = n
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		questionCount = questionCount + 1
+		storeDD(0,totalTime,asteroidnum3,groupnum3,0,round,6)
+		fraction2wrongAnswer(screenGroup)
+	end
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end

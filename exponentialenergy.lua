@@ -394,64 +394,72 @@ function eedisplayNumbers(n)
 end
 
 function eecorrectResponseListener(n)
-	local screenGroup = n
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	storeEE1(1,totalTime,exponent,exponent,round,1)
-	questionCount = questionCount + 1
+	if hintOn==false then
+		local screenGroup = n
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		storeEE1(1,totalTime,exponent,exponent,round,1)
+		questionCount = questionCount + 1
 
-	screenGroup:remove(questionMarkText)
-	questionMarkText =display.newText( exponent, (qL.x+qL.width/2)+5*xscale, centerY-50*yscale, "Comic Relief", 24 )	questionMarkText:setFillColor(0)
-	questionMarkText:setFillColor(0)
-	screenGroup:insert(questionMarkText)
+		screenGroup:remove(questionMarkText)
+		questionMarkText =display.newText( exponent, (qL.x+qL.width/2)+5*xscale, centerY-50*yscale, "Comic Relief", 24 )	questionMarkText:setFillColor(0)
+		questionMarkText:setFillColor(0)
+		screenGroup:insert(questionMarkText)
 
-	local zoomOutFunction = function() timer2 = timer.performWithDelay(50,zoomQout,4) end
-	local zoomInFunction = function() timer3 = timer.performWithDelay(50,zoomQin,5) 
-	timer4 = timer.performWithDelay(500,zoomOutFunction) end 
-	zoomInFunction()
+		local zoomOutFunction = function() timer2 = timer.performWithDelay(50,zoomQout,4) end
+		local zoomInFunction = function() timer3 = timer.performWithDelay(50,zoomQin,5) 
+		timer4 = timer.performWithDelay(500,zoomOutFunction) end 
+		zoomInFunction()
 
-	eeremoveAnswers(screenGroup)
-	local reward = display.newText("Good Job!", centerX+70*xscale,centerY+50,300,0,"Comic Relief", 30)
-	reward:setFillColor(0)
-	screenGroup:insert(reward)
+		eeremoveAnswers(screenGroup)
+		local reward = display.newText("Good Job!", centerX+70*xscale,centerY+50,300,0,"Comic Relief", 30)
+		reward:setFillColor(0)
+		screenGroup:insert(reward)
 
-	local myFunction = function() eenewSceneListener() end
-	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
-	continue:scale(0.3*xscale,0.3*yscale)
+		local myFunction = function() eenewSceneListener() end
+		continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+		continue:scale(0.3*xscale,0.3*yscale)
 
-	continue:addEventListener("tap", myFunction)
-	screenGroup:insert(continue)
+		continue:addEventListener("tap", myFunction)
+		screenGroup:insert(continue)
 
+	end
 	
 end
 
 
-function eeincorrectResponseListener1(n)
-	local screenGroup = n
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	questionCount = questionCount + 1
-	storeEE1(0,totalTime,exponent,answer1Text,round,1)
-	eewrongAnswer(screenGroup)
+function eeincorrectResponseListener1(n) 
+	if hintOn==false then
+		local screenGroup = n
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		questionCount = questionCount + 1
+		storeEE1(0,totalTime,exponent,answer1Text,round,1)
+		eewrongAnswer(screenGroup)
+	end
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end
 
 function eeincorrectResponseListener2(n)
-	local screenGroup = n
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	questionCount = questionCount + 1
-	storeEE1(0,totalTime,exponent,answer2Text,round,1)
-	eewrongAnswer(screenGroup)
+	if hintOn==false then
+		local screenGroup = n
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		questionCount = questionCount + 1
+		storeEE1(0,totalTime,exponent,answer2Text,round,1)
+		eewrongAnswer(screenGroup)
+	end
 
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end
 
 function eeincorrectResponseListener3(n)
-	local screenGroup = n
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	questionCount = questionCount + 1
-	storeEE1(0,totalTime,exponent,answer3Text,round,1)
-	eewrongAnswer(screenGroup)
+	if hintOn==false then
+		local screenGroup = n
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		questionCount = questionCount + 1
+		storeEE1(0,totalTime,exponent,answer3Text,round,1)
+		eewrongAnswer(screenGroup)
+	end
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end

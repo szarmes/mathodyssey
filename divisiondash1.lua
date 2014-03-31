@@ -394,54 +394,62 @@ end
 
 
 function dd1correctResponseListener(n)
-	local screenGroup = n
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	storeDD(1,totalTime,asteroidnum,groupnum,answerText,round,2)
-	questionCount = questionCount + 1
+	if hintOn==false then
+		local screenGroup = n
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		storeDD(1,totalTime,asteroidnum,groupnum,answerText,round,2)
+		questionCount = questionCount + 1
 
-	dd1removeAnswers(screenGroup)
-	local reward = display.newText("Good Job!", centerX+70*xscale,centerY+50,300,0,"Comic Relief", 30)
-	reward:setFillColor(0)
-	screenGroup:insert(reward)
+		dd1removeAnswers(screenGroup)
+		local reward = display.newText("Good Job!", centerX+70*xscale,centerY+50,300,0,"Comic Relief", 30)
+		reward:setFillColor(0)
+		screenGroup:insert(reward)
 
-	local myFunction = function() dd1newSceneListener() end
-	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
-	continue:scale(0.3*xscale,0.3*yscale)
+		local myFunction = function() dd1newSceneListener() end
+		continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+		continue:scale(0.3*xscale,0.3*yscale)
 
-	continue:addEventListener("tap", myFunction)
-	screenGroup:insert(continue)
+		continue:addEventListener("tap", myFunction)
+		screenGroup:insert(continue)
+	end
 
 	
 end
 
 
-function dd1incorrectResponseListener1(n)
-	local screenGroup = n
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	questionCount = questionCount + 1
-	storeDD(0,totalTime,asteroidnum,groupnum,answer1Text,round,2)
-	dd1wrongAnswer(screenGroup)
+function dd1incorrectResponseListener1(n) 
+	if hintOn==false then
+		local screenGroup = n
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		questionCount = questionCount + 1
+		storeDD(0,totalTime,asteroidnum,groupnum,answer1Text,round,2)
+		dd1wrongAnswer(screenGroup)
+	end
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end
 
 function dd1incorrectResponseListener2(n)
-	local screenGroup = n
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	questionCount = questionCount + 1
-	storeDD(0,totalTime,asteroidnum,groupnum,answer2Text,round,2)
-	dd1wrongAnswer(screenGroup)
+	if hintOn==false then
+		local screenGroup = n
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		questionCount = questionCount + 1
+		storeDD(0,totalTime,asteroidnum,groupnum,answer2Text,round,2)
+		dd1wrongAnswer(screenGroup)
+	end
 
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end
 
 function dd1incorrectResponseListener3(n)
-	local screenGroup = n
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	questionCount = questionCount + 1
-	storeDD(0,totalTime,asteroidnum,groupnum,answer3Text,round,2)
-	dd1wrongAnswer(screenGroup)
+	if hintOn==false then
+		local screenGroup = n
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		questionCount = questionCount + 1
+		storeDD(0,totalTime,asteroidnum,groupnum,answer3Text,round,2)
+		dd1wrongAnswer(screenGroup)
+	end
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end

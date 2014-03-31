@@ -344,60 +344,68 @@ end
 
 
 function perimetercorrectResponseListener(n)
-	local screenGroup = n
-	
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	storeRepeat(1,totalTime,answerText,answerText,round,4)
-	questionCount = questionCount + 1
+	if hintOn==false then
+		local screenGroup = n
+		
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		storeRepeat(1,totalTime,answerText,answerText,round,4)
+		questionCount = questionCount + 1
 
-		solution = display.newText("Perimeter: "..length*sides, centerX, centerY-30*yscale, "Comic Relief", 20)
-	solution.anchorX = 0
-	solution:setFillColor(0)
-	screenGroup:insert(solution)
+			solution = display.newText("Perimeter: "..length*sides, centerX, centerY-30*yscale, "Comic Relief", 20)
+		solution.anchorX = 0
+		solution:setFillColor(0)
+		screenGroup:insert(solution)
 
 
-	perimeterremoveAnswers(screenGroup)
-	local reward = display.newText("Good Job!", centerX+70*xscale,centerY+50,300,0,"Comic Relief", 30)
-	reward:setFillColor(0)
-	screenGroup:insert(reward)
+		perimeterremoveAnswers(screenGroup)
+		local reward = display.newText("Good Job!", centerX+70*xscale,centerY+50,300,0,"Comic Relief", 30)
+		reward:setFillColor(0)
+		screenGroup:insert(reward)
 
-	local myFunction = function() perimeternewSceneListener() end
-	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
-	continue:scale(0.3*xscale,0.3*yscale)
+		local myFunction = function() perimeternewSceneListener() end
+		continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+		continue:scale(0.3*xscale,0.3*yscale)
 
-	continue:addEventListener("tap", myFunction)
-	screenGroup:insert(continue)
+		continue:addEventListener("tap", myFunction)
+		screenGroup:insert(continue)
+	end
 
 end
 
 
-function perimeterincorrectResponseListener1(n)
-	local screenGroup = n
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	questionCount = questionCount + 1
-	storeRepeat(0,totalTime,answerText,answer1Text,round,4)
-	perimeterwrongAnswer(screenGroup)
-	--storyboard.purgeScene("exponentialenergy")
-	--storyboard.gotoScene("tryagain")
+function perimeterincorrectResponseListener1(n) 
+	if hintOn==false then
+		local screenGroup = n
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		questionCount = questionCount + 1
+		storeRepeat(0,totalTime,answerText,answer1Text,round,4)
+		perimeterwrongAnswer(screenGroup)
+		--storyboard.purgeScene("exponentialenergy")
+		--storyboard.gotoScene("tryagain")
+	end
 end
 
 function perimeterincorrectResponseListener2(n)
-	local screenGroup = n
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	questionCount = questionCount + 1
-	storeRepeat(0,totalTime,answerText,answer2Text,round,4)
-	perimeterwrongAnswer(screenGroup)
+	if hintOn==false then
+		local screenGroup = n
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		questionCount = questionCount + 1
+		storeRepeat(0,totalTime,answerText,answer2Text,round,4)
+		perimeterwrongAnswer(screenGroup)
+	end
 
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end
 
 function perimeterincorrectResponseListener3(n)
-	local screenGroup = n
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	questionCount = questionCount + 1
-	storeRepeat(0,totalTime,answerText,answer3Text,round,4)
-	perimeterwrongAnswer(screenGroup)
+	if hintOn==false then
+		local screenGroup = n
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		questionCount = questionCount + 1
+		storeRepeat(0,totalTime,answerText,answer3Text,round,4)
+		perimeterwrongAnswer(screenGroup)
+	end
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end

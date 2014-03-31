@@ -283,59 +283,67 @@ function mmsolvedisplayNumbers(n)
 end
 
 function mmsolvecorrectResponseListener(n)
-	local screenGroup = n
-	screenGroup:remove(valueText)
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	storeRepeat(1,totalTime,answerText,answerText,round,3)
-	questionCount = questionCount + 1
+	if hintOn==false then
+		local screenGroup = n
+		screenGroup:remove(valueText)
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		storeRepeat(1,totalTime,answerText,answerText,round,3)
+		questionCount = questionCount + 1
 
-	solution = display.newText(number*multiplier, centerX-20*xscale, centerY-40*yscale, "Comic Relief", 30)
-	solution.anchorX = 0
-	solution:setFillColor(0)
-	screenGroup:insert(solution)
+		solution = display.newText(number*multiplier, centerX-20*xscale, centerY-40*yscale, "Comic Relief", 30)
+		solution.anchorX = 0
+		solution:setFillColor(0)
+		screenGroup:insert(solution)
 
-	mmsolveremoveAnswers(screenGroup)
-	local reward = display.newText("Good Job!", centerX+70*xscale,centerY+50,300,0,"Comic Relief", 30)
-	reward:setFillColor(0)
-	screenGroup:insert(reward)
+		mmsolveremoveAnswers(screenGroup)
+		local reward = display.newText("Good Job!", centerX+70*xscale,centerY+50,300,0,"Comic Relief", 30)
+		reward:setFillColor(0)
+		screenGroup:insert(reward)
 
-	local myFunction = function() mmsolvenewSceneListener() end
-	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
-	continue:scale(0.3*xscale,0.3*yscale)
+		local myFunction = function() mmsolvenewSceneListener() end
+		continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+		continue:scale(0.3*xscale,0.3*yscale)
 
-	continue:addEventListener("tap", myFunction)
-	screenGroup:insert(continue)
+		continue:addEventListener("tap", myFunction)
+		screenGroup:insert(continue)
+	end
 
 end
 
 
-function mmsolveincorrectResponseListener1(n)
-	local screenGroup = n
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	questionCount = questionCount + 1
-	storeRepeat(0,totalTime,answerText,answer1Text,round,3)
-	mmsolvewrongAnswer(screenGroup)
+function mmsolveincorrectResponseListener1(n) 
+	if hintOn==false then
+		local screenGroup = n
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		questionCount = questionCount + 1
+		storeRepeat(0,totalTime,answerText,answer1Text,round,3)
+		mmsolvewrongAnswer(screenGroup)
+	end
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end
 
 function mmsolveincorrectResponseListener2(n)
-	local screenGroup = n
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	questionCount = questionCount + 1
-	storeRepeat(0,totalTime,answerText,answer2Text,round,3)
-	mmsolvewrongAnswer(screenGroup)
+	if hintOn==false then
+		local screenGroup = n
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		questionCount = questionCount + 1
+		storeRepeat(0,totalTime,answerText,answer2Text,round,3)
+		mmsolvewrongAnswer(screenGroup)
+	end
 
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end
 
 function mmsolveincorrectResponseListener3(n)
-	local screenGroup = n
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	questionCount = questionCount + 1
-	storeRepeat(0,totalTime,answerText,answer3Text,round,3)
-	mmsolvewrongAnswer(screenGroup)
+	if hintOn==false then
+		local screenGroup = n
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		questionCount = questionCount + 1
+		storeRepeat(0,totalTime,answerText,answer3Text,round,3)
+		mmsolvewrongAnswer(screenGroup)
+	end
 	--storyboard.purgeScene("exponentialenergy")
 	--storyboard.gotoScene("tryagain")
 end

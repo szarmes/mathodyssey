@@ -20,6 +20,7 @@ bgmusic = audio.loadStream("sounds/space.wav")
 thrustSound = audio.loadStream("sounds/shipsound.wav")
 launchSound = audio.loadStream("sounds/launch.wav")
 companionText=""
+hintOn=false
 
 sfxmuted = false
 musicmuted = false
@@ -86,7 +87,10 @@ toScale()
 
 function provideHint(n,str)
 	local screenGroup = n
+
+	hintbutton:removeSelf()
 	
+	hintOn=true
 	hintbubble =  display.newImage("images/bubble.png", centerX-20*xscale,centerY)
 	hintbubble:scale(0.8*xscale,0.5*yscale)
 	screenGroup:insert(hintbubble)
@@ -102,9 +106,15 @@ function provideHint(n,str)
 		screenGroup:remove(hinttext)
 		screenGroup:remove(closebutton)
 		local function myFunction()
+			hintbutton:removeSelf()
 			provideHint(screenGroup, str)
 		end
+		hintOn=false
+		hintbutton = display.newImage(companionText,display.contentWidth-20*xscale,90*yscale)
+		hintbutton:scale(-0.14*xscale,0.14*yscale)
 		hintbutton:addEventListener("tap", myFunction)
+		screenGroup:insert(hintbutton)
+
 
 	end
 	closebutton:addEventListener("tap",closeHint)

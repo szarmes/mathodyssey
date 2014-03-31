@@ -361,46 +361,54 @@ function telltimenewSceneListener()
 	storyboard.reloadScene()
 end
 
-function telltimeincorrectResponseListener1(n)
-	local screenGroup = n
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	storeTimeTrials(0,totalTime,ha,ma,ha1,ma1,r1,r2,round,1)
-	questionCount = questionCount + 1
-	telltimewrongAnswer(screenGroup)
+function telltimeincorrectResponseListener1(n) 
+	if hintOn==false then
+		local screenGroup = n
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		storeTimeTrials(0,totalTime,ha,ma,ha1,ma1,r1,r2,round,1)
+		questionCount = questionCount + 1
+		telltimewrongAnswer(screenGroup)
+	end
 end
 
 function telltimeincorrectResponseListener2(n)
-	local screenGroup = n
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	storeTimeTrials(0,totalTime,ha,ma,ha2,ma2,r1,r2,round,1)
-	questionCount = questionCount + 1
-	telltimewrongAnswer(screenGroup)
+	if hintOn==false then
+		local screenGroup = n
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		storeTimeTrials(0,totalTime,ha,ma,ha2,ma2,r1,r2,round,1)
+		questionCount = questionCount + 1
+		telltimewrongAnswer(screenGroup)
+	end
 end
 
 function telltimeincorrectResponseListener3(n)
-	local screenGroup = n
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	storeTimeTrials(0,totalTime,ha,ma,ha3,ma3,r1,r2,round,1)
-	questionCount = questionCount + 1
-	telltimewrongAnswer(screenGroup)
+	if hintOn==false then
+		local screenGroup = n
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		storeTimeTrials(0,totalTime,ha,ma,ha3,ma3,r1,r2,round,1)
+		questionCount = questionCount + 1
+		telltimewrongAnswer(screenGroup)
+	end
 end
 
 function telltimecorrectResponseListener(n)
-	local screenGroup = n
-	local totalTime = math.floor((system.getTimer()-startTime)/1000)
-	storeTimeTrials(1,totalTime,ha,ma,0,0,r1,0,round,1)
-	questionCount = questionCount + 1
-	telltimeremoveAnswers(screenGroup)
-	local reward = display.newText("Good Job!", centerX+70*xscale,centerY+50*yscale,300*xscale,0,"Comic Relief", 30)
-	reward:setFillColor(0)
-	screenGroup:insert(reward)
+	if hintOn==false then
+		local screenGroup = n
+		local totalTime = math.floor((system.getTimer()-startTime)/1000)
+		storeTimeTrials(1,totalTime,ha,ma,0,0,r1,0,round,1)
+		questionCount = questionCount + 1
+		telltimeremoveAnswers(screenGroup)
+		local reward = display.newText("Good Job!", centerX+70*xscale,centerY+50*yscale,300*xscale,0,"Comic Relief", 30)
+		reward:setFillColor(0)
+		screenGroup:insert(reward)
 
-	local myfunction= function() telltimenewSceneListener() end
-	continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
-	continue:scale(0.3*xscale,0.3)
+		local myfunction= function() telltimenewSceneListener() end
+		continue = display.newImage("images/continue.png", centerX+200*xscale, centerY+130*yscale)
+		continue:scale(0.3*xscale,0.3)
 
-	continue:addEventListener("tap", myfunction)
-	screenGroup:insert(continue)	
+		continue:addEventListener("tap", myfunction)
+		screenGroup:insert(continue)	
+	end
 end
 
 function telltimegenerateAnswers()
