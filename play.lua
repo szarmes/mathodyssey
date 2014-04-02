@@ -124,6 +124,20 @@ function scene:createScene( event )
 			shipThrustSrc = "images/ship1thrust.png"
 		end
 	end
+	for row in db:nrows("SELECT * FROM companionSelect;") do
+
+		if row.companion == 2 then
+			companionText = "images/astrosloth.png"
+		end
+
+		if row.companion == 1 then
+			companionText = "images/astronaut.png"
+		end
+
+		if row.companion == 0 then
+			companionText = "images/dog.png"
+		end
+	end
 
 	bg = display.newImage("images/spacebg.png", centerX,centerY+30*yscale)
 	bg:scale(0.8*xscale,0.8*yscale)

@@ -153,6 +153,12 @@ function scene:createScene( event )
 
 	local firstCheck = false
 	for row in db:nrows("SELECT * FROM companionSelect;") do
+
+		if row.companion == 2 then
+			firstCheck = true
+			companionText = "images/astrosloth.png"
+		end
+
 		if row.companion == 1 then
 			firstCheck = true
 			companionText = "images/astronaut.png"

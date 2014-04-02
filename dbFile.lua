@@ -111,6 +111,22 @@ function unlockMap(location)
 	end
 end
 
+function unlockItem(name)
+
+	local itemcheck = false
+	for row in db:nrows("SELECT * FROM itemUnlocks;") do
+		if row.name == name then
+			itemcheck = true
+			break
+		end
+	end
+	if itemcheck == false then
+
+		local tablefill =[[INSERT INTO itemUnlocks VALUES (NULL, ']]..name..[['); ]]
+		db:exec( tablefill )
+	end
+end
+
 function storeQuestion(correct,time,left,right,answer,operator)
 	
 	local tablefill =[[INSERT INTO createdQuestions VALUES (NULL, ']]..correct..[[',']]..time..[[',']]..left..

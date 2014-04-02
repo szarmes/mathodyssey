@@ -177,7 +177,11 @@ db:exec( tablesetup12 )
 
 local tablesetup13 = [[CREATE TABLE IF NOT EXISTS shipSelect (id INTEGER PRIMARY KEY, ship INTEGER );]]
 db:exec( tablesetup13)
---local drop = [[drop table companionSelect]]
+
+local tablesetup14 = [[CREATE TABLE IF NOT EXISTS itemUnlocks (id INTEGER PRIMARY KEY, name INTEGER );]]
+db:exec( tablesetup14)
+
+local drop = [[drop table itemUnlocks]]
 --db:exec( drop )
 --local drop1 = [[drop table eeScore]]
 
