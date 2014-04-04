@@ -1,4 +1,6 @@
 require "sqlite3"
+local parse = require( "mod_parse" )
+
 
 -----Database Stuff
 
@@ -25,6 +27,11 @@ function storeTimeTrials(correct,time, correctHa, correctMa, chosenHa, chosenMa,
 	
 	db:exec( tablefill )
 
+	local dataTable = { ["correct"] = correct,["time"] = time, ["correctHa"]=correctHa, ["correctMa"]=correctMa, ["chosenHa"]=chosenHa, ["chosenMa"]=chosenMa, ["r1"]=r1,["r2"]=r2,["round"]=round,["level"]=level}
+	if consent==true then
+		parse:createObject( "TTData", dataTable, onCreateObject )
+	end
+
 end
 
 function storeEE1(correct,time, correcte, chosene, round,level)
@@ -32,6 +39,11 @@ function storeEE1(correct,time, correcte, chosene, round,level)
 	local tablefill =[[INSERT INTO eeScore VALUES (NULL, ']]..correct..[[',']]..time..[[',']]..correcte..
 		[[',']]..chosene..[[',NULL, NULL, ']]..round..[[',']]..level..[['); ]]
 	db:exec( tablefill )
+
+	local dataTable = { ["correct"] = correct,["time"] = time, ["correcte"]=correcte, ["chosene"]=chosene,["round"]=round,["level"]=level}
+	if consent==true then
+		parse:createObject( "EE1Data", dataTable, onCreateObject )
+	end
 
 end
 
@@ -41,6 +53,11 @@ function storeEE2(correct,time, correctnum, chosennum, round,level)
 		[[',']]..chosennum..[[',']]..round..[[',']]..level..[['); ]]
 	db:exec( tablefill )
 
+	local dataTable = { ["correct"] = correct,["time"] = time, ["correctnum"]=correctnum, ["chosennum"]=chosennum,["round"]=round,["level"]=level}
+	if consent==true then
+		parse:createObject( "EE2Data", dataTable, onCreateObject )
+	end
+
 end
 
 function storeBB(correct,time, correctsign, chosensign, lval,rval, round,level)
@@ -48,6 +65,11 @@ function storeBB(correct,time, correctsign, chosensign, lval,rval, round,level)
 	local tablefill =[[INSERT INTO bbScore VALUES (NULL, ']]..correct..[[',']]..time..[[',']]..correctsign..
 		[[',']]..chosensign..[[',']]..lval..[[',']]..rval..[[',']]..round..[[',']]..level..[['); ]]
 	db:exec( tablefill )
+
+	local dataTable = { ["correct"] = correct,["time"] = time, ["correctsign"]=correctsign, ["chosensign"]=chosensign,["lval"]=lval,["rval"]=rval,["round"]=round,["level"]=level}
+	if consent==true then
+		parse:createObject( "BBData", dataTable, onCreateObject )
+	end
 
 end
 
@@ -57,19 +79,32 @@ function storeDD(correct,time, numerator, denominator, chosennum,round,level)
 		[[',']]..denominator..[[',']]..chosennum..[[',']]..round..[[',']]..level..[['); ]]
 	db:exec( tablefill )
 
+	local dataTable = { ["correct"] = correct,["time"] = time, ["numerator"]=numerator, ["denominator"]=denominator,["chosennum"]=chosennum,["round"]=round,["level"]=level}
+	if consent==true then
+		parse:createObject( "DDData", dataTable, onCreateObject )
+	end
+
 end
 
 function storePatterns(correct,time, multiple,round,level)
 	local tablefill =[[INSERT INTO mmScore VALUES (NULL, ']]..correct..[[',']]..time..[[',']]..multiple..
 		[[',NULL,NULL,NULL, ']]..round..[[',']]..level..[['); ]]
 	db:exec( tablefill )
+
+	local dataTable = { ["correct"] = correct,["time"] = time, ["multiple"]=multiple, ["round"]=round,["level"]=level}
+	if consent==true then
+		parse:createObject( "PatternsData", dataTable, onCreateObject )
+	end
 end
 
 function storeRepeat(correct,time, correctanswer, chosenanswer,round,level)
 	local tablefill =[[INSERT INTO mmScore VALUES (NULL, ']]..correct..[[',']]..time..[[',']]..correctanswer..
 		[[',']]..chosenanswer..[[',NULL,NULL, ']]..round..[[',']]..level..[['); ]]
 	db:exec( tablefill )
-
+	local dataTable = { ["correct"] = correct,["time"] = time, ["correctanswer"]=correctanswer, ["chosenanswer"]=chosenanswer,["round"]=round,["level"]=level}
+	if consent==true then
+		parse:createObject( "RepeatData", dataTable, onCreateObject )
+	end
 end
 
 function storeFirst(n)

@@ -181,11 +181,11 @@ db:exec( tablesetup13)
 local tablesetup14 = [[CREATE TABLE IF NOT EXISTS itemUnlocks (id INTEGER PRIMARY KEY, name INTEGER );]]
 db:exec( tablesetup14)
 
-local drop = [[drop table itemUnlocks]]
+--local drop = [[drop table itemUnlocks]]
 --db:exec( drop )
 --local drop1 = [[drop table eeScore]]
 
---db:exec( drop1 )
+--db:exec( drop1 ) 
 --unlockMap("ee1")
 --storeShip(3)
 storyboard.gotoScene( "splash")
